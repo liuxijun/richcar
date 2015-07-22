@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title> 延安市党员干部现代远程教育网 </title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js?v3.70"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="css/site.css"/>
+    <style>
+        .rightSec{
+            width: 720px;
+            float: right;
+            border: 1px solid #eee;
+        }
+        .leftSec{
+            width: 260px;
+            float: left;
+            background-color: #fff;
+        }
+
+        .ulSubColName{
+            background-color: #fff;
+            margin: 5px;
+            padding: 20px 30px 20px 0;
+            border: 10px solid #efefef ;
+        }
+        .ulSubColName li{
+            list-style-type: disc;
+            list-style-position: inside;
+            text-align: center;
+            font-size: 22px;
+            line-height: 38px;
+        }
+
+
+        .UlThumbnails{
+            padding:  20px 20px 20px 40px;
+            background-color: #fff ;
+        }
+        .UlThumbnails li{
+            display: block;
+            float: left;
+            width: 280px;
+            height: 250px;
+            margin: 0 20px 20px ;
+            list-style-type: none;
+            font-size: 14px;
+            background-color: #f8f8f8;
+            border: 1px solid #eee;
+            text-align: center;
+        }
+        .UlThumbnails li:hover{
+            background-color: #ffffd4;
+            border-color: #f3e393;
+        }
+        .UlThumbnails span{
+            display: block;
+            margin: 5px 20px;
+            text-align: center;
+        }
+        .UlThumbnails h3{
+            text-align: center;
+        }
+        .UlThumbnails img{
+            width: 240px;
+            height: 150px;
+            border: 1px solid #aaa;
+            margin: 20px auto 0;
+        }
+        .aDate{
+            white-space: nowrap;
+            float: right;
+            font-size: 12px;
+            color: #aaa;
+        }
+        .subColHead{
+            height: 42px;
+            line-height:42px;
+            text-indent: 20px;
+            font-size:18px;
+            background: url(images/tabBg.jpg) no-repeat;
+        }
+        .colName{
+            width: auto;
+        }
+    </style>
+    <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="js/utilsParameters.js"></script>
+    <script type="text/javascript" src="js/columnZSZT.js"></script>
+    <script type="text/javascript">
+        document.write('<script src="js/top10.jsp"><'+'/script>');
+    </script>
+    <script>
+
+        function goToSearch(){
+            var searchValue = $("#searchValue").val();
+            if(searchValue == null || searchValue == "" || searchValue == '输入关键词') {
+                alert('请输入搜索内容！');
+                return;
+            }
+            window.location.href="searchList.html?searchValue="+encodeURI(encodeURI(searchValue));
+        }
+        function renderPicContent() {
+            $.ajax({
+                type: "POST",
+                url: "/content/content!getPicContent.action",
+                dataType: "text",
+                success: function(msg){
+                    var response = eval('('+msg+')');
+                    if(response.success) {
+                        var notices = response.contents;
+                        $('#ulPicNews').html('');
+                        for(var i = 0; i < notices.length&&i<2;i++) {
+                            var n  = notices[i];
+                            $('#ulPicNews').append('<li class="clipText">' +
+                                    '<a href="detail.html?id='+ n.id+'" target="_blank"><img src="'+ n.post1Url+'" alt=""/><br/>'+ n.name+'</a>' +
+                                    ' </li>')
+                        }
+                    }
+                }
+            });
+        }
+
+        jQuery(function(){
+
+            renderTop10(top10Contents,"#hotNews",true);
+            renderPicContent();
+           loadZSZT();
+        });
+    </script>
+
+    <script src="/js/md5.js"></script>
+</head>
+<body>
+<!-- banner -->
+<div id="fakeBg"><div id="wbg"></div></div>
+<img id="headBanner" src="images/headerBanner.png" alt=""/>
+
+<!-- main menu -->
+<div id="divMenu">
+    <ul id="ulMenu">
+        <li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="columnZSZT.html">中省直通</a></li>
+        <li><a class="mainMenu" href="noticeList.html?channelId=474431645">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+    </ul>
+</div>
+
+<!-- search bar -->
+<div class="mainSec sou">
+    <h1 class="bt1">站内搜索</h1>
+    <div class="souBox">
+        <input type="text" id="searchValue" name="vcom"  class="text_sou" value="输入关键词" onfocus="if (value =='输入关键词'){value =''}" onblur="if (value ==''){value='输入关键词'}">
+        <input type="button" class="souBtn" onclick="goToSearch()" value="">
+    </div>
+    <h1 class="bt1">邮箱登录</h1>
+    <div name="loginForm" id="v1"><label>用户名</label><div class="kuangBg">
+        <input type="text" name="obj.userId" id="loginId" class="text_sou w108">
+    </div><label>密码</label><div class="kuangBg"><input type="password" name="obj.password" id="passWord" class="text_sou w108">
+    </div><input name="domain" type="hidden" value="sxdyyj.com"><input name="style" type="hidden" value="simple">
+        <input type="button" class="loginBtn" id="doLogin" value="登录"></div>
+
+    <div id="v2"style="display: none;" >
+        <label id="showLogin" style="width: 330px"></label>
+        <input type="button" class="loginBtn" value="注销" id="logOut" onclick="logOut()"/>
+    </div>
+    <input type="button" onclick="location.assign('register.html')" class="loginBtn" value="注册">
+    <div class="weather"><iframe width="170" scrolling="no" height="13" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&amp;id=11&amp;icon=1"></iframe></div>
+</div>
+
+<!-- breadcrumb -->
+<div class="breadcrumb">
+    <a href="index.html">首页</a> > 中省直通
+</div>
+
+
+<div class="mainSec" style="border-top: 2px solid #fff;margin-bottom: 0;">
+    <div class="colHeader">
+        <img src="images/bgCH_zszt.png" alt=""/>
+    </div>
+</div>
+<!-- main section-1 -->
+<div class="mainSec">
+    <div class="leftSec">
+        <div class="divHotNews">
+            <img src="images/hHotNews.png" align="left"/>
+            <ul class="ulHotNews"  id="hotNews">
+                <li class="clipText"><a href="#" target="_blank">团中央召开大调研活动汇报会</a></li>
+                <li class="clipText"><a href="#" target="_blank">把党的政治优势转化为企业竞争力</a></li>
+                <li class="clipText"><a href="#" target="_blank">中组部召开机关党建工作座谈会</a></li>
+                <li class="clipText"><a href="#" target="_blank">团中央召开大调研活动汇报会</a></li>
+                <li class="clipText"><a href="#" target="_blank">团中央召开大调研活动汇报会</a></li>
+            </ul>
+        </div>
+        <div class="divHotNews">
+            <img src="images/hPicNews.png" align="left"/>
+            <ul class="ulPicNews"  id="ulPicNews">
+                <li class="clipText">
+                    <a href="vodDetail.html" target="_blank"><img src="images/slde_1.jpg" alt=""/><br/>团中央召开大调研活动汇报会</a>
+                </li>
+                <li class="clipText">
+                    <a href="#" target="_blank"><img src="images/slde_1.jpg" alt=""/><br/>团中央召开大调研活动汇报会</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--右侧列表-->
+    <div class="rightSec" style="margin: 10px 0 20px">
+        <div class="colHeader">
+            <h2 class="colName"><a href="http://www.dygbjy.gov.cn:8008/yj/jcsp/index.html" target="_blank">全国远教-精彩视频</a></h2>
+        </div>
+        <ul class="UlThumbnails" id="jcsp">
+           <!-- <li>
+                <a target="_blank"  id="jscp_pic_href">
+                        <img id="jscp_pic"alt=""/>
+                    <h3 class="clipText" id="jscp_pic_title"></h3>
+                    <span class="fGray" id="jscp_pic_intro"></span>
+                </a>
+            </li>-->
+           <!-- <li>
+                <a href="http://fuwu.12371.cn/2014/11/29/VIDA1417242015854640.shtml" target="_blank"><img src="images/1417597369048_587.jpg" alt=""/>
+                    <h3 class="clipText"></h3>
+                    <span class="fGray"></span>
+                </a>
+            </li>-->
+        </ul>
+        <div class="clear"></div>
+
+        <div class="colHeader">
+            <h2 class="colName"><a href="http://dygbjy.12371.cn/" target="_blank">全国远教-直播频道</a></h2>
+        </div>
+        <ul class="UlThumbnails" id="qgyj_zbsp">
+         <!--   <li>
+                <a href="http://fuwu.12371.cn/2014/08/13/VIDA1407922215750598.shtml" target="_blank">
+                    <img src="images/1408010601646_548.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《历史转折中的邓小平》</h3>
+                    <span class="fGray">邓小平同志诞辰110周年特别制作</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://fuwu.12371.cn/2012/06/13/VIDA1339573929304817.shtml" target="_blank">
+                    <img src="images/1417598057947_967.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《悬　崖》</h3>
+                    <span class="fGray">哈尔滨长达14年的抗战历史</span>
+                </a>
+            </li>-->
+        </ul>
+        <div class="clear"></div>
+
+        <div class="colHeader">
+            <h2 class="colName"><a href="http://www.sxdyyj.com/vod/jpkj.jsp" target="_blank">陕西远教-精品课件</a></h2>
+        </div>
+        <ul class="UlThumbnails" id="sxyj_jpkj">
+         <!--   <li>
+                <a href="http://fuwu.12371.cn/2014/08/13/VIDA1407922215750598.shtml" target="_blank">
+                    <img src="images/1408010601646_548.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《历史转折中的邓小平》</h3>
+                    <span class="fGray">邓小平同志诞辰110周年特别制作</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://fuwu.12371.cn/2012/06/13/VIDA1339573929304817.shtml" target="_blank">
+                    <img src="images/1417598057947_967.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《悬　崖》</h3>
+                    <span class="fGray">哈尔滨长达14年的抗战历史</span>
+                </a>
+            </li>-->
+        </ul>
+        <div class="clear"></div>
+
+        <div class="colHeader">
+            <h2 class="colName"><a href="http://dslm.12371.cn/" target="_blank">共产党员电视栏目</a></h2>
+        </div>
+        <ul class="UlThumbnails" id="gcd_dslm">
+         <!--   <li>
+                <a href="http://fuwu.12371.cn/2014/08/13/VIDA1407922215750598.shtml" target="_blank">
+                    <img src="images/1408010601646_548.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《历史转折中的邓小平》</h3>
+                    <span class="fGray">邓小平同志诞辰110周年特别制作</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://fuwu.12371.cn/2012/06/13/VIDA1339573929304817.shtml" target="_blank">
+                    <img src="images/1417598057947_967.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《悬　崖》</h3>
+                    <span class="fGray">哈尔滨长达14年的抗战历史</span>
+                </a>
+            </li>-->
+        </ul>
+        <div class="clear"></div>
+
+        <div class="colHeader">
+            <h2 class="colName"><a href="#" target="_blank">延安远教-视听延安</a></h2>
+        </div>
+        <ul class="UlThumbnails" id="yayj_stya">
+           <!-- <li>
+                <a href="http://fuwu.12371.cn/2014/08/13/VIDA1407922215750598.shtml" target="_blank">
+                    <img src="images/1408010601646_548.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《历史转折中的邓小平》</h3>
+                    <span class="fGray">邓小平同志诞辰110周年特别制作</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://fuwu.12371.cn/2012/06/13/VIDA1339573929304817.shtml" target="_blank">
+                    <img src="images/1417598057947_967.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《悬　崖》</h3>
+                    <span class="fGray">哈尔滨长达14年的抗战历史</span>
+                </a>
+            </li>-->
+        </ul>
+        <div class="clear"></div>
+
+        <div class="colHeader">
+            <h2 class="colName"><a href="http://fuwu.12371.cn/jdyx/index.shtml" target="_blank">经典影视剧</a></h2>
+        </div>
+        <ul class="UlThumbnails" id="jdysj">
+          <!--  <li>
+                <a href="http://fuwu.12371.cn/2014/08/13/VIDA1407922215750598.shtml" target="_blank">
+                    <img src="images/1408010601646_548.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《历史转折中的邓小平》</h3>
+                    <span class="fGray">邓小平同志诞辰110周年特别制作</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://fuwu.12371.cn/2012/06/13/VIDA1339573929304817.shtml" target="_blank">
+                    <img src="images/1417598057947_967.jpg" alt=""/>
+                    <h3 class="clipText">电视剧《悬　崖》</h3>
+                    <span class="fGray">哈尔滨长达14年的抗战历史</span>
+                </a>
+            </li>-->
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- footer -->
+<div class="mainSec footer">
+    <hr class="white"/>
+    <a href="http://cpc.people.com.cn/" target="_blank"><img src="images/logo/lkGCDXWW.jpg" class="linkLogo"/></a>
+    <a href="http://www.zgdsw.org.cn/" target="_blank"><img src="images/logo/lkDCDLSW.jpg" class="linkLogo"/></a>
+    <a href="http://www.sx-dj.gov.cn/" target="_blank"><img src="images/logo/lkSXDJW.jpg" class="linkLogo"/></a>
+    <a href="http://www.yadj.gov.cn" target="_blank"><img src="images/logo/lkYADJW.jpg" class="linkLogo"/></a>
+    <a href="http://www.gov.cn/" target="_blank"><img src="images/logo/lkRM.jpg" class="linkLogo"/></a>
+    <a href="http://www.shaanxi.gov.cn/" target="_blank"><img src="images/logo/lkSX.jpg" class="linkLogo"/></a>
+    <a href="http://www.yanan.gov.cn/" target="_blank"><img src="images/logo/lkYA.jpg" class="linkLogo"/></a>
+    <a href="http://nc.mofcom.gov.cn/" target="_blank"><img src="images/logo/lkNC.jpg" class="linkLogo"/></a>
+
+    <hr class="white"/>
+    <p>
+        版权所有：延安党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+    </p>
+    <p>
+        主办方：延安市党员干部现代远程教育中心
+    </p>
+</div>
+</body>
+<!--[if lt IE 9]>
+<script src="js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+<script src="js/comm.js"></script>
+<script>
+    'use strict';
+
+</script>
+</html>

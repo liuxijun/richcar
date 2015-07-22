@@ -1,0 +1,70 @@
+<html>
+<head><title>HTTP POST</title></head>
+<body>
+<script language="javascript" type="text/javascript">
+var request = false;
+try {
+  request = new XMLHttpRequest();
+} catch (trymicrosoft) {
+  try {
+    request = new ActiveXObject("Msxml2.XMLHTTP");
+  } catch (othermicrosoft) {
+    try {
+      request = new ActiveXObject("Microsoft.XMLHTTP");
+    } catch (failed) {
+      request = false;
+    }
+  }
+}
+if (!request)
+  alert("Error initializing XMLHttpRequest!");
+</script>
+
+<script language="javascript" type="text/javascript">
+
+function callServer() {
+	var url = document.getElementById("url").value;
+	request.open("POST", url, true);
+	request.setRequestHeader("Content-Type", "text/xml");
+	request.setRequestHeader("Connection", "close"); 
+	request.onreadystatechange = updatePage;
+	request.send(document.getElementById("requestString").value);
+//	request.abort()
+
+}
+
+function updatePage(){
+	if (request.readyState == 4){
+			var head = request.getAllResponseHeaders();
+			var response = request.responseText;
+			document.getElementById("response").value = head + response;
+	}
+}
+
+function clearResponse(){
+	document.getElementById("response").value ="";
+}
+
+function clearRequest(){
+	document.getElementById("requestString").value ="";
+}
+
+</script>
+Request URL:  <input type="text" id="url" size="67" value="http://www.google.com">
+<br>
+<textarea name="requestString" id="requestString" rows="15" cols="120">
+input request here
+</textarea>
+<p>
+<input type="button" value="POST"  onClick="callServer()" />
+<input type="button" value="CLEAR"  onClick="clearRequest()" />
+<p>
+<textarea name="response" id="response" rows="10" cols="120">
+response will show here
+</textarea>
+<p>
+<input type="button" value="CLEAR"  onClick="clearResponse()" />
+</body>
+
+</html>
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd ttp://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+    <!-- 使Spring关注Annotation -->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.fortune"/>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation"
+                  value="classpath:hibernate.mysql.cfg.xml"/>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.dialect=${hibernate.dialect}
+                hibernate.query.substitutions=true 'Y', false 'N'
+                hibernate.show_sql=${hibernate.show_sql}
+                hibernate.cache.use_second_level_cache=true
+                hibernate.query.factory_class=org.hibernate.hql.ast.ASTQueryTranslatorFactory
+                hibernate.cache.use_structured_entries=true
+            </value>
+        </property>
+    </bean>
+
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName"
+                  value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="10"/>
+        <property name="maxIdle" value="5"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+<!--
+        <property name="validationQuery" value="select sysdate from dual"/>
+-->
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="3600000"/>
+        <property name="minEvictableIdleTimeMillis" value="18000000"/>
+    </bean>
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <!-- 配置事务管理器bean,使用HibernateTransactionManager事务管理器 -->
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <!-- 为事务管理器注入sessionFactory" -->
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="threadPoolTaskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="10"/>
+        <property name="keepAliveSeconds" value="200"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="queueCapacity" value="60"/>
+    </bean>
+</beans>

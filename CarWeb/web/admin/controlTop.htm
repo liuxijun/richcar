@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>头框架控制</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <style type="text/css">
+*
+{
+	margin:0;
+	padding:0
+}
+</style>
+    <script language="javascript" type="text/javascript">
+var flag = false;
+function shift_status()
+{
+	if(flag)
+	{
+		if(screen.height>768)
+			parent.document.all.right.rows = "156,9,*";
+		else if(screen.height>600)	
+			parent.document.all.right.rows = "156,9,*";
+		else
+			parent.document.all.right.rows = "156,9,*";
+		document.all.menuSwitch1.src='images/topButtonHidden1.gif';
+		document.all.menuSwitch1.title='隐藏';
+	}
+	else
+	{
+		parent.document.all.right.rows = "0,9,*";
+		document.all.menuSwitch1.src='images/topButtonHidden2.gif';
+		document.all.menuSwitch1.title='显示';
+	}
+
+	flag = !flag;
+}
+    </script>
+
+</head>
+<body onclick="shift_status()">
+    <table height="9" cellspacing="0" cellpadding="0" width="100%" border="0">
+        <tbody>
+            <tr>
+                <td id="menuSwitch" style="cursor:pointer" align="center">
+                    <img id="menuSwitch1" height="9" src="images/topButtonHidden1.gif" name="menuSwitch1"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

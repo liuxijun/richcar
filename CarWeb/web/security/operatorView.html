@@ -1,0 +1,63 @@
+<%@include file="../inc/checkHeader.jsp"%>
+<html>
+<head>
+    <meta http-equiv=content-type content="text/html; charset=UTF-8">
+    <title>管理员管理</title>
+    <link rel="stylesheet" type="text/css" href="../resources/css/ext-all.css"/>
+    <link rel="stylesheet" type="text/css" href="../ext/forms.css"/>
+    <link rel="stylesheet" type="text/css" href="../ext/ux/css/ux-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all.js"></script>
+    <script src="../ext/ext-lang-zh_CN.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../ext/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../js/ExtUtils.js"></script>
+    <script type="text/javascript" src="../js/ExtDefaultStore.js"></script>
+    <script type="text/javascript" src="../js/ExtFortuneCom.js"></script>
+    <script type="text/javascript">
+        nextUrl = "operatorList.html";
+        Ext.onReady(function() {
+            // Ext.lib.Ajax.defaultPostHeader += '; charset=UTF-8';
+            Ext.QuickTips.init();
+            var operatorViewForm = new FortuneViewForm({
+                title:'管理员基本信息',
+                url:'operatorAction!save.action',
+                saveUrl:'operator!save.action',
+                viewUrl:'operator!view.action',
+                items:[
+                    //{name:'keyId',value:keyId,inputType:'hidden'},
+                    {name:'obj.operatorid',inputType:'hidden',value:'-1'},
+                    {name:'obj.modifydate',inputType:'hidden'},
+                    {name:'obj.lastlogintime',inputType:'hidden'},
+                    {name:'obj.nodeId',inputType:'hidden'},
+                    {name:'obj.oldpasswordlog',inputType:'hidden'},
+                    {fieldLabel:'登录',name:'obj.login',readOnly:modifyOldData},
+                    {fieldLabel:'口令',name:'obj.password',inputType:'password'},
+                    {fieldLabel:'确认',name:'confirmPassword',inputType:'password'},
+                    {fieldLabel:'姓名',name:'obj.realname'},
+                    {fieldLabel:'电话',name:'obj.telephone'},
+                    new FortuneCombo({fieldLabel:'状态',
+                        hiddenName:'obj.status',
+                        store:statusStore,
+                        displayField:'name', //对应数据源字段
+                        valueField:'value',
+                        value:'2'
+                    })
+                ]
+            });
+            //loadFormAjax();
+            operatorViewForm.render(displayDiv);
+            //statusStore.load();
+        });
+
+    </script>
+</head>
+<body>
+<table align="center">
+    <tr>
+        <td>
+            <div id="displayDiv"></div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

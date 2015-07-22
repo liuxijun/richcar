@@ -1,0 +1,390 @@
+﻿/* http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	/*vertical-align: baseline;*/
+	background: transparent;
+	-webkit-font-smoothing: antialiased;
+}
+
+html , body{
+	height: 100%;
+}
+body {
+	margin: 0 auto;
+	line-height: 1.5;
+	font-family: Tahoma, "Microsoft Yahei", Arial,Roboto, "Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC","Hiragino Sans GB",Simsun,sans-self;
+	color: #252525;
+	background-color: transparent;
+}
+a{
+	color: #262626;
+	text-decoration: none;
+}
+a:hover{
+	color: #c30800;
+}
+
+ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed !important;
+}
+
+/******* shortcuts *******/
+/* Global */
+body {
+	margin: 0 auto;
+}
+
+body, div, li, span, a, ul, img, p, td {
+	padding: 0;
+	font-size: 14px;
+}
+
+div, li, span, ul, a, input, select {
+	text-align: left;
+	font-size: inherit;
+}
+
+ul /*, li*/
+ {
+	list-style: none;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	margin: 0;
+	padding: 0;
+	border-style: none;
+}
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+label {
+	/*margin-left: -3px;*/
+}
+
+.clear {
+	display: block;
+	font-size: 1px;
+	line-height: 1px;
+	height: 1px;
+	clear: both;
+	word-break: break-all;
+}
+
+.fHei {
+	font-family: "黑体";
+}
+
+.fBold {
+	font-weight: bold;
+}
+
+.f12, h4 {
+	font-size: 12px;
+}
+
+
+.f14, h3 {
+	font-size: 14px;
+}
+
+
+.f16, h2 {
+	font-size: 16px;
+}
+
+.f18 {
+	font-size: 18px;
+}
+
+.f20, h1 {
+	font-size: 20px;
+}
+
+.f22 {
+	font-size: 22px;
+}
+
+.f24 {
+	font-size: 24px;
+}
+
+.fTitle {
+	font: bold 20px "黑体";
+}
+
+.fWhite, .hoverWhite:hover {
+	color: #ffffff;
+}
+
+.fSnow {
+	color: #d8d8d8;
+}
+
+.fOrange {
+	color: #df4d14;
+}
+
+.fLightOrange {
+	color: #ef9e56;
+}
+
+.fYellow {
+	color: #FFC000;
+}
+
+.fDarkBlue {
+	color: #06394e;
+}
+
+.fRed, .fHoverRed:hover {
+	color: #c80000;
+}
+
+.fBlue, .fHoverBlue:hover {
+	color: #0b72ba;
+}
+
+.fNavy {
+	color: #00478b;
+}
+.fGreen , .fHoverGreen:hover{
+	color : #438138;
+}
+.fGray {
+	color: #777;
+}
+
+.fLightGray {
+	color: #afafaf;
+}
+
+.fCarbon {
+	color: #303030;
+}
+
+.fBlack, .fHoverBlack:hover {
+	color: #000000;
+}
+
+.fUnderline, .fHoverUnderline:hover {
+	text-decoration: underline;
+}
+
+.fNonUnderline, .fHoverNonUnderline:hover {
+	text-decoration: none;
+}
+
+.fWebdings {
+	font-family: "Webdings";
+}
+.fLeft{
+	text-align: left;
+}
+.fRight{
+	text-align: right;
+}
+.fCenter{
+	text-align: center !important;
+}
+.hide {
+	display: none;
+}
+
+.clipText {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+
+xmp.template {
+	display: none;
+}
+
+hr {
+	height: 0;
+	border-style: none;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #ddd;
+}
+
+.w100 {
+	width: 100px !important;
+}
+
+.w200 {
+	width: 200px;
+}
+
+.w300 {
+	width: 300px;
+}
+
+.w400 {
+	width: 400px;
+}
+
+.w500 {
+	width: 500px;
+}
+.w600 {
+	width: 600px;
+}
+.w700 {
+	width: 700px;
+}
+
+.right{
+	float: right;
+}
+.left{
+	float: left;
+}
+::-webkit-scrollbar {
+	height: 12px;
+	width: 12px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: rgba(0,0,0,.1);
+	background-clip: padding-box;
+	border: 1px solid rgba(0,0,0,.2);
+	min-height: 28px;
+	padding: 100px 0 0;
+	border-radius: 3px;
+	/*box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07);*/
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(0,0,0,.2);
+	border-color: rgba(0,0,0,.3);
+}
+::-webkit-scrollbar-button {
+	height: 0;
+	width: 0;
+}
+::-webkit-scrollbar-track {
+	background-clip: padding-box;
+	border: solid transparent;
+	border-width: 0 0 0 4px;
+}
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+/*
+::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+	display: block;
+	height: 0;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-track-piece {
+	border-radius: 0 4px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+	height: 50px;
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+	width: 50px;
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+}
+*/
+/*
+body{
+	scrollbar-track-color: #f0f0f0;
+	scrollbar-face-color: #cdcdcd;
+	scrollbar-base-color: #f0f0f0;
+	scrollbar-3dlight-color:#f0f0f0;
+	scrollbar-highlight-color: #f0f0f0;
+	scrollbar-shadow-color: #f0f0f0;
+	scrollbar-darkshadow-color: #f0f0f0;
+}
+::-webkit-scrollbar {
+	width: 17px;
+	height: 17px;
+	background-color: #f0f0f0;
+	border: none
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #cdcdcd;
+	border: 1px solid #f0f0f0
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: #dadada
+}
+
+::-webkit-scrollbar-thumb:active {
+	background-color: #606060
+}
+
+::-webkit-scrollbar-thumb:disabled {
+	background-color: #f9f9f9
+}
+
+::-webkit-scrollbar-corner {
+	background-color: #f0f0f0
+}
+*/

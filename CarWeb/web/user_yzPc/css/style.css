@@ -1,0 +1,16 @@
+body{padding:0px;margin:0px;font-size:12px;font-family:'ËÎÌå','ÐÂËÎÌå','Lucida Grande','Lucida Sans Unicode',arial,verdana,sans-serif;background:#fff;word-break:break-all;text-align:center; line-height:24px;}
+img {border:none;}
+ul,ol,li {list-style:none; margin:0px; padding:0px;}
+table,td,div,ul,li,ol,span,em,p{font-size:12px; text-align:left; margin:0px; padding: margin:0px; padding:0px;}
+input,select{font-size:12px;}
+h1,h2,h3,h4,h5,h6,h7 { margin:0px; padding:0px;}
+.wapper{ width:559px; height:394px; margin:0 auto;}
+.t{ background:url(../images/mai_t.jpg) no-repeat; height:41px;}
+.c{ background:url(../images/mai_m.jpg) no-repeat; height:99px;}
+.c h2{ padding:40px 10px 0px 140px; font-weight:bold; color:#ff0000; font-size:14px;}
+.b{ background:url(../images/mai_b.jpg) no-repeat; height:254px;}
+.b h3{ font-size:14px; font-weight:bold; color:#F17702; padding-left:80px; line-height:30px;}
+.b p{font-size:14px; font-weight:bold; color:#F17702; margin-left:120px; line-height:20px; background:url(../images/dot_mai1.gif) 0px 7px no-repeat; padding-left:10px;}
+.b p.note{ margin-left:80px; padding-top:15px; margin-right:50px; font-size:12px; background:none;}
+.b p.note span{ color:#f00; font-size:12px;}
+.b .but{ padding-top:10px;background:none;}

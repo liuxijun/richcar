@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title> 延安市党员干部现代远程教育网 </title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js?v3.70"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="css/site.css"/>
+	<style>
+		.rightSec{
+			width: 720px;
+			float: right;
+			border: 1px solid #eee;
+		}
+		.leftSec{
+			width: 260px;
+			float: left;
+			background-color: #fff;
+		}
+
+		.ulSubColName{
+			background-color: #fff;
+			margin: 5px;
+			padding: 20px 30px 20px 0;
+			border: 10px solid #efefef ;
+		}
+		.ulSubColName li{
+			list-style-type: disc;
+			list-style-position: inside;
+			text-align: center;
+			font-size: 22px;
+			line-height: 38px;
+		}
+
+
+		.UlArticles{
+			padding: 0 20px;
+			background-color: #fff ;
+		}
+		.UlArticles li{
+			line-height: 36px;
+			list-style-type: none;
+			font-size: 16px;
+		}
+		.aDate{
+			white-space: nowrap;
+			float: right;
+			font-size: 12px;
+			color: #aaa;
+		}
+		.subColHead{
+			height: 42px;
+			line-height:42px;
+			text-indent: 20px;
+			font-size:18px;
+			background: url(images/tabBg.jpg) no-repeat;
+		}
+
+	</style>
+    <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="js/channels.js"></script>
+    <script src="../js/utilsParameters.js"></script>
+    <script src="/js/md5.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script>
+        function nextPage(){
+            if(searchData.pageNo<searchData.pageCount){
+                goToPage(searchData.pageNo+1);
+            }
+        }
+        function prevPage(){
+            if(searchData.pageNo>1){
+                goToPage(searchData.pageNo-1);
+            }
+        }
+
+        function goToPage(pageNo){
+            list(searchData.channelId,searchData.cspId,pageNo,
+                    searchData.pageSize,searchData.searchType,searchData.searchValue);
+        }
+
+        function list(channelId,cspId,pageNo,pageSize,searchType,searchValue){
+            if(pageNo<=0){
+                pageNo=1;
+            }
+            if(searchValue!=null&&searchValue.indexOf("%")<0){
+                searchValue = encodeURI(encodeURI(searchValue));
+            }
+            searchData.channelId=channelId;
+            searchData.cspId = cspId;
+            var start = (pageNo-1)*pageSize;
+            if(start<0){
+                start = 0;
+            }
+            searchData["start"]=start;
+            searchData.pageNo = pageNo;
+            searchData.pageSize = pageSize;
+            searchData["limit"] = pageSize;
+            searchData.searchType = searchType;
+            searchData.searchValue = searchValue;
+            searchData["rc"] = new Date().getTime();//强制刷新
+            var url = serverOptions.address+'page/js/list.jsp?simple=true&callback=renderList';
+            for(var d in searchData){
+                if(searchData.hasOwnProperty(d)){
+                    url+="&"+d+"="+searchData[d];
+                }
+            }
+            appendJs(url);
+            /*
+             $.ajax({
+             url:'page/js/list.jsp?simple=true',
+             method:'post',
+             data:searchData,
+             dataType:'text',
+             success:function(jsonData){
+             jsonData = eval('(function(){return '+jsonData+';})()');
+             renderList(jsonData);
+             }
+             });
+             */
+        }
+
+        function renderList(jsonData){
+            var searchList = $(".UlArticles");
+            searchList.html('');
+            var total = jsonData.listData.total;
+            searchData["total"] = total;
+            var objs = jsonData.listData.objs;
+            for(var i= 0,l=objs.length;i<l;i++){
+                var o = objs[i];
+                searchList.append('<li><div class="aDate">'+ o.date +'</div><a class="article" href="detail.html?id='+ o.id+'" target="_blank">'+ o.name +'</a></li>');
+            }
+            var videoPage = $(".pager");
+            var pageCount = Math.floor((total+searchData.pageSize-1)/ searchData.pageSize);
+            searchData.pageCount = pageCount;
+            videoPage.html('');
+            if(searchData.pageNo>1){
+                videoPage.append('<a class="pageBtn" href="#" onclick="prevPage()">上一页</a>');
+                $(".prev").html('上一页');
+            }else{
+                $(".prev").html('');
+            }
+            var s,e;
+            if(searchData.pageCount < 5) {
+                s=1;
+                e=searchData.pageCount;
+            } else {
+                if(searchData.pageCount - searchData.pageNo >= 3) {
+                    e = searchData.pageNo == 1?5:searchData.pageNo+3;
+                } else {
+                    e = searchData.pageCount;
+                }
+                s = e-4;
+            }
+            for(var k = s; k <= e; k++) {
+                videoPage.append('<a href="#" onclick="goToPage(' +k+')"'
+                        +(searchData.pageNo==k?' class="on"':' class="pn"')+'>'+k+'</a>');
+            }
+
+            if(searchData.pageNo<pageCount){
+                videoPage.append('<a class="pageBtn" href="#" onclick="nextPage()">下一页</a>');
+                $(".next").html('下一页');
+            }else {
+                $(".next").html('');
+            }
+
+            /* videoPage.append('<label style="margin-left: 30px">至第<input id="gotoPageNo" type="text" name=""/>页</label><a class="pageBtn" href="#">跳转</a>');*/
+        }
+
+        function doSearch(){
+            var searchValueObj = $("#searchValue");
+            if(searchValueObj!=null){
+                var searchValue = searchValueObj.val();
+                if(searchValue == null || searchValue == "" || searchValue == '输入关键词') {
+                    alert('请输入搜索内容！');
+                    return;
+                }
+                searchData["searchType"]="MEDIA_NAME";
+                searchData["searchValue"]=searchValueObj.val();
+            }
+            goToPage(1);
+        }
+
+        jQuery(function(){
+            searchData.pageSize=20;
+            var searchValue = getParameterFromUrl(null,"searchValue",null);
+            if(searchValue!=null){
+                var obj = $("#searchValue");
+                while(searchValue.indexOf("%")>=0){
+                    searchValue= decodeURI(searchValue);
+                }
+                obj.val(searchValue);
+            }
+            doSearch();
+        });
+
+
+    </script>
+</head>
+<body>
+<!-- banner -->
+<div id="fakeBg"><div id="wbg"></div></div>
+<img id="headBanner" src="images/headerBanner.png" alt=""/>
+
+
+<!-- main menu -->
+<div id="divMenu">
+	<ul id="ulMenu">
+        <li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="columnZSZT.html">中省直通</a></li>
+        <li><a class="mainMenu" href="noticeList.html?channelId=474431645">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+	</ul>
+</div>
+
+<!-- search bar -->
+<div class="mainSec sou">
+	<h1 class="bt1">站内搜索</h1>
+	<div class="souBox">
+         <input type="text" id="searchValue" name="vcom" class="text_sou" value="输入关键词" onfocus="if (value =='输入关键词'){value =''}" onblur="if (value ==''){value='输入关键词'}">
+         <input type="button" class="souBtn" onclick="doSearch()" value="">
+	</div>
+	<h1 class="bt1">邮箱登录</h1>
+    <div name="loginForm" id="v1"><label>用户名</label><div class="kuangBg">
+        <input type="text" name="obj.userId" id="loginId" class="text_sou w108"></div>
+        <label>密码</label><div class="kuangBg">
+            <input type="password" name="obj.password" id="passWord" class="text_sou w108"></div>
+        <input name="domain" type="hidden" value="sxdyyj.com">
+        <input name="style" type="hidden" value="simple">
+        <input type="button" class="loginBtn"value="登录" id="doLogin"></div>
+
+    <div id="v2"style="display: none;" >
+        <label id="showLogin" style="width: 330px"></label>
+        <input type="button" class="loginBtn" value="注销" id="logOut" onclick="logOut()"/>
+    </div>
+	<input type="button" onclick="location.assign('register.html')" class="loginBtn" value="注册">
+	<div class="weather"><iframe width="170" scrolling="no" height="13" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&amp;id=11&amp;icon=1"></iframe></div>
+</div>
+
+<!-- breadcrumb -->
+<div class="breadcrumb">
+	<a href="index.html">首页</a> > 查询列表
+</div>
+
+
+<!--<div class="mainSec" style="border-top: 2px solid #fff;margin-bottom: 0;">
+	<div class="colHeader">
+		<img src="images/bgCH_dttp.png" alt=""/>
+	</div>
+</div>-->
+
+<!-- main section-1 -->
+<div class="mainSec">
+<div class="leftSec">
+
+	<div class="divHotNews">
+		<img src="images/hHotNews.png" align="left"/>
+		<ul class="ulHotNews">
+			<li class="clipText"><a href="#" target="_blank">团中央召开大调研活动汇报会</a></li>
+			<li class="clipText"><a href="#" target="_blank">把党的政治优势转化为企业竞争力</a></li>
+			<li class="clipText"><a href="#" target="_blank">中组部召开机关党建工作座谈会</a></li>
+			<li class="clipText"><a href="#" target="_blank">团中央召开大调研活动汇报会</a></li>
+			<li class="clipText"><a href="#" target="_blank">团中央召开大调研活动汇报会</a></li>
+		</ul>
+	</div>
+	<div class="divHotNews">
+		<img src="images/hPicNews.png" align="left"/>
+		<ul class="ulPicNews">
+			<li class="clipText">
+				<a href="vodDetail.html" target="_blank"><img src="images/slde_1.jpg" alt=""/><br/>团中央召开大调研活动汇报会</a>
+			</li>
+			<li class="clipText">
+				<a href="#" target="_blank"><img src="images/slde_1.jpg" alt=""/><br/>团中央召开大调研活动汇报会</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!--右侧列表-->
+<div class="rightSec">
+	<ul class="UlArticles">
+		<li><div class="aDate">[2014-11-28]</div><a class="article" href="vote.html" target="_blank">“您认为整改工作要有实效，就必须－－” 调查问卷</a></li>
+		<li><div class="aDate">[2014-11-27]</div><a class="article" href="vote2.html" target="_blank">“民众幸福感” 调查问卷</a></li>
+	</ul>
+	<hr class="grayDash"/>
+	<div class="pager">
+		<a class="pageBtn" href="#">首页</a>
+		<a class="pageBtn" href="#">上一页</a>
+		<span class="pn">1</span>
+		<a class="pn" href="#">2</a>
+		<a class="pn" href="#">3</a>
+		<a class="pageBtn" href="#">下一页</a>
+		<a class="pageBtn" href="#">尾页</a>　　　
+		<label>至第<input id="" type="text" name=""/>页</label>
+		<a class="pageBtn" href="#">跳转</a>
+	</div>
+</div>
+</div>
+<!-- footer -->
+<div class="mainSec footer">
+	<hr class="white"/>
+	<a href="http://cpc.people.com.cn/" target="_blank"><img src="images/logo/lkGCDXWW.jpg" class="linkLogo"/></a>
+	<a href="http://www.zgdsw.org.cn/" target="_blank"><img src="images/logo/lkDCDLSW.jpg" class="linkLogo"/></a>
+	<a href="http://www.sx-dj.gov.cn/" target="_blank"><img src="images/logo/lkSXDJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.yadj.gov.cn" target="_blank"><img src="images/logo/lkYADJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.gov.cn/" target="_blank"><img src="images/logo/lkRM.jpg" class="linkLogo"/></a>
+	<a href="http://www.shaanxi.gov.cn/" target="_blank"><img src="images/logo/lkSX.jpg" class="linkLogo"/></a>
+	<a href="http://www.yanan.gov.cn/" target="_blank"><img src="images/logo/lkYA.jpg" class="linkLogo"/></a>
+	<a href="http://nc.mofcom.gov.cn/" target="_blank"><img src="images/logo/lkNC.jpg" class="linkLogo"/></a>
+
+	<hr class="white"/>
+	<p>
+		版权所有：延安市党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+	</p>
+	<p>
+		主办方：延安市党员干部现代远程教育中心
+	</p>
+</div>
+</body>
+<!--[if lt IE 9]>
+<script src="js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.cycle.all.min.js"></script>
+<script src="js/comm.js"></script>
+<script>
+	'use strict';
+
+</script>
+</html>

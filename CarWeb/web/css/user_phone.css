@@ -1,0 +1,44 @@
+
+body{ background-color:#ebeced;}
+.login_t{ width:100%; margin:15% auto 0; vertical-align:top; }
+.login_area{ border-top:1px solid #d9dadb; border-bottom:1px solid #d9dadb; border-left:0px; border-right:0px; background-color:#fff; }
+
+.login_username{ display:block; text-align:center; margin:0 auto 0; width:92%;  }
+.login_username input{ box-sizing:border-box; border:none; width:100%; margin:8px 0; height:36px; line-height:36px; color:#444; font-family:Arial, Helvetica, sans-serif; font-size:17px; padding:0px 0 0px 60px; 
+background:url(../images/phone_user_icon.png) no-repeat 8px 6px; background-size:36px auto; }
+.login_username input:focus{ background:#fff url(../images/phone_user_icon.png) no-repeat 8px -118px; background-size:36px auto;}
+
+input,textarea,select,button{ font-family:"微软雅黑";}
+
+.login_password{ display:block; text-align:center;  margin:0 auto 0; width:92%;  border-top:1px solid #d9dadb;}
+.login_password input{  box-sizing:border-box; border:none; width:100%; margin:8px 0; height:36px; line-height:36x; color:#444; font-family:Arial, Helvetica, sans-serif; font-size:17px; padding:0px 0 0px 60px; 
+background:url(../images/phone_user_icon.png) no-repeat 8px -56px; background-size:35px auto; }
+.login_password input:focus{ background:#fff url(../images/phone_user_icon.png) no-repeat 8px -177px; background-size:35px auto; }
+
+
+.login_btn{ display:block; clear:both; font-size:13px; width:92%;  margin:20px auto 0; color:#444; }
+.login_btn .button{ display:block; width:100%; height:50px;  margin:40px 0 25px 0; line-height:50px; color:#fff; background-color:#e41c24; text-align:center; font-size:20px; letter-spacing:15px; cursor:pointer; border:none; -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px; }
+.login_link,.login_link label{ font-size:17px; color:#444; text-align:center;}
+.login_link input{ margin:2px 6px 0 20px;}
+.login_link a{ color:#e41c24;}
+.login_link span{ display:inline-block; margin:0 12px; color:#777;}
+
+
+
+.reg_t{ width:100%; margin:20px auto 90px; vertical-align:top; }
+.reg_t strong{ font-size:19px; text-align:center; margin:0 0 8px 0; display:block; clear:both; color:#444;}
+.reg_list{ display:block; margin:5px auto; background-color:#fff; border-top:1px solid #cececf; border-bottom:1px solid #cececf; border-left:none; border-right:none; }
+.reg_list ul { width:92%; margin:0 auto;}
+.reg_list ul li{ display:block; border-bottom:1px solid #ddd; line-height:150%; margin:5px 0; color:#444; padding:6px 0; line-height:36px;  font-size:15px; }
+.reg_list ul li label{ width:80px; float:left; height:36px; line-height:36px; padding:0 4px; font-size:15px;  }
+.reg_list .input_1 input{ height:36px; width:70%; color:#444; font-size:15px; border:none; font-family:Arial, Helvetica, sans-serif;}
+.reg_list .input_2 input{ font-size:15px; margin:6px 5px 0 25px; }
+.reg_list .input_3{ border-bottom:none;}
+.reg_list .input_3 textarea{ padding:5px; margin-left:2%; display:block; clear:both; line-height:150%; width:92%; height:85px; color:#444; font-size:14px; border:1px solid #ddd; background:none;  -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px;}
+
+
+.reg_btn{ display:block; clear:both; font-size:14px; width:91%;  margin:0px auto 0; color:#444; }
+.reg_btn .button{ display:block; width:100%; height:50px;  margin:25px 0 25px 0; line-height:50px; color:#fff; background-color:#e41c24; text-align:center; font-size:20px; letter-spacing:5px; cursor:pointer; border:none; -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px; }
+.reg_link{ font-size:17px; color:#444; text-align:center;}
+.reg_link a{ color:#e41c24;}
+

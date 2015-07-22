@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>WEICHAI</title>
+    <link href="css/ipad.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script><![endif]-->
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/utilsParameters.js"></script>
+    <script src="js/channels.js"></script>
+    <script src="js/weichaiCommon.js" charset="UTF-8"></script>
+    <script src='page/js/frontUser.js'></script>
+    <script>
+        document.write('<script src="'+serverOptions.address+"js/getSession.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+    <script>
+        var userId = user==null?null:user.userId;
+        var channelId = getParameterFromUrl(null,"id",-1);//474431598
+        var parentId = getParameterFromUrl(null,"parentId",-1);//474431590);
+        var currentSearchChannelId=channelId;
+        //设置服务器地址，如果是异地调试，则写服务器的地址，例如http://10.0.66.11/，如果实在服务器本地web目录，则写 / 就可以了
+        serverOptions.address = "/";
+        function searchChannel(id){
+            //alert("准备搜索："+channelId);
+            var oldSelected = $(".subChannel.item_over");
+            $.each(oldSelected,function(){
+                var t = $(this);
+                t.removeClass("item_over");
+            });
+            $("#subChannel_"+id).addClass("item_over");
+            channelId=id;
+            searchData.channelId = id;
+            goToPage(1);
+        }
+        function nextPage(){
+            if(searchData.pageNo<searchData.pageCount){
+                goToPage(searchData.pageNo+1);
+            }
+        }
+        function prevPage(){
+            if(searchData.pageNo>1){
+                goToPage(searchData.pageNo-1);
+            }
+        }
+        function doSearch(){
+            var searchValueObj = $("#searchValue");
+            if(searchValueObj!=null){
+                searchData["searchType"]="MEDIA_NAME";
+                searchData["searchValue"]=searchValueObj.val();
+            }
+            goToPage(1);
+        }
+        function goToPage(pageNo){
+            list(searchData.channelId,searchData.cspId,pageNo,
+                    searchData.pageSize,searchData.searchType,searchData.searchValue);
+        }
+        function renderList(jsonData){
+            var videoList = $(".video_list ul");
+            videoList.html('');
+            var total = jsonData.listData.total;
+            searchData["total"] = total;
+            var objs = jsonData.listData.objs;
+            for(var i= 0,l=objs.length;i<l;i++){
+                var o = objs[i];
+                var name = o.name;
+                if(name!=null){
+                    name = name.replace(/潍柴新闻-/,'-');
+                }
+                videoList.append('<li><a href="video_pad.html?id='+ o.id +'"><img src="' + o.poster+
+                        '" width="310" height="180"><span><i>'+ name +'</i></span></a></li>');
+            }
+            var videoPage = $(".video_page");
+            var pageCount = Math.floor((total+searchData.pageSize-1)/ searchData.pageSize);
+            searchData.pageCount = pageCount;
+            videoPage.html('');
+            if(searchData.pageNo>1){
+                videoPage.append('<a href="#" onclick="prevPage()">上一页</a>');
+                $(".prev").html('上一页');
+            }else{
+                $(".prev").html('');
+            }
+            videoPage.append('<a href="#" onclick="goToPage(1)" ' +(searchData.pageNo==1?' class="current"':'')+'>1</a>');
+            i=searchData.pageNo-5;
+            if(i<=1){
+                i=2;
+            }
+            l=searchData.pageNo+5;
+            if(l>=pageCount-1){
+                l=pageCount-1;
+            }
+            for(;i<=l;i++){
+                videoPage.append('<a href="#" onclick="goToPage(' +i+')"'
+                        +(searchData.pageNo==i?' class="current"':'')+'>'+i+'</a>');
+            }
+            if(pageCount>1){
+                videoPage.append('<a href="#" onclick="goToPage(' +pageCount+')"'
+                        +(searchData.pageNo==pageCount?' class="current"':'')+'>'+pageCount+'</a>');
+            }
+            if(searchData.pageNo<pageCount){
+                videoPage.append('<a href="#" onclick="nextPage()">下一页</a>');
+                $(".next").html('下一页');
+            }else {
+                $(".next").html('');
+            }
+            /*     var searchCondition = $(".rank");
+             searchCondition.html('');
+             if(searchData.searchValue!=null&&searchData.searchValue!=''){
+             var val = searchData.searchValue;
+             while(val.indexOf("%")>=0){
+             val = decodeURI(val);
+             }
+
+             searchCondition.append('<span id="searchValueSpan" class="item_over" onclick="removeSearchValue()">搜索：' +val+
+             '</span>');
+             *//*searchCondition.append(' <span class="rank_t" onclick="showSortWay()">切换排序方式</span>' +
+             '<ul id="menu_font" class="menu_font"><li onclick="changeSort()">周播放量最多</li><li onclick="changeSort()">月播放量最多</li><li onclick="changeSort()">总播放量最多</li><li>最新发布</li></ul>')*//*
+             }*/
+        }
+
+        function showSortWay() {
+            $("#menu_font").toggle();
+        }
+
+        function changeSort() {
+            $("#menu_font").toggle();
+        }
+
+        function list(channelId,cspId,pageNo,pageSize,searchType,searchValue){
+            if(pageNo<=0){
+                pageNo=1;
+            }
+            if(searchValue!=null&&searchValue.indexOf("%")<0){
+                searchValue = encodeURI(encodeURI(searchValue));
+            }
+            searchData.channelId=channelId;
+            searchData.cspId = cspId;
+            var start = (pageNo-1)*pageSize;
+            if(start<0){
+                start = 0;
+            }
+            searchData["start"]=start;
+            searchData.pageNo = pageNo;
+            searchData.pageSize = pageSize;
+            searchData["limit"] = pageSize;
+            searchData.searchType = searchType;
+            searchData.searchValue = searchValue;
+            searchData['propertyIds']=weiChaiRender.propertyIds;
+            searchData["rc"] = new Date().getTime();//强制刷新
+            var order = searchData['orderBy'];
+            if(typeof(order)=='undefined'||order==null){
+                order = 'c.property3 desc,c.id';
+                searchData['orderBy']=order;
+                searchData['orderDir']='asc';
+            }
+            var url = serverOptions.address+'page/js/list.jsp?simple=true&callback=renderList';
+            for(var d in searchData){
+                if(searchData.hasOwnProperty(d)){
+                    url+="&"+d+"="+searchData[d];
+                }
+            }
+            appendJs(url);
+            /*
+             $.ajax({
+             url:'page/js/list.jsp?simple=true',
+             method:'post',
+             data:searchData,
+             dataType:'text',
+             success:function(jsonData){
+             jsonData = eval('(function(){return '+jsonData+';})()');
+             renderList(jsonData);
+             }
+             });
+             */
+        }
+
+        function removeSearchValue(){
+            var searchValueSpan = $("#searchValueSpan");
+            searchData.searchValue='';
+            goToPage(1);
+        }
+        jQuery(function(){
+            checkLogon("login_pad.html?nextUrl=list_pad.html&parentId="+getParameterFromUrl(null,"parentId",null),userId);
+
+            var searchValue = getParameterFromUrl(null,"searchValue",null);
+            if(searchValue!=null){
+                var obj = $("#searchValue");
+                while(searchValue.indexOf("%")>=0){
+                    searchValue= decodeURI(searchValue);
+                }
+                obj.val(searchValue);
+                searchData["searchType"]="MEDIA_NAME";
+                searchData["searchValue"]=searchValue;
+            }
+            searchData.pageSize=9;
+            channelOptions.renderTopLevelChannel(channels,'_pad');
+            //channelOptions.renderTopLevelChannel(channelOptions.channels);
+            if(parentId>0){
+                renderChannel(parentId,'_pad');
+            }else{
+                searchChannel(-1);
+            }
+        });
+
+        function goToUpdatePwd() {
+            window.location.href =  "updatePwd_pad.html?nextUrl=list_pad.html&parentId="+getParameterFromUrl(null,"parentId",null);
+        }
+
+        function goToRegister() {
+            window.location.href =  "reg_pad.html?nextUrl=list_pad.html&parentId="+getParameterFromUrl(null,"parentId",null);
+        }
+
+        function goToCollection() {
+            if(userId == null || userId == "") {
+                alert("请登录");
+                return;
+            }
+            window.location.href = "collection_pad.html";
+        }
+
+        function goToPlayLogs() {
+            if(userId == null || userId == "") {
+                alert("请登录");
+                return;
+            }
+            window.location.href = "playLogs_pad.html";
+        }
+
+
+    </script>
+</head>
+
+<body>
+<header class="globalheader">
+    <section class="top_cont">
+        <div class="logoarea"><a href="index_pad.html">WEICHAI</a></div>
+        <div class="searcharea"><form><input type="button"  class="btn" onClick="doSearch()"><input type="text" class="sc_input" id="searchValue"></form></div>
+        <div class="userarea">
+        <!--    <div class="no_login"><span>|</span><a href="javascript:goToRegister()">注册</a></div>-->
+            <div class="no_login"><b class="i_user"></b><a href="/user/frontUser!frontUserLoginOut.action?userFrom=pad" >注销</a>
+                <span>|</span><a href="javascript:goToUpdatePwd()">修改密码</a>
+                <!--<span>|</span><a href="#">注册</a>--></div>
+            <div class="record"><b class="i_rec"></b><a href="javascript:goToPlayLogs()">我看过的</a><b class="i_arw"></b></div>
+            <div class="fav"><b class="i_favs"></b><a href="javascript:goToCollection()">收藏</a><b class="i_arw"></b></div>
+        </div>
+    </section>
+</header>
+<section class="section fixed">
+    <div class="video_opt fixed">
+        <div class="channel_list">
+            <ul>
+                <!--     <li><a href="#">潍柴新闻</a></li>
+               <li class="item_over"><a href="#">专题栏目</a></li>
+               <li><a href="#">媒体报道</a></li>
+               <li><a href="#">高管活动</a></li>
+               <li><a href="#">图文报道</a></li>
+               <li><a href="#">潍柴之声</a></li>-->
+            </ul>
+        </div>
+        <div class="rank">
+            <!--<span class="rank_t">切换排序方式</span>
+            <ul id="menu_font" class="menu_font">
+                <li>周播放量最多</li>
+                <li>月播放量最多</li>
+                <li>总播放量最多</li>
+                <li>最新发布</li>
+            </ul>-->
+        </div>
+    </div>
+    <div class="video_list">
+        <ul>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+        </ul>
+    </div>
+
+    <div class="video_page"><a href="#">上一页</a><a href="#" >1</a><a href="#" class="current">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">下一页</a></div>
+
+</section>
+
+
+<footer class="nav clearfix">
+    <div class="navarea">
+        <ul>
+            <li><a href="index.html"><em>首页</em></a></li>
+            <li><a href="list.html"><em>潍柴动态</em></a></li>
+            <li><a href="list.html"><em>各地纵横</em></a></li>
+            <li><a href="list.html"><em>企业文化</em></a></li>
+            <li><a href="list.html"><em>行业信息</em></a></li>
+            <li><a href="list.html"><em>党建特色</em></a></li>
+            <li><a href="list.html"><em>原创专区</em></a></li>
+        </ul>
+    </div>
+</footer>
+<script>
+    $(".rank_t").bind("click", function () {
+        $("#menu_font").toggle();
+    });
+    $(".menu_font>li").bind("click", function () {
+        $("#menu_font").toggle();
+    });
+
+</script>
+<script>
+    if(typeof(innerWebStat)!='undefined'&&innerWebStat){
+        document.write(unescape("%3Cscript src='http://s11.cnzz.com/stat.php?id=1253630191&web_id=1253630191'%3E%3C/script%3E"));
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4874fffcada26b7cd73ede33d95baeb9' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
+</body>
+</html>

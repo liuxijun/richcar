@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="web" namespace="/web" extends="threeScreen">
+        <default-interceptor-ref name="threeCrudStack"/>
+        <action name="userFriend-*" class="com.fortune.rms.web.user.UserFriendAction">
+            <!--<param name="keyId">{1}</param>-->
+            <result name="list">/common/threeScreenData.jsp</result>
+        </action>
+        
+        <action name="bookMark-*" class="com.fortune.rms.web.user.BookMarkAction">
+            <!--<param name="keyId">{1}</param>-->
+            <result name="add">/common/threeScreenData.jsp</result>
+            <result name="list">/common/threeScreenData.jsp</result>
+            <result name="delete">/common/threeScreenData.jsp</result>
+        </action>
+
+        <!--<action name="content-*" class="com.fortune.threeScreencreen.web.ContentAction">-->
+            <!--<param name="keyId">{1}</param>-->
+            <!--<result name="list">/common/threeScreenData.jsp</result>-->
+        <!--</action>-->
+
+        <action name="recomment-*" class="com.fortune.rms.web.user.ThreeScreenRecommendAction">
+            <!--<param name="keyId">{1}</param>-->
+            <result name="add">/common/threeScreenData.jsp</result>
+            <result name="list">/common/threeScreenData.jsp</result>
+            <result name="update">/common/threeScreenData.jsp</result>
+            <result name="recommendNotify">/common/threeScreenData.jsp</result>
+        </action>
+
+        <action name="userBinding-*" class="com.fortune.rms.web.user.UserBindingAction">
+            <!--<param name="keyId">{1}</param>-->
+            <result name="list">/common/threeScreenData.jsp</result>
+        </action>
+
+        <action name="ssoToken-*" class="com.fortune.rms.web.user.SsoTokenAction">
+        </action>
+
+    </package>
+</struts>

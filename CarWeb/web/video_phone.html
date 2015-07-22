@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<title>WEICHAI</title>
+    <link href="css/base.css" rel="stylesheet">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/utilsParameters.js"></script>
+    <script src="js/channels.js"></script>
+    <script src="js/renderDetail.js"></script>
+    <script src="page/js/frontUser.js"></script>
+    <script>
+        serverOptions.address = "/";
+        document.write('<script src="'+serverOptions.address+"interface/player.jsp?date="+new Date().getTime()+'"><'+'/script>');
+        document.write('<script src="'+serverOptions.address+"js/getSession.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+    <script>
+        var userId = typeof(user)=='undefined'|| user==null?null:user.userId;
+        detailRender.contentId = getParameterFromUrl(null,"id");
+        detailRender.toPhone();
+        function initSystem(){
+            checkLogon("login_phone.html?nextUrl=video_phone.html&channelId="
+                    +getParameterFromUrl(null,"channelId",null)+"&id="
+                    +getParameterFromUrl(null,"id",null),userId);
+            detailRender.systemIsReady = true;
+            detailRender.userId = userId;
+            detailRender.detailReady(detailRender.movieDetailJsonData);
+        }
+
+        document.write('<script src="'+serverOptions.address+'page/js/detail.jsp?simple=true&callback=' +
+        'detailRender.detailReady&contentId=' +detailRender.contentId+'"><'+'/script>');
+
+        function goToUpdatePwd() {
+            window.location.href =  "updatePwd_phone.html?nextUrl=video_phone.html&channelId="
+                    +getParameterFromUrl(null,"channelId",null)+"&id="
+                    +getParameterFromUrl(null,"id",null);
+        }
+
+        function goToRegister() {
+            window.location.href =  "reg_phone.html?nextUrl=video_phone.html&channelId="
+                    +getParameterFromUrl(null,"channelId",null)+"&id="
+                    +getParameterFromUrl(null,"id",null);
+
+        }
+
+        function goToCollection() {
+            if(userId == null || userId == "") {
+                alert("请登录！");
+                return;
+            }
+            window.location.href = "collection_phone.html";
+
+        }
+
+        function goToPlayLogs() {
+            if(userId == null || userId == "") {
+                alert("请登录！");
+                return;
+            }
+            window.location.href = "playLogs_phone.html";
+        }
+    </script>
+</head>
+
+<body onload="initSystem()">
+<div id="container">
+
+<header class="globalheader">
+  <section class="top_cont">
+    <div class="logoarea"><a href="index_phone.html">WEICHAI</a></div>
+    <div class="userarea">
+   <!--     <a id="register" href="javascript:goToRegister()" style="float: right;margin-left: 3%">|&nbsp;注册</a>-->
+        <a id="updatePwd" href="javascript:goToUpdatePwd()" style="float: right;margin-left: 3%">|&nbsp;修改密码</a>
+        <a href="/user/frontUser!frontUserLoginOut.action?userFrom=phone" class="no_login"></a>
+ <!--       <a href="#" class="record"></a>
+        <a href="#" class="fav"></a>-->
+    </div>
+  </section>
+</header>
+<section class="section fixed">
+<div id="video_detail">
+<div class="location"><a href="#" id="parentChannel">潍柴动态</a><a href="#" id="channel">潍柴新闻</a><span id="contentName">潍柴战略发布会</span></div>
+<div class="video_play" id="a1"></div>
+<div class="video_info">
+<div class="info fixed" id="contentDetail"><strong><a href="#" class="add_fav">收藏</a><span id="contentName_">潍柴战略发布会</span></strong><span id="intro">2013年4月11日，潍柴动力和意大利法拉利F1车队在上海举办战略合作发布会，宣布正式确立双方品牌战略联盟。此前，潍柴动力已于今年2月1日 正式成为法拉利F1车队为期四年的全球赞助商。</span></div>
+    <div class="video_love">
+        <ul class="fixed" id="viewOthers">
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+            <li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+        </ul>
+    </div>
+<div class="video_love">
+<div class="vl_top"><!--<a href="#">查看全部>>--></a><strong>你可能还喜欢</strong></div>
+<ul class="fixed" id="likeThese">
+<li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+<li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布</i></span></a></li>
+<li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+<li><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+
+<footer class="nav clearfix"  id="container_">
+  <div class="navarea">
+<ul>
+    <li class="icon_1"><a href="index_phone.html">首页</a></li>
+    <!--<li class="icon_2"><a href="list_phone.html">直播</a></li>-->
+    <li class="icon_3"><a href="list_phone.html">点播</a></li>
+    <li class="icon_4"><a class="over" href="search_phone.html">搜索</a></li>
+    <!--<li class="icon_5"><a href="list_phone.html">个人中心</a></li>-->
+    <li class="icon_6"><a href="javascript:goToCollection()">收藏</a></li>
+    <li class="icon_7"><a href="javascript:goToPlayLogs()">历史</a></li>
+</ul>
+</div>
+</footer>
+</div>
+    <script>
+       $(".rank_t").bind("click", function () {
+       $("#menu_font").toggle();
+        });
+	  $(".menu_font>li").bind("click", function () {
+       $("#menu_font").toggle();
+        });
+
+
+
+       var a=document.getElementById("video_left");
+       var b=document.getElementById("video_right");
+       if(a!=null&&b!=null){
+           if(a.clientHeight<b.clientHeight){
+               a.style.height=b.clientHeight+"px";
+           }else{
+               b.style.height=a.clientHeight+"px";
+           }
+       }
+       if(typeof(innerWebStat)!='undefined'&&innerWebStat){
+           document.write(unescape("%3Cscript src='http://s11.cnzz.com/stat.php?id=1253630191&web_id=1253630191'%3E%3C/script%3E"));
+           var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+           document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4874fffcada26b7cd73ede33d95baeb9' type='text/javascript'%3E%3C/script%3E"));
+       }
+  </script>
+</body>
+</html>

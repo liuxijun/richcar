@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title> 延安党建网 </title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js?v3.70"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="css/site.css"/>
+	<style>
+		.divColLeft {
+			float: left;
+			width: 728px;
+		}
+
+		.divColRight {
+			float: right;
+			width: 270px;
+		}
+
+		.title {
+			text-align: center;
+			font-weight: normal;
+			font-size: 26px;
+			line-height: 38px;
+			margin: 20px 20px 10px 20px;
+		}
+
+		.description {
+			color: #888;
+			font-size: 12px;
+			text-align: center;
+		}
+
+		.contentv {
+			margin: 20px auto;
+		}
+
+		.contentv p {
+			text-indent: 30px;
+			text-align: justify;
+			font-size: 16px;
+			line-height: 28px;
+			MARGIN: 0 3px 15px;
+		}
+
+        .contentv pre {
+            text-indent: 30px;
+            text-align: justify;
+            font-size: 16px;
+            line-height: 28px;
+            MARGIN: 0 3px 15px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+		#Player {
+			width: 830px;
+			height: 440px;
+			background-color: #000;
+			margin-bottom: 20px;
+		}
+
+		.moreLink {
+			height: 440px;
+			width: 150px;
+			text-align: center;
+			float: right;
+		}
+
+		#arrUp, #arrDn {
+			cursor: pointer;
+		}
+
+		#moreLinkWrap {
+		/*	height: 371px;*/
+			margin : 10px 0;
+			overflow: hidden;
+		}
+
+		#moreLinksUl {
+
+		}
+
+		#moreLinksUl li {
+			text-align: center;
+			line-height: 18px;
+			font-size: 12px;
+			border-bottom: 1px dotted #a1a1a1;
+			margin-bottom: 20px;
+		}
+
+		#moreLinksUl li img {
+			width: 150px;
+			height: 90px;
+			display: block;
+			margin: 5px auto;
+		}
+	</style>
+    <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/utilsParameters.js"></script>
+    <script src="js/channels.js"></script>
+    <script>
+        document.write('<script src="'+serverOptions.address+"interface/player.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+    <script>
+        var clipNo = 1;
+        var contentId = getParameterFromUrl(null,"id");
+        var movieDetailJsonData={};
+        var systemIsReady = false;
+        serverOptions.address = "/";
+        function setChannel(id,channel,urlParameters){
+            if(typeof(urlParameters)=='undefined'){
+                urlParameters = "id";
+            }
+            if(channel!=null){
+                var channelObj = $("#"+id);
+                if(channelObj!=null){
+                    channelObj.attr("href","list.html?" +urlParameters+
+                            "="+channel.id);
+                    channelObj.html(channel.name);
+                }
+            }
+        }
+
+        function playContent(contentId,clipNo){
+            if(typeof(openPlayer)=='undefined'){
+                return;
+            }
+            var isLive= false;//是否是直播。如果是直播，设置为true
+            var playerContentId= 'Player';//播放器容器的ID
+            var playerId = 'fortuneFlashPlayer';//播放器的id，获取播放时间进度、跳转、获取状态等信息时需要。
+            var width=830;
+            var height=440;
+            openPlayer(contentId,clipNo,playerContentId,playerId,isLive,width,height);
+        }
+
+        var rendered = false;
+        function detailReady(movieDetailJsonData){
+            if(typeof(openPlayer)=='undefined'){
+                return;
+            }
+            if((!systemIsReady)||rendered){
+                return;
+            }
+            rendered = true;
+            var content = movieDetailJsonData.content;
+            if(content.type == 'picNews'){
+                $("#Player").html('<img src="' +content.posterBig+
+                        '" width="830" height="440">');
+            }else{
+                playContent(contentId,clipNo);
+            }
+            renderDetail(movieDetailJsonData);
+        }
+
+        function renderDetail(movieDetailJsonData){
+            if(typeof(movieDetailJsonData)!='undefined'){
+                var parentChannel = movieDetailJsonData.parentChannel;
+                if(typeof(parentChannel)=='undefined'){
+                    parentChannel = {id:-1};
+                }
+                setChannel("channel", movieDetailJsonData.channel,'parentId='+parentChannel.id+"&id");
+                setChannel("parentChannel",parentChannel,"parentId");
+                var content =movieDetailJsonData.content;
+                $("#contentName").html(content.name);
+                $("#contentDetail").html(content.intro);
+                var moreLinks  = $("#moreLinksUl");
+                var relateContents = movieDetailJsonData.relateContents;
+                if(moreLinks!=null&&relateContents!=null&&relateContents.length>0){
+                    moreLinks.html('');
+                    for(var j= 0,l=relateContents.length;j<l&&j<3;j++){
+                        var c = relateContents[j];
+                        moreLinks.append('<li> <a href="vodDetail.html?id='+c.id+'">' +
+                                '<img src="'+c.poster+'" alt=""/>'+c.name+'</a></li>');
+                    }
+                }
+            }
+        }
+        function initSystem(){
+            systemIsReady = true;
+            detailReady(movieDetailJsonData);
+        }
+        document.write('<script src="'+serverOptions.address+'page/js/detail.jsp?simple=true&callback=detailReady&contentId=' +contentId+'"><'+'/script>');
+
+    </script>
+</head>
+<body onload="initSystem()">
+<!-- banner -->
+<img id="headBanner" src="images/headerBanner.jpg" alt=""/>
+<!-- main menu -->
+<div id="divMenu">
+	<ul id="ulMenu">
+		<li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="index.html#zszt">中省直通</a></li>
+        <li><a class="mainMenu" href="index.html#notice">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+	</ul>
+</div>
+
+<!-- breadcrumb -->
+<div class="breadcrumb">
+	<a href="index.html">首页</a> > <a href="subColumn.html" id="parentChannel">党建动态</a> > <a href="subColumn.html" id="channel">今日头条</a> > 正文
+</div>
+
+<!-- main section -->
+<div class="mainSec">
+
+	<h1 class="title" id="contentName">各地城镇化质量提高 红利共享</h1>
+
+	<!--<p class="description">发布时间:2014年11月08日 17:18 | 来源：新华网</p>-->
+
+	<div class="contentv">
+		<div class="divPlayZone">
+			<div class="moreLink"><!--<img id="arrUp" src="images/arrUp.png" alt=""/>--><div id="moreLinkWrap">
+					<ul id="moreLinksUl">
+						<li>
+							<a href="#">
+								<img src="images/slde_1.jpg" alt=""/>
+								李克强在会上的发言(全文)
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img src="images/slde_1.jpg" alt=""/>
+								李克强在第九届东亚峰会上的发言(全文)
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img src="images/slde_1.jpg" alt=""/>
+								李克强在第九届东亚峰会上的发言(全文)
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img src="images/slde_1.jpg" alt=""/>
+								李克强在第九届东亚峰会上的发言(全文)
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img src="images/slde_1.jpg" alt=""/>
+								e李克强在第九届东亚峰会上的发言(全文)
+							</a>
+						</li>
+					</ul>
+				</div><!--<img id="arrDn" src="images/arrDn.png" alt=""/>-->
+			</div>
+			<div id="Player"></div>
+		</div>
+		<h2>内容介绍：</h2>
+
+		<pre id="contentDetail">
+		</pre>
+	</div>
+</div>
+
+<!-- footer -->
+<div class="mainSec footer">
+	<hr class="white"/>
+	<p>
+		版权所有：延安党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+	</p>
+
+	<p>
+		主办方：延安市委组织部党员教育中心（延安远程办）
+	</p>
+</div>
+</body>
+<!--[if lt IE 9]>
+<script src="js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/comm.js"></script>
+<script>
+	'use strict';
+
+	var moreLinkUl = $('#moreLinksUl'), wholeHeight = moreLinkUl.outerHeight(), curMargin = 0;
+	var wrapHeight = $('#moreLinkWrap').outerHeight();
+	if (wholeHeight > wrapHeight) {
+		$('#arrDn').click(function () {
+			curMargin -= 120;
+			if (wrapHeight - curMargin >= wholeHeight) {
+				curMargin = wrapHeight - wholeHeight;
+			}
+			moreLinkUl.animate({
+				marginTop: curMargin
+			});
+		});
+		$('#arrUp').click(function () {
+			curMargin += 120;
+			if (curMargin >= 0) {
+				curMargin = 0;
+			}
+			moreLinkUl.animate({
+				marginTop: curMargin
+			});
+
+		});
+	}
+</script>
+</html>

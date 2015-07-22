@@ -1,0 +1,158 @@
+<html>
+<head>
+    <title>测试播放</title>
+    <style type="text/css">
+        .selected{
+            border: 1px solid #808FFF;
+            border-right-color: #F0FFFF;
+            border-bottom-color: #F0FFFF;
+            background-color: #809FFF;
+        }
+        .content{
+            border: 1px solid #FFFFFF;
+            text-align: center;
+            color:blue;
+            float:left;
+            width:150px;
+        }
+        .epgs{
+            height:200px;
+        }
+        .epgs ul{
+            list-style-type:none;
+        }
+        .epgItem{
+            width:300px;
+            float:left;
+        }
+        .epgFinished{
+            cursor:pointer;
+            color:blue;
+        }
+        .epgWaiting{
+            color:gray;
+        }
+        .epgWorking{
+            color:green;
+        }
+        .poster{
+            width:150px;
+            height:150px;
+        }
+        .playerDiv{
+            width:640px;
+            height:360px;
+        }
+    </style>
+    <script type="text/javascript" src="/interface/player.jsp"></script>
+    <script type="text/javascript" src="../ckplayer/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        var movies = [];
+        //movies.push({name:"多层螺旋CT在冠动脉疾病诊断中的应用",contentId:5,clipNo:1});
+        function reloadPlayLinks(){
+            $.ajax({
+                url:'../page/js/list.jsp',
+                dataType:'json',
+                data:{
+                    channelId:15884423,
+                    cspId:-1,limit:40
+                    //,propertyIds:'MEDIA_NA'
+                },
+                success:function(data){
+                    var listData = data['listData'];
+                    if(listData!=null){
+                        var objs = listData['objs'];
+                        if(objs!=null&&objs.length>0){
+                            movies=[];
+                            for(var i= 0,l=objs.length;i<l;i++){
+                                var m = objs[i];
+                                movies.push(m);
+                            }
+                            renderPlayLinks(movies);
+                            tryToPlay(0)
+                        }
+                    }
+                }});
+        }
+        function renderPlayLinks(movies){
+            var html = "<div style='width:640px;'><div class='epgs' id='epgs'>节目单</div><br/>";
+            for(var i= 0,l=movies.length;i<l;i++){
+                var movie =movies[i];
+                var name = movie['MEDIA_NAME'];
+                var poster = movie['PHONE_MEDIA_POSTER_SMALL'];
+                html +="<div id='content_"+i+"' class='content' onclick='tryToPlay(" +i+
+                ")'><img alt='"+name+"' class='poster' src='"+poster+
+                "'><br/><div style='text-align: center'>" +name+"</div></div>";
+            }
+            html+="</div>";
+            document.getElementById('movieList').innerHTML = html;
+        }
+        function initPlayer(){
+            //renderPlayLinks(movies);
+            //tryToPlay(0);
+            reloadPlayLinks();
+        }
+        var playerContentId= 'a1';//播放器容器的ID
+        var playerId = 'fortuneFlashPlayer';//播放器的id，获取播放时间进度、跳转、获取状态等信息时需要。
+        var width=640;
+        var height=360;
+        function tryToPlay(idx){
+            $(".selected").removeClass("selected");
+            $("#content_"+idx).addClass("selected");
+            var movie = movies[idx];
+            var isLive= movie.isLive;//是否是直播。如果是直播，设置为true
+            var contentId=movie['id'];//播放媒体的ID
+            var clipNo = movie['clipNo'];//媒体的第几集，从1开始
+            if(typeof(clipNo)=='undefined'){
+                clipNo = 1;
+            }
+            openPlayer(contentId,clipNo,playerContentId,playerId,isLive?1:0,width,height);
+            $.ajax({
+                url:'../page/js/epg.jsp?contentId='+contentId,
+                dataType:'json',
+                success:function(data){
+                    var result = '<ul>';
+                    var epgs = data['epg'];
+                    if(epgs!=null){
+                        for(var i= 0,l=epgs.length;i<l;i++){
+                            var epg = epgs[i];
+                            var beginStr = epg['beginStr'];
+                            var beginDate = epg['beginTime'];
+                            var endDate = epg['endTime'];
+                            var beginTime = beginDate.substring(11,16);
+                            var endTime = endDate.substring(11,16);
+                            var dur = epg['dur'];
+                            var cId = epg['contentId'];
+                            var status = epg['status'];
+                            var clsName = 'epgFinished';
+                            var clickStr = '';
+                            if(status==1){
+                                clsName = 'epgWaiting';
+                            }else if(status==2){
+                                clsName = 'epgWorking';
+                            }else if(status==3){
+                                clsName = 'epgFinished';
+                                clickStr = ' onclick="playEPG('+cId+',\''+beginStr+'\','+dur+','+status+')"';
+                            }
+
+                            result +='<li class="epgItem '+clsName+'" '+clickStr+'>'+beginTime+'-'+endTime+' '+epg['name']+'</li>';
+                        }
+                        renderPlayLinks(movies);
+                    }
+                    result+='</ul>';
+                    $("#epgs").html(result);
+                }});
+        }
+        function playEPG(contentId,beginDate,dur,status){
+//            alert('尝试播放'+contentId+',begin='+beginDate+',dur='+dur);
+            openPlayer(contentId,1,playerContentId,playerId,0,width,height,null,beginDate,dur);
+        }
+    </script>
+</head>
+<body onload="initPlayer()">
+<div id="a1" class="playerDiv">
+
+</div>
+<div id="movieList"></div>
+</body>
+</html>

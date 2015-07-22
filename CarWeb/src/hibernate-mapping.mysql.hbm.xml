@@ -1,0 +1,1936 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.fortune.common.business.security.model.AdminRole" table="ADMIN_ROLE">
+        <!-- AdminRole mapping info-->
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="adminId" column="admin_id" />
+        <property name="cspId" column="csp_id" />
+        <property name="roleId" column="role_id" />
+    </class>
+
+    <class name="com.fortune.common.business.security.model.Permission" table="PERMISSION">
+        <!-- Permission mapping info-->
+        <id name="permissionId" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name" />
+
+        <property name="target" column="target" />
+
+        <property name="classname" column="classname" />
+
+        <property name="methodName" column="methodname" />
+
+        <property name="permissionDesc" column="permissiondesc" />
+    </class>
+
+    <class name="com.fortune.common.business.security.model.RolePermission" table="ROLE_PERMISSION">
+        <!-- RolePermission mapping info-->
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+
+        <property name="roleid" column="role_id" />
+
+        <property name="permissionid" column="permission_id" />
+    </class>
+
+    <class name="com.fortune.common.business.security.model.RoleMenu" table="ROLE_MENU">
+        <!-- RolePermission mapping info-->
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="roleId" column="role_id" />
+        <property name="menuId" column="menu_id" />
+    </class>
+
+
+    <class name="com.fortune.common.business.security.model.Admin" table="ADMIN">
+        <!-- Admin mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="login" column="login" />
+        <property name="password" column="password" />
+        <property name="realname" column="realname" />
+        <property name="telephone" column="telephone" />
+        <property name="status" column="status" />
+        <property name="isRoot" column="is_root"/>
+        <property name="isSystem" column="is_system"/>
+        <property name="oldpasswordlog" column="oldpasswordlog" />
+        <property name="modifydate" column="modifydate" />
+        <property name="lastlogintime" column="lastlogintime" />
+    </class>
+    <class name="com.fortune.common.business.security.model.Menu" table="MENU">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME" />
+        <property name="url" column="URL" />
+        <property name="parentId" column="PARENT_ID"/>
+        <property name="permissionId" column="PERMISSION_ID" />
+        <property name="permissionStr" column="PERMISSION_STR" />
+        <property name="style" column="STYLE" />
+        <property name="status" column="STATUS" />
+
+    </class>
+
+    <class name="com.fortune.common.business.security.model.Role" table="ROLE">
+        <id name="roleid" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" />
+        <property name="memo" column="memo" />
+        <property name="type" column="type"/>
+    </class>
+    <class name="com.fortune.rms.business.ad.model.Ad" table="AD">
+        <!-- Ad mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name"/>
+        <property name="desp" column="desp"/>
+        <property name="startTime" column="start_time"/>
+        <property name="endTime" column="end_time"/>
+        <property name="adLength" column="ad_length"/>
+        <property name="adPlayType" column="ad_play_type"/>
+        <property name="playTime" column="play_time"/>
+        <property name="isForce" column="is_force"/>
+        <property name="url" column="url"/>
+        <property name="deviceId" column="DEVICE_ID"/>
+    </class>
+
+    <class name="com.fortune.rms.business.ad.model.AdLog" table="AD_LOG">
+        <!-- AdLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="adId" column="ad_id"/>
+        <property name="adUrlId" column="ad_url_id"/>
+        <property name="channelId" column="channel_id"/>
+        <property name="contentId" column="content_id"/>
+        <property name="spId" column="sp_id"/>
+        <property name="adRangeId" column="ad_range_id"/>
+        <property name="visitTime" column="VISIT_TIME"/>
+        <property name="trainId" column="TRAIN_ID"/>
+    </class>
+
+    <class name="com.fortune.rms.business.ad.model.AdRange" table="AD_RANGE">
+        <!-- AdRange mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="adId" column="ad_id"/>
+        <many-to-one name="ad" fetch="select" lazy="false"
+                     outer-join="false" column="ad_id"
+                     class="com.fortune.rms.business.ad.model.Ad" insert="false" update="false"/>
+        <property name="pos" column="pos"/>
+        <property name="adName" column="ad_name"/>
+        <property name="type" column="type"/>
+        <property name="desertName" column="desert_name"/>
+        <property name="cid" column="cid"/>
+        <property name="lineId" column="line_id"/>
+        <property name="lineName" column="LINE_NAME"/>
+    </class>
+
+    <class name="com.fortune.rms.business.ad.model.AdUrl" table="AD_URL">
+        <!-- AdUrl mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="type" column="type"/>
+
+        <property name="url" column="url"/>
+
+        <property name="playPercent" column="play_percent"/>
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.Content" table="CONTENT">
+        <!-- Content mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="actors" column="actors"/>
+
+        <property name="directors" column="directors"/>
+
+        <property name="creatorAdminId" column="creator_admin_id"/>
+
+        <property name="createTime" column="create_time"/>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="moduleId" column="module_id"/>
+
+        <property name="deviceId" column="device_id"/>
+
+        <property name="status" column="status"/>
+
+        <property name="statusTime" column="status_time"/>
+
+        <property name="contentAuditId" column="content_audit_id"/>
+
+        <property name="digiRightUrl" column="digi_right_url"/>
+
+        <property name="validStartTime" column="valid_start_time"/>
+
+        <property name="validEndTime" column="valid_end_time"/>
+
+        <property name="allVisitCount" column="all_visit_count"/>
+
+        <property name="monthVisitCount" column="month_visit_count"/>
+
+        <property name="weekVisitCount" column="week_visit_count"/>
+
+        <property name="visitCountStatus" column="visit_count_status"/>
+
+        <property name="score" column="score"/>
+
+        <property name="isSpecial" column="is_special"/>
+
+        <property name="scoreCount" column="score_count"/>
+
+        <property name="scoreStatus" column="score_status"/>
+
+        <property name="intro" column="intro"/>
+
+        <property name="post1Url" column="post1_url"/>
+
+        <property name="post2Url" column="post2_url"/>
+
+        <property name="property1" column="property1"/>
+
+        <property name="property2" column="property2"/>
+
+        <property name="property3" column="property3"/>
+
+        <property name="property4" column="property4"/>
+
+        <property name="property5" column="property5"/>
+
+        <property name="property6" column="property6"/>
+
+        <property name="property7" column="property7"/>
+        <property name="property8" column="property8"/>
+        <property name="contentId" column="content_id"/>
+        <property name="userTypes" column="user_types"/>
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.ContentAudit" table="CONTENT_AUDIT">
+        <!-- ContentAudit mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="type" column="type"/>
+
+        <property name="status" column="status"/>
+
+        <property name="result" column="result"/>
+
+        <property name="resultMsg" column="result_msg"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="applyTime" column="apply_time"/>
+
+        <property name="auditAdminId" column="audit_admin_id"/>
+
+        <property name="auditTime" column="audit_time"/>
+    </class>
+    <class name="com.fortune.rms.business.publish.model.SearchLog" table="SEARCH_LOG">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="searchValue" column="search_value"/>
+        <property name="searchTime" column="search_time"/>
+        <property name="userTel" column="user_tel"/>
+    </class>
+    <class name="com.fortune.rms.business.publish.model.UserHotSearch" table="USER_HOT_SEARCH">
+        <!-- UserHotSearch mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="content" column="content"/>
+
+        <property name="createTime" column="createtime"/>
+
+        <property name="searchCount" column="search_count"/>
+
+        <property name="searchCountStatus" column="search_count_status"/>
+
+        <property name="type" column="type"/>
+
+        <property name="adminId" column="admin_id"/>
+
+        <property name="searchWeekCount" column="search_week_count"/>
+
+        <property name="searchMonthCount" column="search_month_count"/>
+
+        <property name="updateCount" column="update_count"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.ContentChannel" table="CONTENT_CHANNEL">
+        <!-- ContentChannel mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="channelId" column="channel_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.ContentCsp" table="CONTENT_CSP">
+        <!-- ContentCsp mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="status" column="status"/>
+
+        <property name="statusTime" column="status_time"/>
+
+        <property name="contentAuditId" column="content_audit_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.csp.model.AdminCsp" table="ADMIN_CSP">
+        <!-- AdminCsp mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="adminId" column="admin_id"/>
+        <many-to-one name="admin" fetch="select" lazy="false"
+                     outer-join="false" column="admin_id"
+                     class="com.fortune.common.business.security.model.Admin"
+                     insert="false" update="false"/>
+
+        <property name="cspId" column="csp_id"/>
+        <many-to-one name="csp" fetch="select" lazy="false"
+                     outer-join="false" column="csp_id"
+                     class="com.fortune.rms.business.csp.model.Csp"
+                     insert="false" update="false"/>
+
+        <property name="isDefaultCsp" column="is_default_csp"/>
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.ContentProperty" table="CONTENT_PROPERTY">
+        <!-- ContentProperty mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="propertyId" column="property_id"/>
+
+        <property name="intValue" column="int_value"/>
+
+        <property name="stringValue" column="string_value"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="extraData" column="extra_data"/>
+
+        <property name="subContentId" column="subcontent_id"/>
+        <property name="name" column="NAME"/>
+        <property name="extraInt" column="EXTRA_INT"/>
+        <property name="length" column="LENGTH"/>
+        <property name="thumbPic" column="THUMB_PIC"/>
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.ContentRecommend" table="CONTENT_RECOMMEND">
+        <!-- ContentRecommend mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="recommendId" column="recommend_id"/>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="displayOrder" column="display_order"/>
+
+        <property name="channelId" column="channel_id"/>
+        <property name="cspId" column="csp_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.ContentRelated" table="CONTENT_RELATED">
+        <!-- ContentRelated mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="relatedId" column="related_id"/>
+
+        <property name="relatedContentId" column="related_content_id"/>
+
+        <property name="displayOrder" column="display_order"/>
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.ContentServiceProduct" table="CONTENT_SERVICE_PRODUCT">
+        <!-- ContentServiceProduct mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="serviceProductId" column="service_product_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.csp.model.Csp" table="CSP">
+        <!-- Csp mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="address" column="address"/>
+
+        <property name="phone" column="phone"/>
+
+        <property name="email" column="email"/>
+
+        <property name="status" column="status"/>
+
+        <property name="isCp" column="is_cp"/>
+
+        <property name="isSp" column="is_sp"/>
+
+        <property name="isCpOnlineAudit" column="is_cp_online_audit"/>
+
+        <property name="isCpOfflineAudit" column="is_cp_offline_audit"/>
+
+        <property name="isSpOnlineAudit" column="is_sp_online_audit"/>
+
+        <property name="isSpOfflineAudit" column="is_sp_offline_audit"/>
+        <property name="alias" column="alias"/>
+        <property name="spId" column="sp_id"/>
+        <property name="type" column="type"/>
+    </class>
+
+    <class name="com.fortune.rms.business.csp.model.CspAuditor" table="CSP_AUDITOR">
+        <!-- CspAuditor mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="adminId" column="admin_id"/>
+
+        <property name="cpOnline" column="cp_online"/>
+
+        <property name="cpOffline" column="cp_offline"/>
+
+        <property name="spOnline" column="sp_online"/>
+
+        <property name="spOffline" column="sp_offline"/>
+    </class>
+
+    <class name="com.fortune.rms.business.csp.model.CspCsp" table="CSP_CSP">
+        <!-- CspCsp mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="masterCspId" column="master_csp_id"/>
+
+        <property name="cspId" column="csp_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.csp.model.CspDevice" table="CSP_DEVICE">
+        <!-- CspDevice mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="deviceId" column="device_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.csp.model.CspModule" table="CSP_MODULE">
+        <!-- CspModule mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="moduleId" column="module_id"/>
+
+        <property name="isDefault" column="is_default"/>
+    </class>
+
+    <class name="com.fortune.rms.business.csp.model.CspProduct" table="CSP_PRODUCT">
+        <!-- CspProduct mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="productId" column="product_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.VisitDayAreaLog" table="VISIT_DAY_AREA_LOG">
+        <!-- VisitDayAreaLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="spId" column="sp_id"/>
+
+        <property name="cpId" column="cp_id"/>
+
+        <property name="channelId" column="channel_id"/>
+
+        <property name="areaId" column="area_id"/>
+
+        <property name="day" column="day"/>
+
+        <property name="count" column="count"/>
+
+        <property name="length" column="length"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.VisitDayChannelLog" table="VISIT_DAY_CHANNEL_LOG">
+        <!-- VisitDayChannelLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="spId" column="sp_id"/>
+
+        <property name="cpId" column="cp_id"/>
+
+        <property name="channelId" column="channel_id"/>
+
+        <property name="day" column="day"/>
+
+        <property name="count" column="count"/>
+
+        <property name="length" column="length"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.VisitDayContentLog" table="VISIT_DAY_CONTENT_LOG">
+        <!-- VisitDayContentLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="spId" column="sp_id"/>
+
+        <property name="cpId" column="cp_id"/>
+
+        <property name="channelId" column="channel_id"/>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="day" column="day"/>
+
+        <property name="count" column="count"/>
+
+        <property name="length" column="length"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.AreaDemandLog" table="AREA_DEMAND_LOG">
+        <!-- AreaDemandLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="areaId" column="area_id"/>
+
+        <property name="count" column="count"/>
+
+        <property name="createTime" column="createtime"/>
+
+        <property name="type" column="type"/>
+
+        <property name="dateStatics" column="date_statics"/>
+
+        <property name="length" column="length"/>
+
+        <property name="grade" column="grade"/>
+
+        <property name="padCount" column="PADCOUNT"/>
+
+        <property name="padLength" column="padlength"/>
+
+        <property name="phoneCount" column="PHONECOUNT"/>
+
+        <property name="phoneLength" column="phonelength"/>
+
+        <property name="bytesSend" column="bytes_send"/>
+
+        <property name="bytesSendPad" column="bytes_send_pad"/>
+
+        <property name="bytesSendPhone" column="bytes_send_phone"/>
+
+        <property name="mobileBytesSend" column="mobile_bytes_send"/>
+
+        <property name="elseBytesSend" column="else_bytes_send"/>
+
+        <property name="mobileCount" column="mobile_count"/>
+
+        <property name="elseCount" column="else_count"/>
+
+        <property name="mobileLength" column="mobile_length"/>
+
+        <property name="elseLength" column="else_length"/>
+
+        <property name="userOnLineCount" column="user_onLine_count"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.ClientLog" table="CLIENT_LOG">
+
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="clientVersion" column="client_version"/>
+
+        <property name="phoneCode" column="phone_code"/>
+
+        <property name="status" column="status"/>
+
+        <property name="time" column="time"/>
+
+        <property name="type" column="type"/>
+
+        <property name="areaId" column="AREA_ID"/>
+        <property name="ip" column="IP"/>
+        <property name="userAgent" column="user_agent"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.ContentDemandLog" table="CONTENT_DEMAND_LOG">
+        <!-- ContentDemandLog mapping info -->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="count" column="count"/>
+
+        <property name="createTime" column="createtime"/>
+
+        <property name="channelId" column="channel_id"/>
+
+        <property name="spId" column="sp_id"/>
+
+        <property name="dateStatics" column="date_statics"/>
+
+        <property name="length" column="length"/>
+
+        <property name="type" column="type"/>
+
+        <property name="padCount" column="PADCOUNT"/>
+
+        <property name="padLength" column="PADLENGTH"/>
+
+        <property name="phoneCount" column="PHONECOUNT"/>
+
+        <property name="phoneLength" column="PHONELENGTH"/>
+
+        <property name="bytesSend" column="bytes_send"/>
+
+        <property name="bytesSendPad" column="bytes_send_pad"/>
+
+        <property name="bytesSendPhone" column="bytes_send_phone"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.ChannelDemandLog" table="CHANNEL_DEMAND_LOG">
+        <!-- ContentDemandLog mapping info -->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="count" column="count"/>
+
+        <property name="createTime" column="createtime"/>
+
+        <property name="channelId" column="channel_id"/>
+
+        <property name="dateStatics" column="date_statics"/>
+
+        <property name="length" column="length"/>
+
+        <property name="bytesSend" column="bytes_send"/>
+
+        <property name="type" column="type"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.VisitDayCpLog" table="VISIT_DAY_CP_LOG">
+        <!-- VisitDayCpLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cpId" column="cp_id"/>
+
+        <property name="day" column="day"/>
+
+        <property name="count" column="count"/>
+
+        <property name="length" column="length"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.VisitDaySpLog" table="VISIT_DAY_SP_LOG">
+        <!-- VisitDaySpLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="spId" column="sp_id"/>
+
+        <property name="day" column="day"/>
+
+        <property name="count" column="count"/>
+
+        <property name="length" column="length"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.VisitLog" table="VISIT_LOG">
+        <!-- VisitLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="contentId" column="CONTENT_ID"/>
+        <property name="spId" column="sp_id"/>
+        <property name="cpId" column="cp_id"/>
+        <property name="channelId" column="channel_id"/>
+        <property name="contentPropertyId" column="content_property_id"/>
+        <property name="url" column="url"/>
+        <property name="userId" column="user_id"/>
+        <property name="userIp" column="user_ip"/>
+        <property name="areaId" column="area_id"/>
+        <property name="startTime" column="start_time" type="timestamp"/>
+        <property name="endTime" column="end_time" type="timestamp"/>
+        <property name="length" column="length"/>
+        <property name="sIp" column="S_IP"/>
+        <property name="avgBandwidth" column="AVGBAND_WIDTH"/>
+        <property name="bytesSend" column="BYTES_SEND"/>
+        <property name="isFree" column="IS_FREE"/>
+        <property name="status" column="STATUS"/>
+        <property name="playerVersion" column="PLAY_VERSION"/>
+        <property name="userAgent" column="USER_AGENT"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.WebVisitLog" table="WEB_VISIT_LOG">
+        <!-- WebVisitLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="spId" column="sp_id"/>
+
+        <property name="cpId" column="cp_id"/>
+
+        <property name="channelId" column="channel_id"/>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="userIp" column="user_ip"/>
+
+        <property name="areaId" column="area_id"/>
+
+        <property name="visitTime" column="visit_time"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.DailyStaticsLog" table="DAILYSTATICS_LOG">
+        <!-- WebVisitLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="dateStatics" column="date_statics"/>
+
+        <property name="allNetFlow" column="all_netflow"/>
+
+        <property name="allNetFlowPad" column="ALL_NETFLOW_PAD"/>
+
+        <property name="allNetFlowPhone" column="ALL_NETFLOW_PHONE"/>
+
+        <property name="mobileNetFlow" column="MOBILE_NETFLOW"/>
+
+        <property name="elseNetFlow" column="else_NetFlow"/>
+
+        <property name="allLiveNetFlow" column="alllive_netflow"/>
+
+        <property name="allLiveNetFlowPad" column="alllive_netflow_pad"/>
+
+        <property name="allLiveNetFlowPhone" column="alllive_netflow_Phone"/>
+
+        <property name="allContentNetFlow" column="allcontent_netflow"/>
+
+        <property name="allContentNetFlowPad" column="allcontent_netflow_Pad"/>
+
+        <property name="allContentNetFlowPhone" column="allcontent_netflow_Phone"/>
+
+        <property name="wasuNetFlow" column="wasu_netflow"/>
+
+        <property name="vooleNetFlow" column="voole_netflow"/>
+
+        <property name="onlineUser" column="online_user"/>
+
+        <property name="onlineUserNetFlow" column="onlineuser_netflow"/>
+
+        <property name="quarterBingFa" column="quarter_bingfa"/>
+
+        <property name="bestvNetFlow" column="bestv_netflow"/>
+
+        <property name="maxBingFa" column="max_BingFa"/>
+
+        <property name="wasuLadongNetFlow" column="WASULADONG_NETFLOW"/>
+
+        <property name="vooleLadongNetFlow" column="VOOLELADONG_NETFLOW"/>
+
+        <property name="bestvLadongNetFlow" column="bestvladong_netflow"/>
+
+        <property name="createTime" column="createTime"/>
+    </class>
+
+    <class name="com.fortune.rms.business.module.model.Module" table="MODULE">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME"/>
+        <property name="code" column="CODE"/>
+        <property name="desp" column="DESP"/>
+        <property name="columns" column="COLUMNS"/>
+        <property name="type" column="TYPE"/>
+        <property name="status" column="STATUS"/>
+        <property name="channelId" column="CHANNEL_ID"/>
+    </class>
+    <class name="com.fortune.rms.business.module.model.ModuleProperty" table="MODULE_PROPERTY">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="propertyId" column="PROPERTY_ID"/>
+        <property name="moduleId" column="MODULE_ID"/>
+        <property name="status" column="STATUS"/>
+        <property name="displayOrder" column="DISPLAY_ORDER"/>
+    </class>
+
+    <class name="com.fortune.rms.business.module.model.Property" table="PROPERTY">
+        <!-- Property mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="code" column="code"/>
+
+        <property name="name" column="name"/>
+
+        <property name="dataType" column="data_type"/>
+
+        <property name="isMultiLine" column="is_multi_line"/>
+
+        <property name="isMerge" column="is_merge"/>
+
+        <property name="maxSize" column="max_size"/>
+
+        <property name="isNull" column="is_null"/>
+
+        <property name="isMain" column="is_main"/>
+
+        <property name="columnName" column="column_name"/>
+
+        <property name="relatedTable" column="related_table"/>
+
+        <property name="status" column="status"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="moduleId" column="module_id"/>
+
+        <property name="displayOrder" column="display_order"/>
+        <property name="colSpan" column="col_span"/>
+        <property name="rowSpan" column="row_span"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.module.model.PropertySelect" table="PROPERTY_SELECT">
+        <!-- PropertySelect mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="value" column="value"/>
+        <property name="code" column="code"/>
+
+        <property name="name" column="name"/>
+
+        <property name="propertyId" column="property_id"/>
+
+        <property name="displayOrder" column="display_order"/>
+
+        <property name="parentId" column="PARENTID"/>
+
+        <property name="status" column="status"/>
+    </class>
+
+    <class name="com.fortune.rms.business.portal.model.UserFavorites" table="USER_FAVORITES">
+        <!-- UserFavorites mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="userId" column="user_id"/>
+
+        <property name="userIp" column="user_ip"/>
+
+        <property name="time" column="time"/>
+    </class>
+
+    <class name="com.fortune.rms.business.portal.model.UserRecommand" table="USER_RECOMMAND">
+        <!-- UserRecommand mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="userId" column="user_id"/>
+
+        <property name="userIp" column="user_ip"/>
+
+        <property name="status" column="status"/>
+
+        <property name="time" column="time"/>
+    </class>
+
+    <class name="com.fortune.rms.business.portal.model.UserReview" table="USER_REVIEW">
+        <!-- UserReview mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="userId" column="user_id"/>
+
+        <property name="userIp" column="user_ip"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="status" column="status"/>
+
+        <property name="time" column="time"/>
+
+        <property name="referId" column="refer_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.portal.model.UserReviewKeyword" table="USER_REVIEW_KEYWORD">
+        <!-- UserReview mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="word" column="word"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.portal.model.UserReviewReport" table="USER_REVIEW_REPORT">
+        <!-- UserReviewReport mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="userReviewId" column="user_review_id"/>
+
+        <property name="userIp" column="user_ip"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="time" column="time"/>
+    </class>
+
+    <class name="com.fortune.rms.business.portal.model.UserScoring" table="USER_SCORING">
+        <!-- UserScoring mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="userId" column="user_id"/>
+
+        <property name="userIp" column="user_ip"/>
+
+        <property name="score" column="score"/>
+
+        <property name="status" column="status"/>
+
+        <property name="time" column="time"/>
+    </class>
+
+    <class name="com.fortune.rms.business.product.model.Product" table="PRODUCT">
+        <!-- Product mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="payProductNo" column="pay_product_no"/>
+
+        <property name="price" column="price"/>
+
+        <property name="type" column="type"/>
+
+        <property name="validLength" column="valid_length"/>
+
+        <property name="lengthUnit" column="length_unit"/>
+
+        <property name="autoPay" column="auto_pay"/>
+
+        <property name="searchExtra" column="search_extra"/>
+
+        <property name="status" column="status"/>
+
+        <property name="mobileProduct" column="mobile_product"/>
+
+        <property name="costType" column="cost_type"/>
+    </class>
+
+    <class name="com.fortune.rms.business.product.model.ServiceProduct" table="SERVICE_PRODUCT">
+        <!-- ServiceProduct mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="type" column="type"/>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="productId" column="product_id"/>
+
+        <property name="validLength" column="valid_length"/>
+
+        <property name="lengthUnit" column="length_unit"/>
+
+        <property name="status" column="status"/>
+
+        <property name="autoPay" column="auto_pay"/>
+
+        <property name="searchExtra" column="search_extra"/>
+
+        <property name="discount" column="discount"/>
+
+        <property name="discountStartTime" column="discount_start_time"/>
+
+        <property name="discountEndTime" column="discount_end_time"/>
+
+        <property name="isFree" column="is_free"/>
+
+        <property name="freeStartTime" column="free_start_time"/>
+
+        <property name="freeEndTime" column="free_end_time"/>
+
+        <property name="isDisplayMsg" column="is_display_msg"/>
+
+        <property name="msg" column="msg"/>
+
+        <property name="msgStartTime" column="msg_start_time"/>
+
+        <property name="msgEndTime" column="msg_end_time"/>
+
+        <property name="isDisplayGift" column="is_display_gift"/>
+    </class>
+
+    <class name="com.fortune.rms.business.product.model.ServiceProductGift" table="SERVICE_PRODUCT_GIFT">
+        <!-- ServiceProductGift mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="serviceProductId" column="service_product_id"/>
+
+        <property name="giftServiceProductId" column="gift_service_product_id"/>
+
+        <property name="startTime" column="start_time"/>
+
+        <property name="endTime" column="end_time"/>
+    </class>
+
+    <class name="com.fortune.rms.business.product.model.UserBuy" table="USER_BUY">
+        <!-- UserBuy mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="userId" column="user_id"/>
+
+        <property name="userIp" column="user_ip"/>
+
+        <property name="spId" column="sp_id"/>
+
+        <property name="channelId" column="channel_id"/>
+
+        <property name="contentId" column="content_id"/>
+        <property name="areaId" column="area_id"/>
+
+        <property name="contentPropertyId" column="content_property_id"/>
+        <property name="productId" column="PRODUCT_ID"/>
+        <property name="serviceProductId" column="service_product_id"/>
+
+        <property name="isGift" column="is_gift"/>
+
+        <property name="price" column="price"/>
+
+        <property name="startTime" column="start_time"/>
+
+        <property name="endTime" column="end_time"/>
+
+        <property name="buyTime" column="buy_time"/>
+    </class>
+
+    <class name="com.fortune.rms.business.publish.model.Channel" table="CHANNEL">
+        <!-- Channel mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name"/>
+        <property name="description" column="description"/>
+        <property name="type" column="type"/>
+        <property name="cspId" column="csp_id"/>
+        <property name="poster1" column="poster1"/>
+        <property name="poster2" column="poster2"/>
+        <property name="parentId" column="parent_id"/>
+        <property name="status" column="status"/>
+        <property name="grade" column="grade"/>
+        <property name="auditFlag" column="AUDIT_FLAG"/>
+        <property name="code" column="code"/>
+        <property name="backgroundColor" column="B_COLOR"/>
+        <property name="layout" column="LAYOUT"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.publish.model.Recommend" table="RECOMMEND">
+        <!-- Recommend mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="code" column="code"/>
+
+        <property name="name" column="name"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="isSystem" column="is_system"/>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="type" column="type"/>
+        <property name="channelId" column="channel_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.publish.model.Related" table="RELATED">
+        <!-- Related mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="code" column="code"/>
+
+        <property name="name" column="name"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="type" column="type"/>
+
+        <property name="moduleId" column="module_id"/>
+
+        <property name="propertyId" column="property_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.Area" table="AREA">
+        <!-- Area mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="desp" column="desp"/>
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.AreaIpRange" table="AREA_IP_RANGE">
+        <!-- AreaIpRange mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="areaId" column="area_id"/>
+
+        <property name="ipRangeId" column="ip_range_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.Device" table="DEVICE">
+        <!-- Device mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+        <property name="maxTask" column="MAX_TASK"/>
+
+        <property name="type" column="type"/>
+
+        <property name="ip" column="ip"/>
+
+        <property name="url" column="url"/>
+
+        <property name="status" column="status"/>
+
+        <property name="ftpPort" column="ftp_port"/>
+
+        <property name="ftpUser" column="ftp_user"/>
+
+        <property name="ftpPwd" column="ftp_pwd"/>
+
+        <property name="ftpPath" column="ftp_path"/>
+        <property name="localPath" column="local_path"/>
+        <property name="exportPath" column="EXPORT_PATH"/>
+        <property name="monitorPort" column="MONIT_PORT"/>
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.IpRange" table="IP_RANGE">
+        <!-- IpRange mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="ipFrom" column="ip_from"/>
+
+        <property name="ipTo" column="ip_to"/>
+
+        <property name="areaId" column="area_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.content.model.ContentNotice" table="CONTENT_NOTICE">
+        <!--ContentNotice mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="status" column="status"/>
+
+        <property name="content" column="content"/>
+
+        <property name="createTime" column="create_time"/>
+
+        <property name="onlineTime" column="online_time"/>
+
+        <property name="offlineTime" column="offline_time"/>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="adminId" column="admin_id"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.PhoneRange" table="PHONE_RANGE">
+        <!-- PhoneRange mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="phoneFrom" column="phone_from"/>
+
+        <property name="phoneTo" column="phone_to"/>
+
+        <property name="areaId" column="area_id"/>
+
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.SystemLog" table="SYSTEM_LOG">
+        <!-- SystemLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="systemLogAction" column="system_log_action"/>
+
+        <property name="adminId" column="admin_id"/>
+
+        <property name="adminIp" column="admin_ip"/>
+
+        <property name="logTime" column="log_time"/>
+
+        <property name="log" column="log"/>
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.ShortMessageLog" table="SHORT_MESSAGE_LOG">
+        <!-- SystemLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="sn" column="sn"/>
+        <property name="phoneNumber" column="PHONE_NUMBER"/>
+        <property name="message" column="MESSAGE"/>
+        <property name="startTime" column="START_TIME"/>
+        <property name="status" column="STATUS"/>
+        <property name="smsIp" column="sms_Ip"/>
+        <property name="log" column="log"/>
+        <property name="responseTime" column="response_Time"/>
+        <property name="responseCode" column="response_Code"/>
+        <property name="responseIp" column="response_Ip"/>
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.SlbLog" table="SLB_LOG">
+        <!-- SystemLog mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="url" column="URL"/>
+        <property name="clientIp" column="CLIENT_IP"/>
+        <property name="startTime" column="START_TIME"/>
+        <property name="status" column="STATUS"/>
+        <property name="serverIp" column="SERVER_IP"/>
+    </class>
+
+    <class name="com.fortune.rms.business.publish.model.RelatedProperty" table="RELATED_PROPERTY">
+        <!-- RelatedProperty mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="relatedId" column="related_id"/>
+
+        <property name="propertyId" column="property_id"/>
+
+        <property name="propertyValue" column="property_value"/>
+    </class>
+
+    <class name="com.fortune.rms.business.publish.model.RelatedPropertyContent" table="RELATED_PROPERTY_CONTENT">
+        <!-- RelatedPropertyContent mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="relatedPropertyId" column="related_property_id"/>
+
+        <property name="contentId" column="content_id"/>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="displayOrder" column="display_order"/>
+    </class>
+
+    <class name="com.fortune.rms.business.template.model.Template" table="TEMPLATE">
+        <!-- Template mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name"/>
+
+        <property name="cspId" column="csp_id"/>
+
+        <property name="fileName" column="file_name"/>
+
+        <property name="type" column="type"/>
+
+        <property name="isSystem" column="is_system"/>
+
+        <property name="pageSize" column="page_size"/>
+    </class>
+
+    <class name="com.fortune.rms.business.template.model.CspTemplate" table="CSP_TEMPLATE">
+        <!-- CspTemplate mapping info-->
+        <id name="cspId" column="csp_id">
+            <generator class="assigned"/>
+
+        </id>
+
+        <property name="createor" column="createor"/>
+
+        <property name="templateId" column="template_id"/>
+
+    </class>
+    <class name="com.fortune.rms.business.template.model.ChannelTemplate" table="CHANNEL_TEMPLATE">
+        <!-- ChannelTemplate mapping info-->
+        <id name="channelId" column="channel_ID">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="createor" column="CREATEOR"/>
+
+        <property name="indexTemplate" column="INDEX_TEMPLATE"/>
+
+        <property name="listTemplate" column="list_template"/>
+
+        <property name="detailTemplate" column="DETAIL_TEMPLATE"/>
+    </class>
+
+    <class name="com.fortune.rms.business.syn.model.SynFile" table="SYN_FILE">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="md5" column="md5"/>
+        <property name="name" column="name"/>
+        <property name="type" column="type"/>
+        <property name="url" column="url"/>
+        <property name="startTime" column="start_time"/>
+        <property name="spId" column="sp_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.syn.model.SynTask" table="SYN_TASK">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="deviceId" column="device_id"/>
+        <property name="synFileId" column="syn_file_id"/>
+        <property name="synStatus" column="syn_status"/>
+        <property name="startTime" column="start_time"/>
+        <property name="startPos" column="start_pos"/>
+        <property name="endPos" column="end_pos"/>
+        <property name="synLevel" column="syn_level"/>
+    </class>
+
+    <class name="com.fortune.rms.business.user.model.BookMark" table="FRD_BOOKMARK">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="userId" column="user_id"/>
+        <property name="userType" column="user_type"/>
+        <property name="contentId" column="content_id"/>
+        <property name="subContentId" column="subcontent_id"/>
+        <property name="subContentName" column="subcontent_name"/>
+        <property name="subContentType" column="subcontent_type"/>
+        <property name="serviceType" column="service_type"/>
+        <property name="bookMarkId" column="bookmark_id"/>
+        <property name="bookMarkType" column="bookmark_type"/>
+        <property name="bookMarkValue" column="bookmark_value"/>
+        <property name="createTime" column="create_time"/>
+    </class>
+
+    <class name="com.fortune.rms.business.user.model.ThreeScreenRecommend" table="FRD_RECOMMEND">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="userType" column="user_type"/>
+        <property name="contentId" column="content_id"/>
+        <property name="subContentId" column="subcontent_id"/>
+        <property name="subContentName" column="subcontent_name"/>
+        <property name="subContentType" column="subcontent_type"/>
+        <property name="serviceType" column="service_type"/>
+        <property name="mode" column="mode1"/>
+        <property name="friendIdList" column="friend_id_list"/>
+        <property name="info" column="info"/>
+        <property name="timeStamp" column="time_stamp"/>
+        <property name="recommender" column="recommender"/>
+        <property name="recommendedId" column="recommended_id"/>
+        <property name="recommenderName" column="recommender_name"/>
+        <property name="status" column="status"/>
+    </class>
+
+    <class name="com.fortune.rms.business.user.model.UserFriend" table="FRD_USER_FRIEND">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="userId" column="user_id"/>
+        <property name="friendId" column="friend_id"/>
+        <property name="friendName" column="friend_name"/>
+    </class>
+
+    <class name="com.fortune.rms.business.user.model.User" table="USR_USER">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="login" column="login"/>
+        <property name="birthday" column="birthday"/>
+        <property name="gernate" column="gernate"/>
+        <property name="passWord" column="password"/>
+        <property name="passWordHistory" column="password_history"/>
+        <property name="userName" column="user_name"/>
+        <property name="email" column="email"/>
+        <property name="addr" column="addr"/>
+        <property name="tel" column="tel"/>
+        <property name="status" column="status"/>
+        <property name="verifyCode" column="VERIFY_CODE"/>
+        <property name="verifyTime" column="VERIFY_TIME"/>
+        <property name="lastLoginTime" column="LAST_LOGIN_TIME"/>
+    </class>
+
+    <class name="com.fortune.rms.business.user.model.UserLogin" table="USR_USER_LOGIN">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="login" column="login"/>
+
+        <property name="addr" column="addr"/>
+
+        <property name="tel" column="tel"/>
+
+        <property name="loginStatus" column="login_status"/>
+
+        <property name="loginTime" column="lOGIN_TIME"/>
+
+        <property name="desp" column="desp"/>
+
+        <property name="areaId" column="area_id"/>
+    </class>
+    <class name="com.fortune.rms.business.user.model.UserType" table="USER_TYPE">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name"/>
+        <property name="type" column="type"/>
+        <property name="level" column="level"/>
+        <property name="orgId" column="org_id"/>
+        <property name="orgName" column="org_name"/>
+    </class>
+
+
+    <class name="com.fortune.rms.business.encoder.model.EncoderTemplate" table="ENCODER_TEMPLATE">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="templateName" column="template_Name"/>
+        <property name="templateCode" column="template_code"/>
+        <property name="VEncoderType" column="V_ENCODER_TYPE"/>
+        <property name="VBitrate" column="V_BITRATE"/>
+        <property name="VFrameRate" column="V_FRAME_RATE"/>
+        <property name="VKeyframeInterval" column="V_KEYFRAME_INTERVAL"/>
+        <property name="VWidth" column="V_WIDTH"/>
+        <property name="VHeight" column="v_height"/>
+        <property name="VFixedQp" column="V_FIXED_QP"/>
+        <property name="VMaxQp" column="V_MAX_QP"/>
+        <property name="ACodec" column="A_CODEC"/>
+        <property name="AChannel" column="A_CHANNEL"/>
+        <property name="ASampleRate" column="A_SAMPLE_RATE"/>
+        <property name="AType" column="A_TYPE"/>
+        <property name="ABitrate" column="A_BIRATE"/>
+        <property name="fileFormat" column="file_format"/>
+        <property name="propertyId" column="property_id"/>
+    </class>
+    <class name="com.fortune.rms.business.user.model.RecommendFriend" table="FRD_RECOMMEND_FRIEND">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="recommendId" column="recommend_id"/>
+        <property name="friendId" column="friend_id"/>
+        <property name="status" column="status"/>
+    </class>
+
+    <class name="com.fortune.rms.business.encoder.model.EncoderTask" table="ENCODER_TASK">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME"/>
+        <property name="encoderId" column="ENCODER_ID"/>
+        <property name="clipId" column="CLIP_ID"/>
+        <property name="templateId" column="TEMPLATE_ID"/>
+        <property name="streamServerId" column="STREAM_SERVER_ID"/>
+        <property name="status" column="STATUS"/>
+        <property name="startTime" column="START_TIME"/>
+        <property name="stopTime" column="STOP_TIME"/>
+        <property name="process" column="PROCESS"/>
+        <property name="sourceFileName" column="SOURCE_FILE_NAME"/>
+        <property name="desertFileName" column="DESERT_FILE_NAME"/>
+        <property name="encodeLog" column="ENCODE_LOG"/>
+        <property name="fileDate" column="FILE_DATE"/>
+        <property name="fileSize" column="FILE_SIZE"/>
+        <!--
+                <many-to-one name="template" fetch="select" lazy="false"
+                             outer-join="false" column="TEMPLATE_ID" insert="false" update="false"
+                             class="com.fortune.rms.business.encoder.model.EncoderTemplate"/>
+        -->
+
+    </class>
+
+    <class name="com.fortune.rms.business.csp.model.CspChannel" table="CSP_CHANNEL">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="cspId" column="csp_id"/>
+
+        <property name="channelId" column="channel_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.VacLog" table="VAC_LOG">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="userId" column="USER_ID"/>
+        <property name="productId" column="PRODUCT_ID"/>
+        <property name="checkPriceMessage" column="CHECKPRICE_MESSAGE"/>
+        <property name="checkPriceResp" column="CHECKPRICE_RESP"/>
+        <property name="spId" column="sp_id"/>
+        <property name="operationType" column="OPERATIONTYPE"/>
+        <property name="createTime" column="CREATE_TIME"/>
+        <property name="finishTime" column="FINISH_TIME"/>
+        <property name="duration" column="DURATION"/>
+        <property name="resultCode" column="RESULT_CODE"/>
+    </class>
+
+    <class name="com.fortune.rms.business.system.model.IP2PhoneLog" table="IP2PHONE_LOG">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="ip" column="IP"/>
+        <property name="logs" column="LOGS"/>
+        <property name="phone" column="PHONE"/>
+        <property name="token" column="TOKEN"/>
+        <property name="uniKey" column="UNI_KEY"/>
+        <property name="startTime" column="START_TIME"/>
+        <property name="resultCode" column="RESULT_CODE"/>
+        <property name="userAgent" column="USER_AGENT"/>
+    </class>
+
+    <class name="com.fortune.rms.business.log.model.ContentZtLog" table="CONTENT_ZT_LOG">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="contentId" column="CONTENT_ID"/>
+        <property name="createTime" column="CREATETIME"/>
+        <property name="isSpecial" column="is_special"/>
+        <property name="type" column="type"/>
+        <property name="cspId" column="csp_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.train.model.TrainLine" table="TRAIN_LINE">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="parentId" column="PARENT_ID"/>
+        <property name="name" column="NAME"/>
+        <property name="picture" column="PICTURE"/>
+        <property name="description" column="DESCRIPTION"/>
+        <property name="type" column="TYPE"/>
+        <property name="status" column="STATUS"/>
+    </class>
+
+    <class name="com.fortune.rms.business.train.model.Train" table="TRAIN">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME"/>
+        <property name="trainLineId" column="TRAIN_LINE_ID"/>
+        <property name="sn" column="SN"/>
+        <property name="trainCode" column="TRAIN_CODE"/>
+        <property name="description" column="DESCRIPTION"/>
+        <property name="type" column="TYPE"/>
+        <property name="status" column="STATUS"/>
+    </class>
+
+    <class name="com.fortune.rms.business.train.model.ShowMachine" table="SHOW_MACHINE">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME"/>
+        <property name="trainId" column="TRAIN_ID"/>
+        <property name="sn" column="SN"/>
+        <property name="trainName" column="TRAIN_NAME"/>
+        <property name="type" column="TYPE"/>
+        <property name="status" column="STATUS"/>
+    </class>
+
+    <class name="com.fortune.rms.business.frontuser.model.Organization" table="organization">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME"/>
+        <property name="parentId" column="PARENT_ID"/>
+        <property name="sequence" column="SEQUENCE"/>
+    </class>
+
+    <class name="com.fortune.rms.business.frontuser.model.OrganizationChannel" table="organization_channel">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="organizationId" column="ORGANIZATION_ID"/>
+        <property name="channelId" column="CHANNEL_ID"/>
+    </class>
+
+    <class name="com.fortune.rms.business.frontuser.model.FrontUserType" table="front_user_type">
+        <id name="typeId" column="TYPE_ID">
+            <generator class="native"/>
+        </id>
+        <property name="typeName" column="TYPE_NAME"/>
+    </class>
+
+    <class name="com.fortune.rms.business.frontuser.model.FrontUser" table="front_user">
+        <id name="userId" column="USER_ID"/>
+        <property name="name" column="NAME"/>
+        <property name="gender" column="GENDER"/>
+        <property name="mail" column="MAIL"/>
+        <property name="phone" column="PHONE"/>
+        <property name="lastLogon" column="LAST_LOGON"/>
+        <property name="lastModified" column="LAST_MODIFIED"/>
+        <property name="logonTimes" column="LOGON_TIMES"/>
+        <property name="organizationId" column="ORGANIZATION_ID"/>
+        <property name="password" column="PASSWORD"/>
+        <property name="status" column="STATUS"/>
+        <property name="typeId" column="TYPE_ID"/>
+        <property name="birthday" column="BIRTHDAY"/>
+        <property name="city" column="CITY"/>
+        <property name="committee" column="COMMITTEE"/>
+        <property name="unit" column="UNIT"/>
+        <property name="section" column="SECTION"/>
+    </class>
+    <class name="com.fortune.common.business.security.model.AdminChannel" table="admin_channel">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="adminId" column="ADMIN_ID"/>
+        <property name="channelId" column="CHANNEL_ID"/>
+    </class>
+    <class name="com.fortune.rms.business.system.model.Individual" table="individual">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="logoPath" column="LOGO_PATH"/>
+        <property name="mobileLogoPath" column="MOBILE_LOGO_PATH"/>
+        <property name="name" column="NAME"/>
+
+    </class>
+    <!--投票和调查问卷-->
+    <class name="com.fortune.rms.business.vote.model.Vote" table="vote">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="title"/>
+        <property name="createTime" column="create_time"/>
+        <property name="lastModified" column="last_modified"/>
+        <property name="startTime" column="start_time"/>
+        <property name="endTime" column="end_time"/>
+        <property name="status" column="status"/>
+        <property name="questionId" column="question_id"/>
+    </class>
+
+    <class name="com.fortune.rms.business.vote.model.Question" table="question">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="title"/>
+        <property name="createTime" column="create_time"/>
+        <property name="maxOption" column="max_option"/>
+    </class>
+    <class name="com.fortune.rms.business.vote.model.Option" table="question_option">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="title"/>
+        <property name="questionId" column="question_id"/>
+        <property name="sequence" column="sequence"/>
+    </class>
+    <class name="com.fortune.rms.business.vote.model.VoteResult" table="vote_result">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="voteTime" column="vote_time"/>
+        <property name="voteId" column="vote_id"/>
+        <property name="userId" column="user_id"/>
+    </class>
+    <class name="com.fortune.rms.business.vote.model.OptionResult" table="option_result">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="optionId" column="option_id"/>
+        <property name="resultId" column="result_id"/>
+        <property name="type" column="type"/>
+    </class>
+    <class name="com.fortune.rms.business.vote.model.Investigation" table="investigation">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="title"/>
+        <property name="createTime" column="create_time"/>
+        <property name="lastModified" column="last_modified"/>
+        <property name="startTime" column="start_time"/>
+        <property name="endTime" column="end_time"/>
+        <property name="status" column="status"/>
+    </class>
+    <class name="com.fortune.rms.business.vote.model.InvestigationQuestion" table="investigation_question">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="investigationId" column="investigation_id"/>
+        <property name="questionId" column="question_id"/>
+        <property name="sequence" column="sequence"/>
+    </class>
+    <class name="com.fortune.rms.business.vote.model.InvestigationResult" table="investigation_result">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="investigateTime" column="investigat_time"/>
+        <property name="duration" column="duration"/>
+        <property name="investigationId" column="investigation_id"/>
+        <property name="userId" column="user_id"/>
+    </class>
+
+    <!--投票和问卷结束-->
+
+    <!--直播录制-->
+    <class name="com.fortune.rms.business.live.model.Live" table="live">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="TITLE"/>
+        <property name="taskId" column="TASK_ID"/>
+        <property name="createTime" column="CREATE_TIME"/>
+        <property name="status" column="STATUS"/>
+        <property name="autoControl" column="AUTO_CONTROL"/>
+        <property name="suffix" column="SUFFIX"/>
+        <property name="actor" column="ACTOR"/>
+        <property name="intro" column="INTRO"/>
+        <property name="poster" column="POSTER"/>
+        <property name="foreshow" column="FORESHOW"/>
+        <property name="serverId" column="SERVER_ID"/>
+        <property name="channel" column="CHANNEL"/>
+        <property name="type" column="TYPE"/>
+        <property name="startTime" column="START_TIME"/>
+        <property name="endTime" column="END_TIME"/>
+        <property name="startDate" column="START_DATE"/>
+        <property name="endDate" column="END_DATE"/>
+        <property name="weekDay" column="WEEK_DAY"/>
+        <property name="userTypes" column="USER_TYPES"/>
+        <property name="needRecord" column="NEED_RECORD"/>
+        <property name="recordChannels" column="RECORD_CHANNELS"/>
+        <property name="creator" column="CREATOR"/>
+        <property name="cspId" column="CSP_ID"/>
+        <property name="isLive" column="IS_LIVE"/>
+        <property name="moduleId" column="MODULE_ID"/>
+    </class>
+    <class name="com.fortune.rms.business.live.model.LiveChannel" table="live_channel">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="liveId" column="LIVE_ID"/>
+        <property name="channelId" column="CHANNEL_ID"/>
+    </class>
+    <class name="com.fortune.rms.business.live.model.LiveLog" table="live_log">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="liveId" column="LIVE_ID"/>
+        <property name="startTime" column="START_TIME"/>
+        <property name="endTime" column="END_TIME"/>
+        <property name="recorded" column="RECORDED"/>
+        <property name="path" column="PATH"/>
+    </class>
+    <class name="com.fortune.rms.business.live.model.Record" table="RECORD">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="TITLE"/>
+        <property name="taskId" column="TASK_ID"/>
+        <property name="createTime" column="CREATE_TIME"/>
+        <property name="status" column="STATUS"/>
+        <property name="autoControl" column="AUTO_CONTROL"/>
+        <property name="suffix" column="SUFFIX"/>
+        <property name="actor" column="ACTOR"/>
+        <property name="intro" column="INTRO"/>
+        <property name="poster" column="POSTER"/>
+        <property name="serverId" column="SERVER_ID"/>
+        <property name="type" column="TYPE"/>
+        <property name="startTime" column="START_TIME"/>
+        <property name="endTime" column="END_TIME"/>
+        <property name="startDate" column="START_DATE"/>
+        <property name="endDate" column="END_DATE"/>
+        <property name="weekDay" column="WEEK_DAY"/>
+        <property name="userTypes" column="USER_TYPES"/>
+        <property name="recordChannels" column="RECORD_CHANNELS"/>
+        <property name="autoSnap" column="AUTO_SNAP"/>
+        <property name="cspId" column="CSP_ID"/>
+    </class>
+    <class name="com.fortune.rms.business.live.model.RecordLog" table="record_log">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="recordId" column="RECORD_ID"/>
+        <property name="startTime" column="START_TIME"/>
+        <property name="endTime" column="END_TIME"/>
+        <property name="path" column="PATH"/>
+    </class>
+    <class name="com.fortune.rms.business.live.model.EPG" table="epg">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="liveId" column="LIVE_ID"/>
+        <property name="beginTime" column="BEGIN_TIME"/>
+        <property name="endTime" column="END_TIME"/>
+        <property name="name" column="NAME"/>
+        <property name="thumbPic" column="THUMB_PIC"/>
+        <property name="contentId" column="CONTENT_ID"/>
+        <property name="status" column="STATUS"/>
+    </class>
+
+    <class name="com.fortune.common.business.base.model.Config" table="config">
+        <id name="name" column="name"/>
+        <property name="value" column="value"/>
+        <property name="description" column="description"/>
+
+    </class>
+    <class name="com.fortune.rms.business.product.model.ServiceProductChannel" table="service_product_channel">
+        <!-- ContentChannel mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="serviceProductId" column="service_product_id"/>
+        <property name="channelId" column="channel_id"/>
+    </class>
+
+</hibernate-mapping>

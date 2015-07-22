@@ -1,0 +1,86 @@
+<%@include file="../inc/checkHeader.jsp"%><html>
+<head>
+    <meta http-equiv=content-type content="text/html; charset=UTF-8">
+    <title>管理员管理</title>
+    <link rel="stylesheet" type="text/css" href="../resources/css/ext-all.css"/>
+    <link rel="stylesheet" type="text/css" href="../ext/forms.css"/>
+    <link rel="stylesheet" type="text/css" href="../ext/ux/css/ux-all.css"/>
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all.js"></script>
+    <script src="../ext/ext-lang-zh_CN.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../ext/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../js/ExtUtils.js"></script>
+    <script type="text/javascript" src="../js/ExtDefaultStore.js"></script>
+    <script type="text/javascript" src="../js/ExtFortuneCom.js"></script>
+    <script type="text/javascript">
+        nextUrl = "operatorList.html";
+        actionHeader = "operator";
+        Ext.onReady(function() {
+            Ext.QuickTips.init();
+            storeConfig.fields = ['operatorid','login','realname','modifydate','lastlogintime','telephone','status'];
+            storeConfig.proxy = new Ext.data.HttpProxy({method: 'POST',url: "operator!list.action"});
+            searchStore = new FortuneSearchStore(storeConfig);
+            keyFieldId = "operatorid";
+            var columns = new Ext.grid.ColumnModel([
+                sm,
+                {id:'Id',hidden:true,align:'center',header: "序号", width: 60, sortable: true, dataIndex: 'operatorid'},
+                {header: "账号", align:'center', width: 60, sortable: true,dataIndex: 'login'},
+                {header: "姓名", align:'center',width: 90, sortable: true, dataIndex: 'realname'},
+                {header: "电话", align:'center',width: 80, sortable: true, dataIndex: 'telephone'},
+                {header: "最后登录", align:'center', width: 120, sortable: true,dataIndex: 'lastlogintime'},
+                {header: "修改日期", align:'center', width: 120, sortable: true,dataIndex: 'modifydate'},
+                {header: "状态", align:'center', width: 40, sortable: false, renderer: displayStatus, dataIndex: 'status'},
+                {header: "管理", align:'center', width: 100, sortable: false,renderer:displayManage,dataIndex: 'operatorid'}
+            ]);
+            //除了基本操作（删除，查看），还要添加的链接
+            defaultManageLinks.push({text:'锁定',action:'lock',type:'onclick'});
+            //工具栏中的按钮，还需要添加的
+            defaultBottomButtons.push({text:'锁定所选',handler:doSelectedActionForIdAndText,action:'lock'});
+            checkAllFunctions();
+            var operatorGrid = new FortuneSearchListGrid({
+                title:'管理员列表',
+                sm : sm, 
+                cm:columns,
+                store:searchStore,
+                tbar:new Ext.Toolbar({items:[
+                    {text:'搜索: '}, {text:'名称'},
+                    new Ext.ux.form.SearchField({
+                            store: searchStore,
+                            paramName:'obj.login',
+                            width:320
+                        })
+                    ]}),
+                bbar:new Ext.PagingToolbar({
+                        pageSize: defaultPageSize,
+                        store: searchStore,
+                        displayInfo: true,
+                        displayMsg: '结果数据 {0} - {1} of {2}',
+                        emptyMsg: "没有数据",
+                        items:defaultBottomButtons/*[
+                            new Ext.Button ({allowDepress : false,text:'删除选择',iconCls : 'del',
+                            handler:function(){
+                                var row=operatorGrid.getSelectionModel().getSelections();
+                                deleteSelectedRows(row);
+                        }})]*/
+                })
+            });
+            ///*
+            operatorGrid.render(displayDiv);
+            defaultGrid = operatorGrid;
+            //alert(defaultGrid);
+            searchStore.load({params:{start:0, limit:defaultPageSize}});
+            //*/
+        });
+
+    </script>
+</head>
+<body>
+<table align="center" width="800">
+    <tr>
+        <td>
+            <div id="displayDiv"></div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

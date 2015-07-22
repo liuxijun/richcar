@@ -1,0 +1,102 @@
+.FlatEdit {
+	BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #1c4d6f 0px solid; BORDER-LEFT: #1c4d6f 0px solid; BORDER-RIGHT: #1c4d6f 0px solid; BORDER-TOP: #1c4d6f 0px solid
+}
+.Btn {
+	BACKGROUND-IMAGE: url(/images/newimages/button.gif); BORDER-BOTTOM: #1c4d6f 1px solid; BORDER-LEFT: #1c4d6f 1px solid; BORDER-RIGHT: #1c4d6f 1px solid; BORDER-TOP: #1c4d6f 1px solid; COLOR: #336699; CURSOR: hand; FONT-FAMILY: 黑体; FONT-WEIGHT: bold; HEIGHT: 20px; WIDTH: 100px
+}
+.DisabledEdit {
+	BACKGROUND-COLOR: #dddddd
+}
+.EnabledEdit {
+	BACKGROUND-COLOR: #ffffff
+}
+TABLE {
+	COLOR: #000000; FONT-FAMILY: "宋体"; FONT-SIZE: 9pt
+}
+BODY {
+	COLOR: #000000; FONT-FAMILY: "宋体"; FONT-SIZE: 10.5pt
+}
+SELECT {
+	BORDER-BOTTOM: 1px solid; BORDER-LEFT: 1px solid; BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FONT-FAMILY: Courier New, Courier, mono,宋体; FONT-SIZE: 8pt
+}
+INPUT {
+	FONT-FAMILY: Courier New, Courier, mono,宋体; FONT-SIZE: 9pt
+}
+TEXTAREA {
+	BORDER-BOTTOM: 1px solid; BORDER-LEFT: 1px solid; BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid
+}
+.PicBox {
+	BORDER-BOTTOM: #000000; BORDER-LEFT: #000000; BORDER-RIGHT: #000000; BORDER-TOP: #000000
+}
+.InputBoxReadonly {
+	BORDER-BOTTOM: 0px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid; COLOR: #808080
+}
+.TableTitleBlue2 {
+	COLOR: #000000
+}
+.NewsTable {
+	BORDER-BOTTOM: 1px solid; BORDER-LEFT: 1px solid; BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FONT-SIZE: 14px; LINE-HEIGHT: 26px; font-color: #EEEEEE
+}
+.TopNews {
+	BORDER-BOTTOM: 1px solid; BORDER-LEFT: 1px solid; BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FONT-SIZE: 13px; LINE-HEIGHT: 28px; font-color: #EEEEEE
+}
+.NewsContent {
+	BORDER-BOTTOM-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; BORDER-RIGHT-WIDTH: 1px; BORDER-TOP-WIDTH: 1px; FONT-SIZE: 14px; LINE-HEIGHT: 26px; font-color: #EEEEEE
+}
+.NoticeTable {
+	BORDER-BOTTOM-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; BORDER-RIGHT-WIDTH: 1px; BORDER-TOP-WIDTH: 1px; FONT-SIZE: 12px; LINE-HEIGHT: 20px; font-color: #EEEEEE
+}
+.NewsLine {
+	BACKGROUND-COLOR: #ffffff
+}
+TD.Style_0 {
+	BACKGROUND-COLOR: #eeeeee; COLOR: #000000; FONT-SIZE: 12px
+}
+A:link {
+	COLOR: #000000; FONT-SIZE: 12px; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #000000; FONT-SIZE: 12px; TEXT-DECORATION: underline
+}
+A:unknown {
+	COLOR: #000000; FONT-SIZE: 12px; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: #000000; FONT-SIZE: 12px; TEXT-DECORATION: none
+}
+.admTitleButton {
+	BACKGROUND: #7b99e1; BORDER-BOTTOM: white 1px solid; BORDER-LEFT: white 1px solid; BORDER-RIGHT: white 1px solid; BORDER-TOP: white 1px solid; COLOR: white; FONT-SIZE: 13px; HEIGHT: 18px
+}
+.admTitleTr {
+	BACKGROUND: #d6dff7
+}
+.titleFont {
+	FILTER: DropShadow(Color=#dddddd, OffX=1, OffY=1, Positive=1); FONT-FAMILY: 宋体; FONT-SIZE: 14px
+}
+.inputbox {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #808080 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; BORDER-TOP: #808080 1px solid; COLOR: #111111; FONT-SIZE: 100%
+}
+.NoLink {
+	COLOR: black; CURSOR: hand; FONT-SIZE: 10pt; LINE-HEIGHT: 11pt; TEXT-DECORATION: none
+}
+.Focus {
+	COLOR: #394edb; CURSOR: hand; FONT-SIZE: 10pt; FONT-WEIGHT: bold; LINE-HEIGHT: 11pt
+}
+.blank {
+	BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: 1px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid; COLOR: black; FONT-SIZE: 12px
+}
+.blank1 {
+	BACKGROUND-COLOR: #cccccc; BORDER-BOTTOM: 0px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid; FONT-SIZE: 1px
+}
+.NavArea {
+	BACKGROUND-COLOR: #7b99e1; FONT-WEIGHT: bold
+}
+.ThinTable {
+	BORDER-BOTTOM: #999999 0px solid; BORDER-LEFT: #999999 1px solid; BORDER-RIGHT: #999999 0px solid; BORDER-TOP: #999999 1px solid; MARGIN-LEFT: 40px
+}
+.LeftCol {
+	BACKGROUND-COLOR: #e6eefa; BORDER-BOTTOM: #999999 1px solid; BORDER-LEFT: #999999 0px solid; BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 0px solid
+}
+.RightCol {
+	BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #999999 1px solid; BORDER-LEFT: #999999 0px solid; BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 0px solid
+}

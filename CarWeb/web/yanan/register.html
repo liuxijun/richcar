@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>延安党建网</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5shiv.min.js?v3.70"></script>
+
+    <![endif]-->
+    <link rel="stylesheet" href="css/site.css"/>
+    <style>
+        #formTable{
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+        #formTable td{
+            line-height: 40px;
+            padding: 8px;
+            font-size: 18px;
+        }
+        #formTable td>input{
+            width: 400px;
+            height: 30px;
+            margin-right: 20px;
+            line-height: 30px;
+            font-size: 18px;
+        }
+        button {
+            background-image: url("images/btnSubmitRegist.jpg");
+        }
+
+    </style>
+    <script type=text/javascript src="../js/jquery-1.7.2.min.js"></script>
+    <script src="/js/md5.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript">
+        document.write('<script src="'+serverOptions.address+"js/getSession.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+    <script type="text/javascript">
+        var g_user = user==null?null:user.userId;
+        jQuery(function($){
+            loadCity(1000);
+        });
+
+        function checkLoginName() {
+            var userId = $("#userId").val();
+            var checkLoginName = $("#checkLoginName");
+            warning(checkLoginName,"");
+            if(userId != ""){
+                if(userId.length < 3 || userId.length >18)  {
+                    warning(checkLoginName,"该用户名长度不合适，请重新输入！")
+                }
+                $.getJSON("/user/frontUser!checkLoginName.action", {
+                    'obj.userId':userId
+                }, function (data) {
+                    var result = data;
+                    if(result == true){
+                        warning(checkLoginName,"该用户名已被注册，请重新输入！")
+                        return false;
+                    }
+                });
+            }else{
+                warning(checkLoginName,"用户名不能为空！")
+                return false;
+            }
+
+        }
+
+        function checkPassword(confirm) {
+            var password = $('#password').val();
+
+            var cp = $('#checkpassword');
+            warning(cp, '');
+            if (password == '' || /[\'\"\\]/.test(password)) {
+                warning(cp, '注册密码空或包含非法字符');
+                return false;
+            } else if (password.length < 6 || password.length > 20) {
+                warning(cp, '注册密码长度应在6-20位之间');
+                return false;
+            } else {
+                if (!confirm) {
+                    checkConfirmPassword(true);
+                }
+                return true;
+            }
+        }
+
+        function checkConfirmPassword(confirm) {
+            var password = $('#password').val();
+
+            var confirmPassword = $('#confirmPassword').val();
+
+            var cp2 = $('#checkconfirmpassword');
+            warning(cp2, '');
+            if (confirmPassword != '') {
+                checkPassword(true);
+            }
+            if (password != confirmPassword) {
+                warning(cp2, '两次输入的密码不一致');
+                return false;
+            }
+            return true;
+        }
+        function warning(obj,str){
+            obj.html(str);
+        }
+        function submitForm(){
+            var userId = $("#userId").val();
+            var password = $("#password").val();
+            var  gender = $("#gender").val();
+            if(userId == ""){
+                window.alert("用户名未填，请填写用户名!");
+                return false;
+            }
+            if(password == ""){
+                window.alert("密码未填写，请填写用密码!");
+                return false;
+            }
+            if(gender == ""){
+                window.alert("用户名未填，请选择性别！");
+                return false;
+            }
+            submitUsers();
+        }
+        function submitUsers(){
+            var userId = $("#userId").val();
+            var password = $("#password").val();
+            var gender = $("#gender").val();
+            var phone = $("#phone").val();
+            var committee = $("#committee").val();
+            var birthday = $("#birthday").val();
+              password = hex_md5(password);
+            $.ajax({
+                url:"/user/frontUser!save.action",
+                dataType:'text',
+                type:"post",
+                data:{
+                    'obj.userId':userId,
+                    'obj.password':password,
+                    'obj.gender':gender,
+                    'obj.phone':phone,
+                    'obj.committee':committee,
+                    'obj.birthday':birthday
+
+                },
+                success:function(){
+                    alert("注册已成功！");
+                    window.location="index.html";
+                }
+            });
+        }
+        function loadCity(parentId){
+            $.ajax({
+                type: "get",
+                url: "/user/org!getOrgans.action?parentId="+parentId,
+                dataType: "text",
+                success: function(msg){
+                    var organs = eval("(function(){return " + msg + ";})()");
+                    for(var i=0; i<organs.length; i++){
+                        var organ = organs[i];
+                        if(organ){
+                            $("#committee").append($("<option/>", {
+                                value: organ.id,
+                                text: organ.name
+                            }));
+                        }
+                    }
+                }
+            });
+        }
+
+    </script>
+
+</head>
+<body>
+
+<!-- banner -->
+<div id="fakeBg"><div id="wbg"></div></div>
+<img id="headBanner" src="images/headerBanner.png" alt=""/>
+
+<!-- main menu -->
+<div id="divMenu">
+    <ul id="ulMenu">
+        <li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="columnZSZT.html">中省直通</a></li>
+        <li><a class="mainMenu" href="index.html#noticeHead">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+    </ul>
+</div>
+
+<!-- search bar -->
+<div class="mainSec sou">
+    <h1 class="bt1">站内搜索</h1>
+    <div class="souBox"><form id="form1" name="form1" method="post" action="search.jsp" target="_blank"><input type="text" name="vcom" class="text_sou" value="输入关键词" onfocus="if (value =='输入关键词'){value =''}" onblur="if (value ==''){value='输入关键词'}"><input type="hidden" name="info_type" value="1"><input type="hidden" name="sign" value="1"><input type="submit" class="souBtn" value=""></form>
+    </div>
+    <h1 class="bt1">登录</h1>
+    <!-- action="/user/logon!frontUserLogon.action-->
+    <div name="loginForm" id="v1"><label>用户名</label><div class="kuangBg">
+        <input type="text" name="obj.userId" id="loginId" class="text_sou w108">
+    </div><label>密码</label><div class="kuangBg"><input type="password" name="obj.password" id="passWord" class="text_sou w108">
+    </div><input name="domain" type="hidden" value="sxdyyj.com"><input name="style" type="hidden" value="simple">
+        <input type="button" class="loginBtn" id="doLogin" value="登录"></div>
+
+    <div id="v2"style="display: none;" >
+        <label id="showLogin" style="width: 330px"></label>
+        <input type="button" class="loginBtn" value="注销" id="logOut" onclick="logOut()"/>
+    </div>
+
+    <input type="button" onclick="location.assign('register.html')" class="loginBtn" value="注册">
+    <div class="weather"><iframe width="170" scrolling="no" height="13" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&amp;id=11&amp;icon=1"></iframe></div>
+</div>
+
+
+<div class="mainSec" style="border-top: 2px solid #fff;margin-bottom: 0;">
+    <img src="images/bg_register.jpg" alt=""/>
+</div>
+
+<!-- breadcrumb -->
+<div class="breadcrumb">
+    <a href="index.html">首页</a> > 用户注册
+</div>
+<!--action="/user/frontUser!save.action" method="post"-->
+<form name="frm" class="mainSec" >
+    <table id="formTable">
+        <colgroup>
+            <col style="width:240px;"/>
+        </colgroup>
+        <tr>
+            <td class="fRight"><span class="fRed">*</span>用户名：</td>
+            <td><input type="text" id="userId" size="20" maxlength="20" name="obj.userId" onblur="checkLoginName()" /><span id="checkLoginName"class="fGray f14">用户名由3至18位字符组成</span></td>
+        </tr>
+        <tr>
+            <td class="fRight"><span class="fRed">*</span>密码：</td>
+            <td><input type="password" id="password" size="20" maxlength="20" name="obj.password" onblur="checkPassword()" ><span id="checkpassword"class="fGray f14">由6至20位字符、数字或符号组成</span></td>
+        </tr>
+        <tr>
+            <td class="fRight"><span class="fRed">*</span>再次输入密码：</td>
+            <td><input type="password" name="confirmPassword" size="20" maxlength="20" id="confirmPassword" onblur="checkConfirmPassword()"/><span id="checkconfirmpassword"class="fGray f14">确保您两次输入的密码一致</span></td>
+        </tr>
+        <tr>
+            <td class="fRight">电话号码：</td>
+            <td><input type="phone" id="phone" name="obj.phone"/></td>
+        </tr>
+        <tr>
+            <td class="fRight"><span class="fRed">*</span>性别：</td>
+            <td><label><input id ="gender"type="radio" name="obj.gender" value="1"checked/>男</label>
+                <label><input id ="gender"type="radio" name="obj.gender" value="0"/>女</label></td>
+        </tr>
+        <tr>
+            <td class="fRight">出生日期：</td>
+            <td><input type="date" id="birthday" name="obj.birthday"/></td>
+        </tr>
+        <tr>
+            <td class="fRight">所属区县：</td>
+            <td>
+                <select style="width: 400px;" id="committee" name="obj.committee">
+                    <option value="">请选择...</option>
+                </select>　
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button type="button"  style="height: 64px; width: 221px;" onclick="submitForm()"></button></td>
+        </tr>
+    </table>
+</form>
+
+<!-- footer -->
+<div class="mainSec footer">
+    <hr class="white"/>
+    <a href="http://cpc.people.com.cn/" target="_blank"><img src="images/logo/lkGCDXWW.jpg" class="linkLogo"/></a>
+    <a href="http://www.zgdsw.org.cn/" target="_blank"><img src="images/logo/lkDCDLSW.jpg" class="linkLogo"/></a>
+    <a href="http://www.sx-dj.gov.cn/" target="_blank"><img src="images/logo/lkSXDJW.jpg" class="linkLogo"/></a>
+    <a href="http://www.yadj.gov.cn" target="_blank"><img src="images/logo/lkYADJW.jpg" class="linkLogo"/></a>
+    <a href="http://www.gov.cn/" target="_blank"><img src="images/logo/lkRM.jpg" class="linkLogo"/></a>
+    <a href="http://www.shaanxi.gov.cn/" target="_blank"><img src="images/logo/lkSX.jpg" class="linkLogo"/></a>
+    <a href="http://www.yanan.gov.cn/" target="_blank"><img src="images/logo/lkYA.jpg" class="linkLogo"/></a>
+    <a href="http://nc.mofcom.gov.cn/" target="_blank"><img src="images/logo/lkNC.jpg" class="linkLogo"/></a>
+
+    <hr class="white"/>
+    <p>
+        版权所有：延安市党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+    </p>
+    <p>
+        主办方：延安市党员干部现代远程教育中心
+    </p>
+</div>
+</body>
+</html>

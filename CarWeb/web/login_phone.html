@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/utilsParameters.js"></script>
+    <script type="text/javascript">
+        nextUrl = "index_phone";
+    </script>
+<title>WEICHAI</title>
+<link href="css/base.css" rel="stylesheet">
+<link href="css/user_phone.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div id="container">
+<header class="globalheader">
+  <section class="top_cont">
+    <div class="logoarea"><a href="index_phone.html">WEICHAI</a></div>
+    <!--<div class="userarea"> <a href="login.html" class="no_login"></a> <a href="#" class="record"></a> <a href="#" class="fav"></a> </div>-->
+  </section>
+</header>
+<section class="section fixed">
+<div class="login_t fixed">
+<form action="" method="get">
+<div class="login_area">
+<div class="login_username"><input type="text" id="username"></div>
+<div class="login_password"><input type="password" id="password"></div>
+</div>
+<div class="login_btn">
+<button type="button" class="button" onclick="login_('index_phone',_LOGIN_TYPE_PHONE)">登录</button>
+</div>
+<!--<div class="login_link"><input checked="true" name="rem" id="rem" type="checkbox"><label for="rem">记住我</label><span>|</span><a href="reg.html">注册账号></a></div>-->
+</form>
+</div>
+</section>
+
+<!--<footer class="nav clearfix"  id="container1">
+  <div class="navarea">
+<ul>
+<li class="icon_1"><a href="index.html">首页</a></li>
+<li class="icon_2"><a class="over" href="list.html">直播</a></li>
+<li class="icon_3"><a href="list.html">点播</a></li>
+<li class="icon_4"><a href="search.html">搜索</a></li>
+<li class="icon_5"><a href="list.html">个人中心</a></li>
+</ul>
+</div>
+</footer>-->
+</div>
+    <script>
+       $(".mc_t").bind("click", function () {
+       $("#menu_list").toggle();
+        });
+	  $(".menu_list>li").bind("click", function () {
+       $("#menu_list").toggle();
+        });
+
+       $(".rank_t").bind("click", function () {
+       $("#menu_font").toggle();
+        });
+	  $(".menu_font>li").bind("click", function () {
+       $("#menu_font").toggle();
+        });
+       if(typeof(innerWebStat)!='undefined'&&innerWebStat){
+           document.write(unescape("%3Cscript src='http://s11.cnzz.com/stat.php?id=1253630191&web_id=1253630191'%3E%3C/script%3E"));
+           var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+           document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4874fffcada26b7cd73ede33d95baeb9' type='text/javascript'%3E%3C/script%3E"));
+       }
+  </script>
+</body>
+</html>

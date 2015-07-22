@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>播放器</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" src="js/fortunePlayer.js" charset="gbk"></script>
+    <script type="text/javascript">
+        var rtspref_ = 0;
+        var videodispmode_ = 0x01 | 0x02;
+        var videoshowratio_ = 1;
+        var isfullscreen_ = 0;
+        var isplaying_ = 0;
+        var strurl_ = "";
+        var currentPos = -1;
+        var movieDuration = 100;
+        var videoupdateintv_ = 50;
+        var gotDuration = false;
+        var _SHOW_PLAYER_STATUS = 0;
+    </script>
+    <script language="javascript" for="stmpeer" event="OnFullScreen(s)">
+        isfullscreen_ = s;
+        if (!isfullscreen_) fullScreen();
+    </script>
+
+    <script language="javascript" for="stmpeer" event="OnCreate(v)">
+        var strver = stmpeer.GetVersion(1) + "." + stmpeer.GetVersion(0);
+        init_system();
+    </script>
+
+    <script language="javascript" for="stmpeer" event="OnPeerNodeMessage(lParam, wParam, p)">
+        stmpeer_OnPeerNodeMessage(lParam, wParam, p);
+    </script>
+
+    <script language="javascript" for="stmpeer" event="OnPlayStatus(opt, param)">
+        switch (opt) {
+            case 0x01: // play ratio
+                if (param > 0) {
+                    //movieDuration = currentPos *100 / param;
+                }
+                break;
+            case 0x02: // play timer
+                currentPos = param;
+                playerControl.displayPlayerPosition(currentPos);
+                if (typeof(currentPosChangedCallbackFunction) == 'function') {//如果定了了
+                    currentPosChangedCallbackFunction.call(this, currentPos);
+                }
+                movieDuration = __duration() * 1000;
+                gotDuration = (movieDuration > 0);
+                playerControl.playStatusChanged(statusPlaying);
+                //displayMessage(Math.round(param/1000)+"秒");
+                break;
+            case 0x104: // buffering status
+            {
+                var bufferopt = param >> 16;
+                var buffersta = param & 0x7fff;
+                ///stmpeer.Display("BUFFER[[" + bufferopt + "]]=" + buffersta, 0);
+                switch (bufferopt) {
+                    case 0x01: // audio
+                        if (buffersta == 1) {
+                            // audio buffering
+                        }
+                        else if (buffersta == 0) {
+                            // audio playback begin
+                        }
+                        break;
+                    case 0x02: // video
+                        if (isplaying_ == 0)
+                            break;
+                        if (buffersta == 1) {
+                            // video buffering
+                            //__showwating(1);
+                        }
+                        else if (buffersta == 0) {
+                            // video playback begin
+                            //__showwating(0);
+                        }
+                        break;
+                }
+            }
+                playerControl.playStatusChanged(statusBuffering);
+                break;
+            case 0x110: // draw mode, D3D or DDraw
+                switch (param) {
+                    case 0x01: // by D3D draw
+                        break;
+                    case 0x02: // by DDraw draw
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 0x111: // display begin
+                isplaying_ = 1;
+                //__showwating(0);
+                movieDuration = __duration() * 1000;
+                gotDuration = (movieDuration > 0);
+                playerControl.playStatusChanged(statusPlaying);
+                //showVolPos(__getVolume());
+                break;
+            case 0x1000:
+                switch (param) {
+                    case 0x00: // connect to server fail
+                        __streamplay('', 0);
+                        playerControl.playStatusChanged(statusConnectionError);
+                        break;
+                    case 0x01: // connected with server
+                        playerControl.playStatusChanged(statusConnected);
+                        break;
+                    case 0x02: // rtsp handshake success
+                        playerControl.playStatusChanged(statusBuffering);
+                        break;
+                    case 0x03: // rtsp handshake fail
+                        __streamplay('', 0);
+                        playerControl.playStatusChanged(statusStoped);
+                        break;
+                    case 0x04: // disconnected with server
+                        playerControl.playStatusChanged(statusDisconnected);
+                        break;
+                    case 0x05: // no source found
+                        __streamplay('', 0);
+                        playerControl.playStatusChanged(statusNotFound);
+                        break;
+                    case 0x06: // end of stream
+                        playerControl.playStatusChanged(statusStoped);
+                        playerControl.stopPlay();
+                        break;
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
+    </script>
+
+    <script language="JavaScript">
+        function init_system() {
+            stmpeer.SetTrace(0);
+
+            stmpeer.MiscellaneousCall(0x09, 0x04, 0, videoshowratio_);
+            stmpeer.MiscellaneousCall(0x09, 0x05, 0, videodispmode_);
+            //stmpeer.MiscellaneousCall(0x09, 0x0a, 0, videoupdateintv_);
+            stmpeer.MiscellaneousCall(0x09, 0x0b, 0, _SHOW_PLAYER_STATUS);
+
+            stmpeer.StreamPlaySetOpt(0, 0x05, 0, 1000); // playtimer report interval
+            ///stmpeer.StreamPlaySetOpt(0, 0x07, 0, 3);    // rtsp trace
+        }
+
+        function __streamplay(strurl, bufftime) {
+            if (rtspref_ > 0) {
+                if (strurl == strurl_)
+                    return;
+                stmpeer.StreamPlayStop(rtspref_);
+                rtspref_ = 0;
+                isplaying_ = 0;
+                //__showwating(0);
+            }
+            if (strurl != "") {
+                strurl_ = strurl;
+                stmpeer.StreamPlaySetOpt(0, 0x01, 0, bufftime);
+                rtspref_ = stmpeer.StreamPlayOpen(strurl, 0, videodispmode_, stmpeer);
+                //__showwating(1);
+            }
+            __onExp();
+        }
+
+        function __absposition(pos)  // added @2011-5-6
+        {
+            if (rtspref_ == 0)
+                return;
+            var p = parseInt(pos);
+            stmpeer.StreamPlaySetOpt(rtspref_, 0x20, 0, p); // this pos is time based by seconds
+        }
+
+        function __streampause(pause) {
+            stmpeer.StreamPlaySetOpt(rtspref_, 0x21, 0, pause);
+        }
+
+        function __volume(v) {
+            stmpeer.StreamPlaySetOpt(rtspref_, 0x06, 0, v);
+        }
+
+        function __getVolume() {
+            return stmpeer.StreamPlayGetOpt(rtspref_, 0x06, 0, 0);
+        }
+
+        function __duration() {
+            return (stmpeer.StreamPlayGetOpt(rtspref_, 0x22, 0, 0));
+        }
+
+        function __onExp() {
+            videoshowratio_ = videoshowratio_ == 1 ? 8 : 1;
+            stmpeer.MiscellaneousCall(0x09, 0x04, 0, videoshowratio_);
+        }
+
+        function preUnload() {
+            if (rtspref_ > 0) {
+                stmpeer.StreamPlayStop(rtspref_);
+                rtspref_ = 0;
+            }
+        }
+    </script>
+</head>
+<body>
+点击切换播放器：<span id="playerType"></span><h1 align="center"><a onclick="changePlayer('WMV')">MediaPlayer</a>&nbsp;|&nbsp;<a onclick="changePlayer('MP4')">Mp4Player</a>&nbsp;|&nbsp;<a onclick="changePlayer('FLV')">FlvPlayer</a></h1>
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0" style="border: solid 1px green;">
+    <tr>
+        <td height="510" colspan="6" bgcolor="white" id="playerTD">
+            <!--<object id="player" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" type="application/x-oleobject"-->
+            <!--width="950" height="510">-->
+            <!--<param name="autoStart" value="false">-->
+            <!--<param name="balance" value="0">-->
+            <!--<param name="currentPosition" value="0">-->
+            <!--<param name="currentMarker" value="0">-->
+            <!--<param name="enableContextMenu" value="true">-->
+            <!--<param name="enableErrorDialogs" value="false">-->
+            <!--<param name="enabled" value="true">-->
+            <!--<param name="fullScreen" value="false">-->
+            <!--<param name="invokeURLs" value="false">-->
+            <!--<param name="mute" value="true">-->
+            <!--<param name="playCount" value="1">-->
+            <!--&lt;!&ndash;<param name="AUTOSIZE" value="true">&ndash;&gt;-->
+            <!--<param name="rate" value="1">-->
+            <!--<param name="uiMode" value="none">-->
+            <!--<param name="volume" value="100">-->
+            <!--</object>-->
+        </td>
+    </tr>
+    <tr id="playerTD2">
+        <td width="41" height="28" background="images/player/video_background.jpg"><img
+                src="images/player/video_play_n.jpg" width="41" height="28" alt="暂停/播放"
+                style="cursor:pointer"
+                onmouseout="changeIconOut(this);"
+                onclick="playerControl.pausePlay()"
+                onmouseover="changeIconOver(this);"
+                name="btnPause"
+                id="btnPause"/></td>
+        <td width="600" background="images/player/video_background.jpg" style="border: solid 0px red;">
+            <div style="position:relative;width:600;height:28px;cursor:pointer;background-image:url(images/player/play_progress_b.jpg)"
+                 onclick="playerControl.trackLocating();" id="playTracker">
+                <div style="position:absolute;left:0;top:0;width:2px;height:28px;z-index:9;background-image:url(images/player/play_progress_s.jpg)"
+                     id="playTracker0"></div>
+                <div style="position:absolute;left:30;top:8px;width:35px;height:10px;z-index:10;"
+                     id="playPosCursor"><img src="images/player/video_slide_ball.png" border="0"
+                                             onmousedown="playerControl.progressDragBegin();"
+                                             onmouseup="playerControl.progressDragDrop();"
+                                             style="cursor:pointer" class="drag" name="progress_ball"></div>
+                <div class="positionHint" id="positionHintDiv"></div>
+            </div>
+        </td>
+        <td width="150" background="images/player/video_background.jpg" height="28px" style="border: solid 0px red;">
+             <div style="margin-top: 2px;margin-left: 20px;">
+                 <span class="tit11" id="currentTime">00:00:00</span>
+                <span class="tit4" id="totalTime">00:00:00</span>
+             </div>
+        </td>
+        <td width="20" background="images/player/video_background.jpg" style="border: solid 0px red;">
+            <div style="position:relative;width:20;height:28px;background-image:url(images/player/video_background.jpg)">
+            <img src="images/player/video_volume_min.jpg" width="20" height="28" id="volume_level"/>
+            </div>
+        </td>
+        <td width="45" background="images/player/video_background.jpg">
+            <div style="position:relative;width:45px;height:28px;cursor:pointer;background-image:url(images/player/volume_progress_b.jpg)"
+                 onclick="playerControl.volumeLocating();" id="volumeTracker">
+                <div style="position:absolute;left:0;top:0;width:2px;height:28px;z-index:9;background-image:url(images/player/volume_progress_s.jpg)"
+                     id="volumeTracker0"></div>
+                <div style="position:absolute;left:0;top:8px;width:35px;height:10px;z-index:10;"
+                     id="volumeCursor"><img src="images/player/video_slide_ball.png" border="0"
+                                            onmousedown="playerControl.volumeDragBegin();"
+                                            onmouseup="playerControl.volumeDragDrop();"
+                                            style="cursor:pointer" class="drag" name="progress_ball"></div>
+            </div>
+
+        </td>
+        <td width="120" background="images/player/video_background.jpg">
+            <div style="position:relative;width:20;height:28px;background-image:url(images/player/video_background.jpg)">
+            <a href="#" onmouseout="MM_swapImgRestore()"
+               onmouseover="MM_swapImage('Image36','','images/video_071.jpg',1)">
+                <img src="images/player/video_recommand_1.jpg" name="Image36" width="120" height="28" border="0"
+                     id="Image36"/>
+            </a>
+            </div>
+        </td>
+    </tr>
+
+</table>
+<table>
+    <tr>
+        <td><span id="playerInfo"></span></td>
+    </tr>
+    <!--<tr>-->
+    <!--<td>-->
+    <!--<div align="center">-->
+    <!--<input type="button" class="but11" onmouseover='this.className="but12"'-->
+    <!--onmouseout='this.className="but11"' name="previous" title="上一首" onclick="previous();"-->
+    <!--value="上一首">-->
+    <!--<input type="button" class="but21" onmouseover='this.className="but22"'-->
+    <!--onmouseout='this.className="but21"' name="play" title="播放" onclick="playerControl.play();" value="播放">-->
+    <!--<input type="button" class="but31" onmouseover='this.className="but32"'-->
+    <!--onmouseout='this.className="but31"' name="pause" title="暂停" onclick="playerControl.pause();" value="暂停">-->
+    <!--<input type="button" class="but41" onmouseover='this.className="but42"'-->
+    <!--onmouseout='this.className="but41"' name="stop" title="停止" onclick="playerControl.stop();" value="停止">-->
+    <!--<input type="button" class="but51" onmouseover='this.className="but52"'-->
+    <!--onmouseout='this.className="but51"' name="next" title="下一首" onclick="next();" value="下一首">-->
+    <!--<input type="button" class="but61" onmouseover='this.className="but62"'-->
+    <!--onmouseout='this.className="but61"' name="voldown" title="音量-" onclick="volDown();" value="音量-">-->
+    <!--<input type="button" class="but61" onmouseover='this.className="but62"'-->
+    <!--onmouseout='this.className="but61"' name="volup" title="音量+" onclick="volUp();" value="音量+">-->
+    <!--<input type="button" class="but61" onmouseover='this.className="but62"'-->
+    <!--onmouseout='this.className="but61"' name="mute" title="静音" onclick="mute();" value="静音">-->
+    <!--<input type="button" class="but61" onmouseover='this.className="but62"'-->
+    <!--onmouseout='this.className="but61"' name="balance" title="声道" onclick="balance();" value="声道">-->
+    <!--</div>-->
+    <!--</td>-->
+    <!--</tr>-->
+</table>
+
+</body>
+</html>
+<script type="text/javascript">
+//    var url = window.location.href;
+    var playerType = request("playerType");
+
+            if (playerType == "WMV") {
+                playerControl.playerId = "player";
+                playerControl.playerType = "WMV";
+                playerControl.mediaUrl = "rtsp://192.168.1.158/movies/亚瑟700.wmv";
+                playerControl.initPlayer();
+            } else if (playerType == "MP4") {
+                playerControl.playerId = "stmpeer";
+                playerControl.playerType = "MP4";
+                playerControl.mediaUrl = "rtsp://192.168.1.158/movies/fire.mp4";
+                playerControl.initPlayer();
+            } else if (playerType == "FLV") {
+                playerControl.playerId = "flvplayer";
+                playerControl.playerType = "FLV";
+                playerControl.initPlayer();
+
+                var _flvplayer = document.getElementById("flvplayer");
+                _flvplayer.FlashVars = "vcastr_file=http://192.168.1.168:8080/fortuneplayer/video/01.flv&LogoText=fortune－net.cn&BufferTime=3";
+                playerControl = deepCopy(WMVPlayer, playerControl);
+            }
+            var _playerType = document.getElementById("playerType");
+            _playerType.innerHTML=playerType;
+    function changePlayer(playerType) {
+        preUnload();
+        window.location.href="http://192.168.1.168:8080/fortuneplayer/index.html?playerType="+playerType+"";
+    }
+
+</script>

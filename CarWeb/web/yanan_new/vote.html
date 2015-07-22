@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title> 延安市党员干部现代远程教育网 </title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js?v3.70"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="css/site.css"/>
+	<style>
+		#formTable{
+			width: 100%;
+			margin-top: 20px;
+			margin-bottom: 50px;
+		}
+		#formTable td{
+			line-height: 40px;
+			padding: 8px;
+			font-size: 18px;
+		}
+		#formTable td>input{
+			width: 400px;
+			height: 30px;
+			margin-right: 20px;
+			line-height: 30px;
+			font-size: 18px;
+		}
+		img.bar{
+			height: 16px;
+		}
+	</style>
+    <script type=text/javascript src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../scripts/redex_utils.js"></script>
+    <script src="/js/md5.js"></script>
+    <script type="text/javascript">
+        var serverOptionsAddress ="/";
+        document.write('<script src="'+serverOptionsAddress+"interface/player.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+    <script src="../scripts/date-time/moment.min.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript">
+        var g_user = user==null?null:user.userId;
+        var g_vote, g_start;
+        jQuery(function ($) {
+            //  alert(user.userId);
+            var voteId = $.getQuery("id", -1);
+            loadVote(voteId, showVote);
+        });
+        var totalTicketCount=0;
+        var maxOption=1;
+        function loadVote(id, callback){
+            $.ajax({
+                type: "POST",
+                url: "/vote/vote!voteStat.action",
+                data: {"obj.id": id},
+                dataType: "text",
+                success: function(msg){
+                    var jsonData = JSON.parse(msg);
+
+                    var voteOptions = [];
+                    var optionList = jsonData["optionList"];
+                    totalTicketCount = jsonData["totalTicketCount"];
+                    for(var i=0; i<optionList.length; i++){
+                        voteOptions.push(new Option(optionList[i].id, optionList[i].title,optionList[i].ticketCount));
+                    }
+                    g_vote = new Vote(id, jsonData["title"], voteOptions, jsonData["maxOption"]);
+                    maxOption = jsonData["maxOption"];
+                    if(callback){
+                        callback(g_vote);
+                    }
+                }
+            });
+        }
+
+        function  showVote(vote){
+            if(!vote) return;
+
+            g_start = new Date();
+
+
+            $("#voteTitle").html(vote.title);
+            var optionType = "radio";
+            if(parseInt(vote.maxOption) > 1){
+                $("#voteTitle").append("(最多选择" + vote.maxOption + "项)");
+                optionType = "checkbox";
+            }
+
+            for(var i=0; i<vote.optionList.length; i++){
+                $("#formTable").append('<tr>' +
+                        '<td><label><input type="' + optionType + '" value="' + vote.optionList[i].id +'" name="voteItem">' + vote.optionList[i].title + '</label></td>' +
+                        '<td><div style="width: '+getPercent(vote.optionList[i].ticketCount,1)+'%;height: 16px;background-color:'+getBackgroundColor(i)+'"></div> </td>' +
+                        '<td>'+vote.optionList[i].ticketCount+'票（'+getPercent(vote.optionList[i].ticketCount,2)+'%）</td>' +
+                        '</tr>');
+            }
+
+            $("#formTable").append('	<tr>' +
+                    '<td></td>' +
+                    '<td><a href="javascript:doVote()"><img src="images/btnSubmitRegist.jpg" alt=""></a></td>' +
+                    '<td></td>' +
+                    '</tr>');
+
+        }
+
+        var isVoting = false;
+        function doVote(){
+            if(isVoting) {
+                alert("正在提交投票数据，请勿连续点击！");
+                return;
+            }
+
+            if(g_user == null || g_user == "") {
+                alert("请登录后进行投票！");
+                return;
+            }
+
+            var selectedCount = 0;
+            var voteResult = document.getElementsByName("voteItem");
+            // 获得选项id
+            var optionIds = [];
+            for(var i = 0;i < voteResult.length;i++) {
+                if(voteResult[i].checked) {
+                    selectedCount++;
+                    optionIds.push(voteResult[i].value);
+                }
+            }
+
+            if(selectedCount == 0) {
+                alert("投票选项不能为空！");
+                return
+            }
+
+            if(selectedCount > maxOption) {
+                alert("超出投票最多选择！");
+                return
+            }
+
+            isVoting=true;
+            var duration = Math.ceil(((new Date()).getTime() - g_start.getTime())/1000);
+
+            console.info("duration:" + duration);
+
+            console.info("select:" + optionIds.join(","));
+
+
+            $.ajax({
+                type: "POST",
+                url: "/vote/vote!doVote.action",
+                data: {
+                    "obj.id": g_vote.id,
+                    "userId": g_user,
+                    "startTime": moment(g_start).format("YYYY-MM-DD HH:mm:ss"),
+                    "duration": duration,
+                    "selectedOptions": optionIds.join(",")
+                },
+                dataType: "text",
+                success: function (msg) {
+                    isVoting = false;
+                    var jsonData = JSON.parse(msg);
+                    if (jsonData.success) {
+                        alert("投票成功！");
+                        window.location.reload();
+                    }else {
+                        alert("您已经进行过投票了！");
+                    }
+                }
+            });
+
+        }
+
+        function getPercent(ticketCount,displayType) {
+            var percent = ticketCount/totalTicketCount;
+            if(totalTicketCount < 1) {
+                percent = 0;
+            }
+            if(displayType == 1 && percent == 0) {
+                return  1;
+            }
+            return Math.round(percent*1000)/10;
+        }
+
+        function getBackgroundColor(index) {
+            switch(index%4){
+                case 0:
+                    return "#87AF47";
+                case 1:
+                    return "#EE722E";
+                case 2:
+                    return "#F8B606";
+                case 3:
+                    return "#934120";
+            }
+            return "#87AF47";
+        }
+
+        function Vote(id, title, optionList, maxOption){
+            this.id = id;
+            this.title = title;
+            this.optionList = optionList;
+            this.maxOption = maxOption;
+        }
+
+        function Option(id, title,ticketCount){
+            this.id = id;
+            this.title = title;
+            this.ticketCount = ticketCount;
+        }
+
+        function goToSearch(){
+            var searchValue = $("#searchValue").val();
+            if(searchValue == null || searchValue == "" || searchValue == '输入关键词') {
+                alert('请输入搜索内容！');
+                return;
+            }
+            window.location.href="searchList.html?searchValue="+encodeURI(encodeURI(searchValue));
+        }
+
+    </script>
+</head>
+<body>
+
+<!-- banner -->
+<div id="fakeBg"><div id="wbg"></div></div>
+<img id="headBanner" src="images/headerBanner.png" alt=""/>
+
+
+<!-- main menu -->
+<div id="divMenu">
+	<ul id="ulMenu">
+        <li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="columnZSZT.html">中省直通</a></li>
+        <li><a class="mainMenu" href="noticeList.html?channelId=474431645">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+	</ul>
+</div>
+
+<!-- search bar -->
+<div class="mainSec sou">
+	<h1 class="bt1">站内搜索</h1>
+	<div class="souBox">
+        <input type="text" id="searchValue" name="vcom"  class="text_sou" value="输入关键词" onfocus="if (value =='输入关键词'){value =''}" onblur="if (value ==''){value='输入关键词'}">
+        <input type="button" class="souBtn" onclick="goToSearch()" value="">
+	</div>
+	<h1 class="bt1">邮箱登录</h1>
+    <div name="loginForm" id="v1"><label>用户名</label><div class="kuangBg">
+        <input type="text" name="obj.userId" id="loginId" class="text_sou w108">
+    </div><label>密码</label><div class="kuangBg"><input type="password" name="obj.password" id="passWord" class="text_sou w108">
+    </div><input name="domain" type="hidden" value="sxdyyj.com"><input name="style" type="hidden" value="simple">
+        <input type="button" class="loginBtn" id="doLogin" value="登录"></div>
+
+    <div id="v2"style="display: none;" >
+        <label id="showLogin" style="width: 330px"></label>
+        <input type="button" class="loginBtn" value="注销" id="logOut" onclick="logOut()"/>
+    </div>
+	<input type="button" onclick="location.assign('register.html')" class="loginBtn" value="注册">
+	<div class="weather"><iframe width="170" scrolling="no" height="13" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&amp;id=11&amp;icon=1"></iframe></div>
+</div>
+
+<!-- breadcrumb -->
+<div class="breadcrumb">
+	<a href="index.html">首页</a> > <a href="voteList.html">问卷调查中心</a> > 整改工作调查问卷
+</div>
+<div class="mainSec" style="border-top: 2px solid #fff;margin-bottom: 0;">
+	<div class="colHeader">
+		<img src="images/bgCH_dttp.png" alt=""/>
+	</div>
+</div>
+
+<!-- main section -->
+<form class="mainSec">
+    <h1 class="fRed fCenter f24" id="voteTitle"></h1>
+    <table id="formTable">
+        <colgroup>
+            <col />
+            <col style="width:300px;" />
+            <col style="width:300px;"/>
+        </colgroup>
+
+
+    </table>
+
+
+</form>
+
+
+<!-- footer -->
+<div class="mainSec footer">
+	<hr class="white"/>
+	<a href="http://cpc.people.com.cn/" target="_blank"><img src="images/logo/lkGCDXWW.jpg" class="linkLogo"/></a>
+	<a href="http://www.zgdsw.org.cn/" target="_blank"><img src="images/logo/lkDCDLSW.jpg" class="linkLogo"/></a>
+	<a href="http://www.sx-dj.gov.cn/" target="_blank"><img src="images/logo/lkSXDJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.yadj.gov.cn" target="_blank"><img src="images/logo/lkYADJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.gov.cn/" target="_blank"><img src="images/logo/lkRM.jpg" class="linkLogo"/></a>
+	<a href="http://www.shaanxi.gov.cn/" target="_blank"><img src="images/logo/lkSX.jpg" class="linkLogo"/></a>
+	<a href="http://www.yanan.gov.cn/" target="_blank"><img src="images/logo/lkYA.jpg" class="linkLogo"/></a>
+	<a href="http://nc.mofcom.gov.cn/" target="_blank"><img src="images/logo/lkNC.jpg" class="linkLogo"/></a>
+
+	<hr class="white"/>
+	<p>
+		版权所有：延安市党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+	</p>
+	<p>
+		主办方：延安市党员干部现代远程教育中心
+	</p>
+</div>
+</body>
+<!--[if lt IE 9]>
+<script src="js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/comm.js"></script>
+</html>

@@ -1,0 +1,191 @@
+/* 企业信息管理样式表 */
+/*全局定义开始*/
+*
+{
+	margin:0;
+	padding:0
+}
+
+body,td,th,select,input
+{
+	font-size:12px;
+	font-family:Arial,"宋体";
+	color:#000;
+	line-height:1.5em
+}
+
+
+table
+{
+	text-align:left;
+}
+
+a 
+{
+	color:#000; 
+	text-decoration:none
+}
+
+a:hover
+{
+	text-decoration:none
+}
+
+h4
+{
+	font-size:14px;
+	line-height:1.5em;
+	font-weight:normal;
+	letter-spacing:1pt
+}
+
+
+/*页头外框*/
+.headerBox
+{ 
+	text-align :left;
+	width:100%; 
+	clear:both;
+	background: #fff url(../images/topBg.jpg) repeat-x;
+	}
+
+/*页头LOGO样式*/
+.logo
+{
+	width:100%; 
+	height:60px; 
+    background: url(../images/logoManage.jpg) no-repeat; 
+    background-position:0px 0px;
+    margin-right:0px;
+}
+
+/*登录页面样式*/
+.loginBg
+{
+    background:url(../images/bgLoginBody.jpg) no-repeat;
+}
+
+.loginBox01
+{
+    width:934px;
+	height:402px;
+	margin-top:95px;
+}
+
+.loginInput
+{
+    width:120px;
+	height:18px;
+	border:1px solid #80B6D2;
+	background:#252B27;
+	color:#cccccc
+}
+
+
+/*左边菜单分类总称样式*/
+.leftTdBox
+{
+    background:url(../images/bgLine.gif) repeat-x;
+	padding-top:2px;
+	width:164px;
+	height:23px;
+}
+
+.menu 
+{
+	margin-top:9px;
+	font-weight:normal;
+	font-size:12px;
+	margin-left:0px;
+	height: 23px;
+	width:165px;
+	padding: 4px 0px 0px 36px;
+	cursor:pointer;
+	background:url(../images/bgLeftMenu.gif) no-repeat;
+}
+.menu1 
+{
+	margin-top:9px;
+	margin-bottom:5px;
+	font-weight:normal;
+	font-size:12px;
+	margin-left:0px;
+	height: 23px;
+	width:165px;
+	padding: 4px 0px 3px 36px;
+	cursor:pointer;
+	background:url(../images/bgLeftMenuOn.gif) no-repeat;
+}
+.menuOn
+{
+	BACKGROUND: url(../images/bgLeftMenu2On.gif) no-repeat;
+	WIDTH: 165px;
+	CURSOR: pointer;
+	PADDING-TOP: 4px;
+	PADDING-left: 36px;
+	HEIGHT: 23px
+}
+.menuOff
+{
+	BACKGROUND: url(../images/bgLeftMenu2Off.gif) no-repeat;
+	WIDTH: 165px;
+	CURSOR: pointer;
+	PADDING-TOP: 4px;
+	PADDING-left: 36px;
+	HEIGHT: 23px
+}
+
+/*左边菜单样式*/
+.subMenu
+{
+	display:none;
+	list-style:none;
+	margin-left:0px;
+}
+
+.subMenu li
+{
+	margin:0px;
+}
+
+/*位置*/
+.place1
+{
+	margin-top:10px;
+	margin-left:15px;
+	background:url(../images/arrow.png) left no-repeat 2px;
+	padding-left:18px;
+	font-family: "宋体";
+}
+
+/*页面中央的table排列*/
+.tabSpace01
+{
+    margin-top:13px;
+	margin-bottom:20px;
+	text-align:center
+}
+.tabSpace02
+{
+    margin-top:30px;
+	margin-bottom:20px;
+	text-align:center
+}
+.tdSpace01
+{
+    text-align:right;
+	height:28px;
+	width:16%;
+	background:#ffffff;
+	padding-top:5px;
+	padding-right:5px
+}
+.tdSpace02
+{
+	width:84%;
+	background:#ffffff;
+	padding-left:9px;
+	padding-right:8px;
+	padding-top:5px;
+	padding-bottom:5px;
+}

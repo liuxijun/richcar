@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title> 延安市党员干部现代远程教育网 </title>
+<link rel="shortcut icon" href="favicon.ico"/>
+<!--[if lt IE 9]>
+<script src="js/html5shiv.min.js?v3.70"></script>
+<![endif]-->
+<link rel="stylesheet" href="css/site.css"/>
+<style>
+#topLinks {
+    clear: both;
+    text-align: center;
+    margin-bottom: -10px;
+    /*padding: 5px 2px;*/
+}
+#topLinks img{
+    width: 196px;
+    border: 1px solid #fff;
+}
+#topLinks img:hover{
+    border-color: #d00;
+}
+.divColLeft {
+    float: left;
+    width: 728px;
+    /*border: 1px solid #ef6309;;*/
+}
+
+.divColRight {
+    float: right;
+    width: 270px;
+    background-color: #9b0016;
+}
+
+
+.colMain {
+    background-repeat: no-repeat;
+    min-height: 90px;
+}
+
+.hugeTitle {
+    color: #cf0001;
+    font-size: 38px;
+    font-weight: bold;
+    display: block;
+    margin-left: 200px;
+    padding-top: 10px;
+    line-height: 50px;
+}
+.hugeTitle:hover{
+    color: #ff0000;
+}
+
+.UlArticles{
+    margin: 20px 0 0 0;
+    line-height: 28px;
+    /*min-height: 100px;
+             border: 1px solid #9b0016;*/
+}
+.columnHalf_l .UlArticles,
+.columnHalf .UlArticles{
+    margin-top: 5px;
+    margin-left: 0;
+}
+.UlArticles li{
+    list-style-image: url("images/dot2.gif");
+}
+
+.rightColTitle{
+    font-size: 20px;
+    color: #fff;
+    margin-top: 12px;
+    text-indent: 8px;
+    height: 50px;
+    background: url("images/bg_douleYellowLine.png") no-repeat 0 36px;
+}
+.rightColCon{
+    margin: 10px;
+    background-color: #e8e8e8;
+    overflow: auto;
+}
+.voteTitle{
+    color: #d00;
+    font-size: 14px;
+    padding: 10px;
+}
+.UlVote{
+    margin: 0 8px;
+}
+.UlVote li{
+    font-size: 12px;
+    line-height: 28px;
+}
+
+#colList2 , #colList5{/*
+			width: 540px;
+			float: right;*/
+}
+.colList3{
+    width: 720px;
+    padding: 20px 0 0 0;
+}
+.colList4{
+    width: 350px;
+    padding: 0;
+    margin: -20px 0 0 0;
+    list-style: none;
+
+}
+
+.colList4 li{
+    list-style: none;
+}
+.vodBig{
+    float: left;
+}
+.rpFrameBig{
+    width: 350px;
+    height: 225px;
+}
+.rpFrameMini{
+    width: 90px;
+    height: 90px;
+    margin: 10px auto;
+    display: block;
+}
+.rpFramePlayIco{
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    z-index: 90;
+    top: -26px;
+    left: 90px;
+}
+.vodTitleMini{
+    position: relative;
+    z-index: 90;
+    top: -30px;
+    left: 10px;
+    margin: 1px;
+    padding: 5px;
+    width: 90px;
+    height: 20px;
+    line-height: 16px;
+    text-align: center;
+}
+.vodTitleBig{
+    position: relative;
+    z-index: 90;
+    top: -36px;
+    margin: 1px;
+    padding: 5px;
+    width: 338px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #ffffff;
+    background-color: #000000;
+    background-color: rgba(0,0,0,0.75);
+    filter: alpha(opacity=75);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=75);
+}
+.UlVod{
+    width:400px;
+    float: right;
+}
+.UlVod li{
+    display: inline-block;
+    width: 122px;
+    height: 148px;
+    background-color: #ccc;
+    margin-right: 7px;
+    margin-bottom: 20px;
+    text-align: center;
+    vertical-align: top;
+}
+.UlVod li:hover{
+    background-color: #ecdf7e;
+}
+.hotLi{
+    list-style: none !important;
+    font-size: 16px !important;
+    margin-top: 10px;
+}
+
+.columnHalf{
+    width: 350px;
+}
+.columnHalf_l{
+    width: 350px;
+}
+.columnHalf .UlArticles , .columnHalf_l .UlArticles{
+    border: none;
+}
+
+.tbVote{
+    width: 100%;
+    background-color: #fff;
+}
+.tbVote tr:nth-child(odd) {
+    background-color: #dbe4fa;
+}
+
+.tbVote tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+.tbVote td {
+    border: 1px solid #ccc;
+    padding: 3px 5px;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.contentv {
+    margin: 20px auto;
+}
+
+.contentv p {
+    text-indent: 30px;
+    text-align: justify;
+    font-size: 16px;
+    line-height: 28px;
+    MARGIN: 0 3px 15px;
+}
+#Player {
+    width: 300px;
+    height: 220px;
+    background-color: #000;
+    margin-bottom: 20px;
+}
+</style>
+<script src="../js/utilsParameters.js"></script>
+<script type=text/javascript src="../js/jquery-1.7.2.min.js"></script>
+<script src="js/channels.js"></script>
+<script src="/js/md5.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<!--[if lt IE 9]>
+<script src="js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.cycle.all.min.js"></script>
+<script src="js/comm.js"></script>
+<script src="../scripts/redex_utils.js"></script>
+<script>
+    document.write('<script src="js/index.jsp?ids=all"><'+'/script>');
+    document.write('<script src="'+serverOptions.address+"interface/player.jsp?date="+new Date().getTime()+'"><'+'/script>');
+</script>
+<script type="text/javascript">
+var systemIsReady = false;
+var parentId = getParameterFromUrl(null,"parentId",-1);
+var clipNo = 1;
+var movieDetailJsonData={};
+var contentId ;
+function setChannel(id,channel,urlParameters){
+    if(typeof(urlParameters)=='undefined'){
+        urlParameters = "id";
+    }
+    if(channel!=null){
+        var channelObj = $("#"+id);
+        if(channelObj!=null){
+            if(parseInt(channel.id) !=  474431645)  {//通知公告栏目除外
+                var html = 'subColumn';
+                if(id == 'parentChannel' && parseInt(channel.parentId) == 474431589) {//父频道为首页
+                    html = 'column';
+                }
+                html = html+".html";
+                channelObj.attr("href",html+"?" +urlParameters+
+                        "="+channel.id);
+            }
+            channelObj.html(channel.name);
+        }
+    }
+}
+
+function playContent(contentId,clipNo){
+    if(typeof(openPlayer)=='undefined'){
+        return;
+    }
+    var isLive= false;//是否是直播。如果是直播，设置为true
+    var playerContentId= 'Player';//播放器容器的ID
+    var playerId = 'fortuneFlashPlayer';//播放器的id，获取播放时间进度、跳转、获取状态等信息时需要。
+    var width=300;
+    var height=220;
+    openPlayer(contentId,clipNo,playerContentId,playerId,isLive,width,height);
+}
+
+var rendered = false;
+function detailReady(movieDetailJsonData){
+    if(typeof(openPlayer)=='undefined'){
+        return;
+    }
+
+    var content = movieDetailJsonData.content;
+    if(content.type != 'picNews'){
+        playContent(contentId,clipNo);
+    }
+    renderDetail(movieDetailJsonData);
+}
+
+function renderDetail(movieDetailJsonData){
+    if(typeof(movieDetailJsonData)!='undefined'){
+        var parentChannel = movieDetailJsonData.parentChannel;
+        if(typeof(parentChannel)=='undefined'){
+            parentChannel = {id:-1};
+        }
+
+        setChannel("channel", movieDetailJsonData.channel,'parentId='+parentChannel.id+"&channelId");
+        if(parseInt(movieDetailJsonData.channel.id) != 474431645)  {//通知公告栏目除外
+            setChannel("parentChannel",parentChannel,"parentId");
+        }
+    }
+}
+
+function loadPlayer(itemId){
+    $.ajax({
+        type: "POST",
+        url:"/page/js/detail.jsp?contentId="+itemId,
+        dataType: "json ",
+        success: function(movieDetailJsonData){
+            detailReady(movieDetailJsonData);
+        }
+    });
+}
+//var loading = false;
+//function goToDownLoad(contentId) {
+//    if(loading) {
+//        alert("正在处理下载请求，请勿连续点击！");
+//    }
+//    loading = true;
+//    $.ajax({
+//        type:"POST",
+//        url:'/content/contentProperty!getContentDownLoadUrl.action',
+//        data:{ 'obj.contentId':contentId, 'Obj.intValue':1, 'Obj.propertyId':1}
+//    }).done(function (msg) {
+//                loading = false;
+//                if(msg != null && ""!=msg) {
+//                    var result = eval('(' + msg + ')');
+//                    if(result.success == "true" || result.success == true) {
+//                        window.location.href="http://"+result.url;
+//                    }
+//                }
+//            })
+//
+//}
+
+function goToSearch(){
+    var searchValue = $("#searchValue").val();
+    if(searchValue == null || searchValue == "" || searchValue == '输入关键词') {
+        alert('请输入搜索内容！');
+        return;
+    }
+    window.location.href="searchList.html?searchValue="+encodeURI(encodeURI(searchValue));
+}
+
+var tryCount = 0;
+
+function renderIndex(){
+    if((!systemIsReady)||(serverData==null)){
+        //系统没准备好或者数据没准备好
+        return;
+    }
+//*/
+    var djdtSection = $("#colList1");
+    var djdt = serverData['djdt'];
+    if(djdt){
+        var djdtOutputCount=0;
+        $.each(djdt,function(){
+            var item =this;
+            if(djdtOutputCount < 3) {
+                document.getElementById('slide1_img'+djdtOutputCount).setAttribute('data-link',"detail.html?id="+item.id);
+                document.getElementById('slide1_img'+djdtOutputCount).src = item.poster;
+                document.getElementById('slide1_img'+djdtOutputCount).setAttribute('data-title',item.name);
+            }
+            if(djdtOutputCount == 0) {
+                djdtSection.append('<li class="hotLi"><a class="article" target="_blank"><b class="fRed">国内要闻</b></a><a href="subColumn.html?parentId=474431622&channelId=474431642" style="margin-left: 250px">更多</a></li>');
+            }
+
+            if(djdtOutputCount>= 0 && djdtOutputCount < 7){
+                djdtSection.append(' <li><a class="article" href="detail.html?id='+ item.id+'" target="_blank">'+ item.name+'</a></li>');
+            }
+            djdtOutputCount++;
+        });
+    }
+
+    var jrtt_yayw = serverData['jrtt_yayw'];
+    var djdtYa = $("#djdt_jrtt_ya");
+    if(jrtt_yayw) {
+        var yaywOutputCount =0;
+        $.each(jrtt_yayw,function(){
+            var item = this;
+            if(yaywOutputCount < 3) {
+                djdtYa.append('<li><a class="article" href="detail.html?id='+item.id+'" title="'+item.name+'">'+item.name+'</a></li>');
+            }
+            yaywOutputCount++;
+        })
+    }
+
+    var djdtSx = $("#djdt_jrtt_sx");
+    var jrtt_sxyw = serverData['jrtt_sxyw'];
+    if(jrtt_sxyw) {
+        var sxywOutputCount =0;
+        $.each(jrtt_sxyw,function(){
+            var item = this;
+            if(sxywOutputCount < 3) {
+                djdtSx.append('<li><a class="article" href="detail.html?id='+item.id+'" title="'+item.name+'">'+item.name+'</a></li>');
+            }
+            sxywOutputCount++;
+        })
+    }
+
+    var yjzcSection = $("#colList2");
+    var yjzc = serverData['yjzc'];
+    var yjzcTitle_ul =$("#yjzc_title");
+    if(yjzc){
+        var yjzcOutputCount=0;
+        $.each(yjzc,function(){
+            var item =this;
+            if(yjzcOutputCount<8){
+                if(yjzcOutputCount==0){
+                    document.getElementById('yjzc_pic').src=item.poster;
+                    document.getElementById('yjzc_pic_title').innerHTML=item.name;
+                    document.getElementById('yjzc_pic_href').href= 'detail.html?id='+item.id;
+                }
+                if(yjzcOutputCount < 18){
+                    yjzcSection.append('<li><a class="article" href="detail.html?id='+item.id+'" target="_blank">'+item.name+'</a></li>')
+                }
+                if(yjzcOutputCount >17 && yjzcOutputCount <21){
+                    yjzcSection.append('<li><span class="fRed">[最新]</span><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+                }
+                yjzcOutputCount++;
+            }
+        });
+    }
+
+    var yastSection = $("#UlVod");
+    var yastSection_ul = $("#colList4");
+    var contentName_ul = $("#contentName");
+    var yast = serverData['yast'];
+    if(yast){
+        var yastOutputCount=0;
+        $.each(yast,function(){
+            var item =this;
+            if(yastOutputCount<9){
+                var name = item.name;
+                if(name.length >12) {
+                    name = name.substring(0,12);
+                }
+                yastSection.append('<li><a href="detail.html?id='+item.id+'">' +
+                        '<img src="'+item.poster+'" class="rpFrameMini" alt=""/>' +
+                        '<img src="images/play.gif" class="rpFramePlayIco" alt=""/>' +
+                        '<p class="vodTitleMini">'+name+'</p></a></li>');
+            }
+            if(yastOutputCount == 0 ) {
+                contentName_ul.append('<p class="title" >'+item.name+'</p>');
+                loadPlayer(item.id);
+                contentId = item.id;
+            }
+
+            if(yastOutputCount> 6 && yastOutputCount<10) {
+                yastSection_ul.append('<li><span class="fRed">[最新]</span> <a class="article" href="detail.html?id='+ item.id+'" title="'+item.name+'">'+item.name
+                        +'</a></li>');
+            }
+
+            yastOutputCount++;
+        });
+    }
+
+    var xzzqSection_ul = $("#colList5");
+    var xzzqTtile_ul=$("#xzzq_title")
+    var xzzq = serverData['xzzq'];
+    if(xzzq){
+        var xzzqOutputCount=0;
+        $.each(xzzq,function(){
+            var item =this;
+            if(xzzqOutputCount<15){
+                xzzqSection_ul.append('<li><a class="article" href="detail.html?id='+item.id+'" target="_blank">'+item.name+'</a></li>');
+            }
+            if(xzzqOutputCount == 0 ) {
+                document.getElementById('xzzq_pic').src=item.poster;
+                document.getElementById('xzzq_pic_title').innerHTML=item.name;
+                document.getElementById('xzzq_pic_href').href= 'detail.html?id='+item.id;
+            }
+
+            xzzqOutputCount++;
+        });
+    }
+
+    var $txt = $('#slide1Txt');
+    $("#slide1").cycle({
+        fx: 'scrollLeft',
+        pause: true,
+        pager:'#slide1Sign',
+        activePagerClass:"curSlide",
+        pagerAnchorBuilder:function (i, pic) {
+            return '<img src="images/clear.gif" class="ssgin"/>';
+        },
+        before: function (prev, next) {
+            if (prev !== next) $txt.fadeTo('normal', 0);
+        },
+        after: function (prev, next) {
+            var $img = $(next) ;
+            $txt.text($img.data('title')).fadeTo('normal', 0.75);
+        }
+    }).on('click', 'img', function () {
+                window.open($(this).data('link'));
+            });
+}
+
+jQuery(function($){
+    systemIsReady = true;
+    var voteId = $.getQuery("id", -1);
+
+    loadVote(voteId, showVote);
+    renderNotice();
+    renderIndex();
+});
+</script>
+</head>
+<body>
+<!-- banner -->
+<div id="fakeBg"><div id="wbg"></div></div>
+<img id="headBanner" src="images/headerBanner.png" alt=""/>
+<!-- main menu -->
+<div id="divMenu">
+    <ul id="ulMenu">
+        <li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="columnZSZT.html">中省直通</a></li>
+        <li><a class="mainMenu" href="noticeList.html?channelId=474431645">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+    </ul>
+</div>
+<!-- search bar -->
+<div class="mainSec sou">
+    <h1 class="bt1">站内搜索</h1>
+    <div class="souBox">
+        <input type="text" id="searchValue" name="vcom"  class="text_sou" value="输入关键词" onfocus="if (value =='输入关键词'){value =''}" onblur="if (value =='')
+{value='输入关键词'}">
+        <input type="button" class="souBtn" onclick="goToSearch()" value="">
+    </div>
+    <h1 class="bt1">邮箱登录</h1>
+    <div name="loginForm" id="v1"><label>用户名</label><div class="kuangBg">
+        <input type="text" name="obj.userId" id="loginId" class="text_sou w108">
+    </div><label>密码</label><div class="kuangBg"><input type="password" name="obj.password" id="passWord" class="text_sou w108">
+    </div><input name="domain" type="hidden" value="sxdyyj.com"><input name="style" type="hidden" value="simple">
+        <input type="button" class="loginBtn" id="doLogin" value="登录"></div>
+
+    <div id="v2"style="display: none;" >
+        <label id="showLogin" style="width: 330px"></label>
+        <input type="button" class="loginBtn" value="注销" id="logOut" onclick="logOut()"/>
+    </div>
+    <input type="button" onclick="location.assign('register.html')" class="loginBtn" value="注册">
+    <div class="weather"><iframe width="170" scrolling="no" height="13" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?
+c=code&amp;id=11&amp;icon=1"></iframe></div>
+</div>
+
+<!-- big links -->
+<div id="topLinks">
+    <a href="http://www.dygbjy.gov.cn:8008/index.html" target="_blank"><img src="images/linkQGYCW.jpg" alt=""/></a>
+    <a href="http://117.34.64.109/" target="_blank"><img src="images/linkSXGBW.jpg" alt=""/></a>
+    <a href="http://www.12371.cn" target="_blank"><img src="images/link12317.jpg" alt=""/></a>
+    <a href="http://www.12371.cn/shoujibao/" target="_blank"><img src="images/linkSJB.jpg" alt=""/></a>
+    <a href="http://www.dygbjy.gov.cn:8008/gcdydsjm/index.htm" target="_blank"><img src="images/linkGDLM.jpg" alt=""/></a>
+</div>
+
+<!-- main section-1 -->
+<div class="mainSec">
+    <div class="divColRight">
+
+        <!-- 答题投票 -->
+        <div class="rightColTitle"><a class="f20 fWhite hoverWhite fHoverUnderline" href="voteList.html">答题投票</a></div>
+        <div class="rightColCon" style="height: 373px;">
+            <h3 class="voteTitle" id="voteTitle"></h3>
+            <table class="tbVote" id="tbVote">
+                <col style="width: 100px"/>
+            </table>
+            <p class="fRight" id="totalTicketCount"></p>
+            <p class="fRight"><a href="#" class="fRed fBold" id="goVote">去投票 >> </a>&nbsp;</p>
+
+        </div>
+    </div>
+    <div class="divColLeft">
+        <div class="colHeader">
+            <h2 class="colName"><a href="column.html?parentId=474431621">党建动态</a></h2>
+            <a class="subColName curColName" href="subColumn.html?parentId=474431621&channelId=474431622&index=1">今日头条</a>
+            <a class="subColName" href="subColumn.html?parentId=474431621&channelId=474431623&index=2">理论学习</a>
+            <a class="subColName" href="subColumn.html?parentId=474431621&channelId=474431624&index=3">基层党建</a>
+            <a class="subColName" href="subColumn.html?parentId=474431621&channelId=474431625&index=4">党风廉政</a>
+        </div>
+        <!-- 列表 -->
+        <ul id="colList1" class="UlArticles" style=" width: 350px; float: right;margin-top: 3px;">
+
+        </ul>
+
+
+        <!-- slideShow -->
+        <div class="slideContainer">
+            <div id="slide1" class="slideShow">
+                <img id="slide1_img0" class="slideImg" src="images/slde_1.jpg" data-link="detail.html?id=1"
+                     data-title="学习贯彻党的十八大精神"/>
+                <img id="slide1_img1" class="slideImg" src="images/slde_2.jpg" data-link="detail.html?id=1"
+                     data-title="习近平：扎实推进依法治军从严治军"/>
+                <img id="slide1_img2" class="slideImg" src="images/slde_3.jpg" data-link="detail.html?id=1"
+                     data-title="李克强与塞尔维亚总理共同会见记者"/>
+            </div>
+            <div id="slide1Txt" class="slideText"></div>
+            <div id="slide1Sign" class="slideSign"></div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="columnHalf_l right">
+            <div>
+                <h2 style="float: left;"><a href="subColumn.html?parentId=474431622&channelId=474431644" class="f16 fRed fHoverUnderline">延安要闻</a></h2>
+                <a style="margin-left: 250px" href="subColumn.html?parentId=474431622&channelId=474431644">更多</a>
+            </div>
+            <ul class="UlArticles" id="djdt_jrtt_ya">
+
+            </ul>
+
+        </div>
+        <div class="columnHalf left">
+            <div>
+                <h2 style="float: left;"><a href="subColumn.html?parentId=474431622&channelId=474431643" class="f16 fRed fHoverUnderline">陕西要闻</a></h2>
+                <a style="margin-left: 250px" href="subColumn.html?parentId=474431622&channelId=474431643">更多</a>
+            </div>
+            <ul class="UlArticles" id="djdt_jrtt_sx">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<!-- main section-2 -->
+<div class="mainSec" id="noticeHead">
+    <div class="divColRight">
+        <div class="rightColTitle"><a class="f20 fWhite hoverWhite fHoverUnderline" href="noticeList.html?channelId=474431645">通知公告</a></div>
+        <div class="rightColCon clipText"  style="height: 320px;">
+            <ul class="UlArticles" style="margin: 5px 3px 0 8px" id="notice">
+
+            </ul>
+        </div>
+    </div>
+    <div class="divColLeft">
+        <div class="colHeader">
+            <h2 class="colName"><a href="column.html?parentId=474431626">远教之窗</a></h2>
+            <a class="subColName curColName" href="subColumn.html?parentId=474431626&channelId=474431627&index=1">远教动态</a>
+            <a class="subColName" href="subColumn.html?parentId=474431626&channelId=474431628&index=2">远教课表</a>
+            <a class="subColName" href="subColumn.html?parentId=474431626&channelId=474431629&index=3">远教辅导</a>
+            <a class="subColName" href="subColumn.html?parentId=474431626&channelId=474431630&index=4">远教论坛</a>
+        </div>
+        <div class="colMain">
+            <!-- 影片列表 -->
+            <div class="colList3">
+                <ul class="UlArticles" style="overflow: hidden;height: 320px;width: 340px;float: right;margin-top: -5px" id="colList2">
+
+                </ul>
+                <div class="vodBig">
+                    <a href="detail.html" id="yjzc_pic_href"><img id="yjzc_pic" class="rpFrameBig" src="images/slde_1.jpg" />
+                        <p class="vodTitleBig" id="yjzc_pic_title"></p>
+                    </a>
+                    <ul class="UlArticles colList4" id="474431627_ul_1">
+
+                    </ul>
+                </div>
+            </div>
+            <ul id="colList2" class="UlArticles">
+
+            </ul>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="clear"></div>
+<!-- main section-3 -->
+<div class="mainSec" style="height: 560px; overflow: hidden;">
+    <div class="divColRight">
+        <div class="rightColTitle"><a class="f20 fWhite hoverWhite fHoverUnderline" href="columnZSZT.html">中省直通</a></div>
+        <div class="rightColCon clipText">
+            <ul class="clipText fcenter" style="margin: 10px ; height: 150px">
+                <li><a class="article f16" href="http://www.dygbjy.gov.cn:8008/yj/jcsp/index.html" target="_blank">全国远教-精彩视频</a></li>
+                <li><a class="article f16" href="http://dygbjy.12371.cn/" target="_blank">全国远教-直播频道</a></li>
+                <li><a class="article f16" href="http://www.sxdyyj.com/vod/jpkj.jsp" target="_blank">陕西远教-精品课件</a></li>
+                <li><a class="article f16" href="http://dslm.12371.cn/" target="_blank">共产党员电视栏目</a></li>
+                <li><a class="article f16" href="#" target="_blank">延安远教-视听延安</a></li>
+                <li><a class="article f16" href="http://fuwu.12371.cn/jdyx/index.shtml" target="_blank">经典影视剧</a></li>
+            </ul>
+        </div>
+        <a href="http://fuwu.12371.cn/2014/08/13/VIDA1407922215750598.shtml" target="_blank" style="display: block;text-align: center">
+            <img src="images/1408010601646_548.jpg" style="width: 250px;margin: 5px 10px;"/>
+        </a>
+        <a href="http://fuwu.12371.cn/2012/06/13/VIDA1339566772770329.shtml" target="_blank" style="display: block;text-align: center">
+            <img src="images/1417598377140_423.jpg" style="width: 250px;margin: 5px 10px;"/>
+        </a>
+    </div>
+    <div class="divColLeft">
+        <div class="colHeader">
+            <h2 class="colName" style="width: 180px;"><a href="column.html?parentId=474431631">视听延安</a></h2>
+            <a class="subColName2 curColName" href="subColumn.html?parentId=474431631&channelId=474431632&index=1">典型经验</a>
+            <a class="subColName2" href="subColumn.html?parentId=474431631&channelId=474431633&index=2">先进人物</a>
+            <a class="subColName2" href="subColumn.html?parentId=474431631&channelId=474431634&index=3">农村天地</a>
+            <a class="subColName2" href="subColumn.html?parentId=474431631&channelId=474431635&index=4">文化生活</a>
+            <a class="subColName2" href="subColumn.html?parentId=474431626&channelId=474431636&index=5">社会与法</a>
+        </div>
+        <div class="colMain" style="width: 730px;clear: both;">
+            <!-- 影片列表 -->
+            <div class="colList3">
+                <ul class="UlVod" id="UlVod">
+
+                </ul>
+                <div id="vodDetail">
+
+                    <div id="Player"></div>
+                    <h3 class="title" id="contentName"></h3>
+                </div>
+
+            </div>
+            <!--<a href="detail.html" id="yast_pic_href"><img class="rpFrameBig" id="yast_pic" src="images/slde_1.jpg" />
+                <p class="vodTitleBig" id="yast_pic_title"></p>
+            </a>-->
+            <ul class="UlArticles colList4" style="width: 280px;margin-top: 10px;" id="colList4">
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- main section-4 -->
+<div class="mainSec">
+    <div class="divColRight">
+        <div class="rightColTitle">在线查询</div>
+        <div class="rightColCon clipText" style="height: 315px;">
+            <ul style="margin: 10px ">
+                <li><img src="images/ico_hc.png" class="ico24"/><a class="article f18" href="http://www.12306.cn/mormhweb/" target="_blank">火车票查询</a></li>
+                <li><img src="images/ico_fj.png" class="ico24"/><a class="article f18" href="http://www.caac.gov.cn/S1/GNCX/" target="_blank">机票航班查询</a></li>
+                <li><img src="images/ico_kd.png" class="ico24"/><a class="article f18" href="http://www.spb.gov.cn/yzbmcx/" target="_blank">快递查询</a></li>
+                <li><img src="images/ico_cl.png" class="ico24"/><a class="article f18" href="http://www.xianjj.com/" target="_blank">车辆违章查询</a></li>
+                <li><img src="images/ico_tq.png" class="ico24"/><a class="article f18" href="http://datacenter.mep.gov.cn/report/air_daily/air_dairy.jsp?&lang="
+                                                                   target="_blank">天气查询</a></li>
+                <li><img src="images/ico_gj.png" class="ico24"/><a class="article f18" href="http://www.scopsr.gov.cn/bmcx/gjcx/" target="_blank">公交查询</a></li>
+                <li><img src="images/ico_dt.png" class="ico24"/><a class="article f18" href="http://www.tianditu.cn/map/index.html" target="_blank">地图查询</a></li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="divColLeft">
+        <div class="colHeader">
+            <h2 class="colName"><a href="subColumn.html?parentId=474431637">下载专区</a></h2>
+            <a class="subColName curColName" href="subColumn.html?parentId=474431637&channelId=474431638">法律法规</a>
+            <a class="subColName" href="subColumn.html?parentId=474431637&channelId=474431639">公文写作</a>
+            <a class="subColName" href="subColumn.html?parentId=474431637&channelId=474431640">职业技能</a>
+            <a class="subColName" href="subColumn.html?parentId=474431637&channelId=474431641">专业资料</a>
+        </div>
+        <div class="colMain">
+            <!-- 影片列表 -->
+            <div class="colList3">
+                <ul class="UlArticles" id="colList5" style="overflow:hidden;width: 340px;float: right;margin-top: -5px">
+
+                </ul>
+                <div class="vodBig">
+                    <a href="detail.html" id="xzzq_pic_href"><img class="rpFrameBig" id="xzzq_pic" src="images/slde_1.jpg" />
+                        <p class="vodTitleBig" id="xzzq_pic_title"></p>
+                    </a>
+
+                    <ul class="UlArticles colList4" id="colList5">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="clear"></div>
+
+<!-- footer -->
+<div class="mainSec footer">
+    <hr class="white"/>
+    <a href="http://cpc.people.com.cn/" target="_blank"><img src="images/logo/lkGCDXWW.jpg" class="linkLogo"/></a>
+    <a href="http://www.zgdsw.org.cn/" target="_blank"><img src="images/logo/lkDCDLSW.jpg" class="linkLogo"/></a>
+    <a href="http://www.sx-dj.gov.cn/" target="_blank"><img src="images/logo/lkSXDJW.jpg" class="linkLogo"/></a>
+    <a href="http://www.yadj.gov.cn" target="_blank"><img src="images/logo/lkYADJW.jpg" class="linkLogo"/></a>
+    <a href="http://www.gov.cn/" target="_blank"><img src="images/logo/lkRM.jpg" class="linkLogo"/></a>
+    <a href="http://www.shaanxi.gov.cn/" target="_blank"><img src="images/logo/lkSX.jpg" class="linkLogo"/></a>
+    <a href="http://www.yanan.gov.cn/" target="_blank"><img src="images/logo/lkYA.jpg" class="linkLogo"/></a>
+    <a href="http://nc.mofcom.gov.cn/" target="_blank"><img src="images/logo/lkNC.jpg" class="linkLogo"/></a>
+
+    <hr class="white"/>
+    <p>
+        版权所有：延安市党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+    </p>
+    <p>
+        主办方：延安市党员干部现代远程教育中心
+    </p>
+</div>
+</body>
+</html>

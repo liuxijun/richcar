@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>无标题文档</title>
+    <style type="text/css">
+        .scroll_div {
+            width:614px;
+            height:146px;
+            margin:0 auto;
+            overflow: hidden;
+            white-space: nowrap;
+            background:#ffffff;
+        }
+        .scroll_div img {
+            width:140px;
+            height:140px;
+            margin:auto 2px;
+            border:1px #efefef solid;
+        }
+        #scroll_begin, #scroll_end, #scroll_begin ul, #scroll_end ul, #scroll_begin ul li, #scroll_end ul li {
+            display:inline;
+        }/*设置ul和li横排*/
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    function ScrollImgLeft(){
+        var speed=20;
+        var startDrag = false;
+        var scroll_begin = document.getElementById("scroll_begin");
+        var scroll_end = document.getElementById("scroll_end");
+        var scroll_div = document.getElementById("scroll_div");
+        scroll_end.innerHTML=scroll_begin.innerHTML
+        function Marquee(){
+            if(scroll_end.offsetWidth-scroll_div.scrollLeft<=0)
+                scroll_div.scrollLeft-=scroll_begin.offsetWidth
+            else
+                scroll_div.scrollLeft++
+        }
+        var MyMar=setInterval(Marquee,speed);
+
+        scroll_div.onmouseover=function() {clearInterval(MyMar)}
+        scroll_div.onmouseout=function() {MyMar=setInterval(Marquee,speed)}
+        scroll_div.onmousedown=function(){startDrag=true;};
+        scroll_div.onmouseup=function(){startDrag=false;};
+        scroll_div.onmousemove=function(){
+
+        };
+    }
+</script>
+<!--#####滚动区域#####-->
+<div id="scroll_div" class="scroll_div">
+    <div id="scroll_begin">
+        <ul>
+            <li><a href=" src=" alt="" /><img src="images/1-1-0-_02.jpg">酷站素材</a></li>
+            <li><a href=" src=" alt="" /><img src="images/1-1-0-_02.jpg">酷站素材</a></li>
+            <li><a href=" src=" alt="" /><img src="images/1-1-0-_02.jpg">酷站素材</a></li>
+            <li><a href=" src=" alt="" /><img src="images/1-1-0-_02.jpg">酷站素材</a></li>
+            <li><a href=" src=" alt="" /><img src="images/1-1-0-_02.jpg">酷站素材</a></li>
+            <li><a href=" src=" alt="" /><img src="images/1-1-0-_02.jpg">酷站素材</a></li>
+        </ul>
+    </div>
+    <div id="scroll_end"></div>
+</div>
+<!--#####滚动区域#####-->
+<script type="text/javascript">ScrollImgLeft();</script>
+<!--//向左滚动代码结束-->
+</body>
+</html>

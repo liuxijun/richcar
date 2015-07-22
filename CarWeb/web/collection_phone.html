@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<title>WEICHAI</title>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/user_phone.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/utilsParameters.js"></script>
+    <script src="page/js/frontUser.js"></script>
+    <script src="js/channels.js"></script>
+    <script src="js/login.js"></script>
+</head>
+    <script>
+        document.write('<script src="'+serverOptions.address+"js/getSession.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+     <script>
+         var userId = user==null?null:user.userId;
+
+         function goToUpdatePwd() {
+             window.location.href =  "updatePwd_phone.html";
+         }
+
+         function goToRegister() {
+             window.location.href =  "reg_phone.html";
+
+         }
+
+         function goToPlayLogs() {
+             if(userId == null || userId == "") {
+                 alert("请登录！");
+                 return;
+             }
+             window.location.href = "playLogs_phone.html";
+         }
+
+         jQuery(function(){
+             if(userId == null || userId == "") {
+                 window.location.href="index_phone.html";
+                 return;
+             }
+             getCollectionContentsByUser(userId,_LOGIN_TYPE_PHONE);
+         });
+     </script>
+
+<body>
+<div id="container1">
+<header class="globalheader">
+  <section class="top_cont">
+    <div class="logoarea"><a href="index.html">WEICHAI</a></div>
+      <div class="userarea">
+      <!--    <a id="register" href="javascript:goToRegister()" style="float: right;margin-left: 3%">|&nbsp;注册</a>-->
+          <a id="updatePwd" href="javascript:goToUpdatePwd()" style="float: right;margin-left: 3%">|&nbsp;修改密码</a>
+          <a href="/user/frontUser!frontUserLoginOut.action?userFrom=phone" class="no_login"></a>
+          <!--       <a href="#" class="record"></a>
+        <a href="#" class="fav"></a>-->
+      </div>
+  </section>
+</header>
+<section class="section fixed">
+    <div class="video_list">
+        <ul id="collection">
+            <li><a href="#"><div class="video_pic">
+                <img src="images/vp_6.jpg" height="100px"><span><i>潍柴战略发布会</i></span></div></a>
+                <div class="video_dec">潍柴是目前中国综合实力最强的汽车及装备...<em class="video_time"><a href="#" class="add_fav">取消收藏</a>
+                    <br></em></div></li>
+        </ul>
+    </div>
+</section>
+<div style="height: 30px"></div>
+<footer class="nav clearfix"  id="container">
+  <div class="navarea">
+      <ul>
+          <li class="icon_1"><a href="index_phone.html">首页</a></li>
+          <!--<li class="icon_2"><a href="list_phone.html">直播</a></li>-->
+          <li class="icon_3"><a href="list_phone.html">点播</a></li>
+          <li class="icon_4"><a href="search_phone.html">搜索</a></li>
+          <!--<li class="icon_5"><a href="list_phone.html">个人中心</a></li>-->
+          <li class="icon_6"><a class="over" href="list_phone.html">收藏</a></li>
+          <li class="icon_7"><a href="javascript:goToPlayLogs()">历史</a></li>
+      </ul>
+</div>
+</footer>
+</div>
+    <script>
+       $(".mc_t").bind("click", function () {
+       $("#menu_list").toggle();
+        });
+	  $(".menu_list>li").bind("click", function () {
+       $("#menu_list").toggle();
+        });
+
+       $(".rank_t").bind("click", function () {
+       $("#menu_font").toggle();
+        });
+	  $(".menu_font>li").bind("click", function () {
+       $("#menu_font").toggle();
+        });
+  </script>
+</body>
+</html>

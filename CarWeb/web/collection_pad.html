@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+
+<title>WEICHAI</title>
+    <link href="css/ipad.css" rel="stylesheet">
+    <link href="css/user_pad.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/utilsParameters.js"></script>
+    <script src="page/js/frontUser.js"></script>
+    <script src="js/channels.js"></script>
+    <script src="js/login.js"></script>
+  <style>
+
+/* Swipe 2 required styles */
+
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+
+.swipe-wrap img{ width:65%; padding:0px; margin:0px; float:left; overflow:hidden;}
+.swipe-wrap a{ display:block;  overflow:hidden;  padding:0px; margin:0px; overflow:hidden; background-color:#e61c24;}
+.swipe-wrap .ad_font{ display:block; width:35%; height:100%; overflow:hidden; float:right;}
+.swipe-wrap .ad_font strong{ font-size:22px; font-weight:normal; display:block; margin:33px 40px 15px 26px;}
+.swipe-wrap .ad_font em{ font-size:13px; line-height:160%; font-weight:normal; display:block; margin:0 40px 18px 26px;}
+
+#pager{ position:absolute; right:30px; bottom:20px;}
+#pager em{display: inline-block; width:9px; height:9px; overflow:hidden; vertical-align: middle; margin:0 4px; color: #333; font-style: normal; background-color:#fff; background: rgba(255, 255, 255, 0.6) !important; filter:alpha(opacity=60); -moz-border-radius: 90px; -webkit-border-radius:90px; border-radius:90px; text-indent:-999em; cursor:pointer;}
+#pager em.on{color: #f00; background-color:#fff;  width:9px; height:9px; overflow:hidden; background: rgba(255, 255, 255, 1) !important; filter:alpha(opacity=100); -moz-border-radius: 90px; -webkit-border-radius:90px; border-radius:90px; text-indent:-999em;  cursor:pointer;}
+/* END required styles */
+
+</style>
+    <script>
+        document.write('<script src="'+serverOptions.address+"js/getSession.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+    <script>
+        var userId = user==null?null:user.userId;
+
+        function goToUpdatePwd() {
+            window.location.href =  "updatePwd_pad.html";
+        }
+
+        function goToRegister() {
+            window.location.href =  "reg_pad.html";
+
+        }
+
+        function goToPlayLogs() {
+            if(userId == null || userId == "") {
+                alert("请登录！");
+                return;
+            }
+            window.location.href = "playLogs_pad.html";
+        }
+
+        jQuery(function(){
+            if(userId == null || userId == "") {
+                window.location.href="index_pad.html";
+                return;
+            }
+            channelOptions.renderTopLevelChannel(channels,'_pad');
+            getCollectionContentsByUser(userId,_LOGIN_TYPE_PAD);
+        });
+    </script>
+</head>
+
+<body id="tbody">
+<header class="globalheader">
+<section class="top_cont">
+    <div class="logoarea"><a href="index_pad.html">WEICHAI</a></div>
+    <!--<div class="searcharea"><form><input type="button"  class="btn" onClick="doSearch()"><input type="text" class="sc_input" id="searchValue"></form></div>-->
+    <div class="userarea">
+        <div class="no_login"><span>|</span><a href="javascript:goToRegister()">注册</a></div>
+        <div class="no_login"><b class="i_user"></b><a href="/user/frontUser!frontUserLoginOut.action?userFrom=pad" >注销</a>
+            <span>|</span><a href="javascript:goToUpdatePwd()">修改密码</a>
+            <!--<span>|</span><a href="#">注册</a>--></div>
+        <div class="record"><b class="i_rec"></b><a href="javascript:goToPlayLogs()">我看过的</a><b class="i_arw"></b></div>
+        <div class="fav"><b class="i_favs"></b><a href="#">收藏</a><b class="i_arw"></b></div>
+    </div>
+</section>
+</header>
+
+<section class="section fixed">
+    <div class="video_list">
+        <ul id="collection">
+            <li>
+                <div><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></div>
+                <div><a href="#" class="remove_collection">取消收藏</a></div>
+            </li>
+            <li>
+                <div><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></div>
+                <div><a href="#" class="remove_collection">取消收藏</a></div>
+            </li>
+            <li>
+                <div><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></div>
+                <div><a href="#" class="remove_collection">取消收藏</a></div>
+            </li>
+            <li>
+                <div><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></div>
+                <div><a href="#" class="remove_collection">取消收藏</a></div>
+            </li>
+            <li>
+                <div><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></div>
+                <div><a href="#" class="remove_collection">取消收藏</a></div>
+            </li>
+            <li>
+                <div><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></div>
+                <div><a href="#" class="remove_collection">取消收藏</a></div>
+            </li>
+            <li>
+                <div><a href="video.html"><img src="images/vp_6.jpg"><span><i>潍柴战略发布会</i></span></a></div>
+                <div><a href="#" class="remove_collection">取消收藏</a></div>
+            </li>
+        </ul>
+    </div>
+</section>
+<div style="height: 30px"></div>
+
+<footer class="nav clearfix">
+  <div class="navarea">
+<ul>
+<li><a href="index.html"><em>首页</em></a></li>
+<li><a href="list.html"><em>潍柴动态</em></a></li>
+<li><a href="list.html"><em>各地纵横</em></a></li>
+<li><a href="list.html"><em>企业文化</em></a></li>
+<li><a href="list.html"><em>行业信息</em></a></li>
+<li><a href="list.html"><em>党建特色</em></a></li>
+<li><a href="list.html"><em>原创专区</em></a></li>
+</ul>
+</div>
+</footer>
+
+<script type="text/javascript" src="js/swipe.js"></script>
+
+<script>
+var mySwipe = Swipe(document.getElementById('mySwipe'), {
+  // startSlide: 4,
+  auto: 3000,
+  // continuous: true,
+  // disableScroll: true,
+  // stopPropagation: true,
+  callback: function(index, element) {
+    slideTab(index);
+  }
+  // transitionEnd: function(index, element) {}
+});
+var bullets = document.getElementById('pager').getElementsByTagName('em');
+for (var i=0; i < bullets.length; i++) {
+  var elem = bullets[i];
+  elem.setAttribute('data-tab', i);
+  elem.onclick = function(){
+    mySwipe.slide(parseInt(this.getAttribute('data-tab'), 10), 500);
+  }
+}
+function slideTab(index){
+  var i = bullets.length;
+  while (i--) {
+    bullets[i].className = bullets[i].className.replace('on',' ');
+  }
+  bullets[index].className = 'on';
+};
+
+// with jQuery
+// window.mySwipe = $('#mySwipe').Swipe().data('Swipe');
+
+// url bar hiding
+(function() {
+    
+  var win = window,
+      doc = win.document;
+
+  // If there's a hash, or addEventListener is undefined, stop here
+  if ( !location.hash || !win.addEventListener ) {
+
+    //scroll to 1
+    window.scrollTo( 0, 1 );
+    var scrollTop = 1,
+
+    //reset to 0 on bodyready, if needed
+    bodycheck = setInterval(function(){
+      if( doc.body ){
+        clearInterval( bodycheck );
+        scrollTop = "scrollTop" in doc.body ? doc.body.scrollTop : 1;
+        win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+      } 
+    }, 15 );
+
+    if (win.addEventListener) {
+      win.addEventListener("load", function(){
+        setTimeout(function(){
+          //reset to hide addr bar at onload
+          win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+        }, 0);
+      }, false );
+    }
+  }
+
+})();
+</script>
+</body>
+</html>

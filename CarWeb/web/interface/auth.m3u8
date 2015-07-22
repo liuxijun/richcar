@@ -1,0 +1,4 @@
+<%@ page
+        contentType="text/html;charset=UTF-8" language="java" %><%
+    //logger.debug("调用auth.m3u8");
+%><%@include file="authorization.jsp"%>

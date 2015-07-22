@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title> 延安党建网 </title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js?v3.70"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="css/site.css"/>
+	<style>
+		.rightColumnSec{
+			width: 540px;
+			float: right;
+			margin-top: 20px;
+			margin-right: 20px;
+		}
+		.slideContainer{
+			width: 400px;
+			height: 260px;
+		}
+
+		.slideShow , .slideImg{
+			width: 400px;
+			height: 240px;
+		}
+		.slideText{
+			width: 398px;
+		}
+
+		.columnHalf{
+			width: 400px;
+		}
+		.columnHalf2{
+			width:560px;
+		}
+
+		.hdSi{
+			margin: 20px 20px;
+			float: left;
+		}
+	</style>
+
+    <script src="../js/utilsParameters.js"></script>
+    <script type=text/javascript src="../js/jquery-1.7.2.min.js"></script>
+    <script src="js/channels.js"></script>
+    <script src="/js/md5.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script>
+        document.write('<script src="js/index.jsp?ids=all"><'+'/script>');
+    </script>
+    <script style="text/javascript">
+        var channelId = getParameterFromUrl(null,"id",-1);
+        var parentId = getParameterFromUrl(null,"parentId",-1);
+        var channelIndex = getParameterFromUrl(null,"index",1);
+        var systemIsReady = false;
+        function substringStr(start,end,str) {
+             return str.substring(start,end)+"...";
+        }
+
+        function renderIndex(){
+///*
+            if((!systemIsReady)||(serverData==null)){
+                //系统没准备好或者数据没准备好
+                return;
+            }
+//*/
+
+            var ch1 = serverData[parentId+"_ch1"];
+            if(ch1){
+                var ch1OutputCount=0;
+                $.each(ch1,function(){
+                    var item =this;
+                        if(ch1OutputCount < 3) {
+                            document.getElementById('slide1_ch1_'+ch1OutputCount).setAttribute('data-link',"detail.html?id="+item.id);
+                            document.getElementById('slide1_ch1_'+ch1OutputCount).src = item.poster;
+                            document.getElementById('slide1_ch1_'+ch1OutputCount).setAttribute('data-title',item.name);
+                        }
+
+                        if(ch1OutputCount == 3) {
+                            if(parentId != 474431621) {
+                                document.getElementById('ch1_hot_title').innerHTML=item.name;
+                                document.getElementById('ch1_hot_title').href='detail.html?id='+item.id;
+
+                                var intro = item.intro;
+                                if(intro.length > 150) {
+                                    intro = substringStr(0,150,item.intro);
+                                }
+                                document.getElementById('ch1_hot_intro').innerHTML=intro;
+                            } else {
+                                document.getElementById('ch1_hot_title').innerHTML='国内要闻';
+                                $('#ch1_hot_title_div').append('<a href="subColumn.html?parentId=474431622&channelId=474431642" style="margin-left: 260px">更多</a>');
+                                $('#ch1_hot_title_h').css('float','left');
+                                document.getElementById('ch1_hot_intro').innerHTML='';
+                            }
+
+                        }
+
+
+                        if(ch1OutputCount > 2 && ch1OutputCount < 8) {
+                            var ch1_ul = $("#ch1_ul");
+                            ch1_ul.append('<li><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+                        }
+
+                        ch1OutputCount++;
+                });
+            }
+
+            if(parentId == 474431621){ // 只有党建动态的第一个子频道今日头条才有延安相关，陕西相关
+                $("#ch1_ul_sx_div").css('display','block');
+//                            var ch1_ul_sx = $("#ch1_ul_sx");
+//                            if(ch1OutputCount > 8 && ch1OutputCount < 14) {
+//                                ch1_ul_sx.append('<li><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+//
+//                            }
+//
+                $("#ch1_ul_ya_div").css('display','block');
+//                            var ch1_ul_ya = $("#ch1_ul_ya");
+//                            if(ch1OutputCount > 13 && ch1OutputCount < 19) {
+//                                ch1_ul_ya.append('<li><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+//                            }
+                var jrtt_yayw = serverData['jrtt_yayw'];
+                var djdtYa = $("#djdt_jrtt_ya");
+                if(jrtt_yayw) {
+                    var yaywOutputCount =0;
+                    $.each(jrtt_yayw,function(){
+                        var item = this;
+                        if(yaywOutputCount < 5) {
+                            djdtYa.append('<li><a class="article" href="detail.html?id='+item.id+'" title="'+item.name+'">'+item.name+'</a></li>');
+                        }
+                        yaywOutputCount++;
+                    })
+                }
+
+                var djdtSx = $("#djdt_jrtt_sx");
+                var jrtt_sxyw = serverData['jrtt_sxyw'];
+                if(jrtt_sxyw) {
+                    var sxywOutputCount =0;
+                    $.each(jrtt_sxyw,function(){
+                        var item = this;
+                        if(sxywOutputCount < 5) {
+                            djdtSx.append('<li><a class="article" href="detail.html?id='+item.id+'" title="'+item.name+'">'+item.name+'</a></li>');
+                        }
+                        sxywOutputCount++;
+                    })
+                }
+            }
+
+            var ch2 = serverData[parentId+"_ch2"];
+            if(ch2){
+                var ch2OutputCount=0;
+                $.each(ch2,function(){
+                    var item =this;
+                    if(ch2OutputCount < 3) {
+                        document.getElementById('slide2_ch2_'+ch2OutputCount).setAttribute('data-link',"detail.html?id="+item.id);
+                        document.getElementById('slide2_ch2_'+ch2OutputCount).src = item.poster;
+                        document.getElementById('slide2_ch2_'+ch2OutputCount).setAttribute('data-title',item.name);
+                    }
+
+
+                    if(ch2OutputCount > 2 && ch2OutputCount < 6) {
+                        document.getElementById('ch2_hot_title'+ch2OutputCount).innerHTML=item.name;
+                        document.getElementById('ch2_hot_title'+ch2OutputCount).href='detail.html?id='+item.id;
+                        var intro = item.intro;
+                        if(intro.length > 150) {
+                            intro = substringStr(0,150,item.intro);
+                        }
+                        document.getElementById('ch2_hot_intro'+ch2OutputCount).innerHTML=intro;
+                    }
+
+                    if(ch2OutputCount > 5 && ch2OutputCount < 9) {
+                        var ch2_ul = $("#ch2_ul");
+                        ch2_ul.append('<li><a class="f14 article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+                    }
+
+                    ch2OutputCount++;
+
+                });
+            }
+
+            var ch3 = serverData[parentId+"_ch3"];
+            if(ch3){
+                var ch3OutputCount=0;
+                $.each(ch3,function(){
+                    var item =this;
+                    if(ch3OutputCount < 3) {
+                        document.getElementById('slide3_ch3_'+ch3OutputCount).setAttribute('data-link',"detail.html?id="+item.id);
+                        document.getElementById('slide3_ch3_'+ch3OutputCount).src = item.poster;
+                        document.getElementById('slide3_ch3_'+ch3OutputCount).setAttribute('data-title',item.name);
+                    }
+
+                    if(ch3OutputCount == 3) {
+                        document.getElementById('ch3_hot_title').innerHTML=item.name;
+                        document.getElementById('ch3_hot_title').href='detail.html?id='+item.id;
+                        var intro = item.intro;
+                        if(intro.length > 150) {
+                            intro = substringStr(0,150,item.intro);
+                        }
+                        document.getElementById('ch3_hot_intro').innerHTML=intro;
+                    }
+
+
+                    if(ch3OutputCount > 3 && ch3OutputCount < 9) {
+                        var ch3_ul = $("#ch3_ul");
+                        ch3_ul.append('<li><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+                    }
+
+                    /*if(ch3OutputCount > 8 && ch3OutputCount < 14) {
+                        var ch3_ul_sx = $("#ch3_ul_sx");
+                        ch3_ul_sx.append('<li><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+                    }
+
+                    if(ch3OutputCount > 13 && ch3OutputCount < 19) {
+                        var ch3_ul_ya = $("#ch3_ul_ya");
+                        ch3_ul_ya.append('<li><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+
+                    }*/
+
+                    ch3OutputCount++;
+
+                });
+            }
+
+
+            var ch4 = serverData[parentId+"_ch4"];
+            if(ch4){
+                var ch4OutputCount=0;
+                $.each(ch4,function(){
+                    var item =this;
+                    if(ch4OutputCount < 3) {
+                        document.getElementById('slide4_ch4_'+ch4OutputCount).setAttribute('data-link',"detail.html?id="+item.id);
+                        document.getElementById('slide4_ch4_'+ch4OutputCount).src = item.poster;
+                        document.getElementById('slide4_ch4_'+ch4OutputCount).setAttribute('data-title',item.name);
+                    }
+
+                    if(ch4OutputCount > 2 && ch4OutputCount < 5) {
+                        document.getElementById('ch4_hot_title'+ch4OutputCount).innerHTML=item.name;
+                        document.getElementById('ch4_hot_title'+ch4OutputCount).href='detail.html?id='+item.id;
+                        var intro = item.intro;
+                        if(intro.length > 150) {
+                            intro = substringStr(0,150,item.intro);
+                        }
+                        document.getElementById('ch4_hot_intro'+ch4OutputCount).innerHTML=intro;
+                    }
+
+                    if(parentId == 474431621){     // 只有党建动态的第一个子频道党风廉政才有警钟长鸣，案件快报
+                        $("#ch4_ul_ajkb_div").css('display','block');
+                        $("#ch4_ul_jzcm_div").css('display','block');
+                        if(ch4OutputCount > 4 && ch4OutputCount < 8) {
+                            var ch4_ul_ajkb = $("#ch4_ul_ajkb");
+                            ch4_ul_ajkb.append('<li><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+                        }
+
+
+                        if(ch4OutputCount > 7&& ch4OutputCount < 11) {
+                            var ch4_ul_jzcm = $("#ch4_ul_jzcm");
+                            ch4_ul_jzcm.append('<li><a class="article" href="detail.html?id='+item.id+'">'+item.name+'</a></li>')
+
+                        }
+                    }
+                    ch4OutputCount++;
+
+                });
+            }
+
+            $(".slideShow").each(function(){
+                var $e = $(this) ;
+                var $txt = $e.siblings('.slideText');
+                $e.cycle({
+                    fx: 'scrollLeft',
+                    pause: true,
+                    pager: $e.siblings('.slideSign'),
+                    activePagerClass:"curSlide",
+                    pagerAnchorBuilder:function (i, pic) {
+                        return '<img src="images/clear.gif" class="ssgin"/>';
+                    },
+                    before: function (prev, next) {
+                        if (prev !== next) $txt.fadeTo('normal', 0);
+                    },
+                    after: function (prev, next) {
+                        var $img = $(next) ;
+                        $txt.text($img.data('title')).fadeTo('normal', 0.75);
+                    }
+                }).on('click', 'img', function () {
+                            window.open($(this).data('link'));
+                        });
+            }) ;
+        }
+
+        function searchChannel(id) {
+            //因为本页面内容为推荐，不需要执行查询操作
+        }
+
+        function changeChannelPng() {
+            var channelBgs = document.getElementsByClassName('channelPng');
+            if(channelBgs && channelBgs.length > 0) {
+                for(var i = 0;i<channelBgs.length;i++) {
+                    channelBgs[i].src = "images/bgCH_"+parentId+"_ch"+(i+1)+".png";
+                }
+            }
+        }
+        jQuery(function($){
+            if(parentId > 0) {
+                systemIsReady=true;
+                channelOptions.renderSonChannels(parentId);
+                changeChannelPng();
+                renderIndex();
+            }
+        });
+    </script>
+</head>
+<body>
+<!-- banner -->
+<div id="fakeBg"><div id="wbg"></div></div>
+<img id="headBanner" src="images/headerBanner.png" alt=""/>
+<!-- main menu -->
+<div id="divMenu">
+	<ul id="ulMenu">
+        <li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="columnZSZT.html">中省直通</a></li>
+        <li><a class="mainMenu" href="index.html#noticeHead">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+	</ul>
+</div>
+
+<!-- search bar -->
+<div class="mainSec sou">
+	<h1 class="bt1">站内搜索</h1>
+	<div class="souBox"><form id="form1" name="form1" method="post" action="search.jsp" target="_blank"><input type="text" name="vcom" class="text_sou" value="输入关键词" onfocus="if (value =='输入关键词'){value =''}" onblur="if (value ==''){value='输入关键词'}"><input type="hidden" name="info_type" value="1"><input type="hidden" name="sign" value="1"><input type="submit" class="souBtn" value=""></form>
+	</div>
+	<h1 class="bt1">登录</h1>
+	<div name="loginForm" id="v1"><label>用户名</label>
+        <div class="kuangBg"><input type="text" name="obj.userId"  id="loginId" class="text_sou w108"></div>
+        <label>密码</label><div class="kuangBg"><input type="password" id="passWord" name="obj.password" class="text_sou w108"></div>
+        <input name="domain" type="hidden" value="sxdyyj.com"><input name="style" type="hidden" value="simple">
+        <input type="button" class="loginBtn" value="登录" id="doLogin"></div>
+
+    <div id="v2"style="display: none;" >
+        <label id="showLogin" style="width: 330px"></label>
+        <input type="button" class="loginBtn" value="注销" id="logOut" onclick="logOut()"/>
+    </div>
+
+	<input type="button" onclick="location.assign('register.html')" class="loginBtn" value="注册">
+	<div class="weather"><iframe width="170" scrolling="no" height="13" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&amp;id=11&amp;icon=1"></iframe></div>
+</div>
+
+
+<!-- breadcrumb -->
+<div class="breadcrumb">
+	<a href="index.html">首页</a> > <span id="parentName">党建动态</span>
+</div>
+
+<!-- main section-1 -->
+<div class="mainSec">
+	<div class="colHeader">
+		<a href="subColumn.html" class="moreSign">更多 >></a>
+		<img src="images/bgCH_474431621_ch1.png" class="channelPng"  alt=""/>
+	</div>
+
+	<div class="rightColumnSec">
+		<div id="ch1_hot_title_div"><h2 class="clipText" id="ch1_hot_title_h"><a href="#" class="f20 fRed fHoverUnderline" id="ch1_hot_title">李克强:力争率先在孩子身上实现"零艾滋"目标</a></h2></div>
+		<div class="fGray f12" style="margin-top: 10px" id="ch1_hot_intro">他分明记得，昨晚自己和狐朋狗友们出去吃散伙饭庆祝高毕业，畅想进入大学后的无拘无束，惜别三年寒窗的基友，大家过于兴奋，都喝得迷迷糊糊不省人事，等他再睁开眼睛恢复神智，却发现自己竟然来到了这个陌生世界。</div>
+
+		<ul class="UlArticles" id="ch1_ul">
+
+		</ul>
+	</div>
+
+	<!-- slideShow -->
+	<div class="slideContainer">
+		<div  class="slideShow">
+            <img class="slideShow" id="slide1_ch1_0" src="images/slde_1.jpg" data-link="detail.html?id=1"
+		                                        data-title="同步考试学生时，未同步小分学生名单同步考试学生时，未同步小分学生名单"/>
+            <img class="slideImg"  id="slide1_ch1_1" src="images/slde_2.jpg"
+		                                        data-title="var i = -1 ;"/>
+            <img class="slideImg"  id="slide1_ch1_2"  src="images/slde_3.jpg" data-title="fsekj er"/>
+        </div>
+		<div class="slideText"></div>
+		<div class="slideSign"></div>
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="columnHalf2 right" style="display: none" id="ch1_ul_ya_div">
+		<div><h2 style="float: left"><a href="#" class="f20 fRed fHoverUnderline">延安新闻</a></h2> <a href="subColumn.html?parentId=474431622&channelId=474431644"  style="margin-left: 220px;">更多</a></div>
+        <ul class="UlArticles" id="djdt_jrtt_ya">
+
+		</ul>
+	</div>
+	<div class="columnHalf left" style="display: none" id="ch1_ul_sx_div">
+		<div><h2 style="float: left;"><a href="#" class="f20 fRed fHoverUnderline">陕西新闻</a></h2><a href="subColumn.html?parentId=474431622&channelId=474431643" style="margin-left: 220px;">更多</a></div>
+        <ul class="UlArticles" id="djdt_jrtt_sx">
+
+		</ul>
+	</div>
+
+	<div class="clear"></div>
+
+</div>
+
+<!-- main section 2-->
+<div class="mainSec">
+	<div class="colHeader">
+		<a href="#" class="moreSign">更多 >></a>
+		<img src="images/bgCH_474431621_ch2.png" class="channelPng" alt=""/>
+	</div>
+
+	<div class="rightColumnSec" style="min-height: 350px">
+		<h2 class="clipText"><a href="#" class="f20 fRed fHoverUnderline" id="ch2_hot_title3">李克强:力争率先在孩子身上实现"零艾滋"目标</a></h2>
+		<div class="fGray f12" style="margin-top: 10px" id="ch2_hot_intro3">他分明记得，昨晚自己和狐朋狗友们出去吃散伙饭庆祝高毕业，畅想进入大学后的无拘无束，惜别三年寒窗的基友，大家过于兴奋，都喝得迷迷糊糊不省人事，等他再睁开眼睛恢复神智，却发现自己竟然来到了这个陌生世界。</div>
+
+		<hr class="grayDash"/>
+		<h2 class="clipText"><a href="#" class="f20 fRed fHoverUnderline" id="ch2_hot_title4">李克强:力争率先在孩子身上实现"零艾滋"目标</a></h2>
+		<div class="fGray f12" style="margin-top: 10px" id="ch2_hot_intro4">他分明记得，昨晚自己和狐朋狗友们出去吃散伙饭庆祝高毕业，畅想进入大学后的无拘无束，惜别三年寒窗的基友，大家过于兴奋，都喝得迷迷糊糊不省人事，等他再睁开眼睛恢复神智，却发现自己竟然来到了这个陌生世界。</div>
+
+		<hr class="grayDash"/>
+		<h2 class="clipText"><a href="#" class="f20 fRed fHoverUnderline" id="ch2_hot_title5">李克强:力争率先在孩子身上实现"零艾滋"目标</a></h2>
+		<div class="fGray f12" style="margin-top: 10px" id="ch2_hot_intro5">他分明记得，昨晚自己和狐朋狗友们出去吃散伙饭庆祝高毕业，畅想进入大学后的无拘无束，惜别三年寒窗的基友，大家过于兴奋，都喝得迷迷糊糊不省人事，等他再睁开眼睛恢复神智，却发现自己竟然来到了这个陌生世界。</div>
+
+
+	</div>
+
+	<!-- slideShow -->
+	<div class="slideContainer">
+		<div id="slide2" class="slideShow">
+            <img class="slideShow" id="slide2_ch2_0" src="images/slde_1.jpg" data-link="detail.html?id=1"
+		                                        data-title="同步考试学生时，未同步小分学生名单同步考试学生时，未同步小分学生名单"/>
+            <img class="slideImg"  id="slide2_ch2_1" src="images/slde_2.jpg"
+		                                        data-title="var i = -1 ;"/>
+            <img class="slideImg"  id="slide2_ch2_2" src="images/slde_3.jpg" data-title="fsekj er"/>
+        </div>
+		<div class="slideText"></div>
+		<div class="slideSign"></div>
+	</div>
+
+	<ul style="max-width: 400px" class="UlArticles" id="ch2_ul">
+
+	</ul>
+
+</div>
+
+<!-- main section-3 -->
+<div class="mainSec">
+	<div class="colHeader">
+		<a href="#" class="moreSign">更多 >></a>
+		<img src="images/bgCH_474431621_ch3.png" class="channelPng" alt=""/>
+	</div>
+
+	<div class="rightColumnSec">
+		<h2 class="clipText"><a href="#" class="f20 fRed fHoverUnderline" id="ch3_hot_title">李克强:力争率先在孩子身上实现"零艾滋"目标</a></h2>
+		<div class="fGray f12" style="margin-top: 10px" id="ch3_hot_intro">他分明记得，昨晚自己和狐朋狗友们出去吃散伙饭庆祝高毕业，畅想进入大学后的无拘无束，惜别三年寒窗的基友，大家过于兴奋，都喝得迷迷糊糊不省人事，等他再睁开眼睛恢复神智，却发现自己竟然来到了这个陌生世界。</div>
+
+		<ul class="UlArticles" id="ch3_ul">
+
+		</ul>
+	</div>
+
+	<!-- slideShow -->
+	<div class="slideContainer">
+		<div id="slide3" class="slideShow">
+            <img class="slideShow" id="slide3_ch3_0" src="images/slde_1.jpg" data-link="detail.html?id=1"
+                 data-title="同步考试学生时，未同步小分学生名单同步考试学生时，未同步小分学生名单"/>
+            <img class="slideImg"  id="slide3_ch3_1" src="images/slde_2.jpg"
+                 data-title="var i = -1 ;"/>
+            <img class="slideImg"  id="slide3_ch3_2" src="images/slde_3.jpg" data-title="fsekj er"/>
+        </div>
+		<div class="slideText"></div>
+		<div class="slideSign"></div>
+	</div>
+<!--
+	<div class="clear"></div>
+
+	<div class="columnHalf2 right">
+		<h2><a href="#" class="f20 fRed fHoverUnderline">延安相关</a></h2>
+		<ul class="UlArticles" id="ch3_ul_ya">
+
+		</ul>
+
+	</div>
+	<div class="columnHalf left">
+		<h2><a href="#" class="f20 fRed fHoverUnderline">陕西相关</a></h2>
+		<ul class="UlArticles" id="ch3_ul_sx">
+
+		</ul>
+	</div>-->
+
+	<div class="clear"></div>
+
+</div>
+
+
+<!-- main section 4 -->
+<div class="mainSec">
+	<div class="colHeader">
+		<a href="#" class="moreSign">更多 >></a>
+		<img src="images/bgCH_474431621_ch4.png" class="channelPng" alt=""/>
+	</div>
+
+	<div class="rightColumnSec" style="min-height: 280px">
+		<h2 class="clipText"><a href="#" class="f20 fRed fHoverUnderline" id="ch4_hot_title3">李克强:力争率先在孩子身上实现"零艾滋"目标</a></h2>
+		<div class="fGray f12" style="margin-top: 10px" id="ch4_hot_intro3">他分明记得，昨晚自己和狐朋狗友们出去吃散伙饭庆祝高毕业，畅想进入大学后的无拘无束，惜别三年寒窗的基友，大家过于兴奋，都喝得迷迷糊糊不省人事，等他再睁开眼睛恢复神智，却发现自己竟然来到了这个陌生世界。</div>
+
+		<hr class="grayDash"/>
+		<h2 class="clipText"><a href="#" class="f20 fRed fHoverUnderline" id="ch4_hot_title4">李克强:力争率先在孩子身上实现"零艾滋"目标</a></h2>
+		<div class="fGray f12" style="margin-top: 10px" id="ch4_hot_intro4">他分明记得，昨晚自己和狐朋狗友们出去吃散伙饭庆祝高毕业，畅想进入大学后的无拘无束，惜别三年寒窗的基友，大家过于兴奋，都喝得迷迷糊糊不省人事，等他再睁开眼睛恢复神智，却发现自己竟然来到了这个陌生世界。</div>
+
+
+	</div>
+
+	<!-- slideShow -->
+	<div class="slideContainer">
+		<div id="slide4" class="slideShow">
+            <img class="slideShow" id="slide4_ch4_0" src="images/slde_1.jpg" data-link="detail.html?id=1"
+                 data-title="同步考试学生时，未同步小分学生名单同步考试学生时，未同步小分学生名单"/>
+            <img class="slideImg"  id="slide4_ch4_1" src="images/slde_2.jpg"
+                 data-title="var i = -1 ;"/>
+            <img class="slideImg"  id="slide4_ch4_2" src="images/slde_3.jpg" data-title="fsekj er"/>
+		</div>
+		<div class="slideText"></div>
+		<div class="slideSign"></div>
+	</div>
+
+
+	<hr class="clear"/>
+
+
+	<div class="columnHalf right" style="display: none" id="ch4_ul_jzcm_div">
+		<img class="hdSi" src="images/jzcm.gif" alt=""/>
+		<ul class="UlArticles" id="ch4_ul_jzcm">
+
+		</ul>
+
+	</div>
+	<div class="columnHalf left" style="display: none" id="ch4_ul_ajkb_div">
+		<img class="hdSi" src="images/ankb.gif" alt=""/>
+		<ul class="UlArticles" id="ch4_ul_ajkb">
+
+		</ul>
+	</div>
+
+	<div class="clear"></div>
+
+</div>
+
+
+<!-- footer -->
+<div class="mainSec footer">
+	<hr class="white"/>
+	<a href="http://cpc.people.com.cn/" target="_blank"><img src="images/logo/lkGCDXWW.jpg" class="linkLogo"/></a>
+	<a href="http://www.zgdsw.org.cn/" target="_blank"><img src="images/logo/lkDCDLSW.jpg" class="linkLogo"/></a>
+	<a href="http://www.sx-dj.gov.cn/" target="_blank"><img src="images/logo/lkSXDJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.yadj.gov.cn" target="_blank"><img src="images/logo/lkYADJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.gov.cn/" target="_blank"><img src="images/logo/lkRM.jpg" class="linkLogo"/></a>
+	<a href="http://www.shaanxi.gov.cn/" target="_blank"><img src="images/logo/lkSX.jpg" class="linkLogo"/></a>
+	<a href="http://www.yanan.gov.cn/" target="_blank"><img src="images/logo/lkYA.jpg" class="linkLogo"/></a>
+	<a href="http://nc.mofcom.gov.cn/" target="_blank"><img src="images/logo/lkNC.jpg" class="linkLogo"/></a>
+
+	<hr class="white"/>
+	<p>
+		版权所有：延安市党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+	</p>
+	<p>
+		主办方：延安市党员干部现代远程教育中心
+	</p>
+</div>
+</body>
+<!--[if lt IE 9]>
+<script src="js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.cycle.all.min.js"></script>
+<script src="js/comm.js"></script>
+</html>

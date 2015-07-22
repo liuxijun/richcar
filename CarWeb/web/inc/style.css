@@ -1,0 +1,241 @@
+﻿.word {
+	font-size: 12px;
+	color: #333333;
+	text-decoration: none;
+}
+.b4 {
+	background-color: #CCCCCC;
+	border: 1px solid #999999;
+	font-size: 12px;
+	text-decoration: none;
+}
+a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 10px;
+}
+a {FONT-SIZE: 10pt; color: #333333; text-decoration: none}
+a:active {FONT-SIZE: 10pt; COLOR: #000000; TEXT-DECORATION: underline}
+a:link {FONT-SIZE: 10pt; COLOR: #000000}
+a:visited {FONT-SIZE: 10pt; COLOR: #000000}
+a:hover {FONT-SIZE: 10pt; COLOR: #DD5308}
+.t{LINE-HEIGHT: 1.4}
+BODY{FONT-FAMILY: 宋体; FONT-SIZE: 9pt;
+SCROLLBAR-HIGHLIGHT-COLOR: buttonface;
+SCROLLBAR-SHADOW-COLOR: buttonface;
+SCROLLBAR-3DLIGHT-COLOR: buttonhighlight;
+SCROLLBAR-TRACK-COLOR: #eeeeee;
+SCROLLBAR-DARKSHADOW-COLOR: buttonshadow}
+TD,DIV,form ,OPTION,P,TD,BR{FONT-FAMILY: 宋体; FONT-SIZE: 10pt;LINE-HEIGHT: 18pt;} 
+INPUT{BORDER-TOP-WIDTH: 1px; PADDING-RIGHT: 1px; PADDING-LEFT: 1px; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 9pt; BORDER-LEFT-COLOR: #cccccc; BORDER-BOTTOM-WIDTH: 1px; BORDER-BOTTOM-COLOR: #cccccc; PADDING-BOTTOM: 1px; BORDER-TOP-COLOR: #cccccc; PADDING-TOP: 1px; HEIGHT: 18px; BORDER-RIGHT-WIDTH: 1px; BORDER-RIGHT-COLOR: #cccccc}
+.f9{FONT-SIZE: 9pt}
+}
+.fontBg {
+	color: #CCFF00;
+	background-color: #333333;
+}
+
+
+.navigation {
+	FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+
+A.a1:link {
+	FONT-SIZE: 12px; COLOR: #003399; FONT-FAMILY: "宋体"; TEXT-DECORATION: underline
+}
+A.a1:visited {
+	FONT-SIZE: 12px; COLOR: #003399; FONT-FAMILY: "宋体"; TEXT-DECORATION: underline
+}
+A.a1:hover {
+	FONT-SIZE: 12px; COLOR: #cc0000; FONT-FAMILY: "宋体"
+}
+A.a1:active {
+	FONT-SIZE: 12px; COLOR: #cc0000; FONT-FAMILY: "宋体"
+}
+A.a2:link {
+	FONT-SIZE: 12px; COLOR: #ff0000; FONT-FAMILY: "宋体"; TEXT-DECORATION: underline
+}
+A.a2:visited {
+	FONT-SIZE: 12px; COLOR: #ff0000; FONT-FAMILY: "宋体"; TEXT-DECORATION: underline
+}
+A.a2:hover {
+	FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: "宋体"
+}
+A.a2:active {
+	FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: "宋体"
+}
+A.a3:link {
+	FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A.a3:visited {
+	FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A.a3:hover {
+	FONT-SIZE: 12px; COLOR: #ffff00; FONT-FAMILY: "宋体"
+}
+A.a3:active {
+	FONT-SIZE: 12px; COLOR: #ffff00; FONT-FAMILY: "宋体"
+}
+.form {
+	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; BORDER-LEFT: #000000 1px solid; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #dadab4
+}
+
+.topmain {
+	FONT-SIZE: 12px; COLOR: #000066; FONT-FAMILY: "宋体"
+}
+.form2 {
+	BORDER-RIGHT: #ff9933 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #ff9933 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.input {
+	BORDER-RIGHT: black 0px; BORDER-TOP: black 0px; FONT-SIZE: 12px; BORDER-LEFT: black 0px; COLOR: #ff0000; BORDER-BOTTOM: #999999 1px groove; BACKGROUND-COLOR: #f4f4f4
+}
+
+
+.mtDropdownMenu {
+	LEFT: -1000px; OVERFLOW: hidden; POSITION: absolute; TOP: -1000px
+}
+.mtDropdownMenu .content {
+	POSITION: absolute
+}
+.mtDropdownMenu .items {
+	BORDER-RIGHT: #999 1px solid; BORDER-TOP: #999 1px solid; Z-INDEX: 2; LEFT: 0px; BORDER-LEFT: #999 1px solid; BORDER-BOTTOM: #999 1px solid; POSITION: relative; TOP: 0px
+}
+.mtDropdownMenu .item {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-SIZE: 12px; BORDER-LEFT: medium none; CURSOR: hand; COLOR: #333333; BORDER-BOTTOM: medium none; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"; TEXT-DECORATION: none; EXT-DECORATION: none
+}
+.mtDropdownMenu .background {
+	Z-INDEX: 1; FILTER: alpha(opacity=75); LEFT: 0px; POSITION: absolute; TOP: 0px; moz-opacity: .8
+}
+.mtDropdownMenu .shadowRight {
+	Z-INDEX: 3; FILTER: alpha(opacity=40); WIDTH: 2px; POSITION: absolute; TOP: 3px; moz-opacity: .4
+}
+.mtDropdownMenu .shadowBottom {
+	Z-INDEX: 1; FILTER: alpha(opacity=40); LEFT: 3px; POSITION: absolute; HEIGHT: 2px; moz-opacity: .4
+}
+.mtDropdownMenu .hover {
+	FILTER: alpha(opacity=50); COLOR: #ffffff; BACKGROUND-COLOR: #999999
+}
+.mtDropdownMenu .item IMG {
+	MARGIN-LEFT: 10px
+}
+TD {
+	font-size:9pt;
+}
+
+.td1 {
+	line-height: 16px;
+}
+input{
+    font-size: 9pt;
+}
+
+.fade:hover {
+    LEFT: 2px; COLOR: #333333; POSITION: relative; TOP: 1px; TEXT-DECORATION: underline;
+	font-size: 9pt;
+		
+}
+#ShowItem {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BACKGROUND: #f9f9f9; FILTER: alpha(opacity=90); BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+#ShowItem .SI_tt {
+	FONT-WEIGHT: bold; COLOR: #ffffff
+}
+#ShowItem .SI_txt {
+	COLOR: #ffffff
+}
+#ShowItem .SI_id {
+	FONT-SIZE: 70%; COLOR: #c0c0c0
+}
+#ShowItem .SI_tp {
+	FONT-SIZE: 90%; COLOR: #c0c0c0
+}
+#tt {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 12px; Z-INDEX: 100; VISIBILITY: hidden; PADDING-BOTTOM: 12px; WIDTH: 220px; PADDING-TOP: 12px; POSITION: absolute; TEXT-ALIGN: left
+}
+#tt TD {
+	FONT-SIZE: 80%; VERTICAL-ALIGN: top; COLOR: #000000; LINE-HEIGHT: 20px
+}
+
+
+
+
+#nav{
+	width:900px;
+	border-bottom:0px;
+	padding:0px 0px;
+	z-index:1;
+	position:absolute;
+	TOP: 56px; 
+}
+#nav .list{
+line-height:20px;
+text-align:left;
+padding:4px;
+font-weight:normal;
+}
+#nav .menu1{
+width:110px;
+height:auto;
+margin:0px 1px 0px 1px;
+border:1px solid #7099ff;
+background-color:#ebf6ff;
+color:#7099ff;
+padding:0px 0px 0px 0px;
+cursor:hand;
+overflow-y:hidden;
+filter:Alpha(opacity=90);
+-moz-opacity:0.7;
+}
+#nav .menu2{
+width:110px;
+height:28;
+margin:0px 1px 0px 1px;
+background-color:#F5F5F5;
+color:#999999;
+border:1px solid #EEE8DD;
+padding:0px 0px 0px 0px;
+overflow-y:hidden;
+cursor:hand;
+}
+#nav li{
+display:inline;
+list-style:none;
+list-style-position:outside;
+text-align:center;
+font-weight:bold;
+float:left;
+}
+#nav a:link{
+color:#1652fe;
+text-decoration:none;
+float:left;
+width:95px;
+padding:3px 3px 0px 3px;
+}
+#nav a:visited{
+color:#1652fe;
+text-decoration:none;
+float:left;
+padding:3px 3px 0px 3px;
+width:95px;
+}
+#nav a:hover{
+color:white;
+float:left;
+padding:3px 3px 0px 5px;
+width:95px;
+text-decoration:none;
+background-color:#1652fe;
+}
+#nav a:active{
+color:white;
+float:left;
+padding:3px 3px 0px 5px;
+width:95px;
+text-decoration:none;
+background-color:#1652fe;
+}
+
+.inputText{
+    width:200px
+}

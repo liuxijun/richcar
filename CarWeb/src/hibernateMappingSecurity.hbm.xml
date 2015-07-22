@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.fortune.common.business.security.model.AdminRole" table="ADMIN_ROLE">
+    <!-- AdminRole mapping info-->
+        <id name="id" column="ID">
+            <generator class="sequence"><param name="sequence">FORTUNE_GLOBAL_SEQ</param></generator>
+        </id>
+        <property name="adminId" column="admin_id" />
+        <property name="cspId" column="csp_id" />
+        <property name="roleId" column="role_id" />
+    </class>
+
+    <class name="com.fortune.common.business.security.model.Permission" table="PERMISSION">
+    <!-- Permission mapping info-->
+        <id name="permissionId" column="id">
+            <generator class="sequence"><param name="sequence">FORTUNE_GLOBAL_SEQ</param></generator>
+        </id>
+
+        <property name="name" column="name" />
+
+        <property name="target" column="target" />
+
+        <property name="classname" column="classname" />
+
+        <property name="methodName" column="methodname" />
+
+        <property name="permissionDesc" column="permissiondesc" />
+    </class>
+
+    <class name="com.fortune.common.business.security.model.RolePermission" table="ROLE_PERMISSION">
+    <!-- RolePermission mapping info-->
+        <id name="id" column="ID">
+            <generator class="sequence"><param name="sequence">FORTUNE_GLOBAL_SEQ</param></generator>
+        </id>
+
+        <property name="roleid" column="role_id" />
+
+        <property name="permissionid" column="permission_id" />
+    </class>
+
+    <class name="com.fortune.common.business.security.model.Admin" table="ADMIN">
+    <!-- Admin mapping info-->
+        <id name="id" column="id">
+            <generator class="sequence"><param name="sequence">FORTUNE_GLOBAL_SEQ</param></generator>
+        </id>
+        <property name="login" column="login" />
+        <property name="password" column="password" />
+        <property name="realname" column="realname" />
+        <property name="telephone" column="telephone" />
+        <property name="status" column="status" />
+        <property name="isRoot" column="is_root"/>
+        <property name="isSystem" column="is_system"/>
+        <property name="oldpasswordlog" column="oldpasswordlog" />
+        <property name="modifydate" column="modifydate" />
+        <property name="lastlogintime" column="lastlogintime" />
+    </class>
+
+    <class name="com.fortune.common.business.security.model.Role" table="ROLE">
+        <id name="roleid" column="id">
+            <generator class="sequence"><param name="sequence">FORTUNE_GLOBAL_SEQ</param></generator>
+        </id>
+        <property name="name" column="name" />
+        <property name="memo" column="memo" />
+        <property name="type" column="type"/>
+    </class>
+    <class name="com.fortune.rms.business.user.model.Stb" table="usr_stb">
+        <id name="id" column="id">
+          <generator class="sequence"><param name="sequence">FORTUNE_GLOBAL_SEQ</param></generator>
+        </id>
+            <property name="userId" column="user_id"/>
+            <property name="serialNo" column="serial_no"/>
+            <property name="stbType" column="stb_type"/>
+            <property name="location" column="location"/>
+            <property name="status" column="status"/>
+
+    </class>
+
+
+</hibernate-mapping>

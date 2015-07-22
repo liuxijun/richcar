@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration
+    PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+<!--
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databasename=redex;selectMethod=cursor</property>
+        <property name="hibernate.connection.username">redex</property>
+        <property name="hibernate.connection.password">redex</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+        <property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
+-->
+        <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+        <!--启用查询缓存 -->
+        <property name="cache.use_query_cache">true</property>
+        <!-- Mapping files -->
+        <mapping resource="hibernate-mapping.hbm.xml"/>
+<!--
+        <class-cache class="com.fortune.redex.business.system.model.Device" usage="read-write" include="all"/>
+        <class-cache class="com.fortune.redex.business.media.model.Media" usage="read-write" include="all"/>
+        <class-cache class="com.fortune.redex.business.media.model.Wmv" usage="read-write" include="all"/>
+        <class-cache class="com.fortune.redex.business.index.model.MediaIndex" usage="read-write" include="all"/>
+        <class-cache class="com.fortune.redex.business.property.model.Property" usage="read-write" include="all"/>
+        <class-cache class="com.fortune.redex.business.property.model.IndexProperty" usage="read-write" include="all"/>
+-->
+    </session-factory>
+
+</hibernate-configuration>

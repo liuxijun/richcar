@@ -1,0 +1,139 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.multipart.maxSize" value="100000000"/>
+    <constant name="struts.custom.i18n.resources" value="globalMessages"/>
+    <constant name="struts.convention.action.packages" value="com.fortune.rms.web,com.fortune.common.web,com.fortune.threeScreen.web"/>
+    <constant name="struts.convention.action.name.separator" value="-"/>
+    <package name="default" extends="struts-default">
+        <interceptors>
+            <interceptor name="saveVisitActions"
+                         class="com.fortune.common.web.interceptor.PermissionSaveInterceptor">
+            </interceptor>
+            <interceptor name="validationPermission"
+                         class="com.fortune.common.web.interceptor.ValidationPermissionInterceptor">
+            </interceptor>
+            <interceptor-stack name="crudStack">
+                <interceptor-ref name="saveVisitActions"/>
+                <interceptor-ref name="validationPermission"/>
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">monitor,input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="prepare"/>
+
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="crudStack"/>
+
+        <global-results>
+            <result name="view">/common/jsonView.jsp</result>
+            <result name="list">/common/jsonList.jsp</result>
+            <result name="store">/common/jsonStore.jsp</result>
+            <result name="save">/common/jsonMessages.jsp</result>
+            <result name="tree">/common/commonTree.jsp</result>
+            <result name="getNodes">/common/getNodes.jsp</result>
+            <result name="getCheckNodes">/common/getCheckNodes.jsp</result>
+            <result name="delete">/common/jsonMessages.jsp</result>
+            <result name="deleteSelected">/common/jsonMessages.jsp</result>
+            <result name="success">/common/jsonMessages.jsp</result>
+            <result name="listFiles">/system/deviceListFiles.jsp</result>
+            <!--
+            <result name="success" type="json"/>
+-->
+            <result name="messages">/common/messages.jsp</result>
+            <result name="exception">/common/jsonError.jsp</result>
+            <result name="error">/common/jsonMessages.jsp</result>
+            <result name="input">/common/jsonError.jsp</result>
+            <result name="login">/common/jsonNeedLogin.jsp</result>
+            <result name="nopermission">/common/nopermission.jsp</result>
+            <result name="contentParameter">/common/parameterMsg.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+    </package>
+    <package name="threeScreen" extends="struts-default">
+        <interceptors>
+            <interceptor-stack name="threeCrudStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="prepare"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <global-results>
+            <result name="view">/common/jsonView.jsp</result>
+            <result name="list">/common/jsonList.jsp</result>
+            <result name="store">/common/jsonStore.jsp</result>
+            <result name="save">/common/jsonMessages.jsp</result>
+            <result name="tree">/common/commonTree.jsp</result>
+            <result name="delete">/common/jsonMessages.jsp</result>
+            <result name="deleteSelected">/common/jsonMessages.jsp</result>
+            <result name="success">/common/jsonMessages.jsp</result>
+            <result name="messages">/common/messages.jsp</result>
+            <result name="exception">/common/jsonError.jsp</result>
+            <result name="error">/common/jsonMessages.jsp</result>
+            <result name="input">/common/jsonError.jsp</result>
+            <result name="login">/admin/login.jsp</result>
+            <result name="nopermission">/common/nopermission.jsp</result>
+
+
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+    </package>
+
+<!--
+    <include file="struts-security.xml"/>
+    <include file="struts-config.xml"/>
+    <include file="struts-content.xml"/>
+    <include file="struts-system.xml"/>
+    <include file="struts-log.xml"/>
+    <include file="struts-module.xml"/>
+    <include file="struts-portal.xml"/>
+    <include file="struts-publish.xml"/>
+    <include file="struts-ad.xml"/>
+    <include file="struts-product.xml"/>
+    <include file="struts-csp.xml"/>
+    <include file="struts-syn.xml"/>
+    <include file="struts-template.xml"/>
+-->
+    <!--<include file="struts-threeScreen.xml"/>-->
+</struts>

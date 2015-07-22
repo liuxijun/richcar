@@ -1,0 +1,18 @@
+.ac_results {
+	Z-INDEX: 99999; BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; PADDING-BOTTOM: 0px; BACKGROUND-COLOR: white; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; OVERFLOW: hidden; BORDER-TOP: black 1px solid; BORDER-RIGHT: black 1px solid; PADDING-TOP: 0px
+}
+.ac_results UL {
+	LIST-STYLE-POSITION: outside; PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 100%; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.ac_results LI {
+	PADDING-BOTTOM: 2px; LINE-HEIGHT: 16px; MARGIN: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; DISPLAY: block; FONT: menu; FONT-SIZE: 12px; OVERFLOW: hidden; CURSOR: default; PADDING-TOP: 2px
+}
+.ac_loading {
+	BACKGROUND: url(indicator.gif) white no-repeat right center
+}
+.ac_odd {
+	BACKGROUND-COLOR: #EEEEFF
+}
+.ac_over {
+	BACKGROUND-COLOR: #0a246a; COLOR: white
+}

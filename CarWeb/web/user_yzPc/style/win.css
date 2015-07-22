@@ -1,0 +1,26 @@
+.black {
+	font-size: 9pt;
+	color: #000000;
+	text-decoration: none;
+	line-height: 110%;
+}
+a:link {
+	font-size: 9pt;
+	color: blue;
+	text-decoration: none;
+}
+a:visited {
+	font-size: 9pt;
+	color: blue;
+	text-decoration: none;
+}
+a:hover {
+	font-size: 9pt;
+	color: red;
+	text-decoration: none;
+}
+a:active {
+	font-size: 9pt;
+	color: #666666;
+	text-decoration: none;
+}

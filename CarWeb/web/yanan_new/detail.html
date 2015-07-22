@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title> 延安市党员干部现代远程教育网 </title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js?v3.70"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="css/site.css"/>
+	<style>
+		.divColLeft {
+			float: left;
+			width: 728px;
+		}
+
+		.divColRight {
+			float: right;
+			width: 270px;
+		}
+
+		.title {
+			text-align: center;
+			font-weight: normal;
+			font-size: 26px;
+			line-height: 38px;
+			margin: 20px 20px 10px 20px;
+		}
+
+		.description {
+			color: #888;
+			font-size: 12px;
+			text-align: center;
+		}
+
+		.contentv {
+			margin: 20px auto;
+		}
+
+		.contentv p {
+			text-indent: 30px;
+			text-align: justify;
+			font-size: 16px;
+			line-height: 28px;
+			MARGIN: 0 3px 15px;
+		}
+
+		#Player {
+			width: 830px;
+			height: 440px;
+			background-color: #000;
+			margin-bottom: 20px;
+		}
+
+		.moreLink {
+			height: 440px;
+			width: 150px;
+			text-align: center;
+			float: right;
+		}
+
+		#arrUp, #arrDn {
+			cursor: pointer;
+		}
+
+		#moreLinkWrap {
+			height: 371px;
+			margin : 10px 0;
+			overflow: hidden;
+		}
+
+		#moreLinksUl {
+
+		}
+        .preTxt {
+            text-indent: 30px;
+            text-align: justify;
+            font-size: 16px;
+            line-height: 28px;
+            MARGIN: 0 3px 15px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+		#moreLinksUl li {
+			text-align: center;
+			line-height: 18px;
+			font-size: 12px;
+			border-bottom: 1px dotted #a1a1a1;
+			margin-bottom: 20px;
+		}
+
+		#moreLinksUl li img {
+			width: 150px;
+			height: 90px;
+			display: block;
+			margin: 5px auto;
+		}
+
+	</style>
+    <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/utilsParameters.js"></script>
+    <script src="js/channels.js"></script>
+    <script src="/js/md5.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script>
+        document.write('<script src="'+serverOptions.address+"interface/player.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+    <script>
+        var clipNo = 1;
+        var contentId = getParameterFromUrl(null,"id");
+        var movieDetailJsonData={};
+        var systemIsReady = false;
+        serverOptions.address = "/";
+        function setChannel(id,channel,urlParameters){
+            if(typeof(urlParameters)=='undefined'){
+                urlParameters = "id";
+            }
+            if(channel!=null){
+                var channelObj = $("#"+id);
+                if(channelObj!=null){
+                    if(parseInt(channel.id) !=  474431645)  {//通知公告栏目除外
+                        var html = 'subColumn';
+                        if(id == 'parentChannel' && parseInt(channel.parentId) == 474431589) {//父频道为首页
+                            html = 'column';
+                        }
+                        html = html+".html";
+                        channelObj.attr("href",html+"?" +urlParameters+
+                                "="+channel.id);
+                    }
+                    channelObj.html(channel.name);
+                }
+            }
+        }
+
+        function playContent(contentId,clipNo){
+            if(typeof(openPlayer)=='undefined'){
+                return;
+            }
+            var isLive= false;//是否是直播。如果是直播，设置为true
+            var playerContentId= 'Player';//播放器容器的ID
+            var playerId = 'fortuneFlashPlayer';//播放器的id，获取播放时间进度、跳转、获取状态等信息时需要。
+            var width=830;
+            var height=440;
+            openPlayer(contentId,clipNo,playerContentId,playerId,isLive,width,height);
+        }
+
+        var rendered = false;
+        function detailReady(movieDetailJsonData){
+            if(typeof(openPlayer)=='undefined'){
+                return;
+            }
+            if((!systemIsReady)||rendered){
+                return;
+            }
+            rendered = true;
+            var content = movieDetailJsonData.content;
+            if(content.type != 'picNews'){
+                playContent(contentId,clipNo);
+            }else{
+                document.getElementById('vodDetail').style.display='none';
+                document.getElementById('txtDetail').style.display='block';
+            }
+            renderDetail(movieDetailJsonData);
+        }
+
+        function renderDetail(movieDetailJsonData){
+            if(typeof(movieDetailJsonData)!='undefined'){
+                var parentChannel = movieDetailJsonData.parentChannel;
+                if(typeof(parentChannel)=='undefined'){
+                    parentChannel = {id:-1};
+                }
+
+                setChannel("channel", movieDetailJsonData.channel,'parentId='+parentChannel.id+"&channelId");
+                if(parseInt(movieDetailJsonData.channel.id) != 474431645)  {//通知公告栏目除外
+                    setChannel("parentChannel",parentChannel,"parentId");
+                }
+                var content =movieDetailJsonData.content;
+
+                if(content.type == 'picNews') {
+                    $("#txtContentName").html(content.name);
+                    $("#txtContentDetail").html(content.intro);
+                    var textContentName =$("#xzzq");
+                    $.ajax({
+                        type:"POST",
+                        url:'/content/contentProperty!getContentDownLoadUrl.action',
+                        data:{ 'obj.contentId':contentId, 'Obj.intValue':1, 'Obj.propertyId':1},
+                    success:function (msg) {
+                                loading = false;
+                                var xzzqSession = $("#xzzq");
+                               var ct =movieDetailJsonData.content;
+                                if(msg != null && ""!=msg) {
+                                    var result = eval('(' + msg + ')');
+                                    if(result.stringValue == "yes"){
+                                            xzzqSession.append('<li><div class="preTxt" style="float: left;">'+ct.name+'</div><div style="float: right;"><a class="article" href="javascript:goToDownLoad('+ct.id+')">下载</a></div></li>');
+                                    }
+                                }
+                              }
+                            });
+
+
+
+                    var txtContentImage = $("#txtContentImage");
+                    var tupian = content.posterBig.split("?");
+                    var tupianSession = tupian[0];
+                    if(tupianSession != null && tupianSession != " "){
+                        document.getElementById('txtContentImage').style.display ='block';
+                        txtContentImage.append('<img  max-width="700px" src="'+tupianSession+'">');
+                    }
+
+                    var posterSession =$("#poster");
+                       var count =13 ;
+
+                        for(var i=3;i <count;i++){
+                           var poster = movieDetailJsonData.content['poster'+i];
+                            if(poster!=null && poster!=""){
+                                var posterUrl = poster.split("?");
+                                var tupianUrl  =posterUrl[0];
+                                var others = posterUrl[1];
+                                if(others != null ){
+                                    var arr1 =others.split("&");
+                                    var despUrl = arr1[1].split("=");
+                                    if(despUrl !=null) {
+                                        var desp = despUrl[1];
+                                        document.getElementById('poster'+i).style.display='block';
+                                        posterSession.append('<p class="fCenter" id="poster"+i><img  max-width="700px" src="'+tupianUrl+'"></p><pre class="preTxt">'+decodeURI(desp)+'</pre>');
+                                    }
+                                    else{
+                                        document.getElementById('poster'+i).style.display='block';
+                                        posterSession.append('<p class="fCenter" id="poster"+i><img  max-width="700px" src="'+tupianUrl+'"></p>');
+                                    }
+                                }
+
+                            }
+                       }
+
+                    var moreTxtLinks  = $("#moreLinks");
+
+                    var relateTxtContents = movieDetailJsonData.relateContents;
+                    if(moreTxtLinks!=null&&relateTxtContents!=null&&relateTxtContents.length>0){
+                        moreTxtLinks.html('');
+                        for(var m= 0,n=relateTxtContents.length;m<n&&m<3;m++){
+                            var tc = relateTxtContents[m];
+
+                            moreTxtLinks.append('  <li><a href="detail.html?id='+tc.id+'">'+tc.name+'</a> <span class="fRight f12 fLightGray">'+tc.date+'</span></li>');
+                        }
+                    }
+                    renderNotice();
+                } else {
+                    $("#contentName").html(content.name);
+                    $("#contentDetail").html(content.intro);
+                    $('#description').html('发布时间:'+content.date+'&nbsp;&nbsp;| 播放次数：<b class="fRed" id="visitCount">'+content.allVisitCount+'</b>');
+                    var moreLinks  = $("#moreLinksUl");
+                    var relateContents = movieDetailJsonData.relateContents;
+                    if(moreLinks!=null&&relateContents!=null&&relateContents.length>0){
+                        moreLinks.html('');
+                        for(var j= 0,l=relateContents.length;j<l&&j<3;j++){
+                            var c = relateContents[j];
+                            moreLinks.append('<li> <a href="detail.html?id='+c.id+'">' +
+                                    '<img src="'+c.poster+'" alt=""/>'+c.name+'</a></li>');
+                        }
+                    }
+                }
+          }
+        }
+        function initSystem(){
+            systemIsReady = true;
+            detailReady(movieDetailJsonData);
+            renderPicContent();
+            'use strict';
+
+            var moreLinkUl = $('#moreLinksUl'), wholeHeight = moreLinkUl.outerHeight(), curMargin = 0;
+            var wrapHeight = $('#moreLinkWrap').outerHeight();
+            if (wholeHeight > wrapHeight) {
+                $('#arrDn').click(function () {
+                    curMargin -= 120;
+                    if (wrapHeight - curMargin >= wholeHeight) {
+                        curMargin = wrapHeight - wholeHeight;
+                    }
+                    moreLinkUl.animate({
+                        marginTop: curMargin
+                    });
+                });
+                $('#arrUp').click(function () {
+                    curMargin += 120;
+                    if (curMargin >= 0) {
+                        curMargin = 0;
+                    }
+                    moreLinkUl.animate({
+                        marginTop: curMargin
+                    });
+
+                });
+            }
+        }
+        document.write('<script src="'+serverOptions.address+'page/js/detail.jsp?simple=true&callback=detailReady&contentId=' +contentId+'"><'+'/script>');
+
+        function renderNotice() {
+            $.ajax({
+                type: "POST",
+                url: "js/list.jsp",
+                dataType: "text",
+                data: {'channelId':474431645},
+                success: function(msg){
+                    var response = eval('('+msg+')');
+
+                    var notices = response.listData.objs;
+                    for(var i = 0; i < notices.length;i++) {
+                        var n  = notices[i];
+                        if(i < 5) {
+                            $('#notice').append('<li class="clipText"><a href="detail.html?id='+ n.id+'" target="_blank">'+ n.name+'</a></li>')
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderPicContent() {
+            $.ajax({
+                type: "POST",
+                url: "/content/content!getPicContent.action",
+                dataType: "text",
+                success: function(msg){
+                    var response = eval('('+msg+')');
+                    if(response.success) {
+                        var notices = response.contents;
+                        $('#ulPicNews').html('');
+                        for(var i = 0; i < notices.length&&i<2;i++) {
+                            var n  = notices[i];
+                            $('#ulPicNews').append('<li class="clipText">' +
+                                    '<a href="detail.html?id='+ n.id+'" target="_blank"><img src="'+ n.post1Url+'" alt=""/><br/>'+ n.name+'</a>' +
+                                    ' </li>')
+                        }
+                    }
+                }
+            });
+        }
+
+        function goToSearch(){
+            var searchValue = $("#searchValue").val();
+            if(searchValue == null || searchValue == "" || searchValue == '输入关键词') {
+                alert('请输入搜索内容！');
+                return;
+            }
+            window.location.href="searchList.html?searchValue="+encodeURI(encodeURI(searchValue));
+        }
+        var loading = false;
+        function goToDownLoad(contentId) {
+            if(loading) {
+                alert("正在处理下载请求，请勿连续点击！");
+            }
+            loading = true;
+            $.ajax({
+                type:"POST",
+                url:'/content/contentProperty!getContentDownLoadUrl.action',
+                data:{ 'obj.contentId':contentId, 'Obj.intValue':1, 'Obj.propertyId':1}
+            }).done(function (msg) {
+                        loading = false;
+                        var xzzqSession = $("#xzzq");
+                        if(msg != null && ""!=msg) {
+                            var result = eval('(' + msg + ')');
+                            if(result.success == "true" || result.success == true) {
+                                //movie是tomcat配置的虚拟目录
+                                window.location.href="/movie"+result.url;
+                            }
+                        }
+                    })
+        }
+
+    </script>
+</head>
+<body onload="initSystem()">
+<!-- banner -->
+<div id="fakeBg"><div id="wbg"></div></div>
+<img id="headBanner" src="images/headerBanner.png" alt=""/>
+
+<!-- main menu -->
+<div id="divMenu">
+	<ul id="ulMenu">
+        <li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="columnZSZT.html">中省直通</a></li>
+        <li><a class="mainMenu" href="noticeList.html?channelId=474431645">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+	</ul>
+</div>
+
+<!-- search bar -->
+<div class="mainSec sou">
+	<h1 class="bt1">站内搜索</h1>
+	<div class="souBox">
+        <input type="text" id="searchValue" name="vcom"  class="text_sou" value="输入关键词" onfocus="if (value =='输入关键词'){value =''}" onblur="if (value ==''){value='输入关键词'}">
+        <input type="button" class="souBtn" onclick="goToSearch()" value="">
+	</div>
+	<h1 class="bt1">邮箱登录</h1>
+    <div name="loginForm" id="v1"><label>用户名</label><div class="kuangBg">
+        <input type="text" name="obj.userId" id="loginId" class="text_sou w108">
+    </div><label>密码</label><div class="kuangBg"><input type="password" name="obj.password" id="passWord" class="text_sou w108">
+    </div><input name="domain" type="hidden" value="sxdyyj.com"><input name="style" type="hidden" value="simple">
+        <input type="button" class="loginBtn" id="doLogin" value="登录"></div>
+
+    <div id="v2"style="display: none;" >
+        <label id="showLogin" style="width: 330px"></label>
+        <input type="button" class="loginBtn" value="注销" id="logOut" onclick="logOut()"/>
+    </div>
+	<input type="button" onclick="location.assign('register.html')" class="loginBtn" value="注册">
+	<div class="weather"><iframe width="170" scrolling="no" height="13" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&amp;id=11&amp;icon=1"></iframe></div>
+</div>
+
+<!-- breadcrumb -->
+<div class="breadcrumb">
+	<a href="index.html">首页</a> > <a href="#" id="parentChannel"></a> > <a href="#" id="channel"></a> > 正文
+</div>
+
+<!-- main section -->
+<div id="vodDetail">
+    <div class="mainSec">
+
+        <h1 class="title" id="contentName">李克强:力争率先在孩子身上实现"零艾滋"目标</h1>
+
+        <p class="description" id="description"></p>
+
+        <div class="contentv">
+            <div class="divPlayZone">
+                <div class="moreLink"><img id="arrUp" src="images/arrUp.png" alt=""/><div id="moreLinkWrap">
+                    <ul id="moreLinksUl">
+
+                    </ul>
+                </div><img id="arrDn" src="images/arrDn.png" alt=""/>
+                </div>
+                <div id="Player"></div>
+            </div>
+            <h2>视频介绍：</h2>
+                <pre id="contentDetail" class="preTxt"></pre>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="txtDetail" style="display: none">
+    <div class="mainSec">
+        <div class="divColRight">
+            <div class="divHotNews">
+                <img src="images/hPubs.png" align="left"/>
+                <ul class="ulHotNews" id="notice">
+
+                </ul>
+            </div>
+
+            <div class="divHotNews">
+                <img src="images/hPixJs.png" align="left"/>
+                <ul class="ulPicNews" id="ulPicNews">
+                    <li class="clipText">
+                        <a href="#" target="_blank"><img src="images/slde_1.jpg" alt=""/><br/>团中央召开大调研活动汇报会</a>
+                    </li>
+                    <li class="clipText">
+                        <a href="#" target="_blank"><img src="images/slde_1.jpg" alt=""/><br/>团中央召开大调研活动汇报会</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="divColLeft">
+            <div class="cms_content">
+                <h1 class="title" id="txtContentName">2014国际反腐败日：联合国秘书长呼吁打破腐败链</h1>
+                <!-- <p class="description">发布时间:2014年11月08日 17:18 | 来源：新华网</p>-->
+                <div class="content">
+                    <p class="fCenter" id="txtContentImage" style="display: none">
+                        <!--<img  style="max-width: 700px" src="images/20141115005342baacc_550.jpg"  alt=""/>-->
+                    </p>
+                 </div>
+            </div>
+            <div class="content" id="poster">
+                <p class="fCenter" style="display: none" id="poster3" >
+                    <img style="max-width: 700px "  src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;" id="poster4" >
+                    <img style="max-width: 700px" src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;" id="poster5">
+                    <img  style="max-width: 700px" src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;" id="poster6">
+                    <img  style="max-width: 700px" src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;" id="poster7">
+                    <img style="max-width: 700px" src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;" id="poster8">
+                    <img  style="max-width: 700px" src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;"  id="poster9">
+                    <img style="max-width: 700px" src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;" id="poster10">
+                    <img  style="max-width: 700px" src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;" id="poster11">
+                    <img  style="max-width: 700px" src=""  alt=""/>
+                </p>
+                <p class="fCenter" style="display: none;" id="poster12">
+                    <img  style="max-width: 700px" src=""  alt=""/>
+                </p>
+
+            </div>
+            <div class="cms_content">
+                <pre id="txtContentDetail" class="preTxt"></pre>
+            </div>
+            <div class="cms_content" style="height: 70px">
+                <hr style="BORDER-BOTTOM-STYLE: dotted; BORDER-LEFT-STYLE: dotted; BORDER-RIGHT-STYLE: dotted; BORDER-TOP-STYLE: dotted" color=#000000 size=1 >
+                <ul id="xzzq">
+                </ul>
+
+            </div>
+            <div class="ep_links">
+                <p style="border-bottom: 2px solid #d01107;text-indent: 6px;"><img src="images/thMore.png"  style="vertical-align: bottom"/></p>
+                <ul class="moreLinks" id="moreLinks">
+                    <li><a href="#">李克强在第九届东亚峰会上的发言(全文)</a> <span class="fRight f12 fLightGray">2014/12/02</span></li>
+                    <li><a href="#">李克强同缅甸总统吴登盛举行会谈</a> <span class="fRight f12 fLightGray">2014/11/27</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div class="mainSec footer">
+	<hr class="white"/>
+	<a href="http://cpc.people.com.cn/" target="_blank"><img src="images/logo/lkGCDXWW.jpg" class="linkLogo"/></a>
+	<a href="http://www.zgdsw.org.cn/" target="_blank"><img src="images/logo/lkDCDLSW.jpg" class="linkLogo"/></a>
+	<a href="http://www.sx-dj.gov.cn/" target="_blank"><img src="images/logo/lkSXDJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.yadj.gov.cn" target="_blank"><img src="images/logo/lkYADJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.gov.cn/" target="_blank"><img src="images/logo/lkRM.jpg" class="linkLogo"/></a>
+	<a href="http://www.shaanxi.gov.cn/" target="_blank"><img src="images/logo/lkSX.jpg" class="linkLogo"/></a>
+	<a href="http://www.yanan.gov.cn/" target="_blank"><img src="images/logo/lkYA.jpg" class="linkLogo"/></a>
+	<a href="http://nc.mofcom.gov.cn/" target="_blank"><img src="images/logo/lkNC.jpg" class="linkLogo"/></a>
+
+	<hr class="white"/>
+	<p>
+		版权所有：延安市党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+	</p>
+	<p>
+		主办方：延安市党员干部现代远程教育中心
+	</p>
+</div>
+</body>
+<!--[if lt IE 9]>
+<script src="js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/comm.js"></script>
+<script>
+	'use strict';
+
+	var moreLinkUl = $('#moreLinksUl'), wholeHeight = moreLinkUl.outerHeight(), curMargin = 0;
+	var wrapHeight = $('#moreLinkWrap').outerHeight();
+	if (wholeHeight > wrapHeight) {
+		$('#arrDn').click(function () {
+			curMargin -= 120;
+			if (wrapHeight - curMargin >= wholeHeight) {
+				curMargin = wrapHeight - wholeHeight;
+			}
+			moreLinkUl.animate({
+				marginTop: curMargin
+			});
+		});
+		$('#arrUp').click(function () {
+			curMargin += 120;
+			if (curMargin >= 0) {
+				curMargin = 0;
+			}
+			moreLinkUl.animate({
+				marginTop: curMargin
+			});
+
+		});
+	}
+</script>
+</html>

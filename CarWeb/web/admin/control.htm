@@ -1,0 +1,51 @@
+<html>
+<head>
+<title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <style type="text/css">
+*
+{
+	margin:0;
+	padding:0
+}
+</style>
+
+    <script language="javascript" type="text/javascript">
+var flag = false;
+function shiftStatus()
+{
+	if(flag)
+	{
+		if(screen.width>1024)
+			parent.document.all.main1.cols = "240,11,*";
+		else if(screen.width>800)	
+			parent.document.all.main1.cols = "240,11,*";
+		else
+			parent.document.all.main1.cols = "240,11,*";
+		document.all.menuSwitch1.src='images/leftButtonHidden1.gif';
+		document.all.menuSwitch1.title='隐藏';
+	}
+	else
+	{
+		parent.document.all.main1.cols = "0,11,*";
+		document.all.menuSwitch1.src='images/leftButtonHidden2.gif';
+		document.all.menuSwitch1.title='显示';
+	}
+
+	flag = !flag;
+}
+    </script>
+
+    <meta content="MSHTML 6.00.2900.2180" name="GENERATOR" />
+</head>
+<body onclick="shiftStatus()">
+    <table height="100%" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr>
+                <td id="menuSwitch" style="cursor:pointer" valign="middle">
+                    <img id="menuSwitch1" src="images/leftButtonHidden1.gif" width="9"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

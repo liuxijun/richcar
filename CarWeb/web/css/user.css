@@ -1,0 +1,47 @@
+.login_win{ display:none; clear:both; width:413px; height:310px; background:#fff url(../images/user_bg.png) no-repeat center top; }
+.login_win form{ padding:0px; margin:0px;}
+.login_t{ display:block; clear:both;}
+.login_t .logo{ background:url(../images/user_logo.png) no-repeat left center; display:block; width:119px; height:18px; margin:22px; float:left;}
+.login_t .close{ display:block; width:45px; height:45px; background:url(../images/user_icon.png) no-repeat 14px -230px; float:right; text-indent:-999em; overflow:hidden;}
+
+.login_username{ display:block; text-align:center; margin:40px 0 14px 0;}
+.login_username input{ width:283px; height:46px; line-height:46px; padding:0 0 0 50px; background:#fff url(../images/user_icon.png) no-repeat 12px 10px; border:1px solid #d9dadb; -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px; font-size:14px;}
+.login_username input:focus{ background:#fff url(../images/user_icon.png) no-repeat 12px -109px; border:1px solid #e8686d; box-shadow:0 0 3px #abdbf8;}
+
+input,textarea,select{ font-family:"微软雅黑";}
+
+
+.login_password{ display:block; text-align:center;}
+.login_password input{ width:283px; height:46px; line-height:46px; padding:0 0 0 50px; background:#fff url(../images/user_icon.png) no-repeat 12px -50px; border:1px solid #d9dadb; -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px;  font-size:14px;}
+.login_password input:focus{ background:#fff url(../images/user_icon.png) no-repeat 12px -169px; border:1px solid #e8686d;}
+
+
+.login_btn{ display:block; clear:both; font-size:14px; width:333px; margin:20px auto 0; color:#444; line-height:46px; }
+.login_btn .button{ display:block; width:160px; height:46px; line-height:46px; color:#fff; background-color:#e41c24; text-align:center; font-size:20px; letter-spacing:15px; cursor:pointer; border:none; -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px; float:left; }
+.login_btn input{ margin:2px 6px 0 20px;}
+.login_btn a{ color:#444;}
+.login_btn span{ display:inline-block; margin:0 8px;}
+
+
+
+.reg_win{ display:none; clear:both; width:413px; background-color:#f8f9f9; border:1px solid #8a8a8a;}
+.reg_win form{ padding:0px; margin:0px;}
+.reg_t{ display:block; margin:0 0 8px 0; clear:both; background-color:#fff; border-bottom:1px solid #e2e2e3; height:62px; line-height:62px;}
+.reg_t strong{ font-size:20px; float:left;  color:#777; margin:0 0 0 40px; font-weight:normal;}
+.reg_t .close{ display:block; width:45px; height:45px; background:url(../images/user_icon.png) no-repeat 14px -280px; float:right; text-indent:-999em; overflow:hidden;}
+.reg_t .close:hover{ background-position:14px -342px;}
+
+.reg_input{ width:330px; margin:5px auto;}
+.reg_input span{ display:block; color:#444; font-size:14px; line-height:140%; margin:0 0 4px 0;}
+.reg_input input{ width:322px; height:40px; line-height:40px; background-color:#fff; border:1px solid #d9dadb; padding:0 4px; -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px; font-size:14px;}
+.reg_input textarea{ width:322px; height:90px; line-height:36px; background-color:#fff; border:1px solid #d9dadb;  padding:0 4px; -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px; font-size:14px;}
+.reg_input input:focus,.reg_input textarea:focus{border:1px solid #e8686d; box-shadow:0 0 3px #abdbf8;}
+
+.reg_sex{ width:330px; margin:5px auto; color:#444; font-size:14px; line-height:42px;}
+.reg_sex span{ float:left; display:inline-block; margin:0 15px 0 0; color:#444; font-size:14px;}
+.reg_sex input{ margin:0 5px 0 20px;}
+
+.reg_btn{ display:block; clear:both; font-size:14px; text-align:center; height:115px; margin:20px auto 0; color:#444; background-color:#fff; border-top:1px solid #e2e2e3; }
+.reg_btn .button{ display:block; clear:both; width:330px; height:46px; line-height:46px; font-family:"微软雅黑"; color:#fff; background-color:#e41c24; text-align:center; font-size:20px; letter-spacing:5px; cursor:pointer; border:none; -moz-border-radius: 4px; -webkit-border-radius:4px; border-radius:4px; margin:25px auto 5px; }
+.reg_btn a{ color:#444; display:block; padding:8px 30px; font-size:16px; color:#e41c24;}
+

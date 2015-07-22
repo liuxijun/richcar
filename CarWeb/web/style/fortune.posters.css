@@ -1,0 +1,51 @@
+/*
+ * Posters style
+ * xjliu on 2015-05-07
+ */
+.posterBlock{
+    border:solid 1px #EEEEEE;
+    background-color: #FEFEFE;
+    margin-bottom: 5px;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.hidden{
+/*    float:left;*/
+    display: none;
+}
+.showing{
+    min-height:160px;
+    display:block;
+}
+.inputFileClasses{
+
+}
+.posterDiv{
+    width:100%;
+    margin-bottom: 10px;
+    height:auto;
+}
+.posterDiv img{
+    max-width: 320px;
+    float:left;
+}
+.posterDiv ul{
+    float:left;
+    width:250px;
+}
+.posterDiv li{
+    width:100%;
+    list-style-type:none
+}
+.posterDiv label{
+    width:50px;
+    text-align: right;
+}
+.posterDiv input{
+    width:180px;
+}
+.previewImage,.previewImage img{
+    width:200px;
+    height:160px;
+}

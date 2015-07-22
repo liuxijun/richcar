@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title> 延安市党员干部现代远程教育网 </title>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js?v3.70"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="css/site.css"/>
+	<style>
+		.divQ{
+			padding: 0 20px 20px 20px;
+		}
+		.divQ p{
+			font-size: 18px;
+			font-weight: bold;
+			line-height: 38px;
+		}
+		.divQ label{
+			display: block;
+			margin-left: 40px;
+			font-size: 16px;
+			line-height: 30px;
+		}
+	</style>
+    <script type=text/javascript src="../js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript">
+        var serverOptionsAddress ="/";
+        document.write('<script src="'+serverOptionsAddress+"interface/player.jsp?date="+new Date().getTime()+'"><'+'/script>');
+    </script>
+    <script src="../scripts/date-time/moment.min.js"></script>
+    <script src="../scripts/invest.js"></script>
+    <script src="../scripts/redex_utils.js"></script>
+    <script type="text/javascript">
+        var g_user = user==null?null:user.userId;
+        var g_investigation, g_start/*, g_user = 'wp1001168'*/;
+        jQuery(function ($) {
+            var investId = $.getQuery("id", 1);
+            loadInvestigation(investId, showInvestigation);
+        });
+
+        function loadInvestigation(id, callback){
+            $.ajax({
+                type: "POST",
+                url: "/invest/invest!getInvest.action",
+                data: {"obj.id": id},
+                dataType: "text",
+                success: function(msg){
+                    var jsonData = JSON.parse(msg);
+
+                    parseInvestigation(jsonData["data"]);
+
+                    if(callback){
+                        callback(g_investigation);
+                    }
+                }
+            });
+        }
+
+        function parseInvestigation(jsonData){
+            if( !jsonData ) return;
+
+            g_investigation = new Investigation(jsonData["id"],jsonData["title"], moment(jsonData["startTime"]),
+                    moment(jsonData["endTime"]), []);
+            // 解析问题
+            var questionList = jsonData["questionList"], question, jsonQuestion, optionList, jsonOption, option;
+            for(var i=0; i<questionList.length; i++){
+                jsonQuestion = questionList[i];
+                if(!jsonQuestion) continue;
+                question = new Question(jsonQuestion["id"], jsonQuestion["title"], jsonQuestion["sequence"], [], jsonQuestion["maxOption"]);
+                // 选项
+                optionList = jsonQuestion["optionList"];
+                for(var j=0; j<optionList.length; j++){
+                    jsonOption = optionList[j];
+                    if(!jsonOption) continue;
+                    option = new QuestionOption(jsonOption["id"], jsonOption["title"], jsonOption["sequence"]);
+                    question.addOption(option);
+                }
+                g_investigation.addQuestion(question);
+            }
+        }
+
+        function showInvestigation(invest){
+            if(!invest) return;
+
+            g_start = new Date();
+
+
+            $("#investTitle").html(invest.title);
+            for(var i=0; i<invest.questionList.length;i++){
+                showQuestion(invest.questionList[i], i+1);
+            }
+
+            $("#invest-question").append('<hr class="grayDash"/>');
+            $("#invest-question").append(' <p class="fCenter"><a href="javascript:saveInvest()"><img src="images/btnSubmitRegist.jpg" style="height: 64px; width: 221px;"/></a></p>');
+
+            // 绑定选项事件
+            $("label input").click(function(){
+                if($(this).closest("div.divQ").find("input:checkbox:checked").length >
+                        $(this).closest("div.divQ").attr("max-option")){
+                    $(this).attr("checked", false);
+                }
+
+            });
+        }
+
+        function showQuestion(question, index){
+            if(!question) return;
+
+            console.info(index + "  " + question["title"]);
+
+
+            $("#invest-question").append('<div class="divQ" id="question_' + question["id"]+'"  max-option=' + question.maxOption + '>'  );
+
+            var optionType = "radio", questionTitle ="Q"+ index + "， " + question["title"], container =  $("#question_" + question["id"]);
+            if(parseInt(question.maxOption) > 1){
+                questionTitle += "(最多选择" + question.maxOption + "项)";
+                optionType = "checkbox";
+            }
+
+            container.append("<p>" + questionTitle + "</p>");
+
+            for(var i=0; i<question.optionList.length; i++){
+                container.append('<label><input type="' + optionType + '" value="' + question.optionList[i].id +
+                        '" name="' + question["id"] + '" >' + question.optionList[i].title + '</label>' );
+            }
+
+            container.append("</div>");
+
+        }
+
+        var finishCommit = true;
+        function saveInvest(){
+            if(!finishCommit) {
+                alert("正在提交问卷，请勿连续点击！");
+                return;
+            }
+
+            if(g_user == null || g_user == "") {
+                alert("请登录后进行问卷调查！");
+                return;
+            }
+
+            var list = $("div.divQ");
+            for(var k =0; k<list.length; k++){
+                if(list.eq(k).find("input:checked").length == 0){
+                    alert("有问题没选呢！");
+                    return;
+                }
+            }
+
+            finishCommit = false;
+            var duration = Math.ceil(((new Date()).getTime() - g_start.getTime())/1000);
+
+            console.info("duration:" + duration);
+
+            var investResult = new InvestResult(g_investigation["id"], g_user, duration, moment(g_start).format("YYYY-MM-DD HH:mm:ss"));
+            // 获取每个问题的选项
+            var questionResult, optionList;
+            for(var i=0; i<list.length; i++){
+                optionList = [];
+                list.eq(i).find("input:checked").each(function(){
+                    optionList.push($(this).val());
+                });
+                investResult.addQuestionResult(new QuestionResult(
+                        list.eq(i).attr("id").replace(/question_/g, ""),
+                        optionList
+                ));
+            }
+
+            console.info(JSON.stringify(investResult));
+
+            $.ajax({
+                type: "POST",
+                url: "/invest/invest!doInvest.action",
+                data: {
+                    "serializedInvestResult": JSON.stringify(investResult)
+                },
+                dataType: "text",
+                success: function (msg) {
+                    finishCommit = true;
+                    var jsonData = JSON.parse(msg);
+                    if (jsonData.success) {
+                        alert("问卷提交完成！");
+                        window.location.href = 'voteList.jsp';
+                    } else {
+                        alert("您已提交过问卷！");
+                    }
+                }
+            });
+        }
+
+        function goToSearch(){
+            var searchValue = $("#searchValue").val();
+            if(searchValue == null || searchValue == "" || searchValue == '输入关键词') {
+                alert('请输入搜索内容！');
+                return;
+            }
+            window.location.href="searchList.html?searchValue="+encodeURI(encodeURI(searchValue));
+        }
+    </script>
+</head>
+<body>
+
+<!-- banner -->
+<div id="fakeBg"><div id="wbg"></div></div>
+<img id="headBanner" src="images/headerBanner.png" alt=""/>
+
+
+<!-- main menu -->
+<div id="divMenu">
+	<ul id="ulMenu">
+        <li style="width: 100px"><a class="mainMenu" href="index.html">首页</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431621">党建动态</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431626">远教之窗</a></li>
+        <li><a class="mainMenu" href="column.html?parentId=474431631">视听延安</a></li>
+        <li><a class="mainMenu" href="columnZSZT.html">中省直通</a></li>
+        <li><a class="mainMenu" href="noticeList.html?channelId=474431645">通知公告</a></li>
+        <li><a class="mainMenu" href="subColumn.html?parentId=474431637">下载专区</a></li>
+	</ul>
+</div>
+
+<!-- search bar -->
+<div class="mainSec sou">
+	<h1 class="bt1">站内搜索</h1>
+	<div class="souBox">
+        <input type="text" id="searchValue" name="vcom"  class="text_sou" value="输入关键词" onfocus="if (value =='输入关键词'){value =''}" onblur="if (value ==''){value='输入关键词'}">
+        <input type="button" class="souBtn" onclick="goToSearch()" value="">
+	</div>
+	<h1 class="bt1">邮箱登录</h1>
+    <div name="loginForm" id="v1"><label>用户名</label>
+        <div class="kuangBg"><input type="text" name="obj.username" id="loginId"class="text_sou w108"></div>
+        <label>密码</label><div class="kuangBg">
+            <input type="password" name="obj.password" id="passWord"class="text_sou w108"></div>
+        <input name="domain" type="hidden" value="sxdyyj.com">
+        <input name="style" type="hidden" value="simple">
+        <input type="button" id="doLogin"class="loginBtn" value="登录"></div>
+
+    <div id="v2"style="display: none;" >
+        <label id="showLogin" style="width: 330px"></label>
+        <input type="button" class="loginBtn" value="注销" id="logOut" onclick="logOut()"/>
+    </div>
+	<input type="button" onclick="location.assign('register.html')" class="loginBtn" value="注册">
+	<div class="weather"><iframe width="170" scrolling="no" height="13" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&amp;id=11&amp;icon=1"></iframe></div>
+</div>
+
+
+<!-- breadcrumb -->
+<div class="breadcrumb">
+	<a href="index.html">首页</a> > <a href="voteList.html">问卷调查中心</a> > 整改工作调查问卷
+</div>
+<div class="mainSec" style="border-top: 2px solid #fff;margin-bottom: 0;">
+	<div class="colHeader">
+		<img src="images/bgCH_dttp.png" alt=""/>
+	</div>
+</div>
+
+<!-- main section -->
+<form class="mainSec" id="invest-question">
+	<h1 class="fRed fCenter f24" id="investTitle">民众幸福感调查问卷</h1>
+	<hr class="grayDash"/>
+<!--
+
+	<div class="divQ">
+		<p>Q1， 您的教育程度是？</p>
+		<label><input type="radio" name="q1" /> 初中以及以下</label>
+		<label><input type="radio" name="q1" /> 高中</label>
+		<label><input type="radio" name="q1" /> 大专</label>
+		<label><input type="radio" name="q1" /> 本科</label>
+		<label><input type="radio" name="q1" /> 硕士以及以上</label>
+	</div>
+
+	<div class="divQ">
+		<p>Q2， 您的职业是？</p>
+		<label><input type="radio" name="q2" /> 农民</label>
+		<label><input type="radio" name="q2" /> 个体户</label>
+		<label><input type="radio" name="q2" /> 企业职工</label>
+		<label><input type="radio" name="q2" /> 机关与事业单位员工</label>
+		<label><input type="radio" name="q2" /> 自由职业</label>
+	</div>
+
+	<div class="divQ">
+		<p>Q3， 您觉得怎样才算是一个幸福的人？</p>
+		<label><input type="checkbox" name="q3" /> 身心健康</label>
+		<label><input type="checkbox" name="q3" /> 家庭和睦</label>
+		<label><input type="checkbox" name="q3" /> 前途光明</label>
+		<label><input type="checkbox" name="q3" /> 交际广阔</label>
+		<label><input type="checkbox" name="q3" /> 高收入</label>
+		<label><input type="checkbox" name="q3" /> 受人尊敬</label>
+	</div>
+
+	<div class="divQ">
+		<p>Q4， 您对未来有目标吗？</p>
+		<label><input type="radio" name="q4" /> 很明确有</label>
+		<label><input type="radio" name="q4" /> 有，但不明确</label>
+		<label><input type="radio" name="q4" /> 没有，但想过</label>
+		<label><input type="radio" name="q4" /> 从来没有想过</label>
+	</div>
+-->
+</form>
+
+
+<!-- footer -->
+<div class="mainSec footer">
+	<hr class="white"/>
+	<a href="http://cpc.people.com.cn/" target="_blank"><img src="images/logo/lkGCDXWW.jpg" class="linkLogo"/></a>
+	<a href="http://www.zgdsw.org.cn/" target="_blank"><img src="images/logo/lkDCDLSW.jpg" class="linkLogo"/></a>
+	<a href="http://www.sx-dj.gov.cn/" target="_blank"><img src="images/logo/lkSXDJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.yadj.gov.cn" target="_blank"><img src="images/logo/lkYADJW.jpg" class="linkLogo"/></a>
+	<a href="http://www.gov.cn/" target="_blank"><img src="images/logo/lkRM.jpg" class="linkLogo"/></a>
+	<a href="http://www.shaanxi.gov.cn/" target="_blank"><img src="images/logo/lkSX.jpg" class="linkLogo"/></a>
+	<a href="http://www.yanan.gov.cn/" target="_blank"><img src="images/logo/lkYA.jpg" class="linkLogo"/></a>
+	<a href="http://nc.mofcom.gov.cn/" target="_blank"><img src="images/logo/lkNC.jpg" class="linkLogo"/></a>
+
+	<hr class="white"/>
+	<p>
+		版权所有：延安市党员干部现代远程教育网　　网站地图　｜　联系我们　｜　网站介绍
+	</p>
+	<p>
+		主办方：延安市党员干部现代远程教育中心
+	</p>
+</div>
+</body>
+<!--[if lt IE 9]>
+<script src="js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/comm.js"></script>
+<script>
+	'use strict';
+
+	var moreLinkUl = $('#moreLinksUl'), wholeHeight = moreLinkUl.outerHeight(), curMargin = 0;
+	var wrapHeight = $('#moreLinkWrap').outerHeight();
+	if (wholeHeight > wrapHeight) {
+		$('#arrDn').click(function () {
+			curMargin -= 120;
+			if (wrapHeight - curMargin >= wholeHeight) {
+				curMargin = wrapHeight - wholeHeight;
+			}
+			moreLinkUl.animate({
+				marginTop: curMargin
+			});
+		});
+		$('#arrUp').click(function () {
+			curMargin += 120;
+			if (curMargin >= 0) {
+				curMargin = 0;
+			}
+			moreLinkUl.animate({
+				marginTop: curMargin
+			});
+
+		});
+	}
+</script>
+</html>

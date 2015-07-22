@@ -1,0 +1,131 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	line-height: 20px;
+	background-image:url(bg.jpg);
+	background-repeat:repeat-x
+}
+body,td,th {
+ font-size: 12px;
+ color: #333333;
+ line-height: 20px;
+ font-family: "Verdana", "Arial", "ËÎÌå";
+}
+
+
+a img { border:none }
+
+a:link {color: #333333;text-decoration:none;}
+a:visited {color: #333333;text-decoration:none;}
+a:hover {color: #2a9eaa; text-decoration:none;}
+a:active {color: #333333;text-decoration:none;}
+
+.tit1 {color: #2b427c;text-decoration:none;}
+.tit1 a {color: #2b427c;}
+.tit1 a:link {color: #2b427c;}
+.tit1 a:visited {color: #2b427c;}
+.tit1 a:hover {color: #2b427c; text-decoration:underline;}
+.tit1 a:actide {color: #2b427c;}
+
+.tit2 {color: #ffffff;text-decoration:none;}
+.tit2 a {color: #ffffff;}
+.tit2 a:link {color: #ffffff;}
+.tit2 a:visited {color: #ffffff;}
+.tit2 a:hover {color: #ffed79;}
+.tit2 a:actide {color: #ffffff;}
+
+.tit3 {color: #0c54a4;text-decoration:none; font-weight:bold;}
+.tit3 a {color: #0c54a4;}
+.tit3 a:link {color: #0c54a4;}
+.tit3 a:visited {color: #0c54a4;}
+.tit3 a:hover {color: #0c54a4;text-decoration:underline; }
+.tit3 a:actide {color: #0c54a4;}
+
+.tit33 {color: #4c66a2;text-decoration:none; font-weight:bold; font-size: 13px;}
+.tit33 a {color: #4c66a2;}
+.tit33 a:link {color: #4c66a2;}
+.tit33 a:visited {color: #4c66a2;}
+.tit33 a:hover {color: #132a61;}
+.tit33 a:actide {color: #4c66a2;}
+
+.tit44 {color: #009cff;text-decoration:underline;}
+.tit44 a {color: #009cff;text-decoration:underline;}
+.tit44 a:link {color: #009cff;text-decoration:underline;}
+.tit44 a:visited {color: #009cff;text-decoration:underline;}
+.tit44 a:hover {color: #ff5a00; text-decoration:underline;}
+.tit44 a:actide {color: #009cff;text-decoration:underline;}
+
+.tit4 {color: #999999;text-decoration:none;}
+.tit4 a {color: #999999;}
+.tit4 a:link {color: #999999;}
+.tit4 a:visited {color: #999999;}
+.tit4 a:hover {color: #4c66a2; text-decoration:underline;}
+.tit4 a:actide {color: #999999;}
+
+.tit5 {color: #003c86;text-decoration:underline;}
+.tit5 a {color: #003c86;text-decoration:underline;}
+.tit5 a:link {color: #003c86;text-decoration:underline;}
+.tit5 a:visited {color: #003c86;text-decoration:underline;}
+.tit5 a:hover {color: #ff5a00; text-decoration:underline;}
+.tit5 a:actide {color: #003c86;text-decoration:underline;}
+
+
+
+.tit7 {color: #4b4b4b;text-decoration:none; font-size:11px;}
+.tit7 a {color: #4b4b4b;}
+.tit7 a:link {color: #4b4b4b;}
+.tit7 a:visited {color: #4b4b4b;}
+.tit7 a:hover {color: #009cff; text-decoration:underline;}
+.tit7 a:actide {color: #4b4b4b;}
+
+.tit77 {color: #009cff;text-decoration:none; font-size:11px; font-weight:bold;}
+.tit77 a {color: #009cff;}
+.tit77 a:link {color: #009cff;}
+.tit77 a:visited {color: #009cff;}
+.tit77 a:hover {color: #009cff; text-decoration:underline;}
+.tit77 a:actide {color: #009cff;}
+
+.tit8 {color: #14857e;text-decoration:none;}
+.tit8 a {color: #14857e;}
+.tit8 a:link {color: #14857e;}
+.tit8 a:visited {color: #14857e;}
+.tit8 a:hover {color: #06bccf;}
+.tit8 a:actide {color: #14857e;}
+
+.tit9 {color: #000000; font-size: 14px;text-decoration:none; font-weight:bold; }
+.tit9 a {color: #000000;}
+.tit9 a:link {color: #000000;}
+.tit9 a:visited {color: #000000;}
+.tit9 a:hover {color: #000000;}
+.tit9 a:actide {color: #000000;}
+
+.tit31 {color: #00bbd2;text-decoration:none;font-family: Î¢ÈíÑÅºÚ£¬Verdana, Arial; font-size: 25px;}
+.tit31 a {color: #00bbd2;}
+.tit31 a:link {color: #00bbd2;}
+.tit31 a:visited {color: #00bbd2;}
+.tit31 a:hover {color: #00bbd2;}
+.tit31 a:actide {color: #00bbd2;}
+
+
+
+
+.tab { border: 1px solid #c5c5c5;}
+.tab td { line-height:35px; padding:0px 5px;border-bottom: 1px solid #c5c5c5;}
+
+
+.tab2 { border: solid #c3cada; border-width:2px 1px 1px 2px;}
+.tab2 td { line-height:30px; border-bottom: 1px solid #c3cada;border-right: 1px solid #c5c5c5;padding:0px 5px;}
+
+.tab3 { line-height:25px; border: 0 solid ; }
+.tab3 td { line-height:25px;border-bottom: 0px solid #c3cada;border-right: 0px solid #c5c5c5; padding:0px 5px;}
+
+
+
+
+
+
+
+
+
