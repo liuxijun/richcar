@@ -507,7 +507,13 @@ var FortuneView = function(options){
                                 posterDiv.removeClass('hidden');
                                 posterDiv.addClass('showing');
                             }
-                            $("#inputFileName_"+this.id).val(this.value);
+                            var pName = this.id;
+                            var pOfDot = pName.indexOf("_");
+                            if(pOfDot>0){
+                              pName = pName.substring(pOfDot+1);
+                            }
+                            pName = (""+pName[0]).toUpperCase+pName.substring(1);
+                            $("#fileNameOf"+pName).val(this.value);
                             readImageFromUploadFile(this, imageObj);
                         }
                     }

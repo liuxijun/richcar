@@ -2,6 +2,7 @@ package com.fortune.cars.web.cars;
 
 import com.fortune.util.BeanUtils;
 import com.fortune.util.StringUtils;
+import com.fortune.util.net.URLEncoder;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.*;
 import com.fortune.cars.business.cars.logic.logicInterface.CarLogicInterface;
@@ -10,6 +11,7 @@ import com.fortune.common.web.base.BaseAction;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 @Namespace("/cars")
@@ -37,7 +39,12 @@ public class CarAction extends BaseAction<Car> {
             if(fileName==null){
                 fileName = "1.jpg";
             }
-            url = StringUtils.date2string(new Date(),"yyyy/MM/dd")+"/"+Math.round(Math.random()*1000000)+"_"+fileName;
+			try {
+				fileName = URLEncoder.encode(fileName,"UTF-8").replace("%","");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			url = StringUtils.date2string(new Date(),"yyyy/MM/dd")+"/"+Math.round(Math.random()*1000000)+"_"+ fileName;
             HttpServletRequest request = ServletActionContext.getRequest();
             File dstFile = new File(request.getRealPath("/upload/"+url));
             File path = dstFile.getParentFile();
