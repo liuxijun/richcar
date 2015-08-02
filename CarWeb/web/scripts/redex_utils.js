@@ -416,20 +416,66 @@ var FortuneView = function(options){
                             getParameter(item,'value','')+
                         '">\r\n';
                     continue;
+                }else if(type=='newLine'){
+                    html+='<div  class="form-group" style="clear:both;float:none;">' +
+                        '</div>\r\n';
+                    continue;
                 }
-                var itemLabel = item['fieldLabel'];
-                if(itemLabel==null){
-                    itemLabel='';
-                }
-                html+='<div class="form-group" style="float:left;width:350px;"><label class="col-sm-4 control-label no-padding-right filed-need">' +itemLabel+
-                    '</label>';
-
                 html+=this.createItemHtml(item);
-                html+='</div>';
+//                html+='</div>';
             }
             html+='</div>';
             html+=hiddens;
             $("#"+id).html(html);
+            var dateTimePickers = $(".datepickerForInput");
+            dateTimePickers.datetimepicker({
+                language: 'zh-CN',
+                //format:'yyyymmdd',
+                weekStart: 1,
+                todayBtn: true,
+                autoclose: true,
+                pickTime: false,
+                todayHighlight: 1,
+//        startView: 2,
+                minView: 2,
+                forceParse: false,
+                outOfRange:function(ev){
+
+                }
+            });
+            //dateTimePickers.datetimepicker('update','2015-03-03');
+            $(".inputFileClasses").ace_file_input({
+                no_file:'未选择文件 ...',
+                btn_choose:'选择',
+                styleClass:'ace_file_upload_style',
+                btn_change:'选择',
+                droppable:false,
+                whitelist:'png|jpg|jpeg',
+                before_change:function(files, dropped) {
+                    if (files.length > 0) {
+                        $(this).closest("div.form-group").removeClass("has-error");
+                        var file = files[0];
+                        if (typeof file === 'string') { // 不预览海报
+                        } else if ('File' in window && file instanceof window.File) {
+                            var imageObj = $(this).closest("img.previewImage");
+                            var posterDiv = $(this).closest("div.posterDiv");
+                            var id=this.id;
+                            if(id!=null&&!(typeof(id)=='undefined')){
+                                posterDiv = $("#imageInfoDiv_"+id);
+                                id = "previewImage_"+id;
+                                imageObj = $("#"+id);
+                            }
+                            if(posterDiv!=null){
+                                posterDiv.removeClass('hidden');
+                                posterDiv.addClass('showing');
+                            }
+                            $("#inputFileName_"+this.id).val(this.value);
+                            readImageFromUploadFile(this, imageObj);
+                        }
+                    }
+                    return true;
+                }
+            });
         },
         defaultWidth:120,
         createItemHtml:function(item){
@@ -444,12 +490,32 @@ var FortuneView = function(options){
             var extraCls = '';
             if(width>=0){
                 extraCls+=' style="width:'+width+'px;"';
+            }else{
+                extraCls +=' style="width:100%"';
             }
-            result+='<div class="col-sm-' +(colSm+1)+'">';
+            var itemLabel = item['fieldLabel'];
+            if(itemLabel==null){
+                itemLabel='';
+            }
+            result+='<div class="form-group" style="float:left;width:350px;"><label class="col-sm-4 control-label no-padding-right filed-need">' +itemLabel+
+                '</label>';
+            result+='<div class="col-sm-' +(colSm+3)+'">';
             if(xtype=='text'){
                 result+='<input type="text" id="'+id+'" name="'+name+'"'+extraCls+'>'
             }else if(xtype=='date'){
-                result+='<input type="text" id="'+id+'" name="'+name+'"'+extraCls+'>'
+                var format = 'YYYY-MM-DD';
+                if(value==null||value=='null'){
+                    value = '';
+                }
+                result+='<div class="input-group date form_date datepickerForInput" style="width:100%;"' +
+                    ' data-date="'+value+'" data-date-format="'+format+'" data-link-field="' +id+
+                    '" data-link-format="'+format+'">'+
+                    '<input class="form-control" size="16" type="text" id="displayField_'+name+'" value="'+value+'" readonly>'+
+                    //'<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>'+
+                    '<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>'+
+                    '</div>'+
+                    '<input type="hidden" name="'+name+'" id="' +id+'" value="'+value+'" /><br/>';
+                //result+='<input type="text" id="'+id+'" name="'+name+'"'+extraCls+'>'
             }else if(xtype=='select'){
                 var handler = item['onchange'];
                 if(handler!=null&&handler!=''){
@@ -457,14 +523,35 @@ var FortuneView = function(options){
                 }else{
                     handler = '';
                 }
-                result+='<select id="'+id+'" name="'+name+'" style="width:125%;height:34px;"'+extraCls+handler+'>';
+                result+='<select id="'+id+'" name="'+name+'" style="width:100%;height:34px;"'+extraCls+handler+'>';
                 result+=getSelectOptions(item,value,name,id);
                 result+='</select>';
             }else if(xtype=='image'){
+                var imageDisplay = ' showing ';
+                if(value==null||value=='null'||value==''||typeof(value)=='undefined'){
+                    imageDisplay = ' hidden';
+                }
+                var p=name.indexOf('.');
+                var propertyName = name;
+                if(p>=0){
+                    propertyName = name.substring(p+1);
+                }
+                if(propertyName.length>0){
+                    propertyName = (""+propertyName[0]).toUpperCase()+propertyName.substring(1);
+                }
+                result+='<input type="file"  id="'+id+'" class="inputFileClasses" style="width:300px;" name="fileOf'+propertyName+'"/>';
+                result+='<div class="pictureDiv'+imageDisplay+'" id="imageInfoDiv_'+id+'">' +
+                    '<img src="'+value+'"'+
+                    ' class="previewImage" id="previewImage_' +id+'">';
+
                 result+='';
+                result +='<input type="hidden" name="fileNameOf'+propertyName+'" value="'+value+'">\n';
+                result +='</div>';
+            }else if(xtype=='blank'){
+
             }
             result+='</div>';
-            return result;
+            return result+'</div>';
         }
     },options);
 };
@@ -508,4 +595,14 @@ function getSelectOptions(item,value,name,id){
     }
     result += appendOptions(subItems,value);
     return result;
+}
+function readImageFromUploadFile(input,image){
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        //alert($(image).attr("id"));
+        reader.onload = function (e) {
+            image.attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 }

@@ -13,6 +13,24 @@
   <title>管理首页-车辆管理</title>
   <meta name="description" content="overview &amp; stats"/>
   <%@include file="../inc/displayCssJsLib.jsp" %>
+  <style type="text/css">
+    .pictureDiv{
+      width:280px;
+      height:200px;
+    }
+    .hidden{
+      display: none;
+    }
+    .showing{
+      min-height:160px;
+      display:block;
+    }
+    .previewImage{
+      width:280px;
+      height:200px;
+    }
+
+  </style>
   <script src="../js/dict.js"></script>
   <style type="text/css">
     .hover{
@@ -251,12 +269,13 @@
         {fieldLabel:'保险截至',name:'obj.insureEtime',readOnly:viewReadOnly,type:'date'},
         {fieldLabel:'险种',name:'obj.insureType',readOnly:viewReadOnly,type:'select'},
         {fieldLabel:'保险公司',name:'obj.insureCompany',readOnly:viewReadOnly,type:'select'},
-        {fieldLabel:'顶部照片',name:'obj.carPictureTop',readOnly:viewReadOnly,type:'image'},
-        {fieldLabel:'左侧照片',name:'obj.carPictureLeft',readOnly:viewReadOnly,type:'image'},
-        {fieldLabel:'前面照片',name:'obj.carPictureFront',readOnly:viewReadOnly,type:'image'},
-        {fieldLabel:'底部照片',name:'obj.carPictureBottom',readOnly:viewReadOnly,type:'image'},
-        {fieldLabel:'右侧照片',name:'obj.carPictureRight',readOnly:viewReadOnly,type:'image'},
-        {fieldLabel:'后面照片',name:'obj.carPictureBack',readOnly:viewReadOnly,type:'image'}
+        {type:'newLine'},
+        {fieldLabel:'顶部照片',name:'obj.carPictureTop',readOnly:viewReadOnly,type:'image',value:'/upload/car/top.jpg'},
+        {fieldLabel:'左侧照片',name:'obj.carPictureLeft',readOnly:viewReadOnly,type:'image',value:'/upload/car/left.jpg'},
+        {fieldLabel:'前面照片',name:'obj.carPictureFront',readOnly:viewReadOnly,type:'image',value:'/upload/car/front.jpg'},
+        {fieldLabel:'底部照片',name:'obj.carPictureBottom',readOnly:viewReadOnly,type:'image',value:'/upload/car/bottom.jpg'},
+        {fieldLabel:'右侧照片',name:'obj.carPictureRight',readOnly:viewReadOnly,type:'image',value:'/upload/car/right.jpg'},
+        {fieldLabel:'后面照片',name:'obj.carPictureBack',readOnly:viewReadOnly,type:'image',value:'/upload/car/back.jpg'}
       ]
     };
     function productChanged(){
@@ -268,6 +287,34 @@
       if(items!=null){
         productType.append(appendOptions(items,productTypeVal));
       }
+    }
+    function loadData(){
+        var keyId = parseInt($.getQuery("keyId",-1));
+        if(keyId>0){
+            $.ajax({
+                url:'car!view.action?keyId='+keyId,
+                dataType:'json',
+                success:function(jsonData){
+                    var obj = jsonData['data'];
+                    if(obj!=null){
+                        for(var p in obj){
+                            if(obj.hasOwnProperty(p)){
+                                var v = obj[p];
+                                if(v==null||v=='null'||typeof(v)=='undefined'){
+                                    v = '';
+                                }
+                                var pId = p.replace(/\./g,'_');
+                                $("#"+pId).val(v);
+                                if(p.indexOf("carPicture")==0&&v!=''){
+                                    $("#previewPic_"+pId).attr("src",v);
+                                }
+
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
     function dictReady(){
         dictIsReady = true;
