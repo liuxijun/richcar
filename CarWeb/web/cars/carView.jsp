@@ -319,9 +319,24 @@
                         v = '';
                     }
                     var pId = p.replace(/\./g,'_');
-                    $("#"+pId).val(v);
-                    if(p.indexOf("carPicture")==0&&v!=''){
-                        $("#previewPic_"+pId).attr("src",v);
+                    try {
+                        if(p.indexOf("obj.carPicture")==0&&v!=''){
+                            var picId = 'previewImage_'+pId;
+                            var picEle = document.getElementById(picId);
+                            if(picEle!=null){
+                                picEle.src = v;
+                            }else{
+                                alert('未发现图片元素：'+pId);
+                            }
+                            $("#fileOrgValue_"+pId).val(v);
+                        }else{
+                            var ele = document.getElementById(pId);
+                            if(ele!=null){
+                                $("#"+pId).val(v);
+                            }
+                        }
+                    } catch (e) {
+                        alert("无法设置属性："+pId+","+ e.description);
                     }
 
                 }
