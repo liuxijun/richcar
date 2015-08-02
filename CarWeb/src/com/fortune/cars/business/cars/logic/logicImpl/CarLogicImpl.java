@@ -3,6 +3,7 @@ package com.fortune.cars.business.cars.logic.logicImpl;
 import com.fortune.cars.business.cars.dao.daoInterface.CarDaoInterface;
 import com.fortune.cars.business.cars.logic.logicInterface.CarLogicInterface;
 import com.fortune.cars.business.cars.model.Car;
+import com.fortune.common.business.base.dao.BaseDaoInterface;
 import com.fortune.common.business.base.logic.BaseLogicImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,6 @@ public class CarLogicImpl  extends BaseLogicImpl<Car> implements CarLogicInterfa
     @Autowired
     public void setCarDaoInterface(CarDaoInterface carDaoInterface) {
         this.carDaoInterface = carDaoInterface;
+        this.baseDaoInterface = (BaseDaoInterface)carDaoInterface;
     }
 }

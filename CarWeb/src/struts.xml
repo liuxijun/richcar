@@ -6,7 +6,7 @@
     <constant name="struts.devMode" value="false"/>
     <constant name="struts.multipart.maxSize" value="100000000"/>
     <constant name="struts.custom.i18n.resources" value="globalMessages"/>
-    <constant name="struts.convention.action.packages" value="com.fortune.rms.web,com.fortune.common.web,com.fortune.threeScreen.web"/>
+    <constant name="struts.convention.action.packages" value="com.fortune.rms.web,com.fortune.common.web,com.fortune.cars.web"/>
     <constant name="struts.convention.action.name.separator" value="-"/>
     <package name="default" extends="struts-default">
         <interceptors>

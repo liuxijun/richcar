@@ -268,8 +268,7 @@ var list={
                             '<td class="center">' + obj['userId']+'</td>' +
                                 '<td class="center">' + obj['createTime']+'</td>' +
                                 '<td class="center">'+obj['maintainTimes']+'</td>' +
-                                '<td class="center"><a class="btn btn-grey btn-xs"  onclick="list.showDetail(' +obj['id']
-                        +',\''+obj['carNo']+'\''+');return false;">'+
+                                '<td class="center"><a class="btn btn-grey btn-xs"  href="carView.jsp?keyId=' +obj['id']+'">'+
                                 '          <i class="ace-icon fa fa-edit bigger-110 icon-only"></i>'+
                                 '  </a><a class="btn btn-grey btn-xs" onclick="list.delete('+obj['id']+
                                 '\''+obj['carNo']+'\');return false;">'+
@@ -278,7 +277,7 @@ var list={
                                 '</tr>';
             }
         }
-        $('#dictContain').html(result);
+        $('#contains').html(result);
     },
     order_by:function (v) {
         if (v == list.order) {
@@ -290,7 +289,7 @@ var list={
         list.list();
     },
     list:function(){
-        var _order = "o1.code";
+        var _order = "o1.id";
         switch (list.order) {
             case "name":
                 _order = "o1.name";
@@ -308,7 +307,6 @@ var list={
                 limit:list.limit, start:(list.currentPage - 1) * list.limit }),
             method:'post',
             dataType:'json',
-
             success:function(jsonData){
                   list.render(jsonData);
             }

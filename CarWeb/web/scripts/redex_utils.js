@@ -197,11 +197,7 @@ function showDialog(parameters){
                     type = 'text';
                 }
             }
-            var allowBlank = item['allowBlank'];
-            if(typeof(allowBlank)=='undefined'||allowBlank==null){
-                allowBlank = true;
-            }else{
-            }
+            var allowBlank = getParameter(item,'allowBlank',true);
             var cls = item['cls'];
             if(cls == null){
                 cls='';
@@ -400,10 +396,41 @@ var FortuneView = function(options){
         items:[],
         buttons:[
             {text:'关闭',handler:function(){
-
                 }
             }
         ],
+        checkForm:function(items){
+            var i= 0,l=items.length;
+            var errorLogs = '';
+            for(;i<l;i++){
+                var item = items[i];
+                var xtype = item['type'];
+                if(xtype == 'newLine'){
+                    continue;
+                }
+                var allowBlank = getParameter(item,'allowBlank',true);
+                if(allowBlank){
+                    continue;
+                }
+                var name = getParameter(item,'name',null);
+                if(name==null){
+                    continue;
+                }
+                var id = getParameter(item,'id',name.replace(/\./g,'_'));
+                var field = $("#"+id);
+                var val = field.val();
+                if(xtype=='image'){
+
+                }else{
+                    if(val==''||val==null){
+                        var label = getParameter(item,'fieldLabel',name);
+                        field.closest("div.form-group").addClass("has-error");
+                        errorLogs+=label+'不能为空；';
+                    }
+                }
+            }
+            return errorLogs;
+        },
         renderTo:function(id){
             var hiddens = '';
             var html = '<div class="formBorder">';
@@ -415,6 +442,7 @@ var FortuneView = function(options){
                             getParameter(item,'id','fortuneEle_'+globalSn)+'" value="' +
                             getParameter(item,'value','')+
                         '">\r\n';
+                    globalSn++;
                     continue;
                 }else if(type=='newLine'){
                     html+='<div  class="form-group" style="clear:both;float:none;">' +
@@ -423,6 +451,16 @@ var FortuneView = function(options){
                 }
                 html+=this.createItemHtml(item);
 //                html+='</div>';
+            }
+            l=this.buttons.length;
+            if(l>0){
+                html+='<div class="space-6"></div><div class="row">';
+                for(i=0;i<l;i++){
+                    var button = this.buttons[i];
+                    var extraCls = ' '+getParameter(button,'cls','btn-green');
+                    html+='<span style="float:left;margin-left:50px;" class="btn btn-big'+extraCls+'" onclick="'+button['handler'].name+'()">'+button['text']+'</span>';
+                }
+                html+='</div>';
             }
             html+='</div>';
             html+=hiddens;
@@ -497,7 +535,8 @@ var FortuneView = function(options){
             if(itemLabel==null){
                 itemLabel='';
             }
-            result+='<div class="form-group" style="float:left;width:350px;"><label class="col-sm-4 control-label no-padding-right filed-need">' +itemLabel+
+            var fieldNeed = getParameter(item,"allowBlank",true)?"":" filed-need";
+            result+='<div class="form-group" style="float:left;width:350px;"><label class="col-sm-4 control-label no-padding-right'+fieldNeed+'">' +itemLabel+
                 '</label>';
             result+='<div class="col-sm-' +(colSm+3)+'">';
             if(xtype=='text'){
@@ -543,9 +582,8 @@ var FortuneView = function(options){
                 result+='<div class="pictureDiv'+imageDisplay+'" id="imageInfoDiv_'+id+'">' +
                     '<img src="'+value+'"'+
                     ' class="previewImage" id="previewImage_' +id+'">';
-
-                result+='';
                 result +='<input type="hidden" name="fileNameOf'+propertyName+'" value="'+value+'">\n';
+                result +='<input type="hidden" name="'+name+'" value="'+value+'">\n';
                 result +='</div>';
             }else if(xtype=='blank'){
 

@@ -93,13 +93,10 @@
       <div class="page-content-area">
         <div class="row page-content-main">
 
-          <form role="form" class="form-horizontal">
+          <form role="form" class="form-horizontal" action="car!save.action"
+                method="POST" enctype="multipart/form-data" id="carDetail" name="carDetail">
             <div class="col-xs-12 no-padding car-info">
               <div class="tabbable" id="viewMainBody">
-                <div class="space-6"></div>
-                <div class="row">
-                  <div class="col-md-2"><a class="btn btn-green btn-big" onclick="list.showDetail(-1)">新增条目</a></div>
-                </div>
               </div>
             </div>
 
@@ -234,14 +231,13 @@
     var dictIsReady = false;
     var viewReadOnly = false;
     dictUtils.init(dictReady);
-
     var viewCar={
       items:[
         {name:'obj.id',type:'hidden',value:'-1'},
         {fieldLabel:'创建时间',type:'hidden',name:'obj.createTime',readOnly:viewReadOnly},
         {fieldLabel:'创建者',name:'obj.creator',type:'hidden',readOnly:viewReadOnly},
-        {fieldLabel:'档案编号',name:'obj.sn',readOnly:viewReadOnly},
-        {fieldLabel:'车牌号码',name:'obj.carNo',readOnly:viewReadOnly},
+        {fieldLabel:'档案编号',name:'obj.sn',readOnly:viewReadOnly,allowBlank:false},
+        {fieldLabel:'车牌号码',name:'obj.carNo',readOnly:viewReadOnly,allowBlank:false},
         {fieldLabel:'客户名称',name:'obj.userId',readOnly:viewReadOnly},
         {fieldLabel:'联系方式',name:'obj.tel',readOnly:viewReadOnly},
         {fieldLabel:'车辆品牌',name:'obj.product',readOnly:viewReadOnly,type:'select',onchange:productChanged},
@@ -276,8 +272,28 @@
         {fieldLabel:'底部照片',name:'obj.carPictureBottom',readOnly:viewReadOnly,type:'image',value:'/upload/car/bottom.jpg'},
         {fieldLabel:'右侧照片',name:'obj.carPictureRight',readOnly:viewReadOnly,type:'image',value:'/upload/car/right.jpg'},
         {fieldLabel:'后面照片',name:'obj.carPictureBack',readOnly:viewReadOnly,type:'image',value:'/upload/car/back.jpg'}
-      ]
+      ],
+        buttons:[
+            {text:'保存',handler:saveCar},
+            {text:'放弃',handler:cancelCar,cls:'btn-gray'}
+        ]
     };
+
+    function saveCar(){
+        if(confirm("您确认要保存当前录入的车辆信息吗？")){
+            var logs =fortuneCarViewer.checkForm(fortuneCarViewer.items);
+            if(logs==''){
+                $("#carDetail").submit();
+            }else{
+                alert(logs+'\r\n请详细检查表单中标红的区域！谢谢！');
+            }
+        }
+    }
+    function cancelCar(){
+        if(confirm("您确认~不~保存当前编辑的车辆信息吗？数据珍贵，谨慎操作！")){
+
+        }
+    }
     function productChanged(){
       var code = $("#obj_product").val();
       var productType = $("#obj_productType");
@@ -288,30 +304,42 @@
         productType.append(appendOptions(items,productTypeVal));
       }
     }
+    var __system_obj_data=null;
+    var __system_form_will_fill=false;
+    var __system_obj_filled=false;
+    function fillForm(obj){
+        if(!__system_render_finished){
+            return;
+        }
+        if(obj!=null){
+            for(var p in obj){
+                if(obj.hasOwnProperty(p)){
+                    var v = obj[p];
+                    if(v==null||v=='null'||typeof(v)=='undefined'){
+                        v = '';
+                    }
+                    var pId = p.replace(/\./g,'_');
+                    $("#"+pId).val(v);
+                    if(p.indexOf("carPicture")==0&&v!=''){
+                        $("#previewPic_"+pId).attr("src",v);
+                    }
+
+                }
+            }
+        }
+        __system_obj_filled = true;
+    }
     function loadData(){
         var keyId = parseInt($.getQuery("keyId",-1));
         if(keyId>0){
+            __system_form_will_fill=true;
             $.ajax({
                 url:'car!view.action?keyId='+keyId,
                 dataType:'json',
                 success:function(jsonData){
                     var obj = jsonData['data'];
-                    if(obj!=null){
-                        for(var p in obj){
-                            if(obj.hasOwnProperty(p)){
-                                var v = obj[p];
-                                if(v==null||v=='null'||typeof(v)=='undefined'){
-                                    v = '';
-                                }
-                                var pId = p.replace(/\./g,'_');
-                                $("#"+pId).val(v);
-                                if(p.indexOf("carPicture")==0&&v!=''){
-                                    $("#previewPic_"+pId).attr("src",v);
-                                }
-
-                            }
-                        }
-                    }
+                    __system_obj_data = obj;
+                    fillForm(obj);
                 }
             });
         }
@@ -320,12 +348,18 @@
         dictIsReady = true;
         tryRender();
     }
-      function tryRender(){
+    var fortuneCarViewer = new FortuneView(viewCar);
+    var __system_render_finished=false;
+    function tryRender(){
           if(systemIsReady&&dictIsReady){
-              var fortuneCarViewer = new FortuneView(viewCar);
               fortuneCarViewer.renderTo('viewMainBody');
+              __system_render_finished = true;
+              if(__system_form_will_fill){
+                  fillForm(__system_obj_data);
+              }
           }
-      }
+    }
+    loadData();
   </script>
 
 </body>
