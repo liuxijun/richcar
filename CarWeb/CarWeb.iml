@@ -10,6 +10,43 @@
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
       </configuration>
+      <facet type="Struts2" name="Struts 2">
+        <configuration>
+          <fileset id="s2fileset" name="My Fileset " removed="false">
+            <file>file://$MODULE_DIR$/src/struts-unicom.xml</file>
+            <file>file://$MODULE_DIR$/src/struts.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-jfreechart-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-convention-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-json-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-config-browser-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-dojo-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-spring-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-embeddedjsp-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-struts1-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-javatemplates-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-jasperreports-plugin-2.3.15.1.jar!/struts-plugin.xml</file>
+            <file>jar://$MODULE_DIR$/lib/struts2-core-2.3.15.1.jar!/struts-default.xml</file>
+          </fileset>
+          <propertiesKeys disabled="false" />
+        </configuration>
+      </facet>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/spring-config.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="hibernate.cfg.xml" value="6455323e-4dfd-46b0-ac82-1aeaae8b1749" />
+          <unit-entry name="sessionFactory" value="6455323e-4dfd-46b0-ac82-1aeaae8b1749" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/hibernate.cfg.xml" />
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
@@ -20,5 +57,6 @@
     <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="tomcat7" level="project" />
   </component>
 </module>

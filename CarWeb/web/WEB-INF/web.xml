@@ -1,6 +1,200 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"
+         metadata-complete="true">
+    <display-name>eTraining Web Application</display-name>
+    <description>eTraining Web Application</description>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.fortune.rms.timer.base.TimerManager</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:/spring-config.xml
+        </param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>OperatorPrivilegesChecker</filter-name>
+        <filter-class>com.fortune.common.web.filter.OperatorCheck</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>OperatorPrivilegesChecker</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>OperatorPrivilegesChecker</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>OperatorVisitSaver</filter-name>
+        <filter-class>com.fortune.common.web.filter.OperatorVisitLog</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>OperatorVisitSaver</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>OperatorVisitSaver</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+        <init-param>
+            <param-name>actionPackages</param-name>
+            <param-value>com.fortune.rms.web</param-value>
+        </init-param>
+    </filter>
+    <servlet>
+        <servlet-name>AxisServlet</servlet-name>
+        <servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>/servlet/AxisServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>*.jws</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description/>
+        <display-name>UploadServlet</display-name>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>com.fortune.rms.web.file.FileUpload</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>*.upload</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>m3u8</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>fork</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>xpoweredBy</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletM3U8</servlet-name>
+        <servlet-class>com.fortune.rms.web.filter.ServletM3U8</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletM3U8</servlet-name>
+        <url-pattern>*.M3U8</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>m3u8</servlet-name>
+        <url-pattern>*.m3u8</url-pattern>
+    </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>*.manager</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/struts/*</url-pattern>
+    </filter-mapping>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/s</taglib-uri>
+            <taglib-location>
+                /WEB-INF/tlds/struts-tags.tld
+            </taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>/fts</taglib-uri>
+            <taglib-location>
+                /WEB-INF/tlds/fortune-tags.tld
+            </taglib-location>
+        </taglib>
+    </jsp-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+    </welcome-file-list>
+
+    <mime-mapping>
+        <extension>wsdl</extension>
+        <mime-type>text/xml</mime-type>
+    </mime-mapping>
+
+<!--
+    <error-page>
+        <error-code>500</error-code>
+        <location>/common/error500.jsp</location>
+    </error-page>
+-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/common/error404.jsp</location>
+    </error-page>
+    <!--
+        <error-page>
+            <error-code>500</error-code>
+            <location>/error.jsp</location>
+        </error-page>
+    -->
+    <mime-mapping>
+        <extension>3gp</extension>
+        <mime-type>video/3gpp</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>3gpp</extension>
+        <mime-type>video/3gpp</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>mp4</extension>
+        <mime-type>video/mp4</mime-type>
+    </mime-mapping>
+
 </web-app>

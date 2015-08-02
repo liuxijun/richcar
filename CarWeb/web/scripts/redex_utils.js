@@ -240,20 +240,7 @@ function showDialog(parameters){
                     '" id="'+fieldId+'" name="'+fieldName+'" value="' +value+'"'
                     +style+handler+
                     '>\r\n';
-                var subItems = item['items'];
-                if(subItems&&isArray(subItems)){
-                    var k= 0,kl=subItems.length;
-                    for(;k<kl;k++){
-                        var si = subItems[k];
-                        var sv = si['value'];
-                        var selected = '';
-                        if(sv==value){
-                            selected = ' selected="true"';
-                        }
-                        result+='\t\t      <option value="' +si['value']+'"' +selected+
-                            '>' +si['boxLabel']+'</option>\r\n';
-                    }
-                }
+                result+=getSelectOptions(item,value);
                 result+='\t\t    </select>\r\n';
             }else if(type=='checkboxGroup'||type=='radioGroup'){
                 //result +='<\r\n'+type+' id="'+fieldId+'" name="'+fieldName+'" >\r\n'+item['boxLabel'];
@@ -404,3 +391,121 @@ function showDialog(parameters){
         }
     };
 })(jQuery);
+
+var FortuneView = function(options){
+    return jQuery.extend({
+        title:'数据详情',
+        saveUrl:null,
+        viewUrl:null,
+        items:[],
+        buttons:[
+            {text:'关闭',handler:function(){
+
+                }
+            }
+        ],
+        renderTo:function(id){
+            var hiddens = '';
+            var html = '<div class="formBorder">';
+            for(var i= 0,l=this.items.length;i<l;i++){
+                var item = this.items[i];
+                var type = getParameter(item,'type','text');
+                if(type=='hidden'){
+                    hiddens +='<input type="hidden" name="'+getParameter(item,'name','fortuneEle_'+globalSn)+'" id="'+
+                            getParameter(item,'id','fortuneEle_'+globalSn)+'" value="' +
+                            getParameter(item,'value','')+
+                        '">\r\n';
+                    continue;
+                }
+                var itemLabel = item['fieldLabel'];
+                if(itemLabel==null){
+                    itemLabel='';
+                }
+                html+='<div class="form-group" style="float:left;width:350px;"><label class="col-sm-4 control-label no-padding-right filed-need">' +itemLabel+
+                    '</label>';
+
+                html+=this.createItemHtml(item);
+                html+='</div>';
+            }
+            html+='</div>';
+            html+=hiddens;
+            $("#"+id).html(html);
+        },
+        defaultWidth:120,
+        createItemHtml:function(item){
+            var result ='';
+            var xtype = getParameter(item,'type','text');
+            var name = getParameter(item,'name','fortuneEle_'+(globalSn++));
+            var id=getParameter(item,'id',name);
+            id = id.replace(/\./g,'_');
+            var value = getParameter(item,'value',null);
+            var width = getParameter(item,'width',-1);
+            var colSm=getParameter(item,'colSm',4);
+            var extraCls = '';
+            if(width>=0){
+                extraCls+=' style="width:'+width+'px;"';
+            }
+            result+='<div class="col-sm-' +(colSm+1)+'">';
+            if(xtype=='text'){
+                result+='<input type="text" id="'+id+'" name="'+name+'"'+extraCls+'>'
+            }else if(xtype=='date'){
+                result+='<input type="text" id="'+id+'" name="'+name+'"'+extraCls+'>'
+            }else if(xtype=='select'){
+                var handler = item['onchange'];
+                if(handler!=null&&handler!=''){
+                    handler = ' onchange="'+handler.name+'(this.value)"';
+                }else{
+                    handler = '';
+                }
+                result+='<select id="'+id+'" name="'+name+'" style="width:125%;height:34px;"'+extraCls+handler+'>';
+                result+=getSelectOptions(item,value,name,id);
+                result+='</select>';
+            }else if(xtype=='image'){
+                result+='';
+            }
+            result+='</div>';
+            return result;
+        }
+    },options);
+};
+function appendOptions(subItems,value){
+    var result = '';
+    if(subItems&&isArray(subItems)){
+        var k= 0,kl=subItems.length;
+        for(;k<kl;k++){
+            var si = subItems[k];
+            var sv = si['code'];
+            if(sv==null||sv==''||typeof(sv)=='undefined'){
+                sv = si['value'];
+            }
+            var selected = '';
+            if(sv==value){
+                selected = ' selected="true"';
+            }
+            result+='\t\t      <option value="' +sv+'"' +selected+
+                '>' +si['name']+'</option>\r\n';
+        }
+    }
+    return result;
+}
+function getSelectOptions(item,value,name,id){
+    var result = '';
+    var subItems = getParameter(item,'items',null);
+    if(subItems==null){
+        var dictId = name;
+        if(dictId==null){
+            dictId = id;
+        }
+        if(dictId!=null){
+            var p= dictId.indexOf(".");
+            if(p>=0){
+                dictId = dictId.substring(p+1);
+            }
+        }
+        if(typeof(dictUtils)!='undefined'){
+            subItems=dictUtils.getDict(dictId)
+        }
+    }
+    result += appendOptions(subItems,value);
+    return result;
+}

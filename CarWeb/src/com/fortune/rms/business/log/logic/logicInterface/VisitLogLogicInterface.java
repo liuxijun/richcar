@@ -1,6 +1,5 @@
 package com.fortune.rms.business.log.logic.logicInterface;
 
-import cn.sh.guanghua.mediastack.dataunit.UserLog;
 import com.fortune.common.business.base.logic.BaseLogicInterface;
 import com.fortune.rms.business.content.model.ContentDTO;
 import com.fortune.rms.business.log.model.*;

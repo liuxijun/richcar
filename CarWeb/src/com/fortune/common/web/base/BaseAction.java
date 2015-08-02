@@ -129,7 +129,7 @@ public class BaseAction<E> extends FortuneAction {
         String result = ob.getClass().getSimpleName();
         String[] guessNameProperty = new String[]{"name","title","realname","logInfo","mediaName","contentName","channelName"};
         for(String nameProperty:guessNameProperty){
-            Object nameObj = BeanUtils.getProperty(ob,nameProperty);
+            Object nameObj = com.fortune.util.BeanUtils.getProperty(ob,nameProperty);
             if(nameObj!=null){
                 result += ":"+nameObj.toString();
                 break;
@@ -137,7 +137,7 @@ public class BaseAction<E> extends FortuneAction {
         }
         String[] guessIdProperty = new String[]{"id","operatorid"};
         for(String idProperty:guessIdProperty){
-            Object idObj = BeanUtils.getProperty(ob,idProperty);
+            Object idObj = com.fortune.util.BeanUtils.getProperty(ob,idProperty);
             if(idObj!=null){
                 result += "(主键"+idObj.toString()+")";
                 break;
@@ -446,7 +446,7 @@ public class BaseAction<E> extends FortuneAction {
             for(Object o:objs){
                 Map<String,Object> m = new HashMap<String,Object>();
                 for(String p:propertyIds){
-                    m.put(p, BeanUtils.getProperty(o, p));
+                    m.put(p, com.fortune.util.BeanUtils.getProperty(o, p));
                 }
                 list.add(m);
             }
@@ -801,12 +801,12 @@ public class BaseAction<E> extends FortuneAction {
                                 if(fieldName.contains(".")){
                                     String[] array = fieldName.split(".");
                                     fieldName = array[1];
-                                    dstObj = BeanUtils.getProperty(this,array[0]);
+                                    dstObj = com.fortune.util.BeanUtils.getProperty(this,array[0]);
                                 }
                                 if(dstObj==null){
                                     log.error("上传文件时，无法找到上传后需要设置的对应的对象！");
                                 }else{
-                                    BeanUtils.setProperty(dstObj,fieldName,urlName);
+                                    com.fortune.util.BeanUtils.setProperty(dstObj,fieldName,urlName);
                                     log.debug("已经设置了"+dstObj.getClass().getSimpleName()+"的属性"+fieldName+"为"+urlName);
                                 }
                             }else{

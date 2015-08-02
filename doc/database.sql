@@ -38,4 +38,11 @@ create table car(
   car_picture_bottom varchar(255),
   car_picture_right varchar(255),
   car_picture_back varchar(255)
-)
+);
+drop table IF EXISTS dictionary;
+create TABLE dictionary(
+  code VARCHAR(32) NOT NULL PRIMARY KEY ,
+  name VARCHAR(32),
+  desp VARCHAR(255),
+  parent_code VARCHAR(32)
+);

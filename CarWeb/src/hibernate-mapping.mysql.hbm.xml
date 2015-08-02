@@ -1922,8 +1922,14 @@
         <id name="name" column="name"/>
         <property name="value" column="value"/>
         <property name="description" column="description"/>
-
     </class>
+    <class name="com.fortune.common.business.base.model.Dictionary" table="dictionary">
+        <id name="code" column="code"/>
+        <property name="name" column="name"/>
+        <property name="desp" column="desp"/>
+        <property name="parentCode" column="parent_code"/>
+    </class>
+
     <class name="com.fortune.rms.business.product.model.ServiceProductChannel" table="service_product_channel">
         <!-- ContentChannel mapping info-->
         <id name="id" column="id">
@@ -1932,5 +1938,49 @@
         <property name="serviceProductId" column="service_product_id"/>
         <property name="channelId" column="channel_id"/>
     </class>
+
+    <class name="com.fortune.cars.business.cars.model.Car" table="car">
+        <!-- Car mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="createTime" column="create_time" />
+        <property name="creator" column="creator" />
+        <property name="userId" column="user_id" />
+        <property name="sn" column="sn" />
+        <property name="carNo" column="car_no" />
+        <property name="product" column="product" />
+        <property name="productType" column="product_type" />
+        <property name="productHometown" column="product_hometown" />
+        <property name="salesCompany" column="sales_company" />
+        <property name="vinCode" column="vin_code" />
+        <property name="engineCode" column="engine_code" />
+        <property name="enineType" column="enine_type" />
+        <property name="gearbox" column="gearbox" />
+        <property name="lengthWidthHeight" column="length_width_height" />
+        <property name="carColor" column="car_color" />
+        <property name="innerColor" column="inner_color" />
+        <property name="gasType" column="gas_type" />
+        <property name="emissionType" column="emission_type" />
+        <property name="emission" column="emission" />
+        <property name="tyreType" column="tyre_type" />
+        <property name="carType" column="car_type" />
+        <property name="mileage" column="mileage" />
+        <property name="maintainTimes" column="maintain_times" />
+        <property name="motStime" column="mot_stime" />
+        <property name="motEtime" column="mot_etime" />
+        <property name="productionDate" column="production_date" />
+        <property name="insureStime" column="insure_stime" />
+        <property name="insureEtime" column="insure_etime" />
+        <property name="insureType" column="insure_type" />
+        <property name="insureCompany" column="insure_company" />
+        <property name="carPictureTop" column="car_picture_top" />
+        <property name="carPictureLeft" column="car_picture_left" />
+        <property name="carPictureFront" column="car_picture_front" />
+        <property name="carPictureBottom" column="car_picture_bottom" />
+        <property name="carPictureRight" column="car_picture_right" />
+        <property name="carPictureBack" column="car_picture_back" />
+    </class>
+
 
 </hibernate-mapping>

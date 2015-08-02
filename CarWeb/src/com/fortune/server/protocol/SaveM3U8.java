@@ -1,6 +1,5 @@
 package com.fortune.server.protocol;
 
-import cn.sh.guanghua.mediastack.dataunit.Server;
 import com.fortune.rms.business.syn.logic.logicInterface.SynTaskLogicInterface;
 import com.fortune.server.message.ServerMessager;
 import com.fortune.util.AppConfigurator;
