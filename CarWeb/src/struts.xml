@@ -70,6 +70,7 @@
             <result name="login">/common/jsonNeedLogin.jsp</result>
             <result name="nopermission">/common/nopermission.jsp</result>
             <result name="contentParameter">/common/parameterMsg.jsp</result>
+            <result name="redirect">/common/redirect.jsp</result>
         </global-results>
 
         <global-exception-mappings>

@@ -437,9 +437,10 @@ var FortuneView = function(options){
             for(var i= 0,l=this.items.length;i<l;i++){
                 var item = this.items[i];
                 var type = getParameter(item,'type','text');
+                var name = getParameter(item,'name','fortuneEle_'+globalSn);
                 if(type=='hidden'){
-                    hiddens +='<input type="hidden" name="'+getParameter(item,'name','fortuneEle_'+globalSn)+'" id="'+
-                            getParameter(item,'id','fortuneEle_'+globalSn)+'" value="' +
+                    hiddens +='<input type="hidden" name="'+name+'" id="'+
+                            getParameter(item,'id',name.replace(/\./g,'_'))+'" value="' +
                             getParameter(item,'value','')+
                         '">\r\n';
                     globalSn++;
@@ -512,7 +513,7 @@ var FortuneView = function(options){
                             if(pOfDot>0){
                               pName = pName.substring(pOfDot+1);
                             }
-                            pName = (""+pName[0]).toUpperCase+pName.substring(1);
+                            pName = (""+pName[0]).toUpperCase()+pName.substring(1);
                             $("#fileNameOf"+pName).val(this.value);
                             readImageFromUploadFile(this, imageObj);
                         }

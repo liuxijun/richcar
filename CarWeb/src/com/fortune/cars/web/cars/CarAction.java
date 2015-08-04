@@ -1,6 +1,7 @@
 package com.fortune.cars.web.cars;
 
 import com.fortune.util.BeanUtils;
+import com.fortune.util.FileUtils;
 import com.fortune.util.StringUtils;
 import com.fortune.util.net.URLEncoder;
 import org.apache.struts2.ServletActionContext;
@@ -40,13 +41,14 @@ public class CarAction extends BaseAction<Car> {
                 fileName = "1.jpg";
             }
 			try {
+				fileName = FileUtils.extractFileName(fileName,"/");
 				fileName = URLEncoder.encode(fileName,"UTF-8").replace("%","");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			url = StringUtils.date2string(new Date(),"yyyy/MM/dd")+"/"+Math.round(Math.random()*1000000)+"_"+ fileName;
+			url = "/upload/"+StringUtils.date2string(new Date(),"yyyy/MM/dd")+"/"+Math.round(Math.random()*1000000)+"_"+ fileName;
             HttpServletRequest request = ServletActionContext.getRequest();
-            File dstFile = new File(request.getRealPath("/upload/"+url));
+            File dstFile = new File(request.getRealPath(url));
             File path = dstFile.getParentFile();
             if(!path.exists()){
                 if(!path.mkdirs()){
@@ -70,8 +72,13 @@ public class CarAction extends BaseAction<Car> {
         checkFile(fileOfCarPictureLeft,"carPictureLeft",fileNameOfCarPictureLeft);
         checkFile(fileOfCarPictureRight,"carPictureRight",fileNameOfCarPictureRight);
         checkFile(fileOfCarPictureTop,"carPictureTop",fileNameOfCarPictureTop);
-        checkFile(fileOfCarPictureBottom,"carPictureBottom",fileNameOfCarPictureBottom);
-		return super.save();
+        checkFile(fileOfCarPictureBottom, "carPictureBottom", fileNameOfCarPictureBottom);
+        BeanUtils.setDefaultValue(obj,"createDate",new Date());
+		log.debug("½«±£´æ£ºcar=" + obj);
+		super.save();
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.setAttribute("location","cars.jsp");
+		return "redirect";
 	}
 	private File fileOfCarPictureTop;
 	private File fileOfCarPictureLeft;

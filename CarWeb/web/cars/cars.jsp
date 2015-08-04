@@ -80,7 +80,7 @@
                         <div style="width:150px;height: 30px;float: left;">
                             <input type="text" id="search_no" placeholder="例如：吉A09928" class="form-control" >
                         </div>
-                        <div style="width:100px;float:left;font-weight: 30px;font-size:22px;">，联系人：</div>
+                        <div style="width:130px;float:left;font-weight: 30px;font-size:22px;">，联系人：</div>
                         <div style="width: 150px;height: 30px;float: left;">
                             <input type="text" id="search_user" placeholder="联系人" class="form-control search-query" >
                         </div>
