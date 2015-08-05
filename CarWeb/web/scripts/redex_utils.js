@@ -589,7 +589,8 @@ var FortuneView = function(options){
                 result+='<div class="pictureDiv'+imageDisplay+'" id="imageInfoDiv_'+id+'">' +
                     '<img src="'+value+'"'+
                     ' class="previewImage" id="previewImage_' +id+'">';
-                result +='<input type="hidden" name="fileNameOf'+propertyName+'" value="'+value+'">\n';
+                result +='<input type="hidden" id="fileNameOf'+propertyName+'" name="fileNameOf'+
+                    propertyName+'" value="'+value+'">\n';
                 result +='<input type="hidden" name="'+name+'" id="fileOrgValue_'+id+'" value="'+value+'">\n';
                 result +='</div>';
             }else if(xtype=='blank'){

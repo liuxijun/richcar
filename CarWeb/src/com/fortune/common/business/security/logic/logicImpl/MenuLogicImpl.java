@@ -64,8 +64,9 @@ public class MenuLogicImpl extends BaseLogicImpl<Menu>
                         getChildOf(parentMenu,menus);
                     }
                 } catch (Exception e) {
-                    logger.error("无法初始化菜单项："+menu.getName());
-                    break;
+                    logger.error("无法初始化菜单项："+menu.getName()+",error="+e.getLocalizedMessage());
+                    menus.remove(menu);
+                    //break;
                 }
             }
         }

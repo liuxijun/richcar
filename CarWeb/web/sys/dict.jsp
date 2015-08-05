@@ -254,7 +254,7 @@ jQuery(function ($) {
     dictList.goToPage(1);
 });
 var dictList={
-    limit:10,
+    limit:20,
     currentPage:1,
     render:function(jsonData){
         var currentPath = '';
