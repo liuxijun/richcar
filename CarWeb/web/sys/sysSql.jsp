@@ -185,28 +185,6 @@
         return getSqlResult(getTaskConditionSql(sql,beginDay,endDay,cspIds)+" group by STATUS order by STATUS asc");
     }
 
-    public int getIntSqlResult(String sql){
-        List<Map<String,String>> dataRows = getSqlResult(sql);
-        if(dataRows!=null&&dataRows.size()>0){
-            return StringUtils.string2int(dataRows.get(0).values().iterator().next(), -1);
-        }
-        return -1;
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Map<String,String>> getSqlResult(String sql){
-        logger.debug("准备执行："+sql);
-        List<Object> executeResult = executeSql(sql,null,null,null,null);
-        if(executeResult!=null){
-            for(Object result:executeResult){
-                if(result instanceof Object[]){
-                    Object[] dataResult = (Object[]) result;
-                    return (List<Map<String,String>>) dataResult[1];
-                }
-            }
-        }
-        return new ArrayList<Map<String, String>>(0);
-    }
     public String getProcessHtml(int length,long max,long pos,String label,int chooseColor){
         int barLength = 0;
         if(max>0){

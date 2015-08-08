@@ -1980,6 +1980,7 @@
         <property name="carPictureBottom" column="car_picture_bottom" />
         <property name="carPictureRight" column="car_picture_right" />
         <property name="carPictureBack" column="car_picture_back" />
+        <property name="status" column="status" />
     </class>
 
 

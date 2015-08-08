@@ -98,10 +98,11 @@
                             <table class="table table-striped table-bordered table-hover table-30">
                                 <thead>
                                 <tr>
-                                    <th width="50%" align="center><a href="#" onclick='list.order_by("carNo")'>车牌</a></th>
+                                    <th width="50%" align="center"><a href="#" onclick='list.order_by("carNo")'>车牌</a></th>
                                     <th width="10%" align="center"><a href="#" onclick='list.order_by("user")'>联系人</a></th>
+                                    <th width="10%" align="center"><a href="#" onclick='list.order_by("motEtime")'>年检截至</a></th>
                                     <th class="center"><a href="#" onclick='list.order_by("createTime")'>添加日期</a></th>
-                                    <th class="center">上次保养日期</th>
+                                    <th class="center">保养次数</th>
                                     <th class="center">操作</th>
                                 </tr>
                                 </thead>
@@ -253,6 +254,15 @@ jQuery(function ($) {
 var list={
     limit:10,
     currentPage:1,
+    truncateTime:function(val){
+        if(val!=null&&val.length>10){
+            return val.substring(0,10);
+        }
+        if(val==null){
+            return '';
+        }
+        return val;
+    },
     render:function(jsonData){
         rebuild_page_nav($("#page-nav"), Math.ceil(jsonData['totalCount'] /list.limit),
                 list.currentPage,"list.goToPage", jsonData['totalCount']);
@@ -262,11 +272,14 @@ var list={
             var i= 0,l=objs.length;
             for(;i<l;i++){
                 var obj = objs[i];
+                var eTime = list.truncateTime(obj['motEtime']);
+                var createTime = list.truncateTime(obj['createTime']);
                 result +=
                         '<tr>' +
-                                '<td>' + obj['carNo']+'</td>' +
+                                '<td><a href="carView.jsp?keyId=' +obj['id']+'">' + obj['carNo']+'</a></td>' +
                             '<td class="center">' + obj['userId']+'</td>' +
-                                '<td class="center">' + obj['createTime']+'</td>' +
+                        '<td class="center">' + eTime+'</td>' +
+                                '<td class="center">' + createTime+'</td>' +
                                 '<td class="center">'+obj['maintainTimes']+'</td>' +
                                 '<td class="center"><a class="btn btn-grey btn-xs"  href="carView.jsp?keyId=' +obj['id']+'">'+
                                 '          <i class="ace-icon fa fa-edit bigger-110 icon-only"></i>'+

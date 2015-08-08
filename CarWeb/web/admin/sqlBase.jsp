@@ -5,7 +5,8 @@
         import="java.sql.SQLException" %><%@ page
         import="java.text.SimpleDateFormat" %><%@ page
         import="java.text.ParseException,java.util.Date" %><%@ page
-        import="org.apache.log4j.Logger,java.util.HashMap,java.util.Map,java.util.ArrayList,java.util.List" %><%!
+        import="org.apache.log4j.Logger,java.util.HashMap,
+        java.util.Map,java.util.ArrayList,java.util.List,com.fortune.util.StringUtils" %><%!
     String jdbcDriver=null;
     String jdbcUrl = null;
     String jdbcUser = null;
@@ -153,7 +154,7 @@
         return defaultValue;
     }
     public Date string2date(String dateStr){
-        return string2date(dateStr,"yyyy-MM-dd HH:mm:ss",new Date());
+        return string2date(dateStr, "yyyy-MM-dd HH:mm:ss", new Date());
     }
     public String getClearFileName(String fileName) {
         int i = fileName.lastIndexOf("/");
@@ -246,4 +247,28 @@
         }
         return null;
     }
+
+    public int getIntSqlResult(String sql){
+        List<Map<String,String>> dataRows = getSqlResult(sql);
+        if(dataRows!=null&&dataRows.size()>0){
+            return StringUtils.string2int(dataRows.get(0).values().iterator().next(), -1);
+        }
+        return -1;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Map<String,String>> getSqlResult(String sql){
+        logger.debug("准备执行："+sql);
+        List<Object> executeResult = executeSql(sql,null,null,null,null);
+        if(executeResult!=null){
+            for(Object result:executeResult){
+                if(result instanceof Object[]){
+                    Object[] dataResult = (Object[]) result;
+                    return (List<Map<String,String>>) dataResult[1];
+                }
+            }
+        }
+        return new ArrayList<Map<String, String>>(0);
+    }
+
 %>

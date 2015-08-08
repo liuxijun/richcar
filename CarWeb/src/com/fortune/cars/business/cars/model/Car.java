@@ -45,6 +45,7 @@ public class Car extends BaseModel implements java.io.Serializable {
 	private String carPictureBottom;
 	private String carPictureRight;
 	private String carPictureBack;
+	private Integer status;
 
 	public Car() {
 	}
@@ -60,7 +61,7 @@ public class Car extends BaseModel implements java.io.Serializable {
 			Date productionDate, Date insureStime, Date insureEtime,String insureType,
 			String insureCompany, String carPictureTop, String carPictureLeft,
 			String carPictureFront, String carPictureBottom,
-			String carPictureRight, String carPictureBack) {
+			String carPictureRight, String carPictureBack,Integer status) {
 		this.createTime = createTime;
 		this.creator = creator;
 		this.userId = userId;
@@ -97,6 +98,7 @@ public class Car extends BaseModel implements java.io.Serializable {
 		this.carPictureBottom = carPictureBottom;
 		this.carPictureRight = carPictureRight;
 		this.carPictureBack = carPictureBack;
+		this.status = status;
 	}
 
 	public Integer getId() {
@@ -358,5 +360,13 @@ public class Car extends BaseModel implements java.io.Serializable {
 
 	public void setInsureType(String insureType) {
 		this.insureType = insureType;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }
