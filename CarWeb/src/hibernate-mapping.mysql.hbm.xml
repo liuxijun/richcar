@@ -1982,6 +1982,50 @@
         <property name="carPictureBack" column="car_picture_back" />
         <property name="status" column="status" />
     </class>
+    <class name="com.fortune.cars.business.conduct.model.ConductItem" table="conduct_item">
+        <!-- ConductItem mapping info-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" />
+        <property name="parentId" column="parent_id" />
+        <property name="unit" column="unit" />
+        <property name="code" column="code" />
+        <property name="createTime" column="create_time" />
+        <property name="standValue" column="stand_value" />
+        <property name="errorRange" column="error_range" />
+        <property name="standValueDesp" column="stand_value_desp" />
+        <property name="errorRangeDesp" column="error_range_desp" />
+        <property name="currentValueDesp" column="current_value_desp" />
+        <property name="type" column="type" />
+        <property name="status" column="status" />
+    </class>
 
+    <class name="com.fortune.cars.business.conduct.model.Conduct" table="conduct">
+        <!-- Conduct mapping info-->
+        <id name="id" column="id">
+            <generator class="native" />
+        </id>
+        <property name="carId" column="car_id" />
+        <property name="title" column="title" />
+        <property name="createTime" column="create_time" />
+        <property name="status" column="status" />
+        <property name="miles" column="miles" />
+    </class>
 
+    <class name="com.fortune.cars.business.conduct.model.ConductValue" table="conduct_value">
+        <!-- ConductValue mapping info-->
+        <id name="id" column="id">
+            <generator class="native" />
+        </id>
+        <property name="itemId" column="item_id" />
+        <property name="unit" column="unit" />
+        <property name="correctValue" column="correct_value" />
+        <property name="errorRange" column="error_range" />
+        <property name="currentValue" column="current_value" />
+        <property name="createTime" column="create_time" />
+        <property name="pictureUrl" column="picture_url" />
+        <property name="creator" column="creator" />
+        <property name="status" column="status" />
+    </class>
 </hibernate-mapping>
