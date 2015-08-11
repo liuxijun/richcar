@@ -12,6 +12,7 @@ import com.fortune.common.web.base.BaseAction;
 public class ConductAction extends BaseAction<Conduct> {
 	private static final long serialVersionUID = 3243534534534534l;
 	private ConductLogicInterface conductLogicInterface;
+
 	@SuppressWarnings("unchecked")
 	public ConductAction() {
 		super(Conduct.class);
@@ -24,5 +25,12 @@ public class ConductAction extends BaseAction<Conduct> {
 			ConductLogicInterface conductLogicInterface) {
 		this.conductLogicInterface = conductLogicInterface;
 		setBaseLogicInterface(conductLogicInterface);
+	}
+	private Integer carId;
+	public String viewItems(){
+		if(keyId>0){
+			super.view();
+		}
+		return "";
 	}
 }

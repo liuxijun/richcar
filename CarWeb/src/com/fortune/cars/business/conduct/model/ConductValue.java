@@ -18,6 +18,7 @@ public class ConductValue extends BaseModel implements java.io.Serializable {
 	private String pictureUrl;
 	private String creator;
 	private Integer status;
+	private Integer conductId;
 
 	public ConductValue() {
 	}
@@ -27,8 +28,9 @@ public class ConductValue extends BaseModel implements java.io.Serializable {
 	}
 	public ConductValue(int itemId, String unit, String correctValue,
 			String errorRange, String currentValue, Date createTime,
-			String pictureUrl, String creator, Integer status) {
-		this.itemId = itemId;
+			String pictureUrl, String creator, Integer status,Integer conductId) {
+
+        this.itemId = itemId;
 		this.unit = unit;
 		this.correctValue = correctValue;
 		this.errorRange = errorRange;
@@ -37,6 +39,8 @@ public class ConductValue extends BaseModel implements java.io.Serializable {
 		this.pictureUrl = pictureUrl;
 		this.creator = creator;
 		this.status = status;
+        this.conductId = conductId;
+
 	}
 
 	public Integer getId() {
@@ -110,4 +114,11 @@ public class ConductValue extends BaseModel implements java.io.Serializable {
 		this.status = status;
 	}
 
+	public Integer getConductId() {
+		return conductId;
+	}
+
+	public void setConductId(Integer conductId) {
+		this.conductId = conductId;
+	}
 }

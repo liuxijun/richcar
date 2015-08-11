@@ -253,6 +253,14 @@
             }
         }
     };
+    $.ajax({
+       url:'../conduct/conduct!viewItems.action',
+        data:{keyId:keyId,carId:carId},
+        dataType:'json',
+        success:function(data){
+            conductViewer.render(data['obj.items']);
+        }
+    });
     conductViewer.render({items:[
         {
             id:1,
@@ -262,18 +270,18 @@
                     id:2,
                     name:'发动机机油',
                     items:[
-                        {id:3,name:'密度',sbandValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                        ,{id:4,name:'粘度指数',sbandValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                        ,{id:5,name:'闪点',sbandValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
+                        {id:3,name:'密度',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
+                        ,{id:4,name:'粘度指数',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
+                        ,{id:5,name:'闪点',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
                     ]
                 },
                 {
                     id:6,
                     name:'制动油',
                     items:[
-                        {id:7,name:'平衡回流沸点',sbandValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                        ,{id:8,name:'湿平衡回流沸点',sbandValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                        ,{id:9,name:'-40℃运动黏度',sbandValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
+                        {id:7,name:'平衡回流沸点',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
+                        ,{id:8,name:'湿平衡回流沸点',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
+                        ,{id:9,name:'-40℃运动黏度',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
                     ]
                 }
             ]
@@ -310,26 +318,41 @@
         }
         return this;
     }
+    function getParameter(item,name,defaultVal){
+        var result = item[name];
+        if(result==null||result==''||typeof(result)=='undefined'){
+            return defaultVal;
+        }
+        return result;
+    }
     function getConductItemStr(item,level){
         var items = item['items'];
         var allColCount = 4;
+        var allWidth=900;
         var lineHeight = 30;
-        var itemWidth = 100;
+        var itemWidth = 200;
         if(items==null||typeof(items)=='undefined'||items.length==0){
-            return '<div style="height:' +lineHeight+
-                    'px;width:' +itemWidth+'px;'+
-                    '">' +item['name']+
+            var childWidth = '100px;';
+            return '<div style="outline:1px solid gray;text-align:center;height:100%;width:' +itemWidth+'px;float:left;'+
+                    '"><div style="width:'+(itemWidth)+'px;float:left;margin-top:5px;">' +item['name']+'</div>' +
+                    '<div style="width:'+itemWidth+'px;float:left;">' +item['standValueDesp']+':' +
+                    getParameter(item,'standValue','')+'，' +item['errorRangeDesp']+'：' +
+                    getParameter(item,'errorRange','')+
+                    '</div>'+
+                    '<div style="width:'+itemWidth+'px;float:left;">' +item['currentValueDesp']+'' +
+                    '<input style="width:'+childWidth+'"></div>'+
                     '</div>';
         }else{
             var rowCount = item['rowCount'];
             var colCount = item['colCount'];
             var height= rowCount*30;
             var width = 60;
+            var boxWidth=allWidth-level*width;
             if(colCount==2){//数据显示前一列
                 width = (allColCount-level)*50;
             }
-            var result = '<div style="height:'+height+'px;width:' +
-                    width+'px;border:solid 1px gray;">'+item['name'];
+            var result = '<div class="box" style="width:'+boxWidth+'px;float:left;height:'+height+'px;"><div style="text-align:center;line-height:'+height+'px;width:' +
+                    width+'px;outline:solid 1px gray;float:left;">'+item['name']+'</div>';
             for(var i= 0,l=items.length;i<l;i++){
                 result+=getConductItemStr(items[i],level+1);
             }
