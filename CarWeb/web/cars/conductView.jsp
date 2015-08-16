@@ -4,8 +4,16 @@
   Date: 2014-10-8
   Time: 16:49:08
   管理员首页
---%><%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+--%><%@ page contentType="text/html;charset=UTF-8" language="java" %><%
+    String keyId = request.getParameter("keyId");
+    if(keyId==null){
+        keyId="-1";
+    }
+    String carId = request.getParameter("carId");
+    if(carId==null){
+        carId = "-1";
+    }
+%><!DOCTYPE html>
 <html lang="zh_CN">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -92,11 +100,16 @@
       <div class="page-content-area">
         <div class="row page-content-main">
 
-          <form role="form" class="form-horizontal" action="car!save.action"
-                method="POST" enctype="multipart/form-data" id="carDetail" name="carDetail">
+          <form role="form" class="form-horizontal" action="../conduct/conduct!save.action"
+                method="POST" enctype="multipart/form-data" id="conductDetailForm" name="conductDetailForm">
             <div class="col-xs-12 no-padding car-info">
               <div class="tabbable" style="float:left;" id="viewMainBody">
               </div>
+                <div class="space-6"></div>
+                <div style="margin-top:50px">
+                    <span style="float:left;margin-left:50px;" class="btn btn-big btn-green" onclick="saveConduct()">保存</span>
+                    <span style="float:left;margin-left:50px;" class="btn btn-big btn-gray" onclick="goToBack()">取消</span>
+                </div>
             </div>
             <!-- /.row -->
           </form>
@@ -228,40 +241,44 @@
     var systemIsReady=false;
     var dictIsReady = false;
     var viewReadOnly = false;
-    dictUtils.init(dictReady);
+//    dictUtils.init(dictReady);
     var conductViewer={
         items:[],
-        init:function(conductId,carId){
+        initValue:function(conductId,carId){
             $.ajax({
                 url:'../conduct/conductValue!listItems.action?obj.conductId='+conductId+"&carId="+carId,
                 dataType:'json',
                 success:function(data){
-                    conductViewer.render(data);
+                    conductViewer.render(data['data']);
                 }
             });
         },
-        render:function(data){
-            var items = data['items'];
+        render:function(items,data){
+            //var items = data['obj.items'];
             conductViewer.items = items;
             var obj = $("#viewMainBody");
-            obj.html('');
+            obj.html(getBaseInfo(data)+getHiddenOfForm(data));
+            valueIndex = 0;
             for(var i= 0,l=items.length;i<l;i++){
                 var item = items[i];
                 getColCount(item);
                 getRowCount(item);
                 obj.append('<div style="width:90%">'+getConductItemStr(item,0)+'</div>');
             }
+        },
+        init:function(){
+            $.ajax({
+                url:'../conduct/conduct!view.action',
+                data:{keyId:'<%=keyId%>',"obj.id":<%=keyId%>,"obj.carId":<%=carId%>},
+                dataType:'json',
+                success:function(jsonData){
+                    var data = jsonData['obj'];
+                    conductViewer.render(data['items'],data);
+                }
+            });
         }
     };
-    $.ajax({
-       url:'../conduct/conduct!viewItems.action',
-        data:{keyId:keyId,carId:carId},
-        dataType:'json',
-        success:function(data){
-            conductViewer.render(data['obj.items']);
-        }
-    });
-    conductViewer.render({items:[
+    conductViewer.init({items:[
         {
             id:1,
             name:'油液检测',
@@ -325,34 +342,82 @@
         }
         return result;
     }
+    function getHiddenElement(data,prefix,ids){
+        var result = '';
+        for(var i= 0,l=ids.length;i<l;i++){
+            var id = ids[i];
+            var v = data[id];
+            if(v==null||typeof(v)=='undefined'){
+                v = '';
+            }
+            result +='<input type="hidden" id="'+prefix.replace('.','_').replace('[','_').replace(']','_')+'_'+id+'" name="'+prefix+id+'" value="'+v+'">\r\n';
+        }
+        return result;
+    }
+    function getBaseInfo(data){
+        var title = data['title'];
+        if(title==null||typeof(title)=='undefined'){
+            title = '';
+        }
+        var miles = data['miles'];
+        if(miles == null||typeof (miles)=='undefined'){
+            miles = '';
+        }
+        var result = '<div class="box" style="width:90%;float:left;height:40px;">';
+        result +='<div style="float:left;line-height:40px;">检测标题：</div><input type="text" style="float:left;width:400px"' +
+                ' name="obj.title" value="'+title+
+                '"><div style="float:left;margin-left: 10px;line-height:40px;">当前里程：</div><input type="text"  style="float:left" name="'+miles+'">';
+        result += '</div>';
+        return result;
+    }
+    function getHiddenOfForm(data){
+        var ids = ['id','carId','createTime','status'];
+        return getHiddenElement(data,'obj.',ids);
+    }
+    function getHiddenOfItem(item,idx){
+        var ids = ['id','errorRange','extraObj','correctValue','status','createTime','currentValue','unit'];
+        return getHiddenElement(item,'obj.items['+idx+'].',ids);
+    }
+    var valueIndex = 0;
     function getConductItemStr(item,level){
         var items = item['items'];
         var allColCount = 4;
-        var allWidth=900;
-        var lineHeight = 30;
-        var itemWidth = 200;
+        var allWidth=1000;
+        var lineHeight = 90;
+        var itemWidth = 110;
+        if(item['id']==107){
+            //alert(item['name']+'共有'+item['items'].length+"个子节点！");
+        }
         if(items==null||typeof(items)=='undefined'||items.length==0){
-            var childWidth = '100px;';
+            var childWidth = '50px;';
+
             return '<div style="outline:1px solid gray;text-align:center;height:100%;width:' +itemWidth+'px;float:left;'+
-                    '"><div style="width:'+(itemWidth)+'px;float:left;margin-top:5px;">' +item['name']+'</div>' +
-                    '<div style="width:'+itemWidth+'px;float:left;">' +item['standValueDesp']+':' +
-                    getParameter(item,'standValue','')+'，' +item['errorRangeDesp']+'：' +
+                    '"><div style="width:'+(itemWidth)+'px;float:left;margin-top:5px;color:blue;font-size:14px;">' +item['name']+'</div>' +
+                    '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['standValueDesp']+'：' +
+                    getParameter(item,'standValue','')+'</div>' +
+                    '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['errorRangeDesp']+'：' +
                     getParameter(item,'errorRange','')+
                     '</div>'+
-                    '<div style="width:'+itemWidth+'px;float:left;">' +item['currentValueDesp']+'' +
-                    '<input style="width:'+childWidth+'"></div>'+
+                    '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['currentValueDesp']+'：' +
+                    '<input style="width:'+childWidth+'"></div>'+getHiddenOfItem(item,valueIndex++)+
                     '</div>';
         }else{
             var rowCount = item['rowCount'];
             var colCount = item['colCount'];
-            var height= rowCount*30;
-            var width = 60;
+            var height= rowCount*lineHeight;
+            var width = 50;
+            var subItems = items[0]['items'];
+            if(subItems==null||typeof(items)=='undefined'||subItems.length==0){
+                height = lineHeight;
+            }
             var boxWidth=allWidth-level*width;
             if(colCount==2){//数据显示前一列
                 width = (allColCount-level)*50;
             }
-            var result = '<div class="box" style="width:'+boxWidth+'px;float:left;height:'+height+'px;"><div style="text-align:center;line-height:'+height+'px;width:' +
-                    width+'px;outline:solid 1px gray;float:left;">'+item['name']+'</div>';
+            var result = '<div class="box" style="width:'+boxWidth+'px;float:left;height:'+height+'px; ">' +
+                    '<div style="text-align:center;vertical-align:middle;display:table-cell;height:'+(height)+'px;width:' +
+                    width+'px;outline:solid 1px gray;float:left;padding-top:' +(height*2/5)+
+                    'px">'+item['name']+'</div>';
             for(var i= 0,l=items.length;i<l;i++){
                 result+=getConductItemStr(items[i],level+1);
             }
@@ -402,25 +467,26 @@
         if(rowCount==null||typeof(rowCount)=='undefined'){
             var items = item['items'];
             if(items==null||typeof(items)=='undefined'||items.length==0){
-                rowCount = 1;
-            }else{
                 rowCount = 0;
+            }else{
+                var childRowCount = 0;
                 for(var i= 0,l=items.length;i<l;i++){
-                    rowCount+=getRowCount(items[i]);
+                    childRowCount+=getRowCount(items[i]);
+                }
+                if(childRowCount==0){
+                    //属于倒数第二层
+                    rowCount = 1;
+                }else{
+                    rowCount = childRowCount;
                 }
             }
             item['rowCount']=rowCount;
         }
         return rowCount;
     }
-    function saveCar(){
-        if(confirm("您确认要保存当前录入的车辆信息吗？")){
-            var logs =fortuneCarViewer.checkForm(fortuneCarViewer.items);
-            if(logs==''){
-                $("#carDetail").submit();
-            }else{
-                alert(logs+'\r\n请详细检查表单中标红的区域！谢谢！');
-            }
+    function saveConduct(){
+        if(confirm("您确认要保存当前录入的车辆检测信息吗？")){
+            $("#conductDetailForm").submit();
         }
     }
     function cancelCar(){
@@ -497,7 +563,7 @@
         dictIsReady = true;
         tryRender();
     }
-    var fortuneCarViewer = new FortuneView(viewCar);
+    var fortuneCarViewer = {};//new FortuneView(viewCar);
     var __system_render_finished=false;
     function tryRender(){
           if(systemIsReady&&dictIsReady){

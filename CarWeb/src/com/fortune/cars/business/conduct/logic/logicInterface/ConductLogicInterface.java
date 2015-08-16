@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ConductLogicInterface extends BaseLogicInterface<Conduct> {
     List<ConductItem> getItems(Integer id,Integer carId);
+
+    List<ConductItem> saveItems(Conduct obj);
 }

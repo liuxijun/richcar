@@ -1,5 +1,6 @@
 package com.fortune.cars.web.conduct;
 
+import com.fortune.common.Constants;
 import org.apache.struts2.convention.annotation.*;
 import com.fortune.cars.business.conduct.logic.logicInterface.ConductLogicInterface;
 import com.fortune.cars.business.conduct.model.Conduct;
@@ -27,10 +28,16 @@ public class ConductAction extends BaseAction<Conduct> {
 		setBaseLogicInterface(conductLogicInterface);
 	}
 	private Integer carId;
-	public String viewItems(){
+	public String view(){
 		if(keyId>0){
 			super.view();
 		}
-		return "";
+        obj.setItems(conductLogicInterface.getItems(keyId,obj.getCarId()));
+		return Constants.ACTION_VIEW;
+	}
+	public String save(){
+		String result = super.save();
+		obj.setItems(conductLogicInterface.saveItems(obj));
+		return result;
 	}
 }

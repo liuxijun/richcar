@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/CarWeb/doc/database/richcar.sql" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarWeb/doc/database/update.sql" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarWeb/src/com/fortune/cars/business/conduct/logic/logicImpl/ConductLogicImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarWeb/web/js/FtpFileSelector.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarWeb/web/js/dict.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarWeb/web/style/fortune.posters.css" charset="UTF-8" />
