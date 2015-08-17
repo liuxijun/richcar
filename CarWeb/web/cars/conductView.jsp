@@ -567,11 +567,11 @@
         __system_obj_filled = true;
     }
     function loadData(){
-        var keyId = parseInt($.getQuery("keyId",-1));
-        if(keyId>0){
+        var carId = parseInt($.getQuery("carId",-1));
+        if(carId>0){
             __system_form_will_fill=true;
             $.ajax({
-                url:'car!view.action?keyId='+keyId,
+                url:'car!view.action?keyId='+carId,
                 dataType:'json',
                 success:function(jsonData){
                     var obj = jsonData['data'];

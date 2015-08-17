@@ -9,7 +9,7 @@ import java.util.Date;
 public class ConductValue extends BaseModel implements java.io.Serializable {
 
 	private Integer id;
-	private int itemId;
+	private Integer itemId;
 	private String unit;
 	private String correctValue;
 	private String errorRange;
@@ -50,11 +50,11 @@ public class ConductValue extends BaseModel implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getItemId() {
+	public Integer getItemId() {
 		return this.itemId;
 	}
 
-	public void setItemId(int itemId) {
+	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
 	}
 	public String getUnit() {

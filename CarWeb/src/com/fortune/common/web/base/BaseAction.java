@@ -116,7 +116,7 @@ public class BaseAction<E> extends FortuneAction {
             userId = (Long) ServletActionContext.getContext()
                     .getSession().get(Constants.SESSION_USER_ID);
         } catch (NumberFormatException e) {
-            log.error("BaseActionÖĞprepareÊ±£¬ÊÔÍ¼»ñÈ¡SessionÖĞÊı¾İ·¢ÉúÒì³££¬¿ÉÄÜÃ»ÓĞµÇÂ¼ĞÅÏ¢£º" + e.getMessage());
+            log.error("BaseActionä¸­prepareæ—¶ï¼Œè¯•å›¾è·å–Sessionä¸­æ•°æ®å‘ç”Ÿå¼‚å¸¸ï¼Œå¯èƒ½æ²¡æœ‰ç™»å½•ä¿¡æ¯ï¼š" + e.getMessage());
         }*/
         admin = (Admin) ServletActionContext.getContext().getSession().get(Constants.SESSION_ADMIN);
 
@@ -139,7 +139,7 @@ public class BaseAction<E> extends FortuneAction {
         for(String idProperty:guessIdProperty){
             Object idObj = com.fortune.util.BeanUtils.getProperty(ob,idProperty);
             if(idObj!=null){
-                result += "(Ö÷¼ü"+idObj.toString()+")";
+                result += "(ä¸»é”®"+idObj.toString()+")";
                 break;
             }
         }
@@ -183,9 +183,9 @@ public class BaseAction<E> extends FortuneAction {
             systemLogLogicInterface.save(sysLog);
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("ÎŞ·¨±£´æÏµÍ³²Ù×÷ÈÕÖ¾£¬ÓĞ¿ÉÄÜÊÇÈÕÖ¾¹ı³¤£¡×î´ó³¤¶È£º1000£¬µ±Ç°³¤¶È£º" +
+            log.error("æ— æ³•ä¿å­˜ç³»ç»Ÿæ“ä½œæ—¥å¿—ï¼Œæœ‰å¯èƒ½æ˜¯æ—¥å¿—è¿‡é•¿ï¼æœ€å¤§é•¿åº¦ï¼š1000ï¼Œå½“å‰é•¿åº¦ï¼š" +
                     content.length()+
-                    "£¬´íÎóĞÅÏ¢£º"+e.getMessage());
+                    "ï¼Œé”™è¯¯ä¿¡æ¯ï¼š"+e.getMessage());
         }
 //*/
     }
@@ -290,10 +290,10 @@ public class BaseAction<E> extends FortuneAction {
         try {
             scanUploadFiles();
             obj = baseLogicInterface.save(obj);
-            writeSysLog("±£´æ"+guessName(obj));
-            super.addActionMessage("³É¹¦±£´æÊı¾İ£¡");
+            writeSysLog("ä¿å­˜"+guessName(obj));
+            super.addActionMessage("æˆåŠŸä¿å­˜æ•°æ®ï¼");
         } catch (Exception e) {
-            super.addActionError("±£´æÊı¾İ·¢ÉúÒì³££º" + e.getMessage());
+            super.addActionError("ä¿å­˜æ•°æ®å‘ç”Ÿå¼‚å¸¸ï¼š" + e.getMessage());
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         return Constants.ACTION_SAVE;
@@ -313,11 +313,11 @@ public class BaseAction<E> extends FortuneAction {
         log.debug("in view");
         try {
             if (keyId != null) {
-                log.debug("×¼±¸»ñÈ¡Êı¾İ,Ö÷¼üÎª£º" + keyId);
+                log.debug("å‡†å¤‡è·å–æ•°æ®,ä¸»é”®ä¸ºï¼š" + keyId);
                 obj = getBaseObject(keyId);
             }
         } catch (Exception e) {
-            log.error("BaseActionÖĞgetBaseObjectÊ±£¬ÊÔÍ¼»ñÈ¡Bean·¢ÉúÒì³££º" + e.getMessage());
+            log.error("BaseActionä¸­getBaseObjectæ—¶ï¼Œè¯•å›¾è·å–Beanå‘ç”Ÿå¼‚å¸¸ï¼š" + e.getMessage());
         }
         return Constants.ACTION_VIEW;
     }
@@ -328,13 +328,13 @@ public class BaseAction<E> extends FortuneAction {
         E ob=null;
         try {
             ob = getBaseObject(keyId) ;
-            writeSysLog("É¾³ı"+guessName(ob));
+            writeSysLog("åˆ é™¤"+guessName(ob));
             baseLogicInterface.remove(ob);
-            super.addActionMessage("³É¹¦É¾³ıÊı¾İ£¡");
+            super.addActionMessage("æˆåŠŸåˆ é™¤æ•°æ®ï¼");
         } catch (Exception e) {
-            writeSysLog("É¾³ıÊı¾İ'" +guessName(ob)+
-                    "'·¢ÉúÒì³££º" + e.getMessage());
-            super.addActionError("É¾³ıÊı¾İ·¢ÉúÒì³££º" + e.getMessage());
+            writeSysLog("åˆ é™¤æ•°æ®'" +guessName(ob)+
+                    "'å‘ç”Ÿå¼‚å¸¸ï¼š" + e.getMessage());
+            super.addActionError("åˆ é™¤æ•°æ®å‘ç”Ÿå¼‚å¸¸ï¼š" + e.getMessage());
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         return Constants.ACTION_DELETE;
@@ -349,23 +349,23 @@ public class BaseAction<E> extends FortuneAction {
             for (String aKey : this.keys) {
                 try {
                     E ob = getBaseObject(aKey) ;
-                    writeSysLog("É¾³ı"+guessName(ob));
+                    writeSysLog("åˆ é™¤"+guessName(ob));
                     baseLogicInterface.remove(ob);
                     if (!"".equals(dealMessage)) {
                         dealMessage += ",";
                     }
                     dealMessage += aKey;
                 } catch (Exception e) {
-                    super.addActionError("ÎŞ·¨É¾³ıÊı¾İ" + persistentClass.getName() +
+                    super.addActionError("æ— æ³•åˆ é™¤æ•°æ®" + persistentClass.getName() +
                             ":" + aKey);
                 }
             }
         }
         if ("".equals(dealMessage)) {
-            super.addActionError("Ã»ÓĞÉ¾³ıÈÎºÎÊı¾İ");
+            super.addActionError("æ²¡æœ‰åˆ é™¤ä»»ä½•æ•°æ®");
             setSuccess(false);
         } else {
-            super.addActionMessage("ÒÑ¾­³É¹¦É¾³ıÑ¡ÔñµÄÊı¾İ(" + dealMessage + ")");
+            super.addActionMessage("å·²ç»æˆåŠŸåˆ é™¤é€‰æ‹©çš„æ•°æ®(" + dealMessage + ")");
             setSuccess(true);
         }
 
@@ -404,11 +404,11 @@ public class BaseAction<E> extends FortuneAction {
     }
 
     /**
-     * ÒòÎª²ÉÓÃ<E,PK>µÄÄ£°å·½Ê½£¬¶ÔKeyIdµÄ¸³Öµ£¬»á±»×Ô¶¯×ª³ÉStringÀàĞÍ¡£Òò´ËĞèÒªÎÒÃÇÔÚÕâÀï¶ÔÕâ¸öÖµ
-     * ½øĞĞ¼ì²é£¡Èç¹ûÊÇ×Ö·û´®£¬ÄÇÃ´Èç¹ûÊı¾İÊÇ×Ö·û´®Ö÷¼üÎŞËùÎ½£¬Èç¹ûÊÇÕûĞÍÖ÷¼ü£¬ÔòÊÖ¹¤´¦ÀíÒ»ÏÂ£¡
+     * å› ä¸ºé‡‡ç”¨<E,PK>çš„æ¨¡æ¿æ–¹å¼ï¼Œå¯¹KeyIdçš„èµ‹å€¼ï¼Œä¼šè¢«è‡ªåŠ¨è½¬æˆStringç±»å‹ã€‚å› æ­¤éœ€è¦æˆ‘ä»¬åœ¨è¿™é‡Œå¯¹è¿™ä¸ªå€¼
+     * è¿›è¡Œæ£€æŸ¥ï¼å¦‚æœæ˜¯å­—ç¬¦ä¸²ï¼Œé‚£ä¹ˆå¦‚æœæ•°æ®æ˜¯å­—ç¬¦ä¸²ä¸»é”®æ— æ‰€è°“ï¼Œå¦‚æœæ˜¯æ•´å‹ä¸»é”®ï¼Œåˆ™æ‰‹å·¥å¤„ç†ä¸€ä¸‹ï¼
      *
-     * @param keyId Ö÷¼ü
-     * @return      ¶ÔÏó
+     * @param keyId ä¸»é”®
+     * @return      å¯¹è±¡
      */
     public E getBaseObject(Object keyId) {
         if (baseLogicInterface.isKeyPropertyString()) {
@@ -464,7 +464,7 @@ public class BaseAction<E> extends FortuneAction {
                 "com.fortune.redex.business.system.model.Device d " +
                 " where m.channelId=c.channelId and m.deviceId=d.deviceId ";
         String[][] params = new String[][]{
-                  Êı¾İ×Ö¶Î          Ò³Ãæ¿Ø¼şÃû      ¸³Öµ·û   like×Ö·û´®
+                  æ•°æ®å­—æ®µ          é¡µé¢æ§ä»¶å      èµ‹å€¼ç¬¦   likeå­—ç¬¦ä¸²
                 {"m.name",          "",             "like","%?%"},
                 {"m.channelId",     "",             "like","?%"},
                 {"m.deviceId",      "",             "=",    ""},
@@ -592,7 +592,7 @@ public class BaseAction<E> extends FortuneAction {
     @SuppressWarnings("unused")
     public String searchObjectsJbon(String sqlTable,SearchResult<Object[]> searchResult){
 
-        //È¡µÃÁĞÍ·
+        //å–å¾—åˆ—å¤´
         String columns[];
         if (sqlTable.contains(" from ")){
             sqlTable = sqlTable.substring(0,sqlTable.indexOf(" from "));
@@ -783,7 +783,7 @@ public class BaseAction<E> extends FortuneAction {
                             fileName = "guess_"+fileIdx+".jpg";
                         }
                         String urlName;
-                        log.debug("ÉÏ´«À´ÁË£º"+fileName);
+                        log.debug("ä¸Šä¼ æ¥äº†ï¼š"+fileName);
                         fileName = System.currentTimeMillis()+fileName;
                         try {
                             fileName = URLEncoder.encode(fileName.replace(' ', '_'), "UTF-8")
@@ -804,22 +804,22 @@ public class BaseAction<E> extends FortuneAction {
                                     dstObj = com.fortune.util.BeanUtils.getProperty(this,array[0]);
                                 }
                                 if(dstObj==null){
-                                    log.error("ÉÏ´«ÎÄ¼şÊ±£¬ÎŞ·¨ÕÒµ½ÉÏ´«ºóĞèÒªÉèÖÃµÄ¶ÔÓ¦µÄ¶ÔÏó£¡");
+                                    log.error("ä¸Šä¼ æ–‡ä»¶æ—¶ï¼Œæ— æ³•æ‰¾åˆ°ä¸Šä¼ åéœ€è¦è®¾ç½®çš„å¯¹åº”çš„å¯¹è±¡ï¼");
                                 }else{
                                     com.fortune.util.BeanUtils.setProperty(dstObj,fieldName,urlName);
-                                    log.debug("ÒÑ¾­ÉèÖÃÁË"+dstObj.getClass().getSimpleName()+"µÄÊôĞÔ"+fieldName+"Îª"+urlName);
+                                    log.debug("å·²ç»è®¾ç½®äº†"+dstObj.getClass().getSimpleName()+"çš„å±æ€§"+fieldName+"ä¸º"+urlName);
                                 }
                             }else{
-                                log.warn("ÒªÉèÖÃµÄÊôĞÔÃûÎª¿Õ£¬²»ÔÙ³¢ÊÔÉèÖÃ£¡");
+                                log.warn("è¦è®¾ç½®çš„å±æ€§åä¸ºç©ºï¼Œä¸å†å°è¯•è®¾ç½®ï¼");
                             }
                         }else{
-                            log.warn("ÎÄ¼şË÷Òı´óÓÚÉèÖÃÊôĞÔË÷Òı£¬ËùÒÔ²»ÔÙ³¢ÊÔÉèÖÃÊôĞÔÄÚÈİ£º"+urlName);
+                            log.warn("æ–‡ä»¶ç´¢å¼•å¤§äºè®¾ç½®å±æ€§ç´¢å¼•ï¼Œæ‰€ä»¥ä¸å†å°è¯•è®¾ç½®å±æ€§å†…å®¹ï¼š"+urlName);
                         }
                     }else{
-                        log.warn("ÉÏ´«ÎÄ¼ş²»´æÔÚ»òÕß³¤¶ÈÎª0£¬²»ÄÜ¼ÌĞø½øĞĞ£º"+file.getAbsolutePath());
+                        log.warn("ä¸Šä¼ æ–‡ä»¶ä¸å­˜åœ¨æˆ–è€…é•¿åº¦ä¸º0ï¼Œä¸èƒ½ç»§ç»­è¿›è¡Œï¼š"+file.getAbsolutePath());
                     }
                 }else{
-                    log.debug("Ã»ÓĞÉÏ´«£¬Ë÷ÒıÊÇfileIdx="+fileIdx);
+                    log.debug("æ²¡æœ‰ä¸Šä¼ ï¼Œç´¢å¼•æ˜¯fileIdx="+fileIdx);
                 }
             }
         }

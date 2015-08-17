@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +42,33 @@ public class ConductLogicImpl extends BaseLogicImpl<Conduct> implements ConductL
         this.conductValueLogicInterface = conductValueLogicInterface;
     }
 
+    public void setItemValues(List<ConductItem> items,List<ConductValue> values){
+        if(items==null||items.size()==0){
+            return;
+        }
+        for(ConductItem item:items){
+            List<ConductItem> subItems = item.getItems();
+            if(subItems==null||subItems.size()<=0){
+                for(int i=0,l=values.size();i<l;i++){
+                    ConductValue value = values.get(i);
+                    if(item.getId().equals(value.getItemId())){
+                        item.setCurrentValue(value.getCurrentValue());
+                        item.setUnit(value.getUnit());
+                        item.setCreateTime(value.getCreateTime());
+                        item.setExtraObj(value.getId());
+                        item.setErrorRange(value.getErrorRange());
+                        item.setStandValue(value.getCorrectValue());
+                        item.setStatus(value.getStatus());
+                        logger.debug("发现匹配数据："+item.getName()+",value="+item.getCurrentValue());
+                        values.remove(i);
+                        break;
+                    }
+                }
+            }else{
+                setItemValues(subItems,values);
+            }
+        }
+    }
     @Override
     @SuppressWarnings("unchecked")
     public List<ConductItem> getItems(Integer id, Integer carId) {
@@ -85,26 +113,18 @@ public class ConductLogicImpl extends BaseLogicImpl<Conduct> implements ConductL
         if(items!=null){
             if(id>0){
                 ConductValue bean = new ConductValue();
+                bean.setItemId(-1);
                 bean.setConductId(id);
                 List<ConductValue> values = conductValueLogicInterface.search(bean);
-                for(ConductItem item:items){
-                    if(item.isLeaf()){
-                        for(int i=values.size()-1;i>=0;i--){
-                            ConductValue value = values.get(i);
-                            if(value.getItemId()==item.getId()){
-                                item.setCurrentValue(value.getCurrentValue());
-                                item.setUnit(value.getUnit());
-                                item.setCreateTime(value.getCreateTime());
-                                item.setCreateTime(value.getCreateTime());
-                                item.setExtraObj(value.getId());
-                                item.setErrorRange(value.getErrorRange());
-                                item.setStandValue(value.getCorrectValue());
-                                item.setStatus(value.getStatus());
-                                values.remove(i);
-                                break;
-                            }
-                        }
+                if(values!=null&&values.size()>0){
+                    for(ConductItem item:items){
+                        setItemValues(item.getItems(),values);
                     }
+                    if(values.size()>0){
+                        logger.debug("还有为匹配的检测值，剩余数量"+values.size()+"个");
+                    }
+                }else{
+                    logger.warn("未发现任何的数据集合：conductId="+id);
                 }
             }
         }else{
@@ -129,6 +149,9 @@ public class ConductLogicImpl extends BaseLogicImpl<Conduct> implements ConductL
             value.setCurrentValue(item.getCurrentValue());
             value.setUnit(item.getUnit());
             value.setCreateTime(item.getCreateTime());
+            if(value.getCreateTime()==null){
+                value.setCreateTime(new Date());
+            }
             try {
                 value.setId(StringUtils.string2int(item.getExtraObj().toString(),-1));
             } catch (Exception e) {
