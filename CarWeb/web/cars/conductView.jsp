@@ -366,7 +366,7 @@
         var result = '<div class="box" style="width:90%;float:left;height:40px;">';
         result +='<div style="float:left;line-height:40px;">检测标题：</div><input type="text" style="float:left;width:400px"' +
                 ' name="obj.title" value="'+title+
-                '"><div style="float:left;margin-left: 10px;line-height:40px;">当前里程：</div><input type="text"  style="float:left" name="'+miles+'">';
+                '"><div style="float:left;margin-left: 10px;line-height:40px;">当前里程：</div><input type="text"  style="float:left" name="obj.miles" value="'+miles+'">';
         result += '</div>';
         return result;
     }
@@ -375,7 +375,7 @@
         return getHiddenElement(data,'obj.',ids);
     }
     function getHiddenOfItem(item,idx){
-        var ids = ['id','errorRange','extraObj','correctValue','status','createTime','currentValue','unit'];
+        var ids = ['id','errorRange','extraObj','correctValue','status','createTime','unit'];
         return getHiddenElement(item,'obj.items['+idx+'].',ids);
     }
     var valueIndex = 0;
@@ -390,7 +390,12 @@
         }
         if(items==null||typeof(items)=='undefined'||items.length==0){
             var childWidth = '50px;';
-
+            var idx = valueIndex;
+            var value = item['currentValue'];
+            if(value==null||typeof(value)=='undefined'){
+                value = '';
+            }
+            valueIndex++;
             return '<div style="outline:1px solid gray;text-align:center;height:100%;width:' +itemWidth+'px;float:left;'+
                     '"><div style="width:'+(itemWidth)+'px;float:left;margin-top:5px;color:blue;font-size:14px;">' +item['name']+'</div>' +
                     '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['standValueDesp']+'：' +
@@ -399,7 +404,10 @@
                     getParameter(item,'errorRange','')+
                     '</div>'+
                     '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['currentValueDesp']+'：' +
-                    '<input style="width:'+childWidth+'"></div>'+getHiddenOfItem(item,valueIndex++)+
+                    '<input style="width:'+childWidth+'" id="obj_items_' +idx+
+                    '_currentValue" name="obj.items[' +idx+
+                    '].currentValue" value="' +value+
+                    '"></div>'+getHiddenOfItem(item,idx)+
                     '</div>';
         }else{
             var rowCount = item['rowCount'];
@@ -486,7 +494,21 @@
     }
     function saveConduct(){
         if(confirm("您确认要保存当前录入的车辆检测信息吗？")){
-            $("#conductDetailForm").submit();
+            var data = $("#conductDetailForm").serialize();
+            $.ajax({
+                type:"post",
+                dataType:'json',
+                data:data,
+                url:'../conduct/conduct!save.action',
+                success:function(data){ //提交成功的回调函数
+                    var success = data['success'];
+                    if(success){
+                        alert('保存成功！');
+                    }else{
+                        alert(data['msg']);
+                    }
+                }
+            });
         }
     }
     function cancelCar(){

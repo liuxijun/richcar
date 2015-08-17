@@ -124,6 +124,8 @@ public class ConductLogicImpl extends BaseLogicImpl<Conduct> implements ConductL
         List<ConductValue> values = conductValueLogicInterface.search(bean);
         for(ConductItem item:items){
             ConductValue value = new ConductValue();
+            value.setConductId(obj.getId());
+            value.setItemId(item.getId());
             value.setCurrentValue(item.getCurrentValue());
             value.setUnit(item.getUnit());
             value.setCreateTime(item.getCreateTime());

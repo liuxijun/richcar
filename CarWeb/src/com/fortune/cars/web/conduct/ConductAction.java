@@ -1,10 +1,13 @@
 package com.fortune.cars.web.conduct;
 
+import com.fortune.cars.business.conduct.model.ConductItem;
 import com.fortune.common.Constants;
 import org.apache.struts2.convention.annotation.*;
 import com.fortune.cars.business.conduct.logic.logicInterface.ConductLogicInterface;
 import com.fortune.cars.business.conduct.model.Conduct;
 import com.fortune.common.web.base.BaseAction;
+
+import java.util.List;
 
 @Namespace("/conduct")
 @ParentPackage("default")
@@ -36,7 +39,9 @@ public class ConductAction extends BaseAction<Conduct> {
 		return Constants.ACTION_VIEW;
 	}
 	public String save(){
+		List<ConductItem> items = obj.getItems();
 		String result = super.save();
+		obj.setItems(items);
 		obj.setItems(conductLogicInterface.saveItems(obj));
 		return result;
 	}
