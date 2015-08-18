@@ -10,7 +10,7 @@ import java.util.List;
 public class Conduct extends BaseModel implements java.io.Serializable {
 
 	private Integer id;
-	private int carId;
+	private Integer carId;
 	private String title;
 	private Date createTime;
 	private Integer miles ;
@@ -36,11 +36,11 @@ public class Conduct extends BaseModel implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getCarId() {
+	public Integer getCarId() {
 		return this.carId;
 	}
 
-	public void setCarId(int carId) {
+	public void setCarId(Integer carId) {
 		this.carId = carId;
 	}
 	public String getTitle() {

@@ -30,7 +30,7 @@ public class TimerManager implements ServletContextListener {
         try{
             final AppConfigurator appConfig = AppConfigurator.getInstance();
             if(appConfig.getBoolConfig("system.encoder.startEncoder",false)){
-                log.info("30ÃëºóÆô¶¯ÈÎÎñÇëÇóºÍÉ¨Ãè£¡");
+                log.info("30ç§’åå¯åŠ¨ä»»åŠ¡è¯·æ±‚å’Œæ‰«æï¼");
                 (new Thread(){
                     public void run(){
                         try {
@@ -40,10 +40,10 @@ public class TimerManager implements ServletContextListener {
                         }
                         EncodeTaskManagerInterface taskManager;
                         if(appConfig.getBoolConfig("system.encoder.nativeQuery",false)){
-                            log.debug("Êı¾İ¿â·½Ê½Æô¶¯£¡");
+                            log.debug("æ•°æ®åº“æ–¹å¼å¯åŠ¨ï¼");
                             taskManager = EncodeTaskManager.getInstance();
                         }else{
-                            log.debug("Ô¶¶ËÇëÇó·½Ê½Æô¶¯£¡");
+                            log.debug("è¿œç«¯è¯·æ±‚æ–¹å¼å¯åŠ¨ï¼");
                             taskManager = EncodeTaskRemoteManager.getInstance();
                         }
                         taskManager.onSystemStartup();
@@ -51,7 +51,7 @@ public class TimerManager implements ServletContextListener {
                 }).start();
 
             }else{
-                log.info("ÎŞĞèÆô¶¯×ªÂë·şÎñ");
+                log.info("æ— éœ€å¯åŠ¨è½¬ç æœåŠ¡");
             }
             String configPath = TimerManager.class.getResource(configName).getFile();
             String config = FileUtil.readFileInfo(configPath);

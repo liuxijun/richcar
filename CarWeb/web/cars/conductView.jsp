@@ -276,6 +276,9 @@
                     conductViewer.render(data['items'],data);
                 }
             });
+        },
+        viewItemDetail:function(id){
+
         }
     };
     conductViewer.init({items:[
@@ -355,14 +358,8 @@
         return result;
     }
     function getBaseInfo(data){
-        var title = data['title'];
-        if(title==null||typeof(title)=='undefined'){
-            title = '';
-        }
-        var miles = data['miles'];
-        if(miles == null||typeof (miles)=='undefined'){
-            miles = '';
-        }
+        var title = getParameter(data,'title','');
+        var miles = getParameter(data,'miles','');
         var result = '<div class="box" style="width:90%;float:left;height:40px;">';
         result +='<div style="float:left;line-height:40px;">检测标题：</div><input type="text" style="float:left;width:400px"' +
                 ' name="obj.title" value="'+title+
@@ -375,7 +372,8 @@
         return getHiddenElement(data,'obj.',ids);
     }
     function getHiddenOfItem(item,idx){
-        var ids = ['id','errorRange','extraObj','correctValue','status','createTime','unit'];
+        var ids = ['id','errorRange','extraObj','correctValue','status','createTime','unit','type','standValue',
+                   'unit','code','parentId','name','standValueDesp','errorRangeDesp','currentValueDesp'];
         return getHiddenElement(item,'obj.items['+idx+'].',ids);
     }
     var valueIndex = 0;
@@ -384,30 +382,30 @@
         var allColCount = 4;
         var allWidth=1000;
         var lineHeight = 90;
-        var itemWidth = 110;
+        var itemWidth = 120;
         if(item['id']==107){
             //alert(item['name']+'共有'+item['items'].length+"个子节点！");
         }
         if(items==null||typeof(items)=='undefined'||items.length==0){
-            var childWidth = '50px;';
+            var childWidth = '40px;';
             var idx = valueIndex;
-            var value = item['currentValue'];
-            if(value==null||typeof(value)=='undefined'){
-                value = '';
-            }
+            var value = getParameter(item,'currentValue','');
+            var unit = getParameter(item,'unit','');
             valueIndex++;
             return '<div style="outline:1px solid gray;text-align:center;height:100%;width:' +itemWidth+'px;float:left;'+
-                    '"><div style="width:'+(itemWidth)+'px;float:left;margin-top:5px;color:blue;font-size:14px;">' +item['name']+'</div>' +
+                    '"><div style="width:'+(itemWidth)+'px;float:left;margin-top:5px;color:blue;font-size:14px;cursor:pointer"' +
+                    ' onclick="conductViewer.viewItemDetail(' +item['id']+')">' +item['name']+'</div>' +
                     '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['standValueDesp']+'：' +
-                    getParameter(item,'standValue','')+'</div>' +
+                    getParameter(item,'standValue','')+unit+'</div>' +
                     '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['errorRangeDesp']+'：' +
-                    getParameter(item,'errorRange','')+
+                    getParameter(item,'errorRange','±0')+unit+
                     '</div>'+
                     '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['currentValueDesp']+'：' +
                     '<input style="width:'+childWidth+'" id="obj_items_' +idx+
                     '_currentValue" name="obj.items[' +idx+
                     '].currentValue" value="' +value+
-                    '"></div>'+getHiddenOfItem(item,idx)+
+                    '">' +unit+
+                    '</div>'+getHiddenOfItem(item,idx)+
                     '</div>';
         }else{
             var rowCount = item['rowCount'];

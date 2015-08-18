@@ -310,7 +310,7 @@ var list={
                 break;
         }
         $.ajax({
-            url:'../cars/cars!list.action',//menu!listFunctionMenus.action
+            url:'../cars/car!list.action',//menu!listFunctionMenus.action
             data:({"obj.name":$("#search_name").val(),
                 "obj.code":$("#search_code").val(),
                 "obj.parentCode":list.currentParentCode,
