@@ -81,12 +81,14 @@ public class ConductAction extends BaseAction<Conduct> {
             }
             Integer miles = obj.getMiles();
             if(miles==null||miles==0){
-                if(car!=null){
+                if(car!=null&&car.getMileage()!=null){
                     obj.setMiles(car.getMileage());
                 }else{
                     obj.setMiles(3000);
                 }
             }
+            BeanUtils.setDefaultValue(obj,"status",1);
+            //BeanUtils.setDefaultValue(obj,"",);
             obj.setItems(conductLogicInterface.getItems(keyId,obj.getCarId()));
         }
 		return Constants.ACTION_VIEW;
