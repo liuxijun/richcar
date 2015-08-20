@@ -39,7 +39,7 @@
     }
 
   </style>
-  <script src="../js/dict.js"></script>
+  <script src="../js/dict.js" type="text/javascript"></script>
   <style type="text/css">
     .hover{
       cursor:pointer;
@@ -243,7 +243,6 @@
     var viewReadOnly = false;
 //    dictUtils.init(dictReady);
     var conductViewer={
-        items:[],
         initValue:function(conductId,carId){
             $.ajax({
                 url:'../conduct/conductValue!listItems.action?obj.conductId='+conductId+"&carId="+carId,
@@ -277,9 +276,77 @@
                 }
             });
         },
+        saveItem:function(){
+            if(confirm('您确认要保存这个检测项目详情吗？')){
+                var objData = {};
+                var items = conductViewer.conductItems;
+                var i= 0,l=items.length;
+                for(;i<l;i++){
+                    var item = items[i];
+                    var id = item['id'];
+                    var objId = id.replace('item_','obj.');
+                    objData[objId] = $("#"+id).val();
+                }
+                $.ajax({
+                    url:'../conduct/conductItem!save.action',
+                    dataType:'json',
+                    data:objData,
+                    type:'post',
+                    success:function(data){
+                        if(data['success']){
+                            alert('保存成功！');
+                            $("#conductItemDetailModal").modal('hide');
+                        }else{
+                            alert('保存失败：\n'+data['msg']);
+                        }
+                    }
+                });
+            }
+        },
         viewItemDetail:function(id){
-
-        }
+            showDialog({
+                title:'检测标准值信息',id:'conductItemDetailModal',renderTo:'modalDialog',
+                items:conductViewer.conductItems,
+                //hiddenItems:[{id:'item_id'},{id:'item_parentId'}],
+                buttons:[
+                    {text:'确定',cls:'btn-blue',handler:conductViewer.saveItem},
+                    {text:'关闭',style:'margin-left:100px;',handler:function(){
+                        $("#conductItemDetailModal").modal('hide');
+                    }}]});
+            $.ajax({
+                url:'../conduct/conductItem!view.action',
+                dataType:'json',
+                data:{keyId:id},
+                success:function(data){
+                    if(data['success']){
+                        var items = conductViewer.conductItems;
+                        var i= 0,l=items.length;
+                        var objData=data['data'];
+                        for(;i<l;i++){
+                            var item = items[i];
+                            var id = item['id'];
+                            var objId = id.replace('item_','obj.');
+                            $("#"+id).val(objData[objId]);
+                        }
+                    }else{
+                        alert('未能在服务器端找到数据：keyId='+id);
+                    }
+                }
+            });
+        },
+        items:[],
+        conductItems:[
+            {id:'item_id',type:'hidden'},{id:'item_parentId',type:'hidden'},
+            {fieldLabel:'检测名称：',id:'item_name',allowBlank:false},
+            {fieldLabel:'标准大小：',id:'item_standValue'},
+            {fieldLabel:'标准描述：',id:'item_standValueDesp'},
+            {fieldLabel:'误差范围：',id:'item_errorRange'},
+            {fieldLabel:'误差描述：',id:'item_errorRangeDesp'},
+            {fieldLabel:'测量单位：',id:'item_unit'},
+            {fieldLabel:'测量描述：',id:'item_currentValueDesp'},
+            {fieldLabel:'测量分类：',id:'item_type',type:'select',allowBlank:false},
+            {fieldLabel:'功能状态：',id:'item_status',type:'select',allowBlank:false}
+        ]
     };
     conductViewer.init({items:[
         {
