@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fortune.common.business.security.logic.logicInterface.AdminPermissionLogicInterface;
 import com.fortune.common.business.security.model.AdminPermission;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -59,6 +60,7 @@ public class AdminPermissionAction extends BaseAction<AdminPermission> {
 	public String search() {
 		log.debug("in search");
 		AdminPermission searchBean = new AdminPermission();
+		Integer keyId= StringUtils.string2int(getKeyId(), -1);
 		if (keyId >0) {
 			log.debug("keyId is :" + keyId);
 			searchBean.setAdminId(keyId);
@@ -75,6 +77,7 @@ public class AdminPermissionAction extends BaseAction<AdminPermission> {
 	public String view() {
 		log.debug("in view");
 		AdminPermission searchBean = new AdminPermission();
+		Integer keyId = StringUtils.string2int(getKeyId(),-1);
 		if (keyId >0) {
 			log.debug("keyId is :" + keyId);
 			searchBean.setAdminId(keyId);

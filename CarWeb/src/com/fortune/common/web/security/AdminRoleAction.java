@@ -5,6 +5,7 @@ import java.util.List;
 import com.fortune.common.business.security.logic.logicInterface.AdminLogicInterface;
 import com.fortune.common.business.security.logic.logicInterface.AdminRoleLogicInterface;
 import com.fortune.common.business.security.model.AdminRole;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -48,6 +49,7 @@ public class AdminRoleAction extends BaseAction<AdminRole> {
 	public String search() {
 		log.debug("in search");
 		AdminRole searchBean = new AdminRole();
+		Integer keyId = StringUtils.string2int(getKeyId(), -1);
 		if (keyId >0) {
 			log.debug("keyId is :" + keyId);
 			searchBean.setAdminId(keyId);
@@ -64,6 +66,7 @@ public class AdminRoleAction extends BaseAction<AdminRole> {
 	public String view() {
 		log.debug("in view");
 		AdminRole searchBean = new AdminRole();
+		Integer keyId = StringUtils.string2int(getKeyId(), -1);
 		if (keyId >0) {
 			log.debug("keyId is :" + keyId);
 			searchBean.setAdminId(keyId);

@@ -5,6 +5,7 @@ import com.fortune.rms.business.csp.logic.logicInterface.CspAuditorLogicInterfac
 import com.fortune.rms.business.csp.model.CspAuditor;
 import com.fortune.common.web.base.BaseAction;
 import com.fortune.util.JsonUtils;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -33,7 +34,8 @@ public class CspAuditorAction extends BaseAction<CspAuditor> {
      * 获取Csp绑定管理员的信息
      */
     public String searchAuditorsByCspId(){
-        objs = cspAuditorLogicInterface.getAuditorsByCspId(keyId);
+		Integer keyId = StringUtils.string2int(getKeyId(), -1);
+		objs = cspAuditorLogicInterface.getAuditorsByCspId(keyId);
         return Constants.ACTION_LIST;
     }
 }

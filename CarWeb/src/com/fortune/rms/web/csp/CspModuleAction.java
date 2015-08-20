@@ -9,10 +9,7 @@ import com.fortune.rms.business.csp.model.CspModule;
 import com.fortune.common.web.base.BaseAction;
 import com.fortune.rms.business.system.logic.logicInterface.DeviceLogicInterface;
 import com.fortune.rms.business.system.model.Device;
-import com.fortune.util.AppConfigurator;
-import com.fortune.util.FileUtils;
-import com.fortune.util.JsonUtils;
-import com.fortune.util.SimpleFileInfo;
+import com.fortune.util.*;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -63,6 +60,7 @@ public class CspModuleAction extends BaseAction<CspModule> {
      * 获取Csp绑定模板的信息
      */
     public String searchModulesByCspId(){
+        Integer keyId = StringUtils.string2int(getKeyId(), -1);
         objs =cspModuleLogicInterface.getModulesByCspId(keyId);
         return Constants.ACTION_LIST;
     }

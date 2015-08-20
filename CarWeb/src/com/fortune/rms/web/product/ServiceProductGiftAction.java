@@ -5,6 +5,7 @@ import com.fortune.rms.business.product.logic.logicInterface.ServiceProductGiftL
 import com.fortune.rms.business.product.model.ServiceProductGift;
 import com.fortune.common.web.base.BaseAction;
 import com.fortune.util.JsonUtils;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -38,12 +39,14 @@ public class ServiceProductGiftAction extends BaseAction<ServiceProductGift> {
 		setBaseLogicInterface(serviceProductGiftLogicInterface);
 	}
     public String  saveServiceProductGift(){
-        serviceProductGiftLogicInterface.saveServiceProductGift(serviceProductGifts, serviceProductGiftIds,keyId);
+        serviceProductGiftLogicInterface.saveServiceProductGift(serviceProductGifts,
+                serviceProductGiftIds, StringUtils.string2long(keyId,-1));
         writeSysLog("保存赠送服务产品： "+keyId+",serviceProductGiftId="+serviceProductGiftIds);
         return Constants.ACTION_SAVE;
     }
     public String searchServiceProductGift(){
-        serviceProductGifts = serviceProductGiftLogicInterface.getAllServiceProductGiftOfServiceProduct(keyId);
+        serviceProductGifts = serviceProductGiftLogicInterface.getAllServiceProductGiftOfServiceProduct(
+                StringUtils.string2long(keyId,-1));
         JsonUtils jsonUtils = new JsonUtils();
         directOut(jsonUtils.getListJson("serviceProductGifts",serviceProductGifts, "totalCount", serviceProductGifts.size()));
         return null;

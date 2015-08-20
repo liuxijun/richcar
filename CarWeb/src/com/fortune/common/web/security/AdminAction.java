@@ -143,7 +143,7 @@ public class AdminAction extends BaseAction<Admin> {
 
     @SuppressWarnings("unused")
     public String viewSelf(){
-        keyId = admin.getId();
+        keyId = ""+admin.getId();
         String result = super.view();
         if(obj!=null){
             obj.setPassword("");
@@ -167,6 +167,7 @@ public class AdminAction extends BaseAction<Admin> {
     @SuppressWarnings("unused")
     public String view(){
         String result ="view";
+        Long keyId = StringUtils.string2long(getKeyId(), -1);
         if(keyId>0){
             obj = adminLogicInterface.get(keyId);
         }else{
@@ -176,7 +177,7 @@ public class AdminAction extends BaseAction<Admin> {
         BeanUtils.setDefaultValue(obj,"isRoot",2);
         BeanUtils.setDefaultValue(obj,"status",AdminLogicInterface.STATUS_OK);
         if(obj!=null&&obj.getIsSystem()!=null&&obj.getIsSystem()==1){
-            roles = adminLogicInterface.getRolesWithCheckOperator(keyId,1);
+            roles = adminLogicInterface.getRolesWithCheckOperator(keyId.intValue(),1);
         }
         //如果是查看用户，口令字段置空
         if(obj!=null){

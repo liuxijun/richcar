@@ -2,6 +2,7 @@ package com.fortune.common.web.security;
 
 import java.util.List;
 
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -54,6 +55,7 @@ public class RolePermissionAction extends BaseAction<RolePermission> {
 	public String view() {
 		log.debug("in view");
 		RolePermission searchBean = new RolePermission();
+		Integer keyId = StringUtils.string2int(getKeyId(), -1);
 		if (keyId >0) {
 			log.debug("keyId is :" + keyId);
 			searchBean.setRoleid(keyId);

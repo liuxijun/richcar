@@ -59,13 +59,13 @@ public class UserHotSearchAction extends BaseAction<UserHotSearch> {
 
     public String saveAllDate() {
         log.debug("in saveAllData");
-        keyId = hotSearchId;
+        Integer keyId = hotSearchId;
         String content = obj.getContent();
         Long adminId = obj.getAdminId();
         Long updateCount = obj.getUpdateCount();
         Date createTime = obj.getCreateTime();
         //如果keyId小于零或者为空，为新增。
-        if(keyId<0||keyId ==null){
+        if(keyId ==null||keyId<=0){
             UserHotSearch uhs = new UserHotSearch();
             uhs.setAdminId(adminId);
             uhs.setContent(content);

@@ -75,7 +75,8 @@ public class EncoderTaskAction extends BaseAction<EncoderTask> {
     }
     private List<EncoderTask> encodeTasks;
     public String setTaskStatus(){
-        if(keyId!=null&&keyId>0){
+        Integer keyId = StringUtils.string2int(getKeyId(), -1);
+        if(keyId>0){
             try {
                 Integer status=obj.getStatus();
                 obj = encoderTaskLogicInterface.get(StringUtils.string2long(keyId.toString(),-1));

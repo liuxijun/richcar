@@ -7,6 +7,7 @@ import com.fortune.rms.business.csp.logic.logicInterface.AdminCspLogicInterface;
 import com.fortune.rms.business.csp.model.AdminCsp;
 import com.fortune.common.web.base.BaseAction;
 import com.fortune.util.BeanUtils;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -42,6 +43,7 @@ public class AdminCspAction extends BaseAction<AdminCsp> {
     }
 
     public String view() {
+        Integer keyId = StringUtils.string2int(getKeyId(), -1);
         if (keyId > 0) {
             obj = adminCspLogicInterface.get(keyId);
         } else {

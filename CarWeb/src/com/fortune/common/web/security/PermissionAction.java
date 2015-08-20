@@ -3,6 +3,7 @@ package com.fortune.common.web.security;
 import com.fortune.common.business.security.logic.logicInterface.PermissionLogicInterface;
 import com.fortune.common.business.security.model.Permission;
 import com.fortune.common.web.base.BaseAction;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -32,7 +33,7 @@ public class PermissionAction extends BaseAction<Permission> {
 
     public String view(){
         String result = super.view();
-        obj.setRoles(permissionLogicInterface.getRolesWitchPermissionCheck(keyId));
+        obj.setRoles(permissionLogicInterface.getRolesWitchPermissionCheck(StringUtils.string2int(keyId, -1)));
         return result;
     }
     public List<Integer> getRoleIds() {

@@ -5,6 +5,7 @@ import com.fortune.rms.business.syn.logic.logicImpl.SynFileLogicImpl;
 import com.fortune.rms.business.syn.logic.logicImpl.SynTaskLogicImpl;
 import com.fortune.rms.business.syn.logic.logicInterface.SynTaskLogicInterface;
 import com.fortune.rms.business.syn.model.SynTask;
+import com.fortune.util.StringUtils;
 import com.fortune.util.config.Config;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
@@ -57,6 +58,7 @@ public class SynTaskAction extends BaseAction<SynTask> {
     }
 
     public String reSync() throws Exception {
+        Integer keyId = StringUtils.string2int(getKeyId(), -1);
         synTaskLogicInterface.reSync(keyId);
         return list();
     }

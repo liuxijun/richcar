@@ -6,6 +6,7 @@ import com.fortune.rms.business.encoder.logic.logicInterface.EncoderTemplateLogi
 import com.fortune.rms.business.encoder.model.EncoderTemplate;
 import com.fortune.rms.business.module.model.Property;
 import com.fortune.util.BeanUtils;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -39,7 +40,7 @@ public class EncoderTemplateAction extends BaseAction<EncoderTemplate> {
     public String delete() {
         try {
             if (keyId != null) {
-                obj.setId(keyId);
+                obj.setId(StringUtils.string2long(keyId, -1));
                 baseLogicInterface.remove(obj);
                 log.debug("删除成功，模版ID为："+keyId);
             }

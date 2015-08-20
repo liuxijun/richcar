@@ -370,7 +370,7 @@ public class ContentAction extends BaseAction<Content> {
         log.debug("in viewOnly");
         try {
             if (keyId != null) {
-                Content content = contentLogicInterface.get(keyId.longValue());
+                Content content = contentLogicInterface.get(StringUtils.string2long(keyId,-1));
                 List<ContentProperty> outputContentProperty = contentPropertyLogicInterface.getContentPropertiesByDataType(content.getModuleId(),content.getId(),null,false,true);
                 JsonUtils jsonUtils = new JsonUtils();
                 directOut(jsonUtils.getListJson("objs",outputContentProperty, "totalCount", outputContentProperty.size()));

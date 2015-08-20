@@ -95,7 +95,7 @@ public class ContentNoticeAciton extends BaseAction<ContentNotice> {
    public String saveAllData(){
        log.debug("in saveAllData");
        String logInfo = admin.getLogin()+"("+admin.getRealname()+")";
-       Integer keyId = this.getKeyId();
+       Long keyId = StringUtils.string2long(this.getKeyId(), -1);
        String content = obj.getContent();
        Long adminId = obj.getAdminId();
        Date createTime = obj.getCreateTime();
@@ -103,7 +103,7 @@ public class ContentNoticeAciton extends BaseAction<ContentNotice> {
        Date offlineTime = obj.getOfflineTime();
        Long status = obj.getStatus();
        //如果keyId小于零或者为空，为新增。
-       if(keyId < 0|| keyId ==null){
+       if( keyId < 0){
            ContentNotice cn = new ContentNotice();
            cn.setAdminId(adminId);
            cn.setContent(content);

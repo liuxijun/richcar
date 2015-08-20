@@ -67,12 +67,12 @@ public class BaseAction<E> extends FortuneAction {
     }
 
     @SuppressWarnings("unused")
-    public Integer getKeyId() {
+    public String getKeyId() {
         return keyId;
     }
 
     @SuppressWarnings("unused")
-    public void setKeyId(Integer keyId) {
+    public void setKeyId(String keyId) {
         this.keyId = keyId;
     }
 

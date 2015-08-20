@@ -132,7 +132,7 @@ public class UserAction extends BaseAction<User> {
         try {
             if (keyId != null) {
                 log.debug("准备获取数据,主键为：" + keyId);
-                obj = userLogicInterface.getUserById(keyId.longValue());
+                obj = userLogicInterface.getUserById(StringUtils.string2long(keyId, -1));
                 log.debug("obj:"+obj);
             }
         } catch (Exception e) {

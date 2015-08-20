@@ -42,7 +42,8 @@ public class ConductAction extends BaseAction<Conduct> {
 
 	private Integer carId;
 	public String view(){
-		if(keyId>0){
+        int id = StringUtils.string2int(keyId,-1);
+		if(id>0){
 			super.view();
 		}
         Car car =null;
@@ -89,7 +90,7 @@ public class ConductAction extends BaseAction<Conduct> {
             }
             BeanUtils.setDefaultValue(obj,"status",1);
             //BeanUtils.setDefaultValue(obj,"",);
-            obj.setItems(conductLogicInterface.getItems(keyId,obj.getCarId()));
+            obj.setItems(conductLogicInterface.getItems(StringUtils.string2int(keyId,-1),obj.getCarId()));
         }
 		return Constants.ACTION_VIEW;
 	}

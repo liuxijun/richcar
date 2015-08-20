@@ -6,6 +6,7 @@ import com.fortune.rms.business.product.model.ServiceProduct;
 import com.fortune.common.web.base.BaseAction;
 import com.fortune.util.BeanUtils;
 import com.fortune.util.SearchResult;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -46,7 +47,7 @@ public class ServiceProductAction extends BaseAction<ServiceProduct> {
         return "list";
     }
     public String listOfSelf(){
-        objs = serviceProductLogicInterface.getServiceProductOfCsp(obj,pageBean,keyId);
+        objs = serviceProductLogicInterface.getServiceProductOfCsp(obj,pageBean, StringUtils.string2int(keyId,-1));
        return "list";
     }
     public String searchServiceProduct(){

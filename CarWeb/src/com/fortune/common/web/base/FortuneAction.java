@@ -28,7 +28,7 @@ public class FortuneAction  extends ActionSupport implements Preparable, Session
     protected Log log = LogFactory.getLog(this.getClass());
     protected String userId;
     protected PageBean pageBean = new PageBean(1, 10, null, null);
-    protected Integer keyId;
+    protected String keyId;
     private boolean success = true;
     protected List<String> keys=new ArrayList<String>();
     public void prepare() {

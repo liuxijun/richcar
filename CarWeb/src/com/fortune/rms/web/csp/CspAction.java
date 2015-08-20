@@ -16,6 +16,7 @@ import com.fortune.rms.business.product.model.UserBuy;
 import com.fortune.rms.business.system.model.Device;
 import com.fortune.util.HibernateUtils;
 import com.fortune.util.JsonUtils;
+import com.fortune.util.StringUtils;
 import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -211,7 +212,9 @@ public class CspAction extends BaseAction<Csp> {
                     if(defaultModuleId==null){
                        defaultModuleId=Long.parseLong("0");
                     }
-                    cspLogicInterface.saveModuleToCsp(cspModules,moduleIds,keyId,defaultModuleId);
+                    cspLogicInterface.saveModuleToCsp(cspModules,moduleIds,
+                            StringUtils.string2int(keyId,-1),
+                            defaultModuleId);
               writeSysLog("保存模板："+defaultModuleId+",CSP的Id:"+keyId);
             } catch (Exception e) {
                 setSuccess(false);
@@ -239,7 +242,7 @@ public class CspAction extends BaseAction<Csp> {
      * 保存审核人到Csp
      */
     public String saveAuditorToCsp() {
-        cspLogicInterface.saveAuditorToCsp(admins,adminIds,keyId);
+        cspLogicInterface.saveAuditorToCsp(admins,adminIds,StringUtils.string2int(keyId,-1));
         writeSysLog("保存审核人的ID：" + adminIds+",CSP的Id:"+keyId);
         super.addActionMessage("成功保存数据！");
         return Constants.ACTION_SAVE;
