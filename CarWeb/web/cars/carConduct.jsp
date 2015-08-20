@@ -98,9 +98,9 @@
                             <table class="table table-striped table-bordered table-hover table-30">
                                 <thead>
                                 <tr>
-                                    <th width="50%" align="center"><a href="#" onclick='list.order_by("carNo")'>车牌</a></th>
+                                    <th width="30%" align="center"><a href="#" onclick='list.order_by("carNo")'>车牌</a></th>
                                     <th width="20%" align="center"><a href="#" onclick='list.order_by("user")'>联系人</a></th>
-                                    <th width="10%" class="center"><a href="#" onclick='list.order_by("createTime")'>添加日期</a></th>
+                                    <th width="10%" align="center"><a href="#" onclick='list.order_by("createTime")'>添加日期</a></th>
                                     <th width="10%" align="center">检查列表</th>
                                     <th class="10%" align="center">保养次数</th>
                                 </tr>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="space-6"></div>
                         <div class="row">
-                            <div class="col-md-2"><a class="btn btn-green btn-big" href="carView.jsp?keyId=-1">新增车友</a></div>
+                            <%--<div class="col-md-2"><a class="btn btn-green btn-big" href="carView.jsp?keyId=-1">新增友</a></div>--%>
                             <div class="col-md-6 col-md-offset-4">
                                 <ul  id="page-nav" class="pagination pull-right">
                             </ul></div>

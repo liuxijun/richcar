@@ -502,6 +502,7 @@
                     var success = data['success'];
                     if(success){
                         alert('保存成功！');
+                        window.location.href="../cars/carConduct.jsp?carId=<%=carId%>"
                     }else{
                         alert(data['msg']);
                     }

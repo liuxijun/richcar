@@ -341,7 +341,7 @@ var dictList={
     },
     currentDictCode:'',
     delete:function(id,status){
-        if(confirm("您确认要删除这个字典条目吗？？")){
+        if(confirm("您确认要删除这个字典条目吗？？\n注意，这个条目下的子条目也会同时删除！")){
             $.ajax({
                 url:'/config/dict!delete.action',
                 data:{keyId:id},
@@ -386,7 +386,7 @@ var dictList={
                 if(success==true||success=='true'){
                     alert("已经保存！");
                     dictList.goToPage(1);
-                    $("#menuDetailModal").modal('hide');
+                    $("#dictDetailModal").modal('hide');
                 }else{
                     alert("保存中发生异常："+jsonData['error'][0]);
                 }

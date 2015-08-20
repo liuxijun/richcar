@@ -1,5 +1,6 @@
 package com.fortune.common.web.config;
 
+import com.fortune.common.Constants;
 import com.fortune.common.business.base.logic.logicInterface.DictionaryLogicInterface;
 import com.fortune.common.business.base.model.Dictionary;
 import com.fortune.common.web.base.BaseAction;
@@ -21,7 +22,7 @@ import java.util.Map;
  * User: xjliu
  * Date: 2010-10-18
  * Time: 13:38:46
- * ·şÎñÆ÷ÅäÖÃÎÄ¼ş
+ * æœåŠ¡å™¨é…ç½®æ–‡ä»¶
  */
 @Namespace("/config")
 @ParentPackage("default")
@@ -44,7 +45,7 @@ public class DictionaryAction extends BaseAction<Dictionary> {
     @SuppressWarnings("unchecked")
     public String list() {
         if(typeId!=null&&!typeId.trim().isEmpty()){
-            log.debug("×¼±¸ËÑË÷×Öµä£ºcode="+typeId);
+            log.debug("å‡†å¤‡æœç´¢å­—å…¸ï¼šcode="+typeId);
             try {
                 if("all".equals(typeId)){
                     items =(List<Dictionary>) CacheUtils.get(typeId,"dictCache",new DataInitWorker(){
@@ -147,15 +148,40 @@ public class DictionaryAction extends BaseAction<Dictionary> {
             }
         }
         if(dict!=null){
-            addActionError("´úÂë¡°"+dict.getCode()+"¡±ÒÑ¾­±»ÌõÄ¿¡°" +dict.getName()+
-                    "¡±Ê¹ÓÃ£¡Çë»»Ò»¸öcode");
+            addActionError("ä»£ç â€œ"+dict.getCode()+"â€å·²ç»è¢«æ¡ç›®â€œ" +dict.getName()+
+                    "â€ä½¿ç”¨ï¼è¯·æ¢ä¸€ä¸ªcode");
             return "success";
         }else{
             CacheUtils.clear("dictCache");
             return super.save();
         }
     }
-
+    private String deleteDictionaries(List<Dictionary> dictionaries){
+        String logs = "";
+        if(dictionaries!=null&&dictionaries.size()>0){
+            for(Dictionary dictionary:dictionaries){
+                logs+=","+dictionary.getName();
+                logs+=deleteDictionaries(dictionary.getItems());
+                dictionaryLogicInterface.remove(dictionary);
+            }
+        }
+        return logs;
+    }
+    public String delete(){
+        Dictionary dict = dictionaryLogicInterface.get(keyId);
+        if(dict!=null){
+            List<Dictionary> dictionaries = dictionaryLogicInterface.getItemsOfCode(keyId,1);
+            String logs=deleteDictionaries(dictionaries);
+            logs=dict.getName()+logs;
+            writeSysLog("åˆ é™¤å­—å…¸æ¡ç›®æå…¶å­æ¡ç›®ï¼š"+logs);
+            dictionaryLogicInterface.remove(dict);
+            setSuccess(true);
+        }else{
+            setSuccess(false);
+            addActionError("æ— æ³•åˆ é™¤å­—å…¸ï¼Œæœªå‘ç°ï¼š"+keyId);
+        }
+        return Constants.ACTION_DELETE;
+    }
     public void setWillCreateNew(boolean willCreateNew) {
         this.willCreateNew = willCreateNew;
     }

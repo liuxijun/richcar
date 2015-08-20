@@ -81,7 +81,7 @@
 
                 <form role="form" class="form-horizontal">
                     <div class="input-group pull-right search-group" style="width:640px;height: 30px; margin: 9px;float:left;">
-                        <div style="width:120px;float:left;font-weight: 30px;font-size:22px;">车牌号码：</div>
+                        <div style="width:120px;float:left;font-weight: 30px;font-size:22px;">标题：</div>
                         <div style="width:150px;height: 30px;float: left;">
                             <input type="text" id="search_no" placeholder="例如：吉A09928" class="form-control" >
                         </div>
@@ -103,8 +103,8 @@
                             <table class="table table-striped table-bordered table-hover table-30">
                                 <thead>
                                 <tr>
-                                    <th width="30%" align="center"><a href="#" onclick='list.order_by("carNo")'>车牌</a></th>
-                                    <th width="20%" align="center"><a href="#" onclick='list.order_by("user")'>联系人</a></th>
+                                    <th width="30%" align="center"><a href="#" onclick='list.order_by("carNo")'>标题</a></th>
+                                    <th width="20%" align="center"><a href="#" onclick='list.order_by("miles")'>当时里程</a></th>
                                     <th width="10%"  align="center"><a href="#" onclick='list.order_by("createTime")'>检查日期</a></th>
                                     <th width="10%" align="center">状态</th>
                                     <th align="center">操作</th>
@@ -281,8 +281,8 @@ var list={
                 var createTime = list.truncateTime(obj['createTime']);
                 result +=
                         '<tr>' +
-                                '<td><a href="carView.jsp?keyId=' +obj['carId']+'">' + obj['carNo']+'</a></td>' +
-                            '<td class="center">' + obj['user']+'</td>' +
+                                '<td><a href="conductView.jsp?keyId=' +obj['id']+'">' + obj['title']+'</a></td>' +
+                            '<td class="center">' + obj['miles']+'</td>' +
                                 '<td class="center">' + createTime+'</td>' +
                                 '<td class="center">'+list.getTextOfArray(obj['status'],list.status,'value','text')+'</td>' +
                                 '<td class="center"><a class="btn btn-grey btn-xs"  href="carView.jsp?keyId=' +obj['id']+'">'+
@@ -316,7 +316,7 @@ var list={
                 break;
         }
         $.ajax({
-            url:'../cars/conduct!list.action',//menu!listFunctionMenus.action
+            url:'../conduct/conduct!list.action',//menu!listFunctionMenus.action
             data:({"obj.carId":carId,
                 "pageBean.pageSize":list.limit,
                 "pageBean.pageNo":page_index,
