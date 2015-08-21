@@ -165,6 +165,10 @@ function showDialog(parameters){
             '\t    <form class="form-horizontal" id="' +formId+'">\r\n';
 
     var items = parameters['items'];
+    var hiddenItems = parameters['hiddenItems'];
+    if(hiddenItems==null||typeof(hiddenItems)=='undefined'){
+        hiddenItems = [];
+    }
     if(items!=null&&typeof(items)!='undefined'&&isArray(items)){
         var i= 0,l=items.length;
         for(;i<l;i++){
@@ -196,6 +200,10 @@ function showDialog(parameters){
                 if(type==null){
                     type = 'text';
                 }
+            }
+            if(type=='hidden'){
+                hiddenItems.push({id:fieldId,value:value});
+                continue;
             }
             var allowBlank = getParameter(item,'allowBlank',true);
             var cls = item['cls'];
@@ -323,7 +331,6 @@ function showDialog(parameters){
             result +='\t\t<span class="btn'+extraCls+'" id="' +buttonId+'" '+extraStyle+'>'+button['text']+'</span>\r\n';
         }
     }
-    var hiddenItems = parameters['hiddenItems'];
     if(hiddenItems!=null&&isArray(hiddenItems)){
         var h= 0,hlen=hiddenItems.length;
         for(;h<hlen;h++){

@@ -295,6 +295,7 @@
                     success:function(data){
                         if(data['success']){
                             alert('保存成功！');
+                            updateDescriptionOfItem(data['data']);
                             $("#conductItemDetailModal").modal('hide');
                         }else{
                             alert('保存失败：\n'+data['msg']);
@@ -344,36 +345,13 @@
             {fieldLabel:'误差描述：',id:'item_errorRangeDesp'},
             {fieldLabel:'测量单位：',id:'item_unit'},
             {fieldLabel:'测量描述：',id:'item_currentValueDesp'},
-            {fieldLabel:'测量分类：',id:'item_type',type:'select',allowBlank:false},
-            {fieldLabel:'功能状态：',id:'item_status',type:'select',allowBlank:false}
+            {fieldLabel:'测量分类：',id:'item_type',type:'select',allowBlank:false,
+                items:[{name:'数字或文字',value:'1'},{name:'图片',value:'2'}]},
+            {fieldLabel:'功能状态：',id:'item_status',type:'select',allowBlank:false,
+                items:[{name:'可用',value:1},{name:'不可用',value:2}]}
         ]
     };
-    conductViewer.init({items:[
-        {
-            id:1,
-            name:'油液检测',
-            items:[
-                {
-                    id:2,
-                    name:'发动机机油',
-                    items:[
-                        {id:3,name:'密度',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                        ,{id:4,name:'粘度指数',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                        ,{id:5,name:'闪点',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                    ]
-                },
-                {
-                    id:6,
-                    name:'制动油',
-                    items:[
-                        {id:7,name:'平衡回流沸点',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                        ,{id:8,name:'湿平衡回流沸点',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                        ,{id:9,name:'-40℃运动黏度',standValueDesp:'标准值',currentValueDesp:'当前检测值',errorRangeDesp:'误差范围'}
-                    ]
-                }
-            ]
-        }
-    ]});
+    conductViewer.init({});
     function ConductItem(item){
         this.name = item['name'];
         this.id = item['id'];
@@ -408,7 +386,10 @@
     function getParameter(item,name,defaultVal){
         var result = item[name];
         if(result==null||result==''||typeof(result)=='undefined'){
-            return defaultVal;
+            result = item['obj.'+name];
+            if(result==null||result==''||typeof(result)=='undefined'){
+                return defaultVal;
+            }
         }
         return result;
     }
@@ -441,9 +422,43 @@
     function getHiddenOfItem(item,idx){
         var ids = ['id','errorRange','extraObj','correctValue','status','createTime','unit','type','standValue',
                    'unit','code','parentId','name','standValueDesp','errorRangeDesp','currentValueDesp'];
-        return getHiddenElement(item,'obj.items['+idx+'].',ids);
+        return getHiddenElement(item,'obj.items['+idx+'].',ids)+'\n<input type="hidden" id="itemValueIndex_'+
+                item['id']+'" value="'+idx+'">';
     }
     var valueIndex = 0;
+    function updateDescriptionOfItem(item){
+        if(item==null||typeof(item)=='undefined'){
+            return;
+        }
+        var id = getParameter(item,'obj.id',-1);
+        var idx = $("#itemValueIndex_"+id).val();
+        $("#itemDesp_"+id).html(getDescriptionOfItem(item,$("#obj_items_"+idx+"_currentValue").val(),idx,
+                120,"40px"
+        ))
+    }
+    function getDescriptionOfItem(item,value,idx,itemWidth,childWidth){
+        var unit = getParameter(item,'unit','');
+        var result =
+                '<div id="itemDesp_'+item['id']+'"><div style="width:'+(itemWidth)+'px;float:left;margin-top:5px;color:blue;font-size:14px;cursor:pointer"' +
+                ' onclick="conductViewer.viewItemDetail(' +getParameter(item,'id',-1)+')">' +
+                getParameter(item,'name','测试')+'</div>' +
+                '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +
+                getParameter(item,'standValueDesp','标准值')+'：' +
+                getParameter(item,'standValue','')+unit+'</div>' +
+                '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +
+                getParameter(item,'errorRangeDesp','误差范围')+'：' +
+                getParameter(item,'errorRange','±0')+unit+'</div>'+
+                '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +
+                getParameter(item,'currentValueDesp','测量值')+'：' +
+                '<input style="width:'+childWidth+'" id="obj_items_' +idx+'_currentValue" name="obj.items[' +
+                idx+'].currentValue" value="' +value+
+                '">' +unit+
+                '</div></div>';
+        if(value==null){
+            value = '';
+        }
+        return result;
+    }
     function getConductItemStr(item,level){
         var items = item['items'];
         var allColCount = 4;
@@ -457,22 +472,9 @@
             var childWidth = '40px;';
             var idx = valueIndex;
             var value = getParameter(item,'currentValue','');
-            var unit = getParameter(item,'unit','');
             valueIndex++;
             return '<div style="outline:1px solid gray;text-align:center;height:100%;width:' +itemWidth+'px;float:left;'+
-                    '"><div style="width:'+(itemWidth)+'px;float:left;margin-top:5px;color:blue;font-size:14px;cursor:pointer"' +
-                    ' onclick="conductViewer.viewItemDetail(' +item['id']+')">' +item['name']+'</div>' +
-                    '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['standValueDesp']+'：' +
-                    getParameter(item,'standValue','')+unit+'</div>' +
-                    '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['errorRangeDesp']+'：' +
-                    getParameter(item,'errorRange','±0')+unit+
-                    '</div>'+
-                    '<div style="width:'+itemWidth+'px;float:left;text-align:left;">' +item['currentValueDesp']+'：' +
-                    '<input style="width:'+childWidth+'" id="obj_items_' +idx+
-                    '_currentValue" name="obj.items[' +idx+
-                    '].currentValue" value="' +value+
-                    '">' +unit+
-                    '</div>'+getHiddenOfItem(item,idx)+
+                    '">'+getDescriptionOfItem(item,value,idx,itemWidth,childWidth)+getHiddenOfItem(item,idx)+
                     '</div>';
         }else{
             var rowCount = item['rowCount'];
