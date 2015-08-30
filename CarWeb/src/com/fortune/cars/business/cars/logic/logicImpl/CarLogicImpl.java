@@ -8,6 +8,8 @@ import com.fortune.common.business.base.logic.BaseLogicImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by xjliu on 2015/7/26.
  *
@@ -20,5 +22,17 @@ public class CarLogicImpl  extends BaseLogicImpl<Car> implements CarLogicInterfa
     public void setCarDaoInterface(CarDaoInterface carDaoInterface) {
         this.carDaoInterface = carDaoInterface;
         this.baseDaoInterface = (BaseDaoInterface)carDaoInterface;
+    }
+
+    @Override
+    public boolean login(String phone, String pwd) {
+        if(phone==null||"".equals(phone.trim())||pwd==null||"".equals(pwd.trim())){
+            return false;
+        }
+        Car bean = new Car();
+        bean.setPhone(phone);
+        bean.setPassword(pwd);
+        List<Car> cars = search(bean);
+        return cars!=null&&cars.size()>0;
     }
 }

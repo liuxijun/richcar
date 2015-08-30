@@ -2,6 +2,7 @@ package com.fortune.cars.web.cars;
 
 import com.fortune.util.BeanUtils;
 import com.fortune.util.FileUtils;
+import com.fortune.util.MD5Utils;
 import com.fortune.util.StringUtils;
 import com.fortune.util.net.URLEncoder;
 import org.apache.struts2.ServletActionContext;
@@ -13,6 +14,7 @@ import com.fortune.common.web.base.BaseAction;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @Namespace("/cars")
@@ -74,7 +76,26 @@ public class CarAction extends BaseAction<Car> {
         checkFile(fileOfCarPictureTop,"carPictureTop",fileNameOfCarPictureTop);
         checkFile(fileOfCarPictureBottom, "carPictureBottom", fileNameOfCarPictureBottom);
         BeanUtils.setDefaultValue(obj,"createDate",new Date());
-		log.debug("将保存：car=" + obj);
+		if(obj.getPassword()==null||obj.getPassword().trim().equals("")){
+			String phone = obj.getPhone();
+			String defaultPwd="888888";
+			if(phone!=null){
+				int l = phone.length();
+				if(l>6){
+					defaultPwd = phone.substring(l-7,l-1);
+				}else{
+					defaultPwd = phone;
+				}
+			}
+            try {
+                log.debug("没有口令，设置为缺省口令："+defaultPwd);
+                defaultPwd = MD5Utils.getMD5String(defaultPwd);
+            } catch (NoSuchAlgorithmException e) {
+                log.error("计算MD5时发生异常："+e.getLocalizedMessage());
+            }
+            obj.setPassword(defaultPwd);
+		}
+		log.debug("将保存：car=" + obj.getCarNo());
 		super.save();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		request.setAttribute("location","cars.jsp");

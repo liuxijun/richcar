@@ -240,7 +240,7 @@
         {fieldLabel:'档案编号',name:'obj.sn',readOnly:viewReadOnly,allowBlank:false},
         {fieldLabel:'车牌号码',name:'obj.carNo',readOnly:viewReadOnly,allowBlank:false},
         {fieldLabel:'客户名称',name:'obj.userId',readOnly:viewReadOnly},
-        {fieldLabel:'联系方式',name:'obj.tel',readOnly:viewReadOnly},
+        {fieldLabel:'联系方式',name:'obj.phone',readOnly:viewReadOnly,allowBlank:false},
         {fieldLabel:'车辆品牌',name:'obj.product',readOnly:viewReadOnly},
         {fieldLabel:'车辆型号',name:'obj.productType',readOnly:viewReadOnly,parentStoreCode:'product'},
         {fieldLabel:'产    地',name:'obj.productHometown',readOnly:viewReadOnly},
