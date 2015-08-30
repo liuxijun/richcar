@@ -235,6 +235,7 @@
       items:[
         {name:'obj.id',type:'hidden',value:'-1'},
         {fieldLabel:'创建时间',type:'hidden',name:'obj.createTime',readOnly:viewReadOnly},
+          {fieldLabel:'登录口令',type:'hidden',name:'obj.password',readOnly:viewReadOnly},
         {fieldLabel:'创建者',name:'obj.creator',type:'hidden',readOnly:viewReadOnly},
         {fieldLabel:'档案编号',name:'obj.sn',readOnly:viewReadOnly,allowBlank:false},
         {fieldLabel:'车牌号码',name:'obj.carNo',readOnly:viewReadOnly,allowBlank:false},

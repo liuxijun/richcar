@@ -1947,6 +1947,7 @@
         <property name="createTime" column="create_time" />
         <property name="creator" column="creator" />
         <property name="userId" column="user_id" />
+        <property name="password" column="password"/>
         <property name="sn" column="sn" />
         <property name="carNo" column="car_no" />
         <property name="product" column="product" />

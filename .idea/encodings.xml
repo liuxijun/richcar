@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/corners_bg.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/home_button_focused.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/RichFriend.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/params/ComParams.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/ACache.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/BaseException.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/CharsetUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/HttpException.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/HttpUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/IOUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/JsonUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/OtherUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/StringUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/TVException.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/Time.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/Types.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/ULog.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/URLUtil.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/Util.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/core/CompatibleAsyncTask.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/core/KeyExpiryMap.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/core/LruMemoryCache.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/core/SimpleSSLSocketFactory.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/Http.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/HttpUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/HttpHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/RequestCallBack.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/ResponseInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/RetryHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/SyncHttpHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/HttpGetCache.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/HttpRequest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/RequestParams.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/ResponseStream.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/callback/DefaultHttpRedirectHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/callback/FileDownloadHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/callback/HttpRedirectHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/callback/RequestCallBackHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/callback/StringDownloadHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/entity/BodyParamsEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/entity/DecompressingEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/entity/FileUploadEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/entity/GZipDecompressingEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/entity/InputStreamUploadEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/entity/UploadEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/FormBodyPart.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/HttpMultipart.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/HttpMultipartMode.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/MIME.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/MinimalField.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/MinimalFieldHeader.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/MultipartEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/content/AbstractContentBody.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/content/ByteArrayBody.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/content/ContentBody.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/content/ContentDescriptor.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/content/FileBody.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/content/InputStreamBody.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/multipart/content/StringBody.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/util/URIBuilder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/net/http/client/util/URLEncodedUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarWeb/doc/database/richcar.sql" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarWeb/doc/database/update.sql" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarWeb/src/com/fortune/cars/business/conduct/logic/logicImpl/ConductLogicImpl.java" charset="UTF-8" />

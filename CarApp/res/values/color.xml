@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#312d2c</color>
+    <color name="buttonTextColor">#928e8f</color>
+    <color name="menuTextColor">#949293</color>
+    <color name="focused">#F4F2F3</color>
+</resources>

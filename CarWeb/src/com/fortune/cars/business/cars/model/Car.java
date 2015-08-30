@@ -12,6 +12,7 @@ public class Car extends BaseModel implements java.io.Serializable {
 	private Date createTime;
 	private Integer creator;
 	private String userId;
+	private String password;
 	private String sn;
 	private String carNo;
 	private String product;
@@ -368,5 +369,13 @@ public class Car extends BaseModel implements java.io.Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

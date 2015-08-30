@@ -285,7 +285,7 @@ var list={
                             '<td class="center">' + obj['miles']+'</td>' +
                                 '<td class="center">' + createTime+'</td>' +
                                 '<td class="center">'+list.getTextOfArray(obj['status'],list.status,'value','text')+'</td>' +
-                                '<td class="center"><a class="btn btn-grey btn-xs"  href="carView.jsp?keyId=' +obj['id']+'">'+
+                                '<td class="center"><a class="btn btn-grey btn-xs"  href="conductView.jsp?keyId=' +obj['id']+'">'+
                                 '          <i class="ace-icon fa fa-edit bigger-110 icon-only"></i>'+
                                 '  </a><a class="btn btn-grey btn-xs" onclick="list.delete('+obj['id']+
                                 '\''+obj['carNo']+'\');return false;">'+

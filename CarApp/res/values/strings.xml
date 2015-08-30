@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">睿友</string>
+    <string name="launcher_name">@string/app_name</string>
+    <string name="activity_name">@string/launcher_name</string>
+    <string name="homeMenu01">睿桥导航</string>
+    <string name="homeMenu02">汽车产品</string>
+    <string name="homeMenu03">养护方案</string>
+    <string name="homeMenu04">维修方案</string>
+    <string name="homeMenu05">维修进度</string>
+    <string name="homeMenu06">服务质量</string>
+    <string name="homeMenu07">车辆信息</string>
+    <string name="homeMenuButtonLeft">睿乔车友</string>
+    <string name="homeMenuButtonRight">未读消息</string>
+    <string name="login_userId">登录帐号：</string>
+    <string name="login_button_doLogin">登录</string>
+    <string name="login_button_cancel">取消</string>
+    <string name="login_pwd">登录口令：</string>
+    <string name="notImpl">正在紧张施工中......</string>
+</resources>

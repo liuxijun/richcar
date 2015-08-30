@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>睿友</title>
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div data-role="header" data-position="fixed" data-theme="a">
+    <a href="#" onclick="carFriend.renderHome()" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">Back</a>
+    <h1>虞友</h1>
+</div><!-- /header -->
+
+<div data-role="page" class="jqm-demos">
+    <div class="ui-content jqm-content jqm-fullwidth" role="main" id="mainBody">
+
+    </div><!-- /content -->
+</div><!-- /page -->
+
+<div data-role="footer" data-position="fixed" data-theme="a" style="overflow: hidden;">
+    <div data-role="navbar">
+        <ul style="list-style-type:none;">
+            <li class="button button-selected" id="home"><div class="icon icon-home">&nbsp;</div><div>虞桥车友</div></li>
+<!--
+            <li class="button" id="orders"><div class="icon icon-orders">&nbsp;</div><div>订单</div></li>
+            <li class="button" id="service_tel"><div class="icon icon-service_tel">&nbsp;</div><div>客服</div></li>
+-->
+            <li class="button" id="my"><div class="icon icon-my">&nbsp;</div><div>我的虞友</div></li>
+        </ul>
+    </div>
+</div><!-- /footer -->
+<div data-role="dialog" id="serviceDialog" data-dismissible="false">
+    <div data-role="header" data-theme="d">
+        <h1>服务质量</h1>
+    </div>
+    <div data-role="content" data-theme="c">
+        <p>数据删除不可逆，一旦删除就无法恢复！您确定删除吗？</p>
+        <a href="#" data-role="button" data-rel="back" data-theme="b" id="ok">我确认</a> <a href="#" data-role="button" data-rel="back" data-theme="c">我再看看</a>
+    </div>
+</div>
+
+<div data-role="dialog" id="confirmDialog" data-dismissible="false">
+    <div data-role="header" data-theme="d">
+        <h1>提示信息</h1>
+    </div>
+    <div data-role="content" data-theme="c">
+        <h1>您确认要删除吗？</h1>
+        <p>数据删除不可逆，一旦删除就无法恢复！您确定删除吗？</p>
+        <a href="#" data-role="button" data-rel="back" data-theme="b" id="soundgood">我确认</a> <a href="#" data-role="button" data-rel="back" data-theme="c">我再看看</a>
+    </div>
+</div>
+</body>
+<script>
+    $(function(){
+        $( "[data-role='header'], [data-role='footer']" ).toolbar({ theme: "a" });
+        carFriend.renderHome();
+        $(".button").click(function(){
+            $(".button-selected").removeClass("button-selected");
+            var o = $(this);
+            o.addClass("button-selected");
+        });
+    });
+    var dateTime = new Date().getTime();
+    document.write("<script src='js/car.js?date="+dateTime+"'></"+"script>");
+    document.write("<script src='js/utils.js?date="+dateTime+"'></"+"script>");
+    document.write('<link rel="stylesheet" href="css/car.css?'+dateTime+'">');
+</script>
+</html>

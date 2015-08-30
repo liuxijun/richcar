@@ -1,0 +1,84 @@
+body{
+    margin:0;
+}
+#mainBody{
+    background-color: #bad5ed;
+    font-size: 16px;
+    color:gray;
+
+}
+.button{
+    opacity:0.3;
+    float:left;
+    width:40%;
+    margin-left:20px;
+    height:80px;
+    border-radius: 3px;
+    background-color:gray;
+    text-align: center;
+    border:1px solid gray;
+}
+.icon{
+    height:55px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.icon-home{
+    height:55px;
+    background-image:url(images/app_frame_bottom_home_checked.png);
+}
+.icon-my{
+    background-image:url(images/app_frame_bottom_my_checked.png);
+}
+.icon-orders{
+    background-image:url(images/app_frame_bottom_orders_checked.png);
+}
+.icon-service_tel{
+    background-image:url(images/app_frame_bottom_service_tel_checked.png);
+}
+.button-selected{
+    opacity:1.0;
+    background-color:#FEFEFE;
+}
+.homeMenu{
+    float:left;
+    border-radius: 3px;
+    width:48%;
+    height:100px;
+    margin: 2px;
+    color: #fffdbd;
+    transform:scale(1);
+    background-color: #ffbe65;
+}
+.homeMenuMouseOver{
+    transform:scale(0.95);
+}
+.homeMenu h1{
+    font-size:26px;
+    text-align: center;
+}
+.homeMenu span{
+    text-align: left;
+    color:lightslategray;
+}
+.homeMenu_richNav{
+    height:203px;
+}
+.homeMenu_carProduct{
+    background-color: #2ECC71;
+}
+.homeMenu_service{
+    background-color: #ECF0F1;
+}
+.homeMenu_repairProcess{
+    background-color: #34495E;
+}
+.homeMenu_repairSolution{
+    background-color: #3498DB;
+}
+.homeMenu_maintenance{
+    background-color: #E67E22;
+}
+.homeMenu_carInfo{
+    background-color: #F39C12;
+}
