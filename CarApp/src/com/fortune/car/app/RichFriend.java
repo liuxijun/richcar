@@ -234,6 +234,11 @@ public class RichFriend extends BaseActivity {
         LayoutInflater inflater = getLayoutInflater();
         loginDialog = inflater.inflate(R.layout.dialog_login,
                     (ViewGroup) findViewById(R.id.login_dialog_main_body));
+        String defaultUserId = User.getUserId(this);
+        if(defaultUserId == null){
+            defaultUserId = "";
+        }
+        setTextOf(loginDialog,R.id.login_et_user,defaultUserId);
         new AlertDialog.Builder(this).setTitle("请输入账号口令登录").setView(loginDialog)
             .setPositiveButton("确定", onLoginClick)
             .setNegativeButton("取消", null).show();
