@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.fortune.mobile.params.ComParams;
 import com.fortune.mobile.view.ProgressDialog;
+import com.fortune.util.Util;
 import org.w3c.dom.Text;
 
 /**
@@ -19,6 +21,7 @@ public class BaseActivity extends Activity {
    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       ComParams.userAgent = Util.getAgent(this, false);
         progDialog = com.fortune.mobile.view.ProgressDialog.show(this);
         progDialog.setCancelable(true);
     }
@@ -77,7 +80,5 @@ public class BaseActivity extends Activity {
             }
         }
         return false;
-
     }
-
 }

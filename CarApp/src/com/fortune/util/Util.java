@@ -1077,4 +1077,18 @@ public class Util {
 		return s;
 	}
 
+	public static String getAgent(Context context,boolean needEncodeToUrl){
+		String userAgent = "RichTechCarFiend "+getAPKVersion(context)+
+				"(Linux;Android "+android.os.Build.VERSION.RELEASE+";"+android.os.Build.MODEL+")";
+		if(needEncodeToUrl){
+			try {
+				userAgent = URLEncoder.encode(userAgent, "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return userAgent;
+	}
+
 }

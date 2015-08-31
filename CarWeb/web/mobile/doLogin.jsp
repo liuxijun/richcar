@@ -36,7 +36,7 @@
                 result.put("token",createToken(userId));
                 msg = "登录请求通过！";
             }else{
-                msg="登录请求被拒绝：userId="+userId+",pwd="+pwd;
+                msg="登录请求被拒绝,用户ID"+userId+",可能是错误的用户ID或者口令！";
             }
         }
     }

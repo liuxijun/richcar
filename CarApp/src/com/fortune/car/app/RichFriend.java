@@ -238,7 +238,7 @@ public class RichFriend extends BaseActivity {
         if(defaultUserId == null){
             defaultUserId = "";
         }
-        setTextOf(loginDialog,R.id.login_et_user,defaultUserId);
+        setTextOf(loginDialog, R.id.login_et_user, defaultUserId);
         new AlertDialog.Builder(this).setTitle("请输入账号口令登录").setView(loginDialog)
             .setPositiveButton("确定", onLoginClick)
             .setNegativeButton("取消", null).show();
@@ -271,6 +271,7 @@ public class RichFriend extends BaseActivity {
         }
         String url = ComParams.HTTP_LOGIN + "userId="+userId+"&pwd="+md5Pwd;
         Log.d(TAG,"准备发起登录请求："+url);
+        handler.configUserAgent(ComParams.userAgent);
         handler.send(HttpRequest.HttpMethod.GET,url , new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
