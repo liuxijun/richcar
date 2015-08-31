@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-
-             android:background="@drawable/bg"
-                >
+              android:background="@drawable/bg2">
         <ScrollView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
                 <FrameLayout
                         android:id="@+id/tv_home_body_main"
                         android:layout_width="1080px"
-                        android:layout_height="1834px">
+                        android:layout_height="1834px"
+                        >
+
+                        <ImageView
+                                android:layout_width="1080px"
+                                android:layout_height="1416px"
+                                android:id="@+id/ivCenterICON"
+                                android:layout_marginTop="82px"
+                                android:layout_gravity="center"
+                                android:background="@drawable/center_bg"/>
+                        <ImageView
+                                android:layout_width="556px"
+                                android:layout_height="220px"
+                                android:id="@+id/imageView"
+                                android:layout_gravity="center_horizontal|top"
+                                android:src="@drawable/banner"/>
                         <FrameLayout
                                 android:layout_width="244px"
                                 android:layout_height="248px"
@@ -184,8 +198,9 @@
                                 android:gravity="center"
                                 android:textColor="@color/buttonTextColor"
                                 android:focusable="true"/>
+
                 </FrameLayout>
         </ScrollView>
 
-</FrameLayout>
+</LinearLayout>
 

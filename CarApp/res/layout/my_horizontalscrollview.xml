@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#5c5c5c" >
+
+    <ImageView
+        android:id="@+id/horizontal_scroll_left_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_launcher"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/horizontal_scroll_right_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_launcher"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontal_scroll_horscrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scrollbars="none"
+		android:fadingEdge="none" >
+        <LinearLayout
+            android:id="@+id/horizontal_scroll_item_layout"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center" >
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</RelativeLayout>

@@ -11,16 +11,19 @@ import android.view.*;
 import android.widget.*;
 import com.fortune.car.app.activity.*;
 import com.fortune.mobile.params.ComParams;
-import com.fortune.util.ULog;
-import com.fortune.util.User;
-import com.fortune.util.Util;
-import com.fortune.util.ViewBean;
+import com.fortune.mobile.view.ProgressDialog;
+import com.fortune.util.*;
+import com.fortune.util.net.HttpUtils;
+import com.fortune.util.net.http.RequestCallBack;
+import com.fortune.util.net.http.ResponseInfo;
+import com.fortune.util.net.http.client.HttpRequest;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RichFriend extends Activity {
+public class RichFriend extends BaseActivity {
     public static String TAG = RichFriend.class.getSimpleName();
     public List<ActivityBean> activityBeans = new ArrayList<ActivityBean>();
     /**
@@ -94,7 +97,7 @@ public class RichFriend extends Activity {
     }
     public void setViews(){
         int screenWidth = Util.getWindowWidth(this);
-        int height=1896,width=1080;
+        int height=1896,width=1080,centerICONWidth=1080,centerICONHeight=1416;
         int buttonWidth=280,buttonHeight=130;
         int buttonPosX=100,buttonPosY=1680;
         int menuBarWidth=244,menuBarHeight=248;
@@ -102,9 +105,16 @@ public class RichFriend extends Activity {
         int menuCount=7;
 
         List<ViewBean> views = new ArrayList<ViewBean>();
-        views.add(new ViewBean("主体窗口",R.id.tv_home_body_main,width,height,0,0,40,0xFFFFFFFF));
+        views.add(new ViewBean("主体窗口",R.id.tv_home_body_main,
+                width,height,
+                0,0,
+                40,0xFFFFFFFF));
+        views.add(new ViewBean("中心圆盘",R.id.ivCenterICON,
+                centerICONWidth,centerICONHeight,
+                posX-centerICONWidth/2,posY-centerICONHeight/2,
+                40,0xFFFFFFFF));
         views.add(new ViewBean("左边按钮",R.id.tvHomeButtonLeft,buttonWidth,buttonHeight,buttonPosX,buttonPosY,18,0xFF928e8f,onLeftButtonClick));
-        views.add(new ViewBean("右边按钮",R.id.tvHomeButtonRight,buttonWidth,buttonHeight,(width-buttonPosX-buttonWidth),buttonPosY,18,0xFF928e8f,onLeftButtonClick));
+        views.add(new ViewBean("右边按钮",R.id.tvHomeButtonRight,buttonWidth,buttonHeight,(width-buttonPosX-buttonWidth),buttonPosY,18,0xFF928e8f,onRightButtonClick));
         int[] menuIds = new int[]{
                 R.id.tv_home_menu_body01,R.id.tv_home_menu_body02,
                 R.id.tv_home_menu_body03,R.id.tv_home_menu_body04,
@@ -128,11 +138,28 @@ public class RichFriend extends Activity {
         @Override
         public void onClick(View view) {
             Log.d(TAG, "点了我！");
-/*
-            view.setFocusable(true);
-            view.requestFocus();
-*/
             onMenuItemClick.onClick(view);
+        }
+    };
+    public View.OnClickListener onRightButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Log.d(TAG, "点了右边的按钮！");
+            new AlertDialog.Builder(view.getContext())
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("确认注销")
+                    .setMessage("您确认要暂时离开吗？")
+                    .setPositiveButton("是的，我确认！", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            User.saveToken(RichFriend.this,null);
+                            Toast.makeText(RichFriend.this,"已经注销",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    )
+                    .setNegativeButton("矮油，按错了！", null)
+                    .show();
         }
     };
     private Class willStartCls = null;
@@ -225,26 +252,64 @@ public class RichFriend extends Activity {
                 Log.e(TAG,"未输入口令！");
             }
             Log.d(TAG,"准备登录....."+userId+","+pwd);
-            if("xjliu".equalsIgnoreCase(userId)){
-                String token = pwd;
-                if(token==null){
-                    token = "";
-                }
-                loginSuccessed(userId,token);
-            }else{
-                loginFailed();
-            }
+            doLogin(userId,pwd);
         }
     };
+
+    public void doLogin(String userId,String pwd){
+        HttpUtils handler = new HttpUtils();
+        String md5Pwd = pwd;
+        try {
+            md5Pwd = MD5Utils.getMD5String(pwd);
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(TAG,"MD5计算时发生异常："+e.getLocalizedMessage());
+        }
+        String url = ComParams.HTTP_LOGIN + "userId="+userId+"&pwd="+md5Pwd;
+        Log.d(TAG,"准备发起登录请求："+url);
+        handler.send(HttpRequest.HttpMethod.GET,url , new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Log.d(TAG, "登录返回数据：" + responseInfo.result);
+                loginBean result = JsonUtils.fromJsonString(loginBean.class, responseInfo.result);
+                progDialog.dismiss();
+                if (result != null) {
+                    if (result.isSuccess()) {
+                        loginSuccessed(result.getUserId(), result.getToken());
+                    } else {
+                        loginFailed(result.getMsg());
+                    }
+                    return;
+                }else{
+                    Log.e(TAG,"无法从服务器获取到正确的返回结果："+responseInfo.result);
+                }
+                loginFailed("服务器返回数据异常，无法登录！请稍候再试！");
+            }
+
+            @Override
+            public void onStart() {
+                Log.d(TAG, "启动WEB请求，要求登录");
+                progDialog.show();
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                Log.e(TAG,"请求登录失败！");
+                progDialog.dismiss();
+            }
+        });
+    }
     public void loginSuccessed(String userId,String token){
         Log.d(TAG,"用户登录成功，记录用户登录状态："+userId+","+token);
         User.saveUserId(this,userId);
         User.saveToken(this,token);
         startActivity(willStartCls);
     }
-    public void loginFailed(){
+    public void loginFailed(String msg){
         Log.d(TAG,"用户登录失败，记录用户登录状态！");
-        Toast.makeText(this,"登录失败了！",Toast.LENGTH_LONG).show();
+        if(msg==null){
+            msg = "错误的帐号或者口令，或已经超时";
+        }
+        Toast.makeText(this,"登录失败了："+msg,Toast.LENGTH_LONG).show();
     }
     public String getEditText(View view,int id,String defaultVal){
         try {
@@ -285,5 +350,44 @@ public class RichFriend extends Activity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    public class loginBean{
+        private String userId;
+        private String token;
+        private boolean success;
+        private String msg;
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public void setSuccess(boolean success) {
+            this.success = success;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
     }
 }

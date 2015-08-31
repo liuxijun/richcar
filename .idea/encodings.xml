@@ -1,10 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/CarApp/res/anim" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/image_bg.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressbar_1.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressbar_2.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressbar_3.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressbar_4.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressbar_5.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressbar_6.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressbar_7.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressbar_8.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressdlg_bg.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/pull_2_refresh_arrow.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/pull_2_refresh_arrow_up.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/res/drawable/corners_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/res/drawable/home_button_focused.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load_1.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load_11.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load_13.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load_15.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load_3.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load_5.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load_7.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load_9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/layout/my_horizontalscrollview.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/layout/my_horizontalscrollview_item.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/layout/my_imageview.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/layout/progress_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/layout/progress_width_letter_layout.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/layout/pull_2_refresh_footer.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/layout/pull_2_refresh_header.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/layout/register_alert_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/values/pull_2_refresh.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/RichFriend.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/download/DownloadInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/download/DownloadTask.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/download/OnDownloadListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/params/ComParams.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/CheckTextView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/GifView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/ImageGallery.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/MyHorizontalScrollView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/MyImageView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/MyVerticalSeekBar.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/ProgressDialog.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/PullToRefreshView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/ScrollViewExtend.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/gif/GifAction.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/gif/GifDecoder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/gif/GifFrame.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/hscroll/TitleItemBeans.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/imagegallery/ImageGalleyAdapter1.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/imagegallery/ImageGalleyAdapter2.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/imagegallery/ImageGalleyAdapter3.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/utils/ImageCache.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/view/utils/LoadImageRunnable.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/ACache.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/BaseException.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/util/CharsetUtils.java" charset="UTF-8" />
