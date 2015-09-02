@@ -66,3 +66,4 @@ CREATE TABLE car_friend
 );
 
 alter table car add password varchar(64);
+alter table car add phone VARCHAR(32);

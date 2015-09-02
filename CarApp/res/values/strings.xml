@@ -17,4 +17,11 @@
     <string name="login_button_cancel">取消</string>
     <string name="login_pwd">登录口令：</string>
     <string name="notImpl">正在紧张施工中......</string>
+    <string name="corpIntro">睿乔汽车服务有限公司，构思于2008年。历经了6年的精心准备，在新一轮汽车后市场浪潮掀起之际，创始人林国义先生终于在2014年末付之行动，成立了全新的汽车后市场服务模式的睿乔汽车服务有限公司，公司坚持站在客户立场，大胆尝试将“便捷、放心、省钱、省心”的客户需求变成现实。\n      林国义先生，1993年从事汽车行业，从技术到管理经历了23年，积累丰富的经验。纵观全部历程以及中国汽车市场的种种变化，林国义先生决定驻足于汽车后市场。修车如同大夫看病，既是技术活又是良心活，如何“服务汽车”令他较劲脑汁，经过周密的调研与计算，全新的运营模式出炉了，这种模式既保证了公司的利润，又能够让我们的客户在享受放心、省心的前提下不多花一分钱。 公司总部设立在北京，2015年1月率先在吉林省设立连锁分公司。</string>
+    <string name="corpWill">睿哲人文、乔升自身、以车为本、以客为尊</string>
+    <string name="rememberUserId">记住帐号</string>
+    <string name="autoLogin">自动登录</string>
+    <string name="forgetPwd">忘记密码</string>
+    <string name="alreadyAgreen">已阅读并同意</string>
+    <string name="allRight">使用协议和隐私条款</string>
 </resources>

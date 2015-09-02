@@ -40,9 +40,10 @@ public class RichFriend extends BaseActivity {
         activityBeans.add(new ActivityBean(R.id.tv_home_menu_body04, RepairSolutions.class, true));
         activityBeans.add(new ActivityBean(R.id.tv_home_menu_body05, RepairProgress.class, true));
         activityBeans.add(new ActivityBean(R.id.tv_home_menu_body06, Services.class, true));
-        activityBeans.add(new ActivityBean(R.id.tv_home_menu_body07, Products.class, true));
+        activityBeans.add(new ActivityBean(R.id.tv_home_menu_body07, Products.class, false));
         activityBeans.add(new ActivityBean(R.id.tvHomeButtonLeft, com.fortune.car.app.activity.RichFriend.class, true));
         activityBeans.add(new ActivityBean(R.id.tvHomeButtonRight, Messages.class, true));
+        activityBeans.add(new ActivityBean(R.id.ivCenterICON, About.class, false));
     }
     public void setViewInfo(View view,int w,int h,int x,int y,int fontSize,int fontColor,float rate,View.OnClickListener onClickListener){
         if(w>=0){
@@ -112,7 +113,7 @@ public class RichFriend extends BaseActivity {
         views.add(new ViewBean("中心圆盘",R.id.ivCenterICON,
                 centerICONWidth,centerICONHeight,
                 posX-centerICONWidth/2,posY-centerICONHeight/2,
-                40,0xFFFFFFFF));
+                40,0xFFFFFFFF,onMenuItemClick));
         views.add(new ViewBean("左边按钮",R.id.tvHomeButtonLeft,buttonWidth,buttonHeight,buttonPosX,buttonPosY,18,0xFF928e8f,onLeftButtonClick));
         views.add(new ViewBean("右边按钮",R.id.tvHomeButtonRight,buttonWidth,buttonHeight,(width-buttonPosX-buttonWidth),buttonPosY,18,0xFF928e8f,onRightButtonClick));
         int[] menuIds = new int[]{
@@ -132,6 +133,7 @@ public class RichFriend extends BaseActivity {
             setViewInfo(viewBean.getTitle(),viewBean.getrId(),viewBean.getWidth(),viewBean.getHeight(),
                     viewBean.getX(),viewBean.getY(),viewBean.getFontSize(),viewBean.getFontColor(),rate,viewBean.getOnClickListener());
         }
+
     }
 
     public View.OnClickListener onLeftButtonClick = new View.OnClickListener() {
@@ -230,6 +232,7 @@ public class RichFriend extends BaseActivity {
         }
     }
     private View loginDialog;
+    private AlertDialog alertDialog;
     public void showLogin(){
         LayoutInflater inflater = getLayoutInflater();
         loginDialog = inflater.inflate(R.layout.dialog_login,
@@ -239,25 +242,47 @@ public class RichFriend extends BaseActivity {
             defaultUserId = "";
         }
         setTextOf(loginDialog, R.id.login_et_user, defaultUserId);
-        new AlertDialog.Builder(this).setTitle("请输入账号口令登录").setView(loginDialog)
-            .setPositiveButton("确定", onLoginClick)
+        alertDialog = new AlertDialog.Builder(this).setTitle("请输入账号口令登录").setView(loginDialog)
+            .setPositiveButton("确定", null)
             .setNegativeButton("取消", null).show();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(onLoginClick);
     }
-
-    DialogInterface.OnClickListener onLoginClick = new DialogInterface.OnClickListener() {
+    boolean autoLogin = true;
+    boolean rememberUserId = true;
+    View.OnClickListener onLoginClick = new View.OnClickListener() {
         @Override
-        public void onClick(DialogInterface dialogInterface, int i) {
+        public void onClick(View view) {
+            if(!checked(loginDialog,R.id.checkBoxAgreeLicense)){
+                Toast.makeText(RichFriend.this,"不同意许可，将无法使用本系统提供的完整服务！",Toast.LENGTH_LONG).show();
+                return;
+            }
             String userId = getEditText(loginDialog,R.id.login_et_user,null);
+            String errorLog = "";
             if(userId==null||"".equals(userId)){
-                Log.e(TAG,"未输入帐号！");
-
+                errorLog += "未输入帐号！";
+                Log.e(TAG,errorLog);
+            }else{
+                rememberUserId =checked(loginDialog,R.id.checkBoxRememberUserId);
+                if(rememberUserId){
+                    User.saveUserId(RichFriend.this,userId);
+                }else{
+                    User.saveUserId(RichFriend.this,null);
+                }
             }
             String pwd = getEditText(loginDialog,R.id.login_et_pwd,null);
-            if(userId==null||"".equals(userId)){
-                Log.e(TAG,"未输入口令！");
+            if(pwd==null||"".equals(pwd)){
+                errorLog += "未输入口令！";
+                Log.e(TAG,errorLog);
+            }else{
+                autoLogin = checked(loginDialog,R.id.checkBoxAutoLogin);
+            }
+            if(!"".equals(errorLog)){
+                Toast.makeText(RichFriend.this,"无法登录："+errorLog,Toast.LENGTH_LONG).show();
+                return;
             }
             Log.d(TAG,"准备登录....."+userId+","+pwd);
             doLogin(userId,pwd);
+            alertDialog.dismiss();
         }
     };
 
@@ -270,9 +295,9 @@ public class RichFriend extends BaseActivity {
             Log.e(TAG,"MD5计算时发生异常："+e.getLocalizedMessage());
         }
         String url = ComParams.HTTP_LOGIN + "userId="+userId+"&pwd="+md5Pwd;
-        Log.d(TAG,"准备发起登录请求："+url);
+        Log.d(TAG, "准备发起登录请求：" + url);
         handler.configUserAgent(ComParams.userAgent);
-        handler.send(HttpRequest.HttpMethod.GET,url , new RequestCallBack<String>() {
+        handler.send(HttpRequest.HttpMethod.GET, url, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Log.d(TAG, "登录返回数据：" + responseInfo.result);
@@ -285,8 +310,8 @@ public class RichFriend extends BaseActivity {
                         loginFailed(result.getMsg());
                     }
                     return;
-                }else{
-                    Log.e(TAG,"无法从服务器获取到正确的返回结果："+responseInfo.result);
+                } else {
+                    Log.e(TAG, "无法从服务器获取到正确的返回结果：" + responseInfo.result);
                 }
                 loginFailed("服务器返回数据异常，无法登录！请稍候再试！");
             }
@@ -299,15 +324,21 @@ public class RichFriend extends BaseActivity {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                Log.e(TAG,"请求登录失败！");
+                Log.e(TAG, "请求登录失败！");
                 progDialog.dismiss();
             }
         });
     }
     public void loginSuccessed(String userId,String token){
-        Log.d(TAG,"用户登录成功，记录用户登录状态："+userId+","+token);
-        User.saveUserId(this,userId);
-        User.saveToken(this,token);
+        Log.d(TAG, "用户登录成功，记录用户登录状态：" + userId + "," + token);
+        if(rememberUserId){
+            User.saveUserId(this,userId);
+        }
+        if(autoLogin){
+            User.saveToken(this,token);
+        }else{
+            User.saveToken(this,null);
+        }
         startActivity(willStartCls);
     }
     public void loginFailed(String msg){

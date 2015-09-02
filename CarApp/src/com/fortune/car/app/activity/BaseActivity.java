@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.fortune.mobile.params.ComParams;
@@ -17,7 +18,7 @@ import org.w3c.dom.Text;
  */
 public class BaseActivity extends Activity {
     protected ProgressDialog progDialog;
-
+    protected String TAG = getClass().getSimpleName();
    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class BaseActivity extends Activity {
                 return true;
             }
         } catch (Exception e) {
-            Log.e("BaseAcitivity.setTextOf", "ÎŞ·¨ÉèÖÃ×ÊÔ´" + rId + "µ½¡°" + text + "¡±");
+            Log.e("BaseAcitivity.setTextOf", "æ— æ³•è®¾ç½®èµ„æº" + rId + "åˆ°â€œ" + text + "â€");
         }
         return false;
     }
@@ -70,15 +71,43 @@ public class BaseActivity extends Activity {
                     }else if(child instanceof TextView){
                         ((TextView)child).setText(text);
                     }else{
-                        Log.e("BaseActivity","ÎŞ·¨Ê¶±ğ£º"+child.getClass().getSimpleName());
+                        Log.e("BaseActivity","æ— æ³•è¯†åˆ«ï¼š"+child.getClass().getSimpleName());
                         return false;
                     }
                     return true;
                 }
             } catch (Exception e) {
-                Log.e("BaseAcitivity.setTextOf","ÎŞ·¨ÉèÖÃ×ÊÔ´"+rId+"µ½¡°"+text+"¡±");
+                Log.e("BaseAcitivity.setTextOf","æ— æ³•è®¾ç½®èµ„æº"+rId+"åˆ°â€œ"+text+"â€");
             }
         }
         return false;
+    }
+    public boolean checked(int rId) {
+        return checked(null,rId,false);
+    }
+    public boolean checked(int rId,boolean defaultVal) {
+        return checked(null,rId,defaultVal);
+    }
+    public boolean checked(View parent,int rId){
+        return checked(parent,rId,false);
+    }
+    public boolean checked(View parent,int rId,boolean defaultVal){
+        try {
+            CheckBox checkBox;
+            if(parent!=null){
+                checkBox = (CheckBox) parent.findViewById(rId);
+            }else{
+                checkBox = (CheckBox)findViewById(rId);
+            }
+            if(checkBox!=null){
+                return checkBox.isChecked();
+            }else{
+                Log.e(TAG,"æ²¡æœ‰æ‰¾åˆ°CheckBoxç»„ä»¶ï¼š"+rId);
+            }
+        } catch (Exception e) {
+            Log.e(TAG,"å‘ç”Ÿå¼‚å¸¸ï¼š"+e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        return defaultVal;
     }
 }

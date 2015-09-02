@@ -3,15 +3,24 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-                android:background="@color/background">
+                android:background="@color/background"
+        >
+
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageView2"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/map"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/notImpl"
-            android:id="@+id/textView"
-            android:textColor="#FFF"
-            android:textSize="30sp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:text="心形图标为全国连锁店分布"
+            android:id="@+id/textView2"
+            android:drawableStart="@drawable/heart"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp"/>
 </RelativeLayout>

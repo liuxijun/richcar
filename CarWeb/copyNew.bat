@@ -1,4 +1,4 @@
-set APP_DIR=new
+icset APP_DIR=new
 md %APP_DIR%
 set DEST_DIR=%APP_DIR%\WEB-INF\classes
 xcopy /s /EXCLUDE:excludeFiles /d:08-21-2015 ..\out\artifacts\CarWeb_war_exploded %APP_DIR%

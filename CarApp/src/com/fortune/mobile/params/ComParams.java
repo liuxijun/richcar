@@ -44,7 +44,7 @@ public class ComParams {
 	// ------------------------------------------------------------------------------
 	//private static final String HTTP_BASE = "http://test.fortune-net.cn:8087";
 	//private static final String HTTP_BASE = "http://iptv.inhe.net";
-	private static final String HTTP_BASE = "http://192.168.1.10";
+	private static final String HTTP_BASE = "http://103.21.116.242";
     //private static final String HTTP_BASE = "http://61.55.144.33";
 	private static final String HTTP_PROJECT_NAME="/cars/";
 	public static boolean displayDownloadAPK=false;

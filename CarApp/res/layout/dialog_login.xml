@@ -4,7 +4,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/login_dialog_main_body"
-              android:padding="10dp">
+              android:padding="10dp"
+        >
 
     <LinearLayout
             android:orientation="horizontal"
@@ -49,6 +50,67 @@
                 android:layout_weight="1"
                 android:password="true"/>
     </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rememberUserId"
+                android:id="@+id/checkBoxRememberUserId"
+                android:checked="true"
+                android:textSize="25sp"
+                android:textColor="@color/buttonTextColor"/>
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/autoLogin"
+                android:id="@+id/checkBoxAutoLogin"
+                android:textSize="25sp"
+                android:layout_marginLeft="10dp"
+                android:checked="true"
+                android:textColor="@color/buttonTextColor"/>
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgetPwd"
+            android:id="@+id/textView8"
+            android:layout_gravity="right"
+            android:textSize="20sp"
+            android:textColor="#ff97b5ff"
+            android:layout_margin="10dp"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alreadyAgreen"
+                android:id="@+id/checkBoxAgreeLicense"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/textView9"
+                android:checked="true"
+                android:textColor="@color/buttonTextColor"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/allRight"
+                android:id="@+id/textView9"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="#ff49c3ff"/>
+    </RelativeLayout>
 
 
 </LinearLayout>

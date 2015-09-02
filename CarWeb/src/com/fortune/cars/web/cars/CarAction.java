@@ -82,7 +82,7 @@ public class CarAction extends BaseAction<Car> {
 			if(phone!=null){
 				int l = phone.length();
 				if(l>6){
-					defaultPwd = phone.substring(l-7,l-1);
+					defaultPwd = phone.substring(l-6);
 				}else{
 					defaultPwd = phone;
 				}
