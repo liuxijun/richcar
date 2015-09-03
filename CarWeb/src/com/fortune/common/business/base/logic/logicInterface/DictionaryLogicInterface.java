@@ -10,5 +10,7 @@ import java.util.List;
  *
  */
 public interface DictionaryLogicInterface extends BaseLogicInterface<Dictionary> {
-    public List<Dictionary> getItemsOfCode(String code,int repeatTimes);
+    List<Dictionary> getItemsOfCode(String code,int repeatTimes);
+    boolean codeExists(String code);
+    String getNameOfCode(final String code,final String parentCode);
 }

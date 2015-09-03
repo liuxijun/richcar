@@ -245,7 +245,17 @@ public class RichFriend extends BaseActivity {
         alertDialog = new AlertDialog.Builder(this).setTitle("请输入账号口令登录").setView(loginDialog)
             .setPositiveButton("确定", null)
             .setNegativeButton("取消", null).show();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(onLoginClick);
+        final Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        button.setOnClickListener(onLoginClick);
+        final CheckBox agreeBox = (CheckBox) loginDialog.findViewById(R.id.checkBoxAgreeLicense);
+        if(agreeBox!=null){
+            agreeBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    button.setEnabled(agreeBox.isEnabled());
+                }
+            });
+        }
     }
     boolean autoLogin = true;
     boolean rememberUserId = true;

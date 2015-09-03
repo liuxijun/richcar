@@ -47,38 +47,4 @@
     out.print(JsonUtils.getJsonString(result));
 %><%!
     Logger logger = Logger.getLogger("com.fortune.richcar.jsp.doLogin.jsp");
-    public boolean verifyToken(String token,String phone){
-        String pwd = AppConfigurator.getInstance().getConfig("mobileTokenPassword","fortune!@#456");
-        boolean result = false;
-        if(token!=null&&phone!=null&&pwd!=null){
-            if(token.length()==46){
-                String timeStr = token.substring(0,14);
-                String lastToken = token.substring(14);
-                logger.debug("lastToken="+lastToken+",timeStr="+timeStr);
-                try {
-                    String calToken = MD5Utils.getMD5String(timeStr + phone + pwd);
-                    if(lastToken.equals(calToken)){
-                        result = true;
-                    }else{
-                        logger.error("校验token失败："+calToken+"!="+lastToken);
-                    }
-                } catch (NoSuchAlgorithmException e) {
-                }
-            }else{
-                logger.error("Token长度异常："+token.length()+"!=46");
-            }
-        }else{
-            logger.error("参数缺失：token="+token+",phone="+phone+",pwd="+pwd);
-        }
-        return result;
-    }
-    public String createToken(String phone){
-        String pwd = AppConfigurator.getInstance().getConfig("mobilePhoneTokenPassword","fortune!@#456");
-        String timeStr = StringUtils.date2string(new Date(), "yyyyMMddHHmmss");
-        try {
-            return timeStr+MD5Utils.getMD5String(timeStr+phone+pwd);
-        } catch (NoSuchAlgorithmException e) {
-            return null;
-        }
-    }
-%>
+%><%@include file="utilsToken.jsp"%>
