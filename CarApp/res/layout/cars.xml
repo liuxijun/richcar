@@ -4,50 +4,50 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
                 android:background="@color/background">
-
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/linearLayout">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="基本信息"
-                android:id="@+id/textView10"
-                android:textSize="25sp"
-                android:background="@color/focused"
-                android:textColor="@color/background"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="检测信息"
-                android:id="@+id/textView11"
-                android:background="@color/menuTextColor"
-                android:textSize="20sp"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"/>
-    </LinearLayout>
-
     <ScrollView
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/linearLayout"
-            android:background="@color/focused">
-
+            >
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/ll_base_info_container">
 
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="请选择车辆"
+                    android:id="@+id/textView14"
+                    android:gravity="center"
+                    android:textSize="30sp"/>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/ll_cars_list_contain">
+
+                <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New Button"
+                        android:id="@+id/button01"
+                        android:gravity="center"
+                        android:layout_margin="30dp"/>
+                <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New Button"
+                        android:id="@+id/button02"
+                        android:gravity="center"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 import com.fortune.car.app.R;
 import com.fortune.car.app.bean.Car;
@@ -23,35 +22,18 @@ import java.util.List;
  * Created by xjliu on 2015/8/30.
  *
  */
-public class Cars extends BaseActivity {
+public class CarInfo extends BaseActivity {
+    private long carId=-1;
     private HttpUtils handler = null;
-    private List<Car> cars;
+    private Car car;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        cars = new ArrayList<Car>();
-        Car car = new Car();
-        car.setCarNo("»¦F08825-1");
-        Car car2 = new Car();
-        car2.setCarNo("»¦F08825-2");
-        cars.add(car2);
         setContentView(R.layout.cars);
         //loadCarInfo();
     }
 
     private void initViews(){
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.ll_cars_list_contain);
-        linearLayout.removeAllViews();
-        LayoutInflater inflater = getLayoutInflater();
-        for(Car car:cars){
-            View carTitleView = inflater.inflate(R.layout.car_info_car_list_item,null);
-            if(carTitleView!=null){
-                carTitleView.setTag(car);
-                setTextOf(carTitleView,R.id.car_list_item_title,car.getCarNo());
-                setClickHandler(carTitleView,R.id.car_list_item_title,clickOnCar);
-                linearLayout.addView(carTitleView);
-            }
-        }
     }
 
     protected View.OnClickListener clickOnCar = new View.OnClickListener(){
@@ -62,7 +44,7 @@ public class Cars extends BaseActivity {
         }
     };
     public void loadCarInfo(){
-        String url = ComParams.HTTP_LIST_CAR+"phone="+ User.getPhone(this)+"&token="+User.getToken(this);
+        String url = ComParams.HTTP_LIST_CAR+"phone="+ User.getPhone(this)+"&token="+User.getToken(this)+"&carId="+carId;
         handler = new HttpUtils();
         handler.configUserAgent(ComParams.userAgent);
         handler.send(HttpRequest.HttpMethod.GET, url, new RequestCallBack<String>() {
