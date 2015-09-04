@@ -13,6 +13,7 @@
   <title>管理首页-车辆管理</title>
   <meta name="description" content="overview &amp; stats"/>
   <%@include file="../inc/displayCssJsLib.jsp" %>
+    <link rel="stylesheet" href="../style/bootstrap-datetimepicker.min.css"/>
   <style type="text/css">
     .pictureDiv{
       width:280px;
@@ -120,7 +121,10 @@
   <div id="modalDialog">
   </div>
   <!-- inline scripts related to this page -->
-  <script type="text/javascript">
+    <script type="text/javascript" src="../scripts/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script src="../scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <script type="text/javascript">
     var page_index = 1;
     var page_size = 10;
     jQuery(function ($) {
@@ -308,11 +312,54 @@
     var __system_obj_data=null;
     var __system_form_will_fill=false;
     var __system_obj_filled=false;
-    function fillForm(obj){
+    function fillForm(obj,viewCarData){
         if(!__system_render_finished){
             return;
         }
         if(obj!=null){
+            var carItems = viewCar['items'];
+            var i= 0,l=carItems.length;
+            for(;i<l;i++){
+                var carItem = carItems[i];
+                var name = carItem['name'];
+                if(name==null||typeof(name)=='undefined'){
+                    continue;
+                }
+                var id = carItem['id'];
+                if(id==null){
+                    id = name.replace(/\./g,'_');
+                }
+                var type = carItem['type'];
+                if(type==null||typeof(type)=='undefined'){
+                    type = 'text';
+                }
+                var v = obj[name];
+                if(v==null||v=='null'||v=='NULL'||typeof(v)=='undefined'){
+                    v = '';
+                }
+                if(type=='image'){
+                    var picId = 'previewImage_'+id;
+                    var picEle = document.getElementById(picId);
+                    if(picEle!=null){
+                        picEle.src = v;
+                    }else{
+                        alert('未发现图片元素：'+pId);
+                    }
+                    $("#fileOrgValue_"+id).val(v);
+                }else{
+                    var ele = document.getElementById(id);
+                    if(ele!=null){
+                        $("#"+id).val(v);
+                        if(type=='date'){
+                            if(v.length>10){
+                                v = v.substring(0,10);
+                            }
+                            $("#displayField_"+id).val(v);
+                        }
+                    }
+                }
+            }
+/*
             for(var p in obj){
                 if(obj.hasOwnProperty(p)){
                     var v = obj[p];
@@ -342,6 +389,7 @@
 
                 }
             }
+*/
         }
         __system_obj_filled = true;
     }
@@ -355,7 +403,7 @@
                 success:function(jsonData){
                     var obj = jsonData['data'];
                     __system_obj_data = obj;
-                    fillForm(obj);
+                    fillForm(obj,viewCar);
                 }
             });
         }
@@ -371,7 +419,7 @@
               fortuneCarViewer.renderTo('viewMainBody');
               __system_render_finished = true;
               if(__system_form_will_fill){
-                  fillForm(__system_obj_data);
+                  fillForm(__system_obj_data,viewCar);
               }
           }
     }

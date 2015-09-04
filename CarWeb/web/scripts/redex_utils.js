@@ -476,7 +476,7 @@ var FortuneView = function(options){
             var dateTimePickers = $(".datepickerForInput");
             dateTimePickers.datetimepicker({
                 language: 'zh-CN',
-                //format:'yyyymmdd',
+                format:'yyyy-mm-dd',
                 weekStart: 1,
                 todayBtn: true,
                 autoclose: true,
@@ -556,14 +556,14 @@ var FortuneView = function(options){
             if(xtype=='text'){
                 result+='<input type="text" id="'+id+'" name="'+name+'"'+extraCls+'>'
             }else if(xtype=='date'){
-                var format = 'YYYY-MM-DD';
+                var format = 'yyyy-mm-dd';
                 if(value==null||value=='null'){
                     value = '';
                 }
                 result+='<div class="input-group date form_date datepickerForInput" style="width:100%;"' +
                     ' data-date="'+value+'" data-date-format="'+format+'" data-link-field="' +id+
                     '" data-link-format="'+format+'">'+
-                    '<input class="form-control" size="16" type="text" id="displayField_'+name+'" value="'+value+'" readonly>'+
+                    '<input class="form-control" size="16" type="text" id="displayField_'+id+'" value="'+value+'" readonly>'+
                     //'<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>'+
                     '<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>'+
                     '</div>'+

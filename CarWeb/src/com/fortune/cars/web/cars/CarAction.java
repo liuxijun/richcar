@@ -75,7 +75,7 @@ public class CarAction extends BaseAction<Car> {
         checkFile(fileOfCarPictureRight,"carPictureRight",fileNameOfCarPictureRight);
         checkFile(fileOfCarPictureTop,"carPictureTop",fileNameOfCarPictureTop);
         checkFile(fileOfCarPictureBottom, "carPictureBottom", fileNameOfCarPictureBottom);
-        BeanUtils.setDefaultValue(obj,"createDate",new Date());
+        BeanUtils.setDefaultValue(obj,"createTime",new Date());
 		if(obj.getPassword()==null||obj.getPassword().trim().equals("")){
 			String phone = obj.getPhone();
 			String defaultPwd="888888";

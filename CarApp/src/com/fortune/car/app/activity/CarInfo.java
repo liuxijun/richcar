@@ -55,7 +55,8 @@ public class CarInfo extends BaseActivity {
                     for(CarDisplayItem item:items){
                         View itemView;
                         int rId = R.layout.cars_baseinfo_item;
-                        if("image".equals(item.getType())){
+                        String type = item.getType();
+                        if("image".equals(type)){
                             rId = R.layout.cars_baseinfo_item_image;
                         }
                         itemView = inflater.inflate(rId,null);
@@ -71,7 +72,13 @@ public class CarInfo extends BaseActivity {
                                     pic.setImage(picUrl,null,true);
                                 }
                             }else{
-                                setTextOf(itemView, R.id.tv_car_base_info_value, item.getValue());
+                                String value = item.getValue();
+                                if("date".equals(type)){
+                                    if(value.length()>10){
+                                        value = value.substring(0,10);
+                                    }
+                                }
+                                setTextOf(itemView, R.id.tv_car_base_info_value, value);
                             }
                             baseInfoContainer.addView(itemView);
                         }
