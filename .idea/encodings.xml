@@ -34,6 +34,8 @@
     <file url="file://$PROJECT_DIR$/CarApp/res/values/pull_2_refresh.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/RichFriend.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/BaseActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/CarInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/Cars.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/download/DownloadInfo.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/download/DownloadTask.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/mobile/download/OnDownloadListener.java" charset="UTF-8" />

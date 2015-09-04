@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.fortune.car.app.activity.*;
+import com.fortune.car.app.bean.Car;
 import com.fortune.mobile.params.ComParams;
 import com.fortune.mobile.view.ProgressDialog;
 import com.fortune.util.*;
@@ -35,7 +36,7 @@ public class RichFriend extends BaseActivity {
         setContentView(R.layout.main);
         setViews();
         activityBeans.add(new ActivityBean(R.id.tv_home_menu_body01, RichTechNavigate.class, false));
-        activityBeans.add(new ActivityBean(R.id.tv_home_menu_body02, Cars.class, true));
+        //activityBeans.add(new ActivityBean(R.id.tv_home_menu_body02, Cars.class, true));
         activityBeans.add(new ActivityBean(R.id.tv_home_menu_body03, Solutions.class, true));
         activityBeans.add(new ActivityBean(R.id.tv_home_menu_body04, RepairSolutions.class, true));
         activityBeans.add(new ActivityBean(R.id.tv_home_menu_body05, RepairProgress.class, true));
@@ -44,6 +45,7 @@ public class RichFriend extends BaseActivity {
         activityBeans.add(new ActivityBean(R.id.tvHomeButtonLeft, com.fortune.car.app.activity.RichFriend.class, true));
         activityBeans.add(new ActivityBean(R.id.tvHomeButtonRight, Messages.class, true));
         activityBeans.add(new ActivityBean(R.id.ivCenterICON, About.class, false));
+        setClickHandler(null,R.id.tv_home_menu_body02,clickOnCars);
     }
     public void setViewInfo(View view,int w,int h,int x,int y,int fontSize,int fontColor,float rate,View.OnClickListener onClickListener){
         if(w>=0){
@@ -437,4 +439,47 @@ public class RichFriend extends BaseActivity {
             this.msg = msg;
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public void onFinished(int resultCode,Object tag){
+        switch(resultCode){
+            case Cars.RESULT_CODE_SUCCESS:
+                if(tag!=null){
+                    if(tag instanceof ArrayList){
+                        ArrayList<Car> cars = (ArrayList<Car>) tag;
+                        String userId = User.getUserId(this);
+                        int s = cars.size();
+                        if(s>1){
+                            Log.d(TAG,"用户"+userId+"有"+cars.size()+"个车，需要选择");
+                            Intent intent = new Intent(this,Cars.class);
+                            intent.putExtra(ComParams.INTENT_CAR_LIST,cars);
+                            startActivity(intent);
+                        }else if(s==1){
+                            Intent intent = new Intent(this,CarInfo.class);
+                            Log.d(TAG,"用户"+userId+"有"+cars.size()+"个车，不用选择，直接跳转");
+                            intent.putExtra(ComParams.INTENT_CAR_BEAN, cars.get(0));
+                            startActivity(intent);
+                        }else{
+                            Log.w(TAG,"未发现用户" +userId+
+                                    "车辆");
+                        }
+                    }else{
+                        Log.e(TAG,"返回的数据类型不正确！");
+                    }
+                }else{
+                    Log.e(TAG,"调用返回后，tag为空！无法获取车辆信息！");
+                }
+                break;
+            case Cars.RESULT_CODE_FAILED:
+                Log.e(TAG,"请求车辆列表发生异常！");
+                Toast.makeText(this,"无法获取车辆列表！",Toast.LENGTH_LONG).show();
+                break;
+        }
+    }
+    private View.OnClickListener clickOnCars = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Cars.loadCarInfo(RichFriend.this);
+        }
+    };
 }

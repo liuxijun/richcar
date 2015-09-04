@@ -2,24 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:padding="3dp">
 
     <TextView
             android:layout_width="@dimen/car_item_label_width"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:text="车辆信息："
             android:id="@+id/tv_car_base_info_label"
-            android:gravity="right"
+            android:gravity="center_vertical|right"
             android:textColor="@color/buttonTextColor"
             android:textSize="@dimen/car_item_font_size"/>
 
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="基本信息内容"
+    <com.fortune.mobile.view.MyImageView
+            android:layout_width="240dp"
+            android:layout_height="180dp"
             android:id="@+id/tv_car_base_info_value"
-            android:textColor="@color/base_info_text_color"
-            android:textSize="@dimen/car_item_font_size"
-            android:paddingLeft="5dp"/>
+            android:textColor="@color/menuTextColor"/>
 </LinearLayout>

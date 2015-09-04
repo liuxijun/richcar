@@ -27,25 +27,15 @@ public class ComParams {
 	public static final String INTENT_TODO = "TODO";
 	public static final String INTENT_HOMEBEAN = "homebean";
 	public static final String INTENT_URL = "INTENT_URL";
-	public static final String INTENT_LIVEBEAN = "livebean";
-	public static final String INTENT_VODBEAN = "vodbean";
-	public static final String INTENT_SEARCH_CHANNELS = "search_channels";
-	public static final String INTENT_VODBEAN_VIP = "vodbeanVIP";
-	public static final String INTENT_MOVIELIST_CHANNEL = "channel";
-	public static final String INTENT_MOVIEDETAIL_LIVEID = "liveId";// 直播id
-	public static final String INTENT_MOVIEDETAIL_CHANNELID = "channelId";// 频道id
-	public static final String INTENT_MOVIEDETAIL_CONNENTID = "connentId";// 内容id
-	public static final String INTENT_MOVIEDETAIL_BAND = "band";
-	public static final String INTENT_MOVIEDETAIL_CLIPID = "clipId";// 第几集
-	public static final String INTENT_MOVIEDETAIL_TYPE = "movieType";// 视频类型，直播或者点播
-	public static final String INTENT_MOVIEDETAIL_BEAN = "detailBean";
+	public static final String INTENT_CAR_LIST = "intentCarList";
+	public static final String INTENT_CAR_BEAN = "intentCarBean";
 	public static final String INTENT_ORDER_BEAN = "order";
 
 	// ------------------------------------------------------------------------------
 	//private static final String HTTP_BASE = "http://test.fortune-net.cn:8087";
 	//private static final String HTTP_BASE = "http://iptv.inhe.net";
 	//private static final String HTTP_BASE = "http://103.21.116.242";
-    private static final String HTTP_BASE = "http://192.168.1.10";
+    public static final String HTTP_BASE = "http://192.168.1.10";
 	private static final String HTTP_PROJECT_NAME="/cars/";
 	public static boolean displayDownloadAPK=false;
 	public static boolean displayZT=false;

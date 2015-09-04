@@ -1,12 +1,14 @@
 package com.fortune.car.app.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.fortune.car.app.Caller;
 import com.fortune.mobile.params.ComParams;
 import com.fortune.mobile.view.ProgressDialog;
 import com.fortune.util.Util;
@@ -16,7 +18,7 @@ import org.w3c.dom.Text;
  * Created by xjliu on 2015/8/30.
  *
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends Activity implements Caller {
     protected ProgressDialog progDialog;
     protected String TAG = getClass().getSimpleName();
    @Override
@@ -109,5 +111,11 @@ public class BaseActivity extends Activity {
             e.printStackTrace();
         }
         return defaultVal;
+    }
+    public void onFinished(int resultCode,Object tag){
+        Log.d(TAG,"调用结束，返回码："+resultCode+",tag="+tag);
+    }
+    public Context getContext(){
+        return this;
     }
 }

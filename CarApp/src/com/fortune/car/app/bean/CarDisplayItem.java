@@ -50,6 +50,10 @@ public class CarDisplayItem  implements Parcelable {
         this.type = type;
     }
 
+    public String getType() {
+        return type;
+    }
+
     @Override
     public int describeContents() {
         return 0;

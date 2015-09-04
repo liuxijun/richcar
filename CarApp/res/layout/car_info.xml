@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="基本信息"
-                android:id="@+id/textView10"
+                android:id="@+id/tv_carInfo_baseInfo"
                 android:textSize="25sp"
                 android:background="@color/focused"
                 android:textColor="@color/background"
@@ -28,9 +28,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="检测信息"
-                android:id="@+id/textView11"
+                android:id="@+id/tv_carInfo_conducts"
                 android:background="@color/menuTextColor"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"/>
     </LinearLayout>
@@ -41,13 +41,23 @@
             android:layout_height="fill_parent"
             android:layout_below="@+id/linearLayout"
             android:background="@color/focused">
-
-        <LinearLayout
-                android:orientation="vertical"
+        <FrameLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ll_base_info_container">
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_base_info_container">
 
-        </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_conducts_container">
+
+            </LinearLayout>
+        </FrameLayout>
     </ScrollView>
 </RelativeLayout>

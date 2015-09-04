@@ -24,7 +24,7 @@
         } catch (NoSuchAlgorithmException e) {
         }
       }else{
-        __logger4tokenUtils.error("Token长度异常："+token.length()+"!=46");
+        __logger4tokenUtils.error("Token长度异常：token的长度是"+token.length()+"，不是46,token="+token);
       }
     }else{
       __logger4tokenUtils.error("参数缺失：token="+token+",phone="+phone+",pwd="+pwd);

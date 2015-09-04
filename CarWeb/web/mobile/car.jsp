@@ -16,7 +16,7 @@
     String token = request.getParameter("token");
     boolean success = false;
     logger.debug("有用户请求："+request.getRemoteAddr()+","+request.getQueryString());
-    if(verifyToken(phone,token)||"true".equals(request.getParameter("debug"))){
+    if(verifyToken(token,phone)||"true".equals(request.getParameter("debug"))){
         int carId = StringUtils.string2int(request.getParameter("carId"),-1);
         CarLogicInterface carLogicInterface = (CarLogicInterface) SpringUtils.getBean("carLogicInterface",session.getServletContext());
         DictionaryLogicInterface dictionaryLogicInterface = (DictionaryLogicInterface) SpringUtils.getBean("dictionaryLogicInterface",session.getServletContext());
