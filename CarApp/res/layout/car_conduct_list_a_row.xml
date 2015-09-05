@@ -19,7 +19,8 @@
             android:text="2015-09-20"
             android:id="@+id/tv_conduct_date"
             android:textSize="@dimen/car_conduct_list_row_font_size"
-            android:textColor="@color/conduct_list_font_color"/>
+            android:textColor="@color/conduct_list_font_color"
+            android:visibility="gone"/>
 
     <Button
             android:layout_width="wrap_content"

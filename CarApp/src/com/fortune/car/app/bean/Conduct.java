@@ -11,7 +11,7 @@ public class Conduct extends BaseModel implements java.io.Serializable {
 	private Integer id;
 	private Integer carId;
 	private String title;
-	private Date createTime;
+	private String createTime;
 	private Integer miles ;
 	private Integer status;
 	private List<ConductItem> items;
@@ -21,7 +21,7 @@ public class Conduct extends BaseModel implements java.io.Serializable {
 	public Conduct(int carId) {
 		this.carId = carId;
 	}
-	public Conduct(int carId, String title, Date createTime, Integer status) {
+	public Conduct(int carId, String title, String createTime, Integer status) {
 		this.carId = carId;
 		this.title = title;
 		this.createTime = createTime;
@@ -49,11 +49,11 @@ public class Conduct extends BaseModel implements java.io.Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return this.createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 	public Integer getStatus() {

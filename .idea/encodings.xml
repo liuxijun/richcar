@@ -14,6 +14,7 @@
     <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/progressdlg_bg.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/pull_2_refresh_arrow.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/res/drawable-hdpi/pull_2_refresh_arrow_up.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/res/drawable/car_conduct_item_no_child_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/res/drawable/corners_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/res/drawable/home_button_focused.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/res/drawable/load.png" charset="UTF-8" />

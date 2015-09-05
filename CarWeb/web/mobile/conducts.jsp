@@ -27,6 +27,11 @@
         Conduct conduct = new Conduct();
         conduct.setCarId(carId);
         conducts = conductLogicInterface.search(conduct);
+          if(conducts!=null){
+              for(Conduct c:conducts){
+                  c.setItems(conductLogicInterface.getItems(c.getId(),c.getCarId()));
+              }
+          }
         msg = "成功获取一组数据！";
       }else{
         msg = "没有输入足够的参数：carId！"+request.getQueryString();

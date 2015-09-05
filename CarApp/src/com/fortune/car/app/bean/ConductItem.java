@@ -1,5 +1,4 @@
 package com.fortune.car.app.bean;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ public class ConductItem extends BaseModel implements java.io.Serializable {
 	private Integer parentId;
 	private String unit;
 	private String code;
-	private Date createTime;
+	private String createTime;
 	private String standValue;
 	private String errorRange;
 	private String standValueDesp;
@@ -21,13 +20,14 @@ public class ConductItem extends BaseModel implements java.io.Serializable {
     private String currentValue;
 	private Integer type;
 	private Integer status;
+	private ConductItem parent=null;
 	private List<ConductItem> items;
 
 	public ConductItem() {
 	}
 
 	public ConductItem(String name, Integer parentId, String unit, String code,
-			Date createTime, String standValue, String errorRange,
+			String createTime, String standValue, String errorRange,
 			String standValueDesp, String errorRangeDesp,
 			String currentValueDesp, Integer type, Integer status) {
 		this.name = name;
@@ -79,11 +79,11 @@ public class ConductItem extends BaseModel implements java.io.Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return this.createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 	public String getStandValue() {
@@ -160,4 +160,12 @@ public class ConductItem extends BaseModel implements java.io.Serializable {
     public void setCurrentValue(String currentValue) {
         this.currentValue = currentValue;
     }
+
+	public ConductItem getParent() {
+		return parent;
+	}
+
+	public void setParent(ConductItem parent) {
+		this.parent = parent;
+	}
 }

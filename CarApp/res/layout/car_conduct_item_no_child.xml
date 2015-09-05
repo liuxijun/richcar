@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:paddingTop="5dp"
+              android:paddingBottom="5dp">
+
+    <TextView
+            android:layout_width="@dimen/car_conduct_label_width"
+            android:layout_height="wrap_content"
+            android:text="动力转向油"
+            android:id="@+id/tv_conduct_item_name"
+            android:textSize="@dimen/car_conduct_list_row_font_size"
+            android:textColor="@color/conduct_list_item_name_color"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/car_conduct_item_no_child_bg"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <TextView
+                    android:layout_width="70sp"
+                    android:layout_height="wrap_content"
+                    android:text="标准值："
+                    android:id="@+id/tv_conduct_item_detail_sand_desp"
+                    android:textColor="@color/buttonTextColor"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"
+                    android:gravity="right"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:id="@+id/tv_conduct_item_detail_sand_value"
+                    android:textColor="@color/base_info_text_color"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ml/L"
+                    android:id="@+id/tv_conduct_item_detail_unit0"
+                    android:textColor="@color/base_info_text_color"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <TextView
+                    android:layout_width="@dimen/car_conduct_item_detail_label_length"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_conduct_item_detail_error_desp"
+                    android:text="误差范围"
+                    android:textColor="@color/buttonTextColor"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"
+                    android:gravity="right"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:id="@+id/tv_conduct_item_detail_error_range"
+                    android:textColor="@color/base_info_text_color"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ml/L"
+                    android:id="@+id/tv_conduct_item_detail_unit1"
+                    android:textColor="@color/base_info_text_color"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <TextView
+                    android:layout_width="@dimen/car_conduct_item_detail_label_length"
+                    android:layout_height="wrap_content"
+                    android:text="检测值："
+                    android:id="@+id/tv_conduct_item_detail_current_desp"
+                    android:textColor="@color/buttonTextColor"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"
+                    android:gravity="right"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:id="@+id/tv_conduct_item_detail_current_value"
+                    android:textColor="@color/base_info_text_color"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ml/L"
+                    android:id="@+id/tv_conduct_item_detail_unit2"
+                    android:textColor="@color/base_info_text_color"
+                    android:textSize="@dimen/car_conduct_item_detail_label_font_size"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
