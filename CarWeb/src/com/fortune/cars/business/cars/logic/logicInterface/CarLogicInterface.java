@@ -5,4 +5,6 @@ import com.fortune.cars.business.cars.model.Car;
 
 public interface CarLogicInterface extends BaseLogicInterface<Car> {
     boolean login(String phone,String pwd);
+
+    String updatePwd(String phone, String oldPwd, String newPwd);
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            >
+
+        <Button
+                android:layout_width="@dimen/car_friend_setup_btn_length"
+                android:layout_height="wrap_content"
+                android:text="修改头像"
+                android:id="@+id/btn_car_friend_change_modify_picture"
+                android:layout_gravity="center"
+                android:textSize="@dimen/car_conduct_list_row_font_size"
+                android:layout_margin="@dimen/car_friend_btn_margin"/>
+
+        <Button
+                android:layout_width="@dimen/car_friend_setup_btn_length"
+                android:layout_height="wrap_content"
+                android:text="修改口令"
+                android:id="@+id/btn_car_friend_change_pwd"
+                android:layout_gravity="center"
+                android:textSize="@dimen/car_conduct_list_row_font_size"
+                android:layout_margin="@dimen/car_friend_btn_margin"/>
+        <Button
+                android:layout_width="@dimen/car_friend_setup_btn_length"
+                android:layout_height="wrap_content"
+                android:text="注销系统"
+                android:id="@+id/btn_car_friend_change_logout"
+                android:layout_gravity="center"
+                android:textSize="@dimen/car_conduct_list_row_font_size"
+                android:layout_margin="@dimen/car_friend_btn_margin"/>
+        <Button
+                android:layout_width="@dimen/car_friend_setup_btn_length"
+                android:layout_height="wrap_content"
+                android:text="修改昵称"
+                android:id="@+id/btn_car_friend_change_modify_nickname"
+                android:layout_gravity="center"
+                android:textSize="@dimen/car_conduct_list_row_font_size"
+                android:layout_margin="@dimen/car_friend_btn_margin"/>
+    </LinearLayout>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:layout_gravity="center"
+            android:src="@drawable/banner"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+</RelativeLayout>

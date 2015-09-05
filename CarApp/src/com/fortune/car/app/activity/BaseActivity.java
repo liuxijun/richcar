@@ -1,13 +1,16 @@
 package com.fortune.car.app.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.fortune.car.app.Caller;
 import com.fortune.mobile.params.ComParams;
 import com.fortune.mobile.view.ProgressDialog;
@@ -132,10 +135,34 @@ public class BaseActivity extends Activity implements Caller {
         }
         return defaultVal;
     }
+    public String getTextOf(View parent,int rId,String defaultVal){
+        EditText text=null;
+        try {
+            if(parent==null){
+                text = (EditText) findViewById(rId);
+            }else{
+                text = (EditText) parent.findViewById(rId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(text!=null){
+            return text.getText().toString();
+        }
+        return defaultVal;
+    }
     public void onFinished(int resultCode,Object tag){
         Log.d(TAG,"调用结束，返回码："+resultCode+",tag="+tag);
     }
     public Context getContext(){
         return this;
+    }
+    public void alert(String message){
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("警告")
+                .setMessage(message)
+                .setNegativeButton("取消", null)
+                .show();
     }
 }

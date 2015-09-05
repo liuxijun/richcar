@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/dialog_changepwd_main_body"
+              android:padding="10dp"
+        >
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_pwd_old_pwd"
+                android:id="@+id/login_tv_userid"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30sp"
+                android:textColor="@color/buttonTextColor"/>
+
+        <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_change_pwd_old_pwd"
+                android:inputType="textPassword"
+                android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_pwd_new_pwd"
+                android:id="@+id/login_tv_pwd"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30sp"
+                android:textColor="@color/buttonTextColor"/>
+
+        <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_change_pwd_new_pwd"
+                android:layout_weight="1"
+                android:inputType="textPassword"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_pwd_new_pwd_confirm"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30sp"
+                android:textColor="@color/buttonTextColor"/>
+
+        <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_change_pwd_new_pwd_confirm"
+                android:layout_weight="1"
+                android:inputType="textPassword"/>
+    </LinearLayout>
+
+</LinearLayout>

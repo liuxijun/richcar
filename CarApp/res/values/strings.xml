@@ -24,4 +24,7 @@
     <string name="forgetPwd">忘记密码</string>
     <string name="alreadyAgreen">已阅读并同意</string>
     <string name="allRight">使用协议和隐私条款</string>
+    <string name="change_pwd_old_pwd">原始口令：</string>
+    <string name="change_pwd_new_pwd">新设口令：</string>
+    <string name="change_pwd_new_pwd_confirm">确认口令：</string>
 </resources>

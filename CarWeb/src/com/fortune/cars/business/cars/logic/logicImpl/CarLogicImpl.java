@@ -35,4 +35,20 @@ public class CarLogicImpl  extends BaseLogicImpl<Car> implements CarLogicInterfa
         List<Car> cars = search(bean);
         return cars!=null&&cars.size()>0;
     }
+
+    @Override
+    public String updatePwd(String phone, String oldPwd, String newPwd) {
+        if(oldPwd==null||oldPwd.isEmpty()){
+            return "原始口令为空，不能修改！";
+        }
+        if(newPwd==null||newPwd.isEmpty()){
+            return "新口令为空，不能修改！";
+        }
+        if(login(phone,oldPwd)){
+            carDaoInterface.executeUpdate("update car set password='"+newPwd+"' where phone='"+phone+"'");
+        }else{
+            return "账号对应的旧口令不对！不能修改口令！";
+        }
+        return null;
+    }
 }

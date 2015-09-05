@@ -8,4 +8,6 @@
     <dimen name="car_conduct_view_label_margin">5dp</dimen>
     <dimen name="car_conduct_item_detail_label_font_size">16sp</dimen>
     <dimen name="car_conduct_item_detail_label_length">70sp</dimen>
+    <dimen name="car_friend_setup_btn_length">120sp</dimen>
+    <dimen name="car_friend_btn_margin">10dp</dimen>
 </resources>
