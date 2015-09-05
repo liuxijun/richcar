@@ -55,10 +55,11 @@
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ll_conducts_container">
+                    android:id="@+id/ll_conducts_container"
+                    android:visibility="gone">
 
                 <LinearLayout
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/ll_conducts_types">
@@ -72,20 +73,21 @@
                             android:textColor="@color/background"
                             android:textSize="30sp"
                             android:layout_marginTop="100dp"/>
+
+                    <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="刷新"
+                            android:id="@+id/button"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:textSize="25sp"
+                            android:layout_gravity="center"/>
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
     </ScrollView>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="刷新"
-            android:id="@+id/button"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textSize="25sp"/>
 
 </RelativeLayout>

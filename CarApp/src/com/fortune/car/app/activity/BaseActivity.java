@@ -38,6 +38,9 @@ public class BaseActivity extends Activity implements Caller {
     }
 
     public boolean setClickHandler(View parent,int rId,View.OnClickListener onClickListener){
+        return setClickHandler(parent,rId,onClickListener,null);
+    }
+    public boolean setClickHandler(View parent,int rId,View.OnClickListener onClickListener,Object tag){
         View view;
         if(parent==null){
             view = findViewById(rId);
@@ -46,6 +49,9 @@ public class BaseActivity extends Activity implements Caller {
         }
         if(view!=null){
             view.setOnClickListener(onClickListener);
+            if(tag!=null){
+                view.setTag(tag);
+            }
             return true;
         }
         return false;

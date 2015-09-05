@@ -29,6 +29,7 @@ public class ComParams {
 	public static final String INTENT_URL = "INTENT_URL";
 	public static final String INTENT_CAR_LIST = "intentCarList";
 	public static final String INTENT_CAR_BEAN = "intentCarBean";
+	public static final String INTENT_CAR_CONDUCTS ="intentCarConducts";
 	public static final String INTENT_ORDER_BEAN = "order";
 
 	// ------------------------------------------------------------------------------
@@ -67,6 +68,8 @@ public class ComParams {
 	public static final String HTTP_LOGIN = HTTP_BASE + "/mobile/doLogin.jsp?";
 	/** 车辆信息，基本信息 */
 	public static final String HTTP_LIST_CAR = HTTP_BASE + "/mobile/car.jsp?";
+	/** 车辆信息，基本信息 */
+	public static final String HTTP_LIST_CONDUCTS = HTTP_BASE + "/mobile/conducts.jsp?";
 	/** 列表页， 频道页 */
 	public static final String HTTP_CHANNEL = HTTP_BASE + "/page/js/list.jsp?";
 	/** 搜索 */

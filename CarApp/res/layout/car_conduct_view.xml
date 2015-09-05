@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/car_conduct_view_label_margin">
+
+        <TextView
+                android:layout_width="@dimen/car_conduct_label_width"
+                android:layout_height="wrap_content"
+                android:text="检测标题："
+                android:textColor="@color/buttonTextColor"
+                android:textSize="@dimen/car_conduct_list_row_font_size"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="检测标题"
+                android:id="@+id/tv_conduct_title"
+                android:textColor="@color/base_info_text_color"
+                android:textSize="@dimen/car_conduct_list_row_font_size"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/car_conduct_view_label_margin">
+
+        <TextView
+                android:layout_width="@dimen/car_conduct_label_width"
+                android:layout_height="wrap_content"
+                android:text="检测日期："
+                android:textColor="@color/buttonTextColor"
+                android:textSize="@dimen/car_conduct_list_row_font_size"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="2015-09-20"
+                android:id="@+id/tv_conduct_time"
+                android:textColor="@color/base_info_text_color"
+                android:textSize="@dimen/car_conduct_list_row_font_size"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/car_conduct_view_label_margin">
+
+        <TextView
+                android:layout_width="@dimen/car_conduct_label_width"
+                android:layout_height="wrap_content"
+                android:text="行驶里程："
+                android:textColor="@color/buttonTextColor"
+                android:textSize="@dimen/car_conduct_list_row_font_size"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="1000公里"
+                android:id="@+id/tv_conduct_miles"
+                android:textColor="@color/base_info_text_color"
+                android:textSize="@dimen/car_conduct_list_row_font_size"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/car_conduct_view_label_margin">
+
+        <TextView
+                android:layout_width="@dimen/car_conduct_label_width"
+                android:layout_height="wrap_content"
+                android:text="当前状态："
+                android:textColor="@color/buttonTextColor"
+                android:textSize="@dimen/car_conduct_list_row_font_size"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="检测完毕"
+                android:id="@+id/tv_conduct_status"
+                android:textColor="@color/base_info_text_color"
+                android:textSize="@dimen/car_conduct_list_row_font_size"/>
+    </LinearLayout>
+
+</LinearLayout>
