@@ -128,14 +128,41 @@ public class CarInfo extends BaseActivity {
      * @param conduct
      */
     public void renderConduct(Conduct conduct){
-        if(conductsContainer==null){
+        if(conductsContainer==null||conduct==null){
             return;
         }
         conductsContainer.removeAllViews();
         LayoutInflater inflater = getLayoutInflater();
+        View conductView = inflater.inflate(R.layout.car_conduct_view, null);
+        if(conductView!=null){
+            setTextOf(conductView,R.id.tv_conduct_title,conduct.getTitle());
+            setTextOf(conductView,R.id.tv_conduct_time,StringUtils.date2string(conduct.getCreateTime()));
+            setTextOf(conductView,R.id.tv_conduct_miles,conduct.getMiles()+"公里");
+            String statusText = "完成";
+            Integer status = conduct.getStatus();
+            if(status==null){
+                status = 0;
+            }
+            switch (status){
+                case 1:
+                    statusText = "正在检测";
+                    break;
+                case 2:
+                    statusText = "检测完毕";
+                    break;
+                default:
+                    statusText="未知";
+                    break;
+            }
+            setTextOf(conductView,R.id.tv_conduct_status,statusText);
 
+            conductsContainer.addView(conductView);
+        }
     }
 
+    public void fillItemsTo(View container,List<ConductItem> items){
+
+    }
     /**
      * 某个检查信息下的结果列表
      * @param items

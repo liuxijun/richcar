@@ -93,4 +93,12 @@
                 android:textSize="@dimen/car_conduct_list_row_font_size"/>
     </LinearLayout>
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/ll_conduct_items">
+    </LinearLayout>
+
 </LinearLayout>
