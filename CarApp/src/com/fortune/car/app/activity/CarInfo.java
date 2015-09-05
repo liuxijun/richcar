@@ -112,6 +112,7 @@ public class CarInfo extends BaseActivity {
         LayoutInflater inflater = getLayoutInflater();
         if (conducts == null || conducts.size() == 0) {
             View view = inflater.inflate(R.layout.car_conduct_no_any_data, null);
+            setClickHandler(view,R.id.btn_conduct_list_refresh,clickOnRefreshBtn);
             conductsContainer.addView(view);
             return;
         }
@@ -123,6 +124,10 @@ public class CarInfo extends BaseActivity {
             setClickHandler(view, R.id.btn_conduct_view, clickOnConduct, conduct);
             conductsContainer.addView(view);
         }
+        View view = inflater.inflate(R.layout.car_conduct_no_any_data,null);
+        setVisibleOf(view,R.id.tv_car_no_any_data,View.GONE);
+        setClickHandler(view,R.id.btn_conduct_list_refresh,clickOnRefreshBtn);
+        conductsContainer.addView(view);
     }
 
     /**
@@ -337,6 +342,9 @@ public class CarInfo extends BaseActivity {
                     }
                     conducts.clear();
                 }
+                currentConduct = null;
+                currentConductItem = null;
+                renderConducts();
                 break;
             case RESULT_CODE_FAIL:
                 if (conducts == null) {
@@ -469,6 +477,16 @@ public class CarInfo extends BaseActivity {
             }
         }
     };
+    private View.OnClickListener clickOnRefreshBtn = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(car!=null){
+                loadConducts(CarInfo.this,"list",-1,car.getId());
+            }else{
+                Log.e(TAG,"没有车辆信息，不能搜索检查信息！");
+            }
+        }
+    };
     public static void fillParentData(ConductItem parent){
         List<ConductItem> items = parent.getItems();
         if(items==null||items.size()<=0){
@@ -501,4 +519,5 @@ public class CarInfo extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

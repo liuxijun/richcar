@@ -18,7 +18,8 @@
             android:gravity="center"
             android:padding="5dp"
             android:layout_gravity="center"
-            android:background="@drawable/car_conduct_item_no_child_bg"/>
+            android:background="@drawable/car_conduct_item_no_child_bg"
+            android:minHeight="80dp"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -26,5 +27,7 @@
             android:text="发动机油、制动油、动力转向油、变速器油、冷却液、电解液、玻璃清洗液、火花塞、启动电压、漏电损耗"
             android:id="@+id/tv_conduct_item_sub_items"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/base_info_text_color"/>
+            android:textColor="@color/base_info_text_color"
+            android:gravity="center"
+            android:layout_gravity="center"/>
 </LinearLayout>

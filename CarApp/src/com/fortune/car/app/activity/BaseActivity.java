@@ -69,6 +69,20 @@ public class BaseActivity extends Activity implements Caller {
         }
         return false;
     }
+    public boolean setVisibleOf(View parent,int rId,int visible){
+        View view;
+        if(parent==null){
+            view = findViewById(rId);
+        }else{
+            view = parent.findViewById(rId);
+        }
+        if(view!=null){
+            view.setVisibility(visible);
+            return true;
+        }else{
+            return false;
+        }
+    }
     public static boolean setTextOf(View view,int rId,String text){
         if(view!=null){
             try {

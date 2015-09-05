@@ -8,18 +8,18 @@
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:text="还没有获取检查数据！"
-            android:id="@+id/textView10"
+            android:id="@+id/tv_car_no_any_data"
             android:gravity="center"
-            android:textColor="@color/focused"
+            android:textColor="@color/background"
             android:textSize="30sp"
-            android:layout_marginTop="100dp"
-            />
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="60dp"/>
 
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="刷新"
-            android:id="@+id/button"
+            android:id="@+id/btn_conduct_list_refresh"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:paddingLeft="20dp"

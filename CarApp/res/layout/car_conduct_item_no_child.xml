@@ -10,7 +10,7 @@
 
     <TextView
             android:layout_width="@dimen/car_conduct_label_width"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:text="动力转向油"
             android:id="@+id/tv_conduct_item_name"
             android:textSize="@dimen/car_conduct_list_row_font_size"
