@@ -158,11 +158,22 @@ public class BaseActivity extends Activity implements Caller {
         return this;
     }
     public void alert(String message){
-        new AlertDialog.Builder(this)
+        alert(message,null);
+    }
+    public void alert(String message, final View.OnClickListener onClickListener){
+        AlertDialog dialog =null;
+        dialog = new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("警告")
                 .setMessage(message)
-                .setNegativeButton("取消", null)
+                .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(onClickListener!=null){
+                            onClickListener.onClick(null);
+                        }
+                    }
+                })
                 .show();
     }
 }

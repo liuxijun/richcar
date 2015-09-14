@@ -35,8 +35,9 @@ public class ComParams {
 	// ------------------------------------------------------------------------------
 	//private static final String HTTP_BASE = "http://test.fortune-net.cn:8087";
 	//private static final String HTTP_BASE = "http://iptv.inhe.net";
-	//private static final String HTTP_BASE = "http://103.21.116.242";
-    public static final String HTTP_BASE = "http://192.168.1.10";
+	public static final String HTTP_BASE = "http://103.21.116.242";
+	//public static final String HTTP_BASE = "http://192.168.1.161";
+    //public static final String HTTP_BASE = "http://192.168.1.10";
 	private static final String HTTP_PROJECT_NAME="/cars/";
 	public static boolean displayDownloadAPK=false;
 	public static boolean displayZT=false;
@@ -70,7 +71,7 @@ public class ComParams {
 	public static final String HTTP_LIST_CAR = HTTP_BASE + "/mobile/car.jsp?";
 	/** 车辆信息，基本信息 */
 	public static final String HTTP_LIST_CONDUCTS = HTTP_BASE + "/mobile/conducts.jsp?";
-	public static final String HTTP_CHANGE_PWD = HTTP_BASE+"/mobile/users.jsp?command=pwd&";
+	public static final String HTTP_CHANGE_PWD = HTTP_BASE+"/mobile/users.jsp?command=changePwd&";
 	/** 列表页， 频道页 */
 	public static final String HTTP_CHANNEL = HTTP_BASE + "/page/js/list.jsp?";
 	/** 搜索 */

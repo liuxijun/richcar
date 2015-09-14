@@ -29,7 +29,7 @@ public class Car extends BaseModel implements java.io.Serializable {
 	private String innerColor;
 	private String gasType;
 	private String emissionType;
-	private Float emission;
+	private String emission;
 	private String tyreType;
 	private String carType;
 	private Integer mileage;
@@ -57,7 +57,7 @@ public class Car extends BaseModel implements java.io.Serializable {
 			String productHometown, String salesCompany, String vinCode,
 			String engineCode, String enineType, String gearbox,
 			String lengthWidthHeight, String carColor, String innerColor,
-			String gasType, String emissionType, Float emission,
+			String gasType, String emissionType, String emission,
 			String tyreType, String carType, Integer mileage,
 			Integer maintainTimes, Date motStime, Date motEtime,
 			Date productionDate, Date insureStime, Date insureEtime,String insureType,
@@ -236,11 +236,11 @@ public class Car extends BaseModel implements java.io.Serializable {
 	public void setEmissionType(String emissionType) {
 		this.emissionType = emissionType;
 	}
-	public Float getEmission() {
+	public String getEmission() {
 		return this.emission;
 	}
 
-	public void setEmission(Float emission) {
+	public void setEmission(String emission) {
 		this.emission = emission;
 	}
 	public String getTyreType() {

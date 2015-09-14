@@ -39,15 +39,16 @@ public class CarLogicImpl  extends BaseLogicImpl<Car> implements CarLogicInterfa
     @Override
     public String updatePwd(String phone, String oldPwd, String newPwd) {
         if(oldPwd==null||oldPwd.isEmpty()){
-            return "ԭʼ����Ϊ�գ������޸ģ�";
+            return "错误代码1501：原始口令为空，不能修改！";
         }
         if(newPwd==null||newPwd.isEmpty()){
-            return "�¿���Ϊ�գ������޸ģ�";
+            return "错误代码1502：新口令为空，不能修改！";
         }
         if(login(phone,oldPwd)){
-            carDaoInterface.executeUpdate("update car set password='"+newPwd+"' where phone='"+phone+"'");
+            carDaoInterface.executeSQLUpdate("update Car set password='"+newPwd+"' where phone='"+phone+"'");
         }else{
-            return "�˺Ŷ�Ӧ�ľɿ���ԣ������޸Ŀ��";
+            logger.warn("验证旧口令时发生异常：oldPwd="+oldPwd+",phone="+phone);
+            return "错误代码1500：账号对应的旧口令不对！不能修改口令！";
         }
         return null;
     }

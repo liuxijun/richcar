@@ -63,12 +63,13 @@ public interface BaseDaoInterface<E,PK extends Serializable> {
 
     public boolean isKeyPropertyLong();
 
-    public boolean isKeyPropertyString();
+    boolean isKeyPropertyString();
 
-    public int executeUpdate(String sql);
-    public String removeRelatedData(String[] tablesName, String comment, String fieldName, Object value);
-    public String removeRelatedData(String tableName, String comment, String fieldName, Object value);
-    public String onRecordRemoved(String comment, String tableName, String sql);
-    public List<Map<String, Object>> searchSQL(String hql, Object[] parameters, PageBean pageBean);
-    public List<Object> sql(String sqlStr, Object[] parameters, PageBean pageBean) throws Exception;
+    int executeUpdate(String sql);
+    int executeSQLUpdate(String sql);
+    String removeRelatedData(String[] tablesName, String comment, String fieldName, Object value);
+    String removeRelatedData(String tableName, String comment, String fieldName, Object value);
+    String onRecordRemoved(String comment, String tableName, String sql);
+    List<Map<String, Object>> searchSQL(String hql, Object[] parameters, PageBean pageBean);
+    List<Object> sql(String sqlStr, Object[] parameters, PageBean pageBean) throws Exception;
 }

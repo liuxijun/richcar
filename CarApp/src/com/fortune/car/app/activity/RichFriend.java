@@ -43,13 +43,13 @@ public class RichFriend extends BaseActivity {
     private View.OnClickListener clickOnModifyNickName=new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-
+            alert("è¿˜æœªå®Œå…¨å®ç°è¯¥åŠŸèƒ½ï¼");
         }
     };
     private View.OnClickListener clickOnModifyPicture=new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-
+            alert("è¿˜æœªå®Œå…¨å®ç°è¯¥åŠŸèƒ½ï¼");
         }
     };
     private AlertDialog changePwdDialog;
@@ -58,45 +58,45 @@ public class RichFriend extends BaseActivity {
         LayoutInflater inflater = getLayoutInflater();
         pwdDialogView = inflater.inflate(R.layout.dialog_change_pwd,
                 (ViewGroup) findViewById(R.id.dialog_changepwd_main_body));
-        new AlertDialog.Builder(this).setTitle("ÇëÊäÈëÕËºÅ¿ÚÁîµÇÂ¼").setView(pwdDialogView)
-                .setPositiveButton("È·¶¨", null)
-                .setNegativeButton("È¡Ïû", null).show();
+        changePwdDialog = new AlertDialog.Builder(this).setTitle("ä¿®æ”¹å£ä»¤").setView(pwdDialogView)
+                .setPositiveButton("ç¡®å®š", null)
+                .setNegativeButton("å–æ¶ˆ", null).show();
         final Button button = changePwdDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         button.setOnClickListener(clickOnChangePwdDialogOkBtn);
     }
     private View.OnClickListener clickOnChangePwdDialogOkBtn = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String oldPwd = getTextOf(pwdDialogView, R.id.et_change_pwd_new_pwd, null);
+            String oldPwd = getTextOf(pwdDialogView, R.id.et_change_pwd_old_pwd, null);
             if(oldPwd==null||"".equals(oldPwd.trim())){
-                alert("ÊäÈëµÄÔ­Ê¼¿ÚÁîÎª¿Õ£¡²»ÄÜĞŞ¸Ä¿ÚÁî£¡");
+                alert("è¾“å…¥çš„åŸå§‹å£ä»¤ä¸ºç©ºï¼ä¸èƒ½ä¿®æ”¹å£ä»¤ï¼");
                 return;
             }
             String newPwd = getTextOf(pwdDialogView,R.id.et_change_pwd_new_pwd,null);
             if(newPwd==null||"".equals(newPwd.trim())){
-                alert("ÊäÈëµÄĞÂ¿ÚÁîÎª¿Õ£¡²»ÄÜĞŞ¸Ä¿ÚÁî£¡");
+                alert("è¾“å…¥çš„æ–°å£ä»¤ä¸ºç©ºï¼ä¸èƒ½ä¿®æ”¹å£ä»¤ï¼");
                 return;
             }
             String newPwdConfirm = getTextOf(pwdDialogView,R.id.et_change_pwd_new_pwd_confirm,null);
             if(newPwdConfirm==null||"".equals(newPwdConfirm.trim())){
-                alert("ÊäÈëÈ·ÈÏ¿ÚÁîÎª¿Õ£¡²»ÄÜĞŞ¸Ä¿ÚÁî£¡");
+                alert("è¾“å…¥ç¡®è®¤å£ä»¤ä¸ºç©ºï¼ä¸èƒ½ä¿®æ”¹å£ä»¤ï¼");
                 return;
             }
             if(!newPwd.equals(newPwdConfirm)){
-                alert("È·ÈÏ¿ÚÁî²»Ò»ÖÂ£¡²»ÄÜĞŞ¸Ä¿ÚÁî£¡");
+                alert("ç¡®è®¤å£ä»¤ä¸ä¸€è‡´ï¼ä¸èƒ½ä¿®æ”¹å£ä»¤ï¼");
                 return;
             }
             HttpUtils httpUtils = new HttpUtils();
             Context context = com.fortune.car.app.activity.RichFriend.this;
-            String url = null;
+            String url;
             try {
                 url = ComParams.HTTP_CHANGE_PWD+"phone="+User.getUserId(context)+
                         "&token="+User.getToken(context)+"&oldPwd="+ MD5Utils.getMD5String(oldPwd)+"&newPwd="+MD5Utils.getMD5String(newPwd);
             } catch (NoSuchAlgorithmException e) {
-                alert("ÎŞ·¨ĞŞ¸ÄÃÜÂë£¬·¢ÉúÁËÎŞ·¨Àí½âµÄMD5±àÂë´íÎó£º"+e.getLocalizedMessage());
+                alert("æ— æ³•ä¿®æ”¹å¯†ç ï¼Œå‘ç”Ÿäº†æ— æ³•ç†è§£çš„MD5ç¼–ç é”™è¯¯ï¼š"+e.getLocalizedMessage());
                 return;
             } catch (Exception e){
-                alert("ÎŞ·¨ĞŞ¸ÄÃÜÂë£¬·¢ÉúÁËÎŞ·¨Àí½âµÄ´íÎó£º"+e.getLocalizedMessage());
+                alert("æ— æ³•ä¿®æ”¹å¯†ç ï¼Œå‘ç”Ÿäº†æ— æ³•ç†è§£çš„é”™è¯¯ï¼š"+e.getLocalizedMessage());
                 return;
             }
             progDialog.show();
@@ -108,19 +108,25 @@ public class RichFriend extends BaseActivity {
                     JsonBean jsonBean = JsonUtils.fromJsonString(JsonBean.class,result);
                     if(jsonBean!=null){
                         if(jsonBean.isSuccess()){
-                            alert("¿ÚÁîĞŞ¸Ä³É¹¦£¡");
+                            User.saveToken(RichFriend.this,null);
+                            alert("å£ä»¤ä¿®æ”¹æˆåŠŸï¼å°†å¼ºåˆ¶é‡æ–°ç™»å½•ï¼", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    finish();
+                                }
+                            });
                         }else{
-                            alert("¿ÚÁîĞŞ¸ÄÊ§°Ü£º"+jsonBean.getMessage());
+                            alert("å£ä»¤ä¿®æ”¹å¤±è´¥ï¼š"+jsonBean.getMessage());
                         }
                     }else{
-                        alert("·¢ÉúÁËÎ´ÖªµÄ´íÎó£¬ÎŞ·¨È·ÈÏ¿ÚÁîĞŞ¸Ä½á¹û£¡");
+                        alert("å‘ç”Ÿäº†æœªçŸ¥çš„é”™è¯¯ï¼Œæ— æ³•ç¡®è®¤å£ä»¤ä¿®æ”¹ç»“æœï¼");
                     }
                 }
 
                 @Override
                 public void onFailure(HttpException error, String msg) {
                     progDialog.dismiss();
-                    alert("¿ÚÁîĞŞ¸ÄÊ§°Ü£º" + msg);
+                    alert("å£ä»¤ä¿®æ”¹å¤±è´¥ï¼š" + msg);
                 }
             });
         }
@@ -136,19 +142,19 @@ public class RichFriend extends BaseActivity {
         public void onClick(View view) {
             new AlertDialog.Builder(view.getContext())
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("È·ÈÏ×¢Ïú")
-                    .setMessage("ÄúÈ·ÈÏÒªÔİÊ±Àë¿ªÂğ£¿")
-                    .setPositiveButton("ÊÇµÄ£¬ÎÒÈ·ÈÏ£¡", new DialogInterface.OnClickListener()
+                    .setTitle("ç¡®è®¤æ³¨é”€")
+                    .setMessage("æ‚¨ç¡®è®¤è¦æš‚æ—¶ç¦»å¼€å—ï¼Ÿ")
+                    .setPositiveButton("æ˜¯çš„ï¼Œæˆ‘ç¡®è®¤ï¼", new DialogInterface.OnClickListener()
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     User.saveToken(RichFriend.this, null);
-                                    Toast.makeText(RichFriend.this, "ÒÑ¾­×¢Ïú", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RichFriend.this, "å·²ç»æ³¨é”€", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                             }
                     )
-                    .setNegativeButton("°«ÓÍ£¬°´´íÁË£¡", null)
+                    .setNegativeButton("çŸ®æ²¹ï¼ŒæŒ‰é”™äº†ï¼", null)
                     .show();
 
         }
