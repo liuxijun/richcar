@@ -4,4 +4,13 @@
     <color name="base_info_text_color">#FF8BC7FF</color>
     <color name="conduct_list_font_color">#000</color>
     <color name="conduct_list_item_name_color">#FFF</color>
+
+    <color name="org_dark_selected">#FFfa5e09</color>
+    <color name="org_dark">#ffc85509</color>
+    <color name="green_dark_selected">#338b02</color>
+    <color name="green_dark">#ff306202</color>
+    <color name="purple_dark_selected">#ff6510b7</color>
+    <color name="purple_dark">#ff3c1077</color>
+    <color name="red_dark">#92060a</color>
+    <color name="red_dark_selected">#ffd5060a</color>
 </resources>

@@ -54,7 +54,7 @@ public class Cars extends BaseActivity {
         //loadCarInfo();
     }
 
-    private void initViews(){
+    public void initViews(){
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.ll_cars_list_contain);
         linearLayout.removeAllViews();
         LayoutInflater inflater = getLayoutInflater();

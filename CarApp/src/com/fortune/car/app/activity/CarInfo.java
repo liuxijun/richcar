@@ -52,7 +52,7 @@ public class CarInfo extends BaseActivity {
         }
     }
 
-    private void initViews() {
+    public void initViews() {
         conducts = null;
         conductsContainer = (LinearLayout) findViewById(R.id.ll_conducts_container);
         if (car != null) {

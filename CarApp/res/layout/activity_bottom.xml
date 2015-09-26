@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="#92060a"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/linearLayout2"
+            android:paddingBottom="5dp">
+
+        <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_center"
+                android:id="@+id/btn_personal_center"
+                android:layout_weight="3"
+                android:drawableTop="@drawable/icon_personal_center"
+                android:background="@drawable/bg_red_dark"
+                android:textColor="#FFF"
+                android:paddingTop="20dp"/>
+
+        <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/message"
+                android:id="@+id/btn_message"
+                android:layout_weight="3"
+                android:drawableTop="@drawable/email"
+                android:background="@drawable/bg_red_dark"
+                android:textColor="#FFF"
+                android:paddingTop="20dp"/>
+
+        <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/home"
+                android:id="@+id/btn_home"
+                android:layout_weight="3"
+                android:drawableTop="@drawable/icon_home"
+                android:background="@drawable/bg_red_dark"
+                android:textColor="#FFF"
+                android:paddingTop="20dp"/>
+</LinearLayout>

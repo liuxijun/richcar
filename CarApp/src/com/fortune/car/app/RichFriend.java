@@ -455,7 +455,7 @@ public class RichFriend extends BaseActivity {
                             intent.putExtra(ComParams.INTENT_CAR_LIST,cars);
                             startActivity(intent);
                         }else if(s==1){
-                            Intent intent = new Intent(this,CarInfo.class);
+                            Intent intent = new Intent(this,CarInfoMenu.class);
                             Log.d(TAG,"用户"+userId+"有"+cars.size()+"个车，不用选择，直接跳转");
                             intent.putExtra(ComParams.INTENT_CAR_BEAN, cars.get(0));
                             startActivity(intent);

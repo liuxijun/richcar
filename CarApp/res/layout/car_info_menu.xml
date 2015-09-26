@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bg_carinfo"
+        >
+        <include layout="@layout/activity_header"
+                 android:id="@+id/include"/>
+
+        <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/scrollView"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/include"
+                android:layout_above="@+id/include2">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:weightSum="1">
+
+                    <ImageView
+                            android:layout_width="fill_parent"
+                            android:layout_height="180dp"
+                            android:id="@+id/imageView5"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/car_info_logo"
+                            android:layout_weight="0.59"
+                            android:scaleType="fitXY"
+                            android:layout_margin="3dp"/>
+
+                    <Button
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/car_info_menu_height"
+                            android:text="车辆基础信息"
+                            android:id="@+id/btn_base_info"
+                            android:drawableLeft="@drawable/icon_car_baseinfo"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="#FFF"
+                            android:textSize="20dp"
+                            android:alpha="0.6"
+                            android:paddingLeft="40dp"
+                            android:layout_marginTop="10dp"/>
+
+                    <Button
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/car_info_menu_height"
+                            android:text="车辆检测信息"
+                            android:id="@+id/btn_detect_info"
+                            android:drawableLeft="@drawable/icon_car_detect"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="#FFF"
+                            android:textSize="20dp"
+                            android:alpha="0.6"
+                            android:paddingLeft="40dp"/>
+                </LinearLayout>
+        </ScrollView>
+        <include layout="@layout/activity_bottom"
+                 android:id="@+id/include2"/>
+</RelativeLayout>

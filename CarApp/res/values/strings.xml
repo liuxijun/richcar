@@ -27,4 +27,7 @@
     <string name="change_pwd_old_pwd">原始口令：</string>
     <string name="change_pwd_new_pwd">新设口令：</string>
     <string name="change_pwd_new_pwd_confirm">确认口令：</string>
+    <string name="personal_center">个人中心</string>
+    <string name="message">消息</string>
+    <string name="home">首页</string>
 </resources>

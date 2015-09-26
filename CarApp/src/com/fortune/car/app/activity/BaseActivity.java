@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.fortune.car.app.Caller;
+import com.fortune.car.app.R;
 import com.fortune.mobile.params.ComParams;
 import com.fortune.mobile.view.ProgressDialog;
 import com.fortune.util.Util;
@@ -27,11 +28,14 @@ public class BaseActivity extends Activity implements Caller {
    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       ComParams.userAgent = Util.getAgent(this, false);
+        ComParams.userAgent = Util.getAgent(this, false);
         progDialog = com.fortune.mobile.view.ProgressDialog.show(this);
         progDialog.setCancelable(true);
     }
-
+    public void initViews(){
+        setClickHandler(null, R.id.iv_left,clickOnHome);
+        setClickHandler(null, R.id.btn_home,clickOnHome);
+    }
     public ProgressDialog getProgDialog() {
         return progDialog;
     }
@@ -176,4 +180,17 @@ public class BaseActivity extends Activity implements Caller {
                 })
                 .show();
     }
+
+    public View.OnClickListener clickOnHome = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            finish();
+        }
+    };
+    public View.OnClickListener clickOnShare = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    };
 }
