@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
+              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:paddingLeft="10dp"
               android:paddingTop="5dp">
 
-    <TextView
-            android:layout_width="@dimen/car_conduct_name_length"
-            android:layout_height="wrap_content"
-            android:text="检测名称"
-            android:id="@+id/tv_conduct_name"
-            android:textSize="@dimen/car_conduct_list_row_font_size"
-            android:textColor="@color/conduct_list_font_color"/>
-    <TextView
-            android:layout_width="@dimen/car_conduct_name_length"
-            android:layout_height="wrap_content"
-            android:text="2015-09-20"
-            android:id="@+id/tv_conduct_date"
-            android:textSize="@dimen/car_conduct_list_row_font_size"
-            android:textColor="@color/conduct_list_font_color"
-            android:visibility="gone"/>
-
-    <Button
+    <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="查看"
-            android:id="@+id/btn_conduct_view"
-            android:textSize="@dimen/car_conduct_list_row_font_size"/>
+            android:layout_height="match_parent">
+
+        <TextView
+                android:layout_width="@dimen/car_conduct_name_length"
+                android:layout_height="wrap_content"
+                android:text="检测名称"
+                android:id="@+id/tv_conduct_name"
+                android:textSize="@dimen/car_conduct_list_row_font_size"
+                android:textColor="@color/conduct_list_font_color"/>
+
+        <TextView
+                android:layout_width="@dimen/car_conduct_name_length"
+                android:layout_height="wrap_content"
+                android:text="2015-09-20"
+                android:id="@+id/tv_conduct_date"
+                android:textSize="@dimen/car_conduct_list_row_font_size"
+                android:textColor="@color/conduct_list_font_color"
+                android:visibility="gone"/>
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:text="New Text"
+            android:id="@+id/textView10"
+            android:layout_gravity="center_horizontal"
+            android:background="#515151"
+            android:layout_margin="3dp"/>
 
 </LinearLayout>

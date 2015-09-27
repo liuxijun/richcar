@@ -2,7 +2,7 @@
 <resources>
     <color name="white">#FFF</color>
     <color name="base_info_text_color">#FF8BC7FF</color>
-    <color name="conduct_list_font_color">#000</color>
+    <color name="conduct_list_font_color">#515151</color>
     <color name="conduct_list_item_name_color">#FFF</color>
 
     <color name="org_dark_selected">#FFfa5e09</color>

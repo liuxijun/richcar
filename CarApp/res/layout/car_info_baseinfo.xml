@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bg_carinfo"
+        >
+        <include layout="@layout/activity_header"
+                 android:id="@+id/include"/>
+
+        <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/scrollView"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/include"
+                android:layout_above="@+id/include2"
+                android:background="#F1F1F1">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:id="@+id/ll_base_info_container"
+                        android:weightSum="1">
+
+                </LinearLayout>
+        </ScrollView>
+        <include layout="@layout/activity_bottom"
+                 android:id="@+id/include2"/>
+</RelativeLayout>

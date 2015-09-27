@@ -17,7 +17,10 @@ import com.fortune.car.app.bean.ConductItem;
 import com.fortune.mobile.params.ComParams;
 import com.fortune.mobile.view.MyImageView;
 import com.fortune.mobile.view.ProgressDialog;
-import com.fortune.util.*;
+import com.fortune.util.ACache;
+import com.fortune.util.HttpException;
+import com.fortune.util.JsonUtils;
+import com.fortune.util.User;
 import com.fortune.util.net.HttpUtils;
 import com.fortune.util.net.http.RequestCallBack;
 import com.fortune.util.net.http.ResponseInfo;
@@ -30,71 +33,25 @@ import java.util.List;
  * Created by xjliu on 2015/8/30.
  *
  */
-public class CarInfo extends BaseActivity {
+public class CarDetectInfo extends BaseActivity {
     public static final int RESULT_CODE_SUCCESS = 3000;
     public static final int RESULT_CODE_FAIL = 3001;
     private LinearLayout conductsContainer;
     private List<Conduct> conducts;
     private Car car;
-    private TabBean[] tabs = new TabBean[]{
-            new TabBean(R.id.tv_carInfo_baseInfo, R.id.ll_base_info_container, true),
-            new TabBean(R.id.tv_carInfo_conducts, R.id.ll_conducts_container, false)
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.car_info);
+        setContentView(R.layout.car_info_detectinfo);
         car = getIntent().getParcelableExtra(ComParams.INTENT_CAR_BEAN);
         initViews();
-        for (TabBean tabBean : tabs) {
-            setClickHandler(null, tabBean.getTabMenuId(), clickOnTabMenu);
-        }
     }
 
     public void initViews() {
         conducts = null;
         conductsContainer = (LinearLayout) findViewById(R.id.ll_conducts_container);
-        if (car != null) {
-            List<CarDisplayItem> items = car.getValues();
-            if (items != null) {
-                LayoutInflater inflater = getLayoutInflater();
-                LinearLayout baseInfoContainer = (LinearLayout) findViewById(R.id.ll_base_info_container);
-                if (baseInfoContainer != null) {
-                    baseInfoContainer.removeAllViews();
-                    for (CarDisplayItem item : items) {
-                        View itemView;
-                        int rId = R.layout.cars_baseinfo_item;
-                        String type = item.getType();
-                        if ("image".equals(type)) {
-                            rId = R.layout.cars_baseinfo_item_image;
-                        }
-                        itemView = inflater.inflate(rId, null);
-                        if (itemView != null) {
-                            setTextOf(itemView, R.id.tv_car_base_info_label, item.getFieldLabel() + ":");
-                            if (rId == R.layout.cars_baseinfo_item_image) {
-                                MyImageView pic = (MyImageView) itemView.findViewById(R.id.tv_car_base_info_value);
-                                if (pic != null) {
-                                    String picUrl = item.getValue();
-                                    if (!picUrl.startsWith("http://")) {
-                                        picUrl = ComParams.HTTP_BASE + picUrl;
-                                    }
-                                    pic.setImage(picUrl, null, true);
-                                }
-                            } else {
-                                String value = item.getValue();
-                                if ("date".equals(type)) {
-                                    if (value.length() > 10) {
-                                        value = value.substring(0, 10);
-                                    }
-                                }
-                                setTextOf(itemView, R.id.tv_car_base_info_value, value);
-                            }
-                            baseInfoContainer.addView(itemView);
-                        }
-                    }
-                }
-            }
+        if(car!=null){
+            loadConducts(CarDetectInfo.this,"list",-1,car.getId());
         }
     }
 
@@ -121,13 +78,15 @@ public class CarInfo extends BaseActivity {
             setTextOf(view, R.id.tv_conduct_name, conduct.getTitle());
             setTextOf(view, R.id.tv_conduct_date, conduct.getCreateTime());
             view.setTag(conduct);
-            //setClickHandler(view, R.id.btn_conduct_view, clickOnConduct, conduct);
+            view.setOnClickListener(clickOnConduct);
             conductsContainer.addView(view);
         }
+/*
         View view = inflater.inflate(R.layout.car_conduct_no_any_data,null);
         setVisibleOf(view,R.id.tv_car_no_any_data,View.GONE);
         setClickHandler(view,R.id.btn_conduct_list_refresh,clickOnRefreshBtn);
         conductsContainer.addView(view);
+*/
     }
 
     /**
@@ -205,6 +164,10 @@ public class CarInfo extends BaseActivity {
                     if (!"".equals(childrenStr)) {
                         childrenStr = childrenStr.substring(0, childrenStr.length() - 1);
                     }
+                    TextView titleView = (TextView) view.findViewById(R.id.tv_conduct_item_name);
+                    if(titleView!=null){
+
+                    }
                     setClickHandler(view, R.id.tv_conduct_item_name, clickOnConductItemName, item);
                     setTextOf(view, R.id.tv_conduct_item_sub_items, childrenStr);
                 }
@@ -232,103 +195,7 @@ public class CarInfo extends BaseActivity {
     }
 
     private int currentTabId=R.id.tv_carInfo_baseInfo;
-    public void setTabMenu(TabBean tabBean, boolean selected, int resourceId) {
-        tabBean.setSelected(selected);
-        TextView textView = (TextView) findViewById(tabBean.getTabMenuId());
-        if (textView != null) {
-            textView.setBackgroundResource(resourceId);
-        }
-        LinearLayout linearLayout = (LinearLayout) findViewById(tabBean.getContainId());
-        if (linearLayout != null) {
-            if (selected) {
-                currentTabId=tabBean.getTabMenuId();
-                linearLayout.setVisibility(View.VISIBLE);
-                if (currentTabId == R.id.tv_carInfo_conducts) {
-                    if (conducts == null) {
-                        if (car != null) {
-                            loadConducts(this, "list", -1, car.getId());
-                        } else {
-                            Log.e(TAG, "没有输入car信息！无法获取检测列表！");
-                        }
-                    } else {
-                        Log.d(TAG, "数据获取过，不用再刷新了！");
-                    }
-                } else {
-                    Log.d(TAG, "这不是检查窗口，不用想办法是否初始化数据...");
-                }
-            } else {
-                linearLayout.setVisibility(View.GONE);
-                Log.d(TAG, "这不是选中状态，要隐藏");
-            }
-        } else {
-            Log.e(TAG, "没找到容器：" + tabBean.getContainId());
-        }
-    }
 
-    public void selectTab(TabBean tabBean) {
-        setTabMenu(tabBean, true, R.color.focused);
-    }
-
-    public void unSelectTab(TabBean tabBean) {
-        setTabMenu(tabBean, false, R.color.menuTextColor);
-    }
-
-    public void tabClicked(int clickId) {
-        for (TabBean tabBean : tabs) {
-            if (tabBean.tabMenuId == clickId) {
-                if (!tabBean.selected) {
-                    selectTab(tabBean);
-                }
-            } else {
-                if (tabBean.selected) {
-                    unSelectTab(tabBean);
-                }
-            }
-        }
-    }
-
-    public View.OnClickListener clickOnTabMenu = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            tabClicked(view.getId());
-        }
-    };
-
-    public class TabBean {
-        int tabMenuId;
-        int containId;
-        boolean selected;
-
-        public TabBean(int tabMenuId, int containId, boolean selected) {
-            this.tabMenuId = tabMenuId;
-            this.containId = containId;
-            this.selected = selected;
-        }
-
-        public int getTabMenuId() {
-            return tabMenuId;
-        }
-
-        public void setTabMenuId(int tabMenuId) {
-            this.tabMenuId = tabMenuId;
-        }
-
-        public int getContainId() {
-            return containId;
-        }
-
-        public void setContainId(int containId) {
-            this.containId = containId;
-        }
-
-        public boolean isSelected() {
-            return selected;
-        }
-
-        public void setSelected(boolean selected) {
-            this.selected = selected;
-        }
-    }
 
     public void onFinished(int resultCode, Object tag) {
         Log.d(TAG, "数据初始化结束，返回值：" + resultCode);
@@ -382,11 +249,11 @@ public class CarInfo extends BaseActivity {
         if (cacheResult != null) {
             List<Conduct> conducts = parseJson(cacheResult);
             if (conducts != null) {
-                Log.d(CarInfo.class.getSimpleName(), "已经从缓存中获取数据，直接返回：" + cacheResult);
+                Log.d(CarDetectInfo.class.getSimpleName(), "已经从缓存中获取数据，直接返回：" + cacheResult);
                 caller.onFinished(RESULT_CODE_SUCCESS, conducts);
                 return;
             } else {
-                Log.d(CarInfo.class.getSimpleName(), "虽然缓存中有数据，但没有检查列表，所以还是要再搜索一次：" + cacheResult);
+                Log.d(CarDetectInfo.class.getSimpleName(), "虽然缓存中有数据，但没有检查列表，所以还是要再搜索一次：" + cacheResult);
             }
         }
         HttpUtils handler = new HttpUtils();
@@ -395,7 +262,7 @@ public class CarInfo extends BaseActivity {
         String url = ComParams.HTTP_LIST_CONDUCTS + "phone=" + User.getUserId(caller.getContext())
                 + "&token=" + User.getToken(caller.getContext()) + "&conductId=" + conductId + "&carId=" + carId +
                 "&command=" + command;
-        Log.d(CarInfo.class.getClass().getSimpleName(), "准备发起web请求，获取检查接口数据：" + url);
+        Log.d(CarDetectInfo.class.getClass().getSimpleName(), "准备发起web请求，获取检查接口数据：" + url);
         handler.send(HttpRequest.HttpMethod.GET, url, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -481,7 +348,7 @@ public class CarInfo extends BaseActivity {
         @Override
         public void onClick(View view) {
             if(car!=null){
-                loadConducts(CarInfo.this,"list",-1,car.getId());
+                loadConducts(CarDetectInfo.this,"list",-1,car.getId());
             }else{
                 Log.e(TAG,"没有车辆信息，不能搜索检查信息！");
             }
@@ -499,23 +366,21 @@ public class CarInfo extends BaseActivity {
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (currentTabId == R.id.tv_carInfo_conducts) {
-                if(currentConductItem!=null){
-                    ConductItem parent = currentConductItem.getParent();
-                    if(parent==null){
-                        currentConductItem = null;
-                        renderConduct(currentConduct);
-                    }else{
-                        renderConductItems(parent);
-                    }
-                }else if(currentConduct!=null){
-                    currentConduct = null;
-                    renderConducts();
+            if(currentConductItem!=null){
+                ConductItem parent = currentConductItem.getParent();
+                if(parent==null){
+                    currentConductItem = null;
+                    renderConduct(currentConduct);
                 }else{
-                    tabClicked(R.id.tv_carInfo_baseInfo);
+                    renderConductItems(parent);
                 }
-                return true;
+            }else if(currentConduct!=null){
+                currentConduct = null;
+                renderConducts();
+            }else{
+                finish();
             }
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -55,6 +55,7 @@ public class Cars extends BaseActivity {
     }
 
     public void initViews(){
+        super.initViews();
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.ll_cars_list_contain);
         linearLayout.removeAllViews();
         LayoutInflater inflater = getLayoutInflater();
@@ -77,7 +78,7 @@ public class Cars extends BaseActivity {
             if(tag instanceof Car){
                 Car car = (Car) tag;
                 Log.d(TAG,"点击了车辆准备展示详细信息："+car.getCarNo()+",id="+car.getId());
-                Intent intent = new Intent(Cars.this,CarInfo.class);
+                Intent intent = new Intent(Cars.this,CarInfoMenu.class);
                 intent.putExtra(ComParams.INTENT_CAR_BEAN, car);
                 startActivity(intent);
             }else{

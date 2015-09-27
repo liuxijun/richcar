@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-                android:background="@color/background">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_carinfo"
+        >
+    <include layout="@layout/activity_header"
+             android:id="@+id/include"/>
+
     <ScrollView
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            >
+            android:id="@+id/scrollView"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/include"
+            android:layout_above="@+id/include2">
+
         <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ll_base_info_container">
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:weightSum="1">
 
             <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView3"
-                    android:src="@drawable/banner"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_width="fill_parent"
+                    android:layout_height="180dp"
+                    android:id="@+id/imageView5"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/car_info_logo"
+                    android:layout_weight="0.59"
+                    android:scaleType="fitXY"
+                    android:layout_margin="3dp"/>
 
             <TextView
                     android:layout_width="fill_parent"
@@ -38,9 +50,29 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:id="@+id/ll_cars_list_contain">
-
+                <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="30sp"
+                        android:text="沪F08825"/>
+                <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="30sp"
+                        android:text="沪F08826"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
+    <include layout="@layout/activity_bottom"
+             android:id="@+id/include2"/>
 </RelativeLayout>
