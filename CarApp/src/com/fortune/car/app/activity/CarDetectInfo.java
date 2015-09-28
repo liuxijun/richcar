@@ -42,18 +42,19 @@ public class CarDetectInfo extends BaseActivity {
     private LinearLayout conductsContainer;
     private List<Conduct> conducts;
     private Map<String,Integer> itemIcon = new HashMap<String, Integer>();
-    private int[] icons = new int[]{R.drawable.icon_01
-            ,R.drawable.icon_02
-            ,R.drawable.icon_03
+    private int[] icons = new int[]{
+            R.drawable.icon_01
+            ,R.drawable.icon_08
+            ,R.drawable.icon_10
             ,R.drawable.icon_04
+            //,R.drawable.icon_12  //油液
+            ,R.drawable.icon_03
             ,R.drawable.icon_05
             ,R.drawable.icon_06
+            ,R.drawable.icon_02
             ,R.drawable.icon_07
-            ,R.drawable.icon_08
             ,R.drawable.icon_09
-            ,R.drawable.icon_10
             ,R.drawable.icon_11
-            //,R.drawable.icon_12  //油液
             ,R.drawable.icon_13
             ,R.drawable.icon_14
             //,R.drawable.icon_15  //轮胎
@@ -401,22 +402,27 @@ public class CarDetectInfo extends BaseActivity {
             fillParentData(item);
         }
     }
+
+    public void onBackPressed(){
+        if(currentConductItem!=null){
+            ConductItem parent = currentConductItem.getParent();
+            if(parent==null){
+                currentConductItem = null;
+                renderConduct(currentConduct);
+            }else{
+                renderConductItems(parent);
+            }
+        }else if(currentConduct!=null){
+            currentConduct = null;
+            renderConducts();
+        }else{
+            finish();
+        }
+    }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(currentConductItem!=null){
-                ConductItem parent = currentConductItem.getParent();
-                if(parent==null){
-                    currentConductItem = null;
-                    renderConduct(currentConduct);
-                }else{
-                    renderConductItems(parent);
-                }
-            }else if(currentConduct!=null){
-                currentConduct = null;
-                renderConducts();
-            }else{
-                finish();
-            }
+            onBackPressed();
             return true;
         }
         return super.onKeyDown(keyCode, event);

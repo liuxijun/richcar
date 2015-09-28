@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,8 +34,11 @@ public class BaseActivity extends Activity implements Caller {
         progDialog.setCancelable(true);
     }
     public void initViews(){
-        setClickHandler(null, R.id.iv_left,clickOnHome);
+        setClickHandler(null, R.id.iv_left,clickOnBack);
         setClickHandler(null, R.id.btn_home,clickOnHome);
+        setClickHandler(null,R.id.iv_share,clickOnShare);
+        setClickHandler(null,R.id.btn_message,clickOnNotImpl);
+        setClickHandler(null,R.id.btn_personal_center,clickOnNotImpl);
     }
     public ProgressDialog getProgDialog() {
         return progDialog;
@@ -184,13 +188,36 @@ public class BaseActivity extends Activity implements Caller {
     public View.OnClickListener clickOnHome = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            finish();
+            Intent intent = new Intent(BaseActivity.this,com.fortune.car.app.RichFriend.class);
+            //intentForDect.putExtra(ComParams.INTENT_CAR_BEAN, car);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        }
+    };
+    public void notImp(){
+        Toast.makeText(BaseActivity.this,"该功能暂时尚未实现，敬请期待...",Toast.LENGTH_SHORT).show();
+    }
+    public View.OnClickListener clickOnNotImpl = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            notImp();
         }
     };
     public View.OnClickListener clickOnShare = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            notImp();
         }
     };
+    public View.OnClickListener clickOnBack = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            onBackPressed();
+        }
+    };
+
+    public void onBackPressed(){
+        finish();
+    }
 }
