@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.fortune.car.app.Caller;
@@ -27,7 +28,9 @@ import com.fortune.util.net.http.ResponseInfo;
 import com.fortune.util.net.http.client.HttpRequest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xjliu on 2015/8/30.
@@ -38,6 +41,23 @@ public class CarDetectInfo extends BaseActivity {
     public static final int RESULT_CODE_FAIL = 3001;
     private LinearLayout conductsContainer;
     private List<Conduct> conducts;
+    private Map<String,Integer> itemIcon = new HashMap<String, Integer>();
+    private int[] icons = new int[]{R.drawable.icon_01
+            ,R.drawable.icon_02
+            ,R.drawable.icon_03
+            ,R.drawable.icon_04
+            ,R.drawable.icon_05
+            ,R.drawable.icon_06
+            ,R.drawable.icon_07
+            ,R.drawable.icon_08
+            ,R.drawable.icon_09
+            ,R.drawable.icon_10
+            ,R.drawable.icon_11
+            //,R.drawable.icon_12  //油液
+            ,R.drawable.icon_13
+            ,R.drawable.icon_14
+            //,R.drawable.icon_15  //轮胎
+    };
     private Car car;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +68,11 @@ public class CarDetectInfo extends BaseActivity {
     }
 
     public void initViews() {
+        super.initViews();
         conducts = null;
+        itemIcon.put("油液检测",R.drawable.icon_12);
+        itemIcon.put("车轮和轮胎检测",R.drawable.icon_15);
+
         conductsContainer = (LinearLayout) findViewById(R.id.ll_conducts_container);
         if(car!=null){
             loadConducts(CarDetectInfo.this,"list",-1,car.getId());
@@ -134,6 +158,7 @@ public class CarDetectInfo extends BaseActivity {
     }
 
     public void fillItemsTo(ViewGroup container, List<ConductItem> items, LayoutInflater inflater) {
+        int iconIdx = 0;
         for (ConductItem item : items) {
             List<ConductItem> children = item.getItems();
             boolean isLeaf = children == null || children.size() <= 0;
@@ -160,6 +185,18 @@ public class CarDetectInfo extends BaseActivity {
                     String childrenStr = "";
                     for (ConductItem child : children) {
                         childrenStr += child.getName() + ",";
+                    }
+                    ImageView iv = (ImageView)view.findViewById(R.id.iv_left);
+                    if(iv!=null){
+                        Integer iconResourceId = itemIcon.get(item.getName());
+                        if(iconResourceId==null){
+                            iconResourceId = icons[iconIdx];
+                            iconIdx++;
+                            if(iconIdx>=icons.length){
+                                iconIdx=0;
+                            }
+                        }
+                        iv.setImageResource(iconResourceId);
                     }
                     if (!"".equals(childrenStr)) {
                         childrenStr = childrenStr.substring(0, childrenStr.length() - 1);

@@ -29,6 +29,7 @@ public class CarBaseInfo extends BaseActivity {
     }
 
     public void initViews() {
+        super.initViews();
         if (car != null) {
             List<CarDisplayItem> items = car.getValues();
             if (items != null) {

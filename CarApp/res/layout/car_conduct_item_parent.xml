@@ -12,6 +12,12 @@
             android:layout_height="match_parent">
 
 
+        <ImageView
+                android:layout_width="35dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/iv_left"
+                android:src="@drawable/icon_08"/>
+
         <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -19,6 +25,7 @@
                 android:id="@+id/tv_conduct_item_name"
                 android:textSize="@dimen/car_conduct_list_row_font_size"
                 android:textColor="@color/conduct_list_font_color"/>
+
     </LinearLayout>
 
     <TextView
