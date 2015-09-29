@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RichFriend extends BaseActivity {
+public class RichFriend extends BaseActivity implements View.OnTouchListener{
     public static String TAG = RichFriend.class.getSimpleName();
     public List<ActivityBean> activityBeans = new ArrayList<ActivityBean>();
     /**
@@ -94,6 +94,7 @@ public class RichFriend extends BaseActivity {
         View view = findViewById(id);
         if(view!=null){
             setViewInfo(view,w,h,x,y,fontSize,fontColor,rate,onClickListener);
+            view.setOnTouchListener(this);
         }else{
             Log.e(TAG,"无法设置" +title+"，没有找到资源："+id);
         }
@@ -172,6 +173,7 @@ public class RichFriend extends BaseActivity {
         public void onClick(View view) {
             Log.d(TAG,"点了Menu！");
             int id=view.getId();
+            //view.setSelected(true);
             boolean needLogin=true;
             willStartCls = null;
             for(ActivityBean bean:activityBeans){
@@ -198,6 +200,26 @@ public class RichFriend extends BaseActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(intent);
     }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        int action = motionEvent.getAction();
+        switch(action){
+            case MotionEvent.ACTION_DOWN:
+                view.setPressed(true);
+                Log.d(TAG, "On Touch DOWN "+view.getClass().getSimpleName());
+                break;
+            case MotionEvent.ACTION_OUTSIDE:
+            case MotionEvent.ACTION_UP:
+                Log.d(TAG,"On Touch UP "+view.getClass().getSimpleName());
+                view.setPressed(false);
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+
     public class ActivityBean{
         int rId;
         Class activity;
