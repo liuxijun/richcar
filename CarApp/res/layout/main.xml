@@ -34,7 +34,7 @@
                                 android:layout_marginLeft="110px"
                                 android:layout_marginTop="582px"
                                 android:background="@drawable/bg_home_menu"
-                                android:padding="15dp">
+                                android:padding="@dimen/main_menu_icon_padding">
 
                                 <ImageView
                                         android:src="@drawable/menu_01"
@@ -53,7 +53,7 @@
                                 android:layout_marginTop="420px"
                                 android:layout_gravity="left|top"
                                 android:textColor="#FFFFFFFF"
-                                android:padding="15dp">
+                                android:padding="@dimen/main_menu_icon_padding">
 
                                 <ImageView
                                         android:src="@drawable/menu_02"
@@ -72,7 +72,7 @@
                                 android:layout_marginTop="582px"
                                 android:layout_gravity="left|top"
                                 android:background="@drawable/bg_home_menu"
-                                android:padding="15dp">
+                                android:padding="@dimen/main_menu_icon_padding">
 
                                 <ImageView
                                         android:src="@drawable/menu_03"
@@ -91,7 +91,7 @@
                                 android:layout_marginTop="902px"
                                 android:layout_gravity="left|top"
                                 android:background="@drawable/bg_home_menu"
-                                android:padding="15dp">
+                                android:padding="@dimen/main_menu_icon_padding">
 
                                 <ImageView
                                         android:src="@drawable/menu_04"
@@ -109,7 +109,7 @@
                                 android:layout_marginTop="1122px"
                                 android:layout_gravity="left|top"
                                 android:background="@drawable/bg_home_menu"
-                                android:padding="15dp">
+                                android:padding="@dimen/main_menu_icon_padding">
 
                                 <ImageView
                                         android:src="@drawable/menu_05"
@@ -127,7 +127,7 @@
                                 android:layout_marginTop="1122px"
                                 android:layout_gravity="left|top"
                                 android:background="@drawable/bg_home_menu"
-                                android:padding="15dp">
+                                android:padding="@dimen/main_menu_icon_padding">
 
                                 <ImageView
                                         android:src="@drawable/menu_06"
@@ -146,7 +146,7 @@
                                 android:layout_marginTop="902px"
                                 android:layout_gravity="left|top"
                                 android:background="@drawable/bg_home_menu"
-                                android:padding="15dp">
+                                android:padding="@dimen/main_menu_icon_padding">
 
                                 <ImageView
                                         android:src="@drawable/menu_07"
