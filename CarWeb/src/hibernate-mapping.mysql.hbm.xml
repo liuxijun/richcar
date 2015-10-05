@@ -1984,6 +1984,7 @@
         <property name="carPictureBack" column="car_picture_back" />
         <property name="status" column="status" />
     </class>
+
     <class name="com.fortune.cars.business.conduct.model.ConductItem" table="conduct_item">
         <!-- ConductItem mapping info-->
         <id name="id" column="id">
@@ -2021,7 +2022,7 @@
             <generator class="native" />
         </id>
         <property name="conductId" column="conduct_id"/>
-        <property name="itemId" column="item_id" />
+        <property name="itemId" column="item__id" />
         <property name="unit" column="unit" />
         <property name="correctValue" column="correct_value" />
         <property name="errorRange" column="error_range" />
@@ -2031,4 +2032,69 @@
         <property name="creator" column="creator" />
         <property name="status" column="status" />
     </class>
+
+    <class name="com.fortune.cars.business.repair.model.Parts" table="parts">
+        <!-- Parts mapping info-->
+        <id name="id" column="id">
+            <generator class="native" />
+        </id>
+        <property name="repairId" column="repair_id" />
+        <property name="name" column="name" />
+        <property name="homeland" column="homeland" />
+        <property name="level" column="level" />
+        <property name="price" column="price" />
+        <property name="priceDiscount" column="price_discount" />
+        <property name="manHour" column="man_hour" />
+        <property name="manHourDiscount" column="man_hour_discount" />
+        <property name="status" column="status" />
+    </class>
+    <class name="com.fortune.cars.business.repair.model.Repair" table="repair">
+        <!-- Repair mapping info-->
+        <id name="id" column="id">
+            <generator class="native" />
+        </id>
+        <property name="fileId" column="file_id" />
+        <property name="createTime" column="create_time" />
+        <property name="modifyTime" column="modify_time" />
+        <property name="carNo" column="car_no" />
+        <property name="fault0" column="fault_0" />
+        <property name="fault1" column="fault_1" />
+        <property name="fault2" column="fault_2" />
+        <property name="fault3" column="fault_3" />
+        <property name="fault4" column="fault_4" />
+        <property name="fault5" column="fault_5" />
+        <property name="fault6" column="fault_6" />
+        <property name="fault7" column="fault_7" />
+        <property name="fault8" column="fault_8" />
+        <property name="fault9" column="fault_9" />
+        <property name="fault10" column="fault_10" />
+        <property name="fault11" column="fault_11" />
+        <property name="item0" column="item_0" />
+        <property name="item1" column="item_1" />
+        <property name="item2" column="item_2" />
+        <property name="item3" column="item_3" />
+        <property name="item4" column="item_4" />
+        <property name="item5" column="item_5" />
+        <property name="item6" column="item_6" />
+        <property name="item7" column="item_7" />
+        <property name="item8" column="item_8" />
+        <property name="item9" column="item_9" />
+        <property name="item10" column="item_10" />
+        <property name="item11" column="item_11" />
+        <property name="inTime" column="in_time" />
+
+        <property name="outTime" column="out_time" />
+
+        <property name="recepton" column="recepton" />
+
+        <property name="workers" column="workers" />
+
+        <property name="qc" column="qc" />
+
+        <property name="status" column="status" />
+
+    </class>
+
+
+
 </hibernate-mapping>
