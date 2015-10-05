@@ -53,7 +53,7 @@
           width:100%;
       }
       .repairItem{
-          width:650px;
+          width:300px;
           height:30px;
       }
       .repairInfo{
@@ -114,24 +114,26 @@
               <div class="tabbable" id="viewMainBody">
                   <table  cellspacing="0">
                       <tr>
-                          <td align="right" width="100"><label for="fileNo">档案编号：</label></td>
-                          <td><input type="text" class="repairInfo" id="fileNo" name="obj.fileNo"></td>
+                          <td align="right" width="100"><label for="obj_fileId">档案编号：</label></td>
+                          <td><input type="text" class="repairInfo" id="obj_fileId" name="obj.fileId"></td>
                       </tr>
                       <tr>
-                          <td align="right"><label for="carNo">车牌照：</label></td>
-                          <td><input type="text" class="repairInfo"  id="carNo" name="obj.carNo"></td>
+                          <td align="right"><label for="obj_carNo">车牌照：</label></td>
+                          <td><input type="text" class="repairInfo"  id="obj_carNo" name="obj.carNo"></td>
                       </tr>
+<%--
                       <tr>
-                          <td align="right"><label for="modifyDate">编辑日期：</label></td>
-                          <td><input type="text" class="repairInfo"  id="modifyDate" name="obj.modifyDate"></td>
+                          <td align="right"><label for="obj_modifyDate">编辑日期：</label></td>
+                          <td><input type="text" class="repairInfo"  id="obj_modifyDate" name="obj.modifyDate"></td>
                       </tr>
+--%>
                       <tr>
                           <td colspan="2">
                               <table>
+                                  <tbody id="itemsBody">
                                   <tr>
                                       <td colspan="2">养护项目：</td>
                                   </tr>
-                                  <tbody id="itemsBody">
                                   <tr>
                                       <td colspan="2">
                                           <label for="item_0">1、</label><input id="item_0" name="obj.item_0" class="repairItem">
@@ -216,34 +218,34 @@
                       </tr>
                       <tr>
                           <td align="right">
-                              <label for="in_time">入店时间：</label>
+                              <label for="obj_inTime">入店时间：</label>
                           </td>
                           <td>
-                              <input id="in_time" name="obj.inTime" class="repairInfo">
+                              <input id="obj_inTime" name="obj.inTime" class="repairInfo">
                           </td>
                       </tr>
                       <tr>
                           <td align="right">
-                              <label for="out_time">预计交车时间：</label>
+                              <label for="obj_outTime">预计交车时间：</label>
                           </td>
                           <td>
-                              <input id="out_time" name="obj.outTime" class="repairInfo">
+                              <input id="obj_outTime" name="obj.outTime" class="repairInfo">
                           </td>
                       </tr>
                       <tr>
                           <td align="right">
-                              <label for="out_time">施工班组：</label>
+                              <label for="obj_workers">施工班组：</label>
                           </td>
                           <td>
-                              <input id="workers" name="obj.workers" class="repairInfo">
+                              <input id="obj_workers" name="obj.workers" class="repairInfo">
                           </td>
                       </tr>
                       <tr>
                           <td align="right">
-                              <label for="out_time">质检员：</label>
+                              <label for="obj_qc">质检员：</label>
                           </td>
                           <td>
-                              <input id="qc" name="obj.qc" class="repairInfo">
+                              <input id="obj_qc" name="obj.qc" class="repairInfo">
                           </td>
                       </tr>
                   </table>
@@ -254,10 +256,10 @@
                     <div class="col-md-2"><a class="btn btn-gray btn-big" href="#" onclick="resetRepair()">重置</a></div>
                 </div>
             </div>
-              <input type="hidden" name="obj.id" id="id">
-              <input type="hidden" name="obj.createTime" id="createTime">
-              <input type="hidden" name="obj.modifyTime" id="modifyTime">
-              <input type="hidden" name="obj.status" id="status">
+              <input type="hidden" name="obj.id" id="obj_id">
+              <input type="hidden" name="obj.createTime" id="obj_createTime">
+              <input type="hidden" name="obj.modifyTime" id="obj_modifyTime">
+              <input type="hidden" name="obj.status" id="obj_status">
 
               <!-- /.row -->
           </form>
@@ -417,6 +419,7 @@
                     url:"repair!save.action",//默认是form action
                     success:function(data){
                         if(data['success']){
+                            alert('保存成功！');
                             window.location.href="repairList.jsp";
                         }
                     }
@@ -461,7 +464,8 @@
             }
             $('#'+id).val(val);
         }
-        displayParts(obj['parts']);
+        displayItems(obj,6,true);
+        displayParts(obj['obj.parts']);
     }
     function loadData(){
         var keyId = parseInt($.getQuery("keyId",-1));
@@ -526,8 +530,20 @@
         ,{name:'inTime',type:'datetime'},{name:'outTime',type:'datetime'}
         ,{name:'reception'},{name:'workers'},{name:'qc'},{name:'status',type:'hidden'}
     ];
-    function displayItems(displayCount,obj){
-        var result = '';
+    function getValue(val){
+        if(val==null||typeof(val)=='undefined'){
+            return '';
+        }
+        return val;
+    }
+    function displayItems(obj,displayCount,displayFault){
+        var result = '<table><tr><td colspan="2">';
+        if(displayFault){
+            result+='故障现象：<td><td colspan="2">维修项目';
+        }else{
+            result+='养护项目';
+        }
+        result+='</td></tr>'
         var itemCount = 12;
         for(var i=0;i<itemCount;i++){
             var type='text';
@@ -537,11 +553,19 @@
                 cls = 'style="display:none;"';
             }
             result+='<tr id="itemRow_'+i+'"' +cls+
-                    '>\n<td align="right" width="80">'+(i+1)+'、</td><td>'+
+                    '>\n';
+            if(displayFault){
+                result+='<td align="right" width="80">'+(i+1)+'、</td><td>'+
+                        '<input type="' +type+'" id="obj_fault' +i+'" name="obj.fault' +i+'"' +
+                        ' value="' +getValue(obj['obj.fault'+i])+
+                        '" class="repairItem">'+
+                        '</td>';
+            }
+            result+='<td align="right" width="80">'+(i+1)+'、</td><td>'+
                             '<input type="' +type+'" id="obj_item' +i+'" name="obj.item' +i+'"' +
-                    ' value="' +obj['obj.item'+i]+
-                    '" class="repairItem">'
-            '</td>\n<tr>\n';
+                    ' value="' +getValue(obj['obj.item'+i])+
+                    '" class="repairItem">'+
+                    '</td>\n<tr>\n';
         }
         $("#itemsBody").html(result);
     }
@@ -571,7 +595,7 @@
                 if(fieldType!='hidden'){
                     htmlResult+="<td>";
                 }
-                htmlResult+='<input id="parts_'+i+'_'+fieldName+'" name="parts['+i+'].'
+                htmlResult+='<input id="obj_parts_'+i+'_'+fieldName+'" name="obj.parts['+i+'].'
                         +fieldName+'" type="' +fieldType+'" value="'+fieldValue+'">';
                 if(fieldType!='hidden'){
                     htmlResult+="</td>";
@@ -586,7 +610,7 @@
         calculatePrice();
     }
     function collectParts(){
-        var parts = __system_obj_data['parts'];
+        var parts = __system_obj_data['obj.parts'];
         if(parts==null){
             parts = [];
         }
@@ -603,14 +627,14 @@
                     fieldType = 'text';
                 }
                 var fieldName = field['name'];
-                part[fieldName]=$('#parts_'+i+'_'+fieldName).val();
+                part[fieldName]=$('#obj_parts_'+i+'_'+fieldName).val();
             }
         }
-        __system_obj_data['parts'] = parts;
+        __system_obj_data['obj.parts'] = parts;
     }
     function deleteParts(){
         if(confirm("您确定要删除选中的数据记录吗？")){
-            var parts = __system_obj_data['parts'];
+            var parts = __system_obj_data['obj.parts'];
             if(parts==null){
                 parts = [];
             }
@@ -634,14 +658,14 @@
         }
     }
     function newParts(){
-        var parts = __system_obj_data['parts'];
+        var parts = __system_obj_data['obj.parts'];
         if(parts==null){
             parts = [];
         }
         collectParts();
         parts.push({name:'',id:'-1',homeland:'',level:'',price:'0.00',manHour:'0.00',priceDiscount:0,
             manHourDiscount:0});
-        __system_obj_data['parts']=parts;
+        __system_obj_data['obj.parts']=parts;
         displayParts(parts);
     }
     loadData();

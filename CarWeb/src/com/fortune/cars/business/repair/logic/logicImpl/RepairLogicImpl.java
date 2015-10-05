@@ -42,7 +42,7 @@ public class RepairLogicImpl extends BaseLogicImpl<Repair> implements RepairLogi
             BeanUtils.setDefaultValue(repair,"createTime",now);
             repair.setModifyTime(new Date());
             BeanUtils.setDefaultValue(repair, "inTime", now);
-            BeanUtils.setDefaultValue(repair, "fileId", StringUtils.date2string(now,"yyyyMMddHHmmss"));
+            BeanUtils.setDefaultValue(repair, "fileId", StringUtils.date2string(now, "yyyyMMddHHmmss"));
             Parts searchBean = new Parts();
             searchBean.setRepairId(repair.getId());
             repair.setParts(partsLogicInterface.search(searchBean));
@@ -74,7 +74,13 @@ public class RepairLogicImpl extends BaseLogicImpl<Repair> implements RepairLogi
                 Parts p0 = oldParts.get(i);
                 partsLogicInterface.remove(p0);
             }
-            repair.setParts(parts);
+            oldParts.clear();
+            for(Parts p:parts){
+                p.setRepairId(repair.getId());
+                p = partsLogicInterface.save(p);
+                oldParts.add(p);
+            }
+            repair.setParts(oldParts);
         }
         return  repair;
     }
