@@ -1,10 +1,26 @@
+<%@ page import="com.fortune.util.StringUtils" %>
 <%@ taglib prefix="s" uri="/struts-tags" %><%--
   Created by IntelliJ IDEA.
   User: mlwang
   Date: 2014-10-8
   Time: 16:49:08
   管理员首页
---%><%@ page contentType="text/html;charset=UTF-8" language="java" %><!DOCTYPE html>
+--%><%@ page contentType="text/html;charset=UTF-8" language="java" %><%
+    int type = StringUtils.string2int(request.getParameter("type"), 0);
+    String itemName="养护项目";
+    switch(type){
+        case 1:
+            itemName = "维修项目";
+            break;
+        case 2:
+            itemName = "维修项目";
+            break;
+        default:
+            itemName = "养护项目";
+            break;
+    }
+    boolean displayFault=type==2;
+%><!DOCTYPE html>
 <html lang="zh_CN">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -541,14 +557,14 @@
         if(displayFault){
             result+='故障现象：<td><td colspan="2">维修项目';
         }else{
-            result+='养护项目';
+            result+='<%=itemName%>';
         }
-        result+='</td></tr>'
+        result+='</td></tr>';
         var itemCount = 12;
         for(var i=0;i<itemCount;i++){
             var type='text';
             var cls = '';
-            if(i>displayCount){
+            if(i>=displayCount){
                 type = 'hidden';
                 cls = 'style="display:none;"';
             }
