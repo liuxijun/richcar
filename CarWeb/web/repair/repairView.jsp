@@ -1,4 +1,5 @@
 <%@ page import="com.fortune.util.StringUtils" %>
+<%@ page import="java.util.Date" %>
 <%@ taglib prefix="s" uri="/struts-tags" %><%--
   Created by IntelliJ IDEA.
   User: mlwang
@@ -6,20 +7,14 @@
   Time: 16:49:08
   管理员首页
 --%><%@ page contentType="text/html;charset=UTF-8" language="java" %><%
-    int type = StringUtils.string2int(request.getParameter("type"), 0);
-    String itemName="养护项目";
-    switch(type){
-        case 1:
-            itemName = "维修项目";
-            break;
-        case 2:
-            itemName = "维修项目";
-            break;
-        default:
-            itemName = "养护项目";
-            break;
+    int type = StringUtils.string2int(request.getParameter("type"), 1);
+    String carNo = request.getParameter("carNo");
+    if(carNo==null){
+        carNo = "";
     }
-    boolean displayFault=type==2;
+    Date now = new Date();
+    String defaultFileId = StringUtils.date2string(now, "yyyyMMddHHmmss");
+    String nowStr = StringUtils.date2string(now);
 %><!DOCTYPE html>
 <html lang="zh_CN">
 <head>
@@ -74,7 +69,7 @@
       }
       .repairInfo{
           height:30px;
-          width:250px;
+          width:300px;
       }
   </style>
 </head>
@@ -250,6 +245,19 @@
                       </tr>
                       <tr>
                           <td align="right">
+                              <label for="obj_inTime">当前状态：</label>
+                          </td>
+                          <td>
+                              <select class="repairInfo" id="obj_status" name="obj.status">
+                                  <option value="1">排队中</option>
+                                  <option value="2">进行中</option>
+                                  <option value="3">已经完成</option>
+                                  <option value="4">其他</option>
+                              </select>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right">
                               <label for="obj_workers">施工班组：</label>
                           </td>
                           <td>
@@ -268,14 +276,17 @@
               </div>
                 <div class="space-6"></div>
                 <div class="row">
-                    <div class="col-md-2"><a class="btn btn-green btn-big" href="#" onclick="saveRepair()">保存</a></div>
-                    <div class="col-md-2"><a class="btn btn-gray btn-big" href="#" onclick="resetRepair()">重置</a></div>
+                    <div class="col-md-2"><a class="btn btn-green btn-big" onclick="saveRepair()">保存</a></div>
+                    <div class="col-md-2"><a class="btn btn-gray btn-big" onclick="resetRepair()">重置</a></div>
                 </div>
             </div>
               <input type="hidden" name="obj.id" id="obj_id">
               <input type="hidden" name="obj.createTime" id="obj_createTime">
               <input type="hidden" name="obj.modifyTime" id="obj_modifyTime">
+<%--
               <input type="hidden" name="obj.status" id="obj_status">
+--%>
+              <input type="hidden" name="obj.type" id="obj_type">
 
               <!-- /.row -->
           </form>
@@ -303,6 +314,26 @@
     <script type="text/javascript">
     var page_index = 1;
     var page_size = 10;
+    var itemName;
+    var displayFault = false;
+    function setByType(type){
+        if(type==null||typeof(type)=='undefined'){
+            type = <%=type%>;
+        }
+        switch(type){
+            case 2:
+                itemName = "维修项目";
+                break;
+            case 3:
+                itemName = "维修项目";
+                break;
+            default:
+                itemName = "养护项目";
+                break;
+        }
+        displayFault = type==2;
+    }
+
     jQuery(function ($) {
       $('.scrollable').each(function () {
         var $this = $(this);
@@ -436,7 +467,7 @@
                     success:function(data){
                         if(data['success']){
                             alert('保存成功！');
-                            window.location.href="repairList.jsp";
+                            window.location.href="repairList.jsp?type=<%=type%>";
                         }
                     }
                 });
@@ -447,7 +478,7 @@
     }
     function resetRepair(){
         if(confirm("您确认~不~保存当前编辑的信息吗？数据珍贵，谨慎操作！")){
-
+            loadData();
         }
     }
     function productChanged(){
@@ -468,6 +499,7 @@
         if(obj==null){
             obj = {};
         }
+        setByType(obj['obj.type']);
         __system_obj_data = obj;
         for(var i= 0,l=repairFields.length;i<l;i++){
             var field = repairFields[i];
@@ -480,7 +512,7 @@
             }
             $('#'+id).val(val);
         }
-        displayItems(obj,6,true);
+        displayItems(obj,6,displayFault);
         displayParts(obj['obj.parts']);
     }
     function loadData(){
@@ -496,6 +528,12 @@
                     fillForm(obj);
                 }
             });
+        }else{
+            fillForm({'obj.fileId':'<%=defaultFileId%>','obj.createTime':'<%=nowStr%>',
+                    'obj.inTime':'<%=nowStr%>',
+                'obj.outTime':'<%=StringUtils.date2string(new Date(now.getTime()+2*3600*1000L))%>',
+                'obj.carNo':'<%=carNo%>','obj.id':'-1','obj.type':<%=type%>,'obj.status':1,
+                'obj.parts':[{name:'',repairId:-1,price:'0.00',manHour:'0.00'}]});
         }
     }
 
@@ -545,6 +583,7 @@
         ,{name:'item9'},{name:'item10'},{name:'item11'}
         ,{name:'inTime',type:'datetime'},{name:'outTime',type:'datetime'}
         ,{name:'reception'},{name:'workers'},{name:'qc'},{name:'status',type:'hidden'}
+            ,{name:'type',type:'hidden'}
     ];
     function getValue(val){
         if(val==null||typeof(val)=='undefined'){
@@ -553,14 +592,15 @@
         return val;
     }
     function displayItems(obj,displayCount,displayFault){
-        var result = '<table><tr><td colspan="2">';
+        var result = '<table><tr><td colspan="2" style="padding-left: 30px;font-size:14px;">';
         if(displayFault){
-            result+='故障现象：<td><td colspan="2">维修项目';
+            result+='故障现象：<td><td colspan="2">维修项目：';
         }else{
-            result+='<%=itemName%>';
+            result+=itemName+'：';
         }
         result+='</td></tr>';
         var itemCount = 12;
+        var numberWidth=100;
         for(var i=0;i<itemCount;i++){
             var type='text';
             var cls = '';
@@ -571,13 +611,17 @@
             result+='<tr id="itemRow_'+i+'"' +cls+
                     '>\n';
             if(displayFault){
-                result+='<td align="right" width="80">'+(i+1)+'、</td><td>'+
+                result+='<td align="right" width="'+numberWidth+'">'+(i+1)+'、</td><td>'+
                         '<input type="' +type+'" id="obj_fault' +i+'" name="obj.fault' +i+'"' +
                         ' value="' +getValue(obj['obj.fault'+i])+
                         '" class="repairItem">'+
                         '</td>';
+            }else{
+                result+='<input type="hidden" id="obj_fault' +i+'" name="obj.fault' +i+'"' +
+                        ' value="' +getValue(obj['obj.fault'+i])+
+                        '" class="repairItem">';
             }
-            result+='<td align="right" width="80">'+(i+1)+'、</td><td>'+
+            result+='<td align="right" width="'+numberWidth+'">'+(i+1)+'、</td><td>'+
                             '<input type="' +type+'" id="obj_item' +i+'" name="obj.item' +i+'"' +
                     ' value="' +getValue(obj['obj.item'+i])+
                     '" class="repairItem">'+

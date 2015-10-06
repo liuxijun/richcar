@@ -283,8 +283,8 @@ var list={
                                 '<td class="center">'+obj['maintainTimes']+'</td>' +
                                 '<td class="center"><a class="btn btn-grey btn-xs"  href="carView.jsp?keyId=' +obj['id']+'">'+
                                 '          <i class="ace-icon fa fa-edit bigger-110 icon-only"></i>'+
-                                '  </a><a class="btn btn-grey btn-xs" onclick="list.delete('+obj['id']+
-                                ',\''+obj['carNo']+'\');return false;">'+
+                                '  </a><a class="btn btn-grey btn-xs" onclick="list.delete(\''+obj['id']+
+                                '\',\''+obj['carNo']+'\');return false;">'+
                                 '          <i class="ace-icon fa fa-trash-o bigger-110 icon-only"></i>'+
                                 '  </a></td>'+
                                 '</tr>';
@@ -329,7 +329,7 @@ var list={
     delete:function(id,carNo){
         if(confirm("您确认要删除这条车友记录吗？？\n车牌为："+carNo)){
             $.ajax({
-                url:'../cars/car!delete.action',
+                url:'../cars/cars!delete.action',
                 data:{keyId:id},
                 dataType:'json',
                 success:function(jsonData){

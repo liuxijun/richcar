@@ -33,6 +33,7 @@
         <%
             {
                 String requestUrl = request.getServletPath();
+                String queryString = request.getQueryString();
                 String folderName="";
                 String functionName="";
                 String defaultWillFirstVisitUrl=null;
@@ -46,7 +47,18 @@
                             continue;
                         }
                         String cls = " ";
+                        boolean isOpened = false;
                         if(requestUrl.contains(adminMenu.getUrl())){
+                            //System.err.println("opened:"+requestUrl+","+adminMenu.getName());
+                            isOpened = true;
+                        }else{
+                            if(queryString!=null){
+                                if((requestUrl+"?"+queryString).contains(adminMenu.getUrl())){
+                                    isOpened = true;
+                                }
+                            }
+                        }
+                        if(isOpened){
                             cls = "active open";
                             folderName = adminMenu.getName();
                         }
@@ -82,7 +94,12 @@
                                     ",requestUrl="+requestUrl);
                         }
 */
-                        if(subUrl.contains(requestUrl)){
+                        String fullRequestUrl = requestUrl;
+                        if(queryString!=null){
+                            fullRequestUrl+="?"+queryString;
+                        }
+
+                        if(fullRequestUrl.contains(subUrl)){
                             subCls = "active";
                             if(defaultWillFirstVisitUrl==null){
                                 defaultWillFirstVisitUrl = subMenu.getUrl();
@@ -90,8 +107,8 @@
                         }else{
                             //此菜单下将会访问到的url，包括这个菜单的URL，还有会用的其他功能连接。例如获取栏目列表
                             String willVisitUrls = subMenu.getPermissionStr();
-                            if(!"/man.jsp".equals(requestUrl)){
-                                if(willVisitUrls!=null && willVisitUrls.contains(requestUrl)){
+                            if(!"/man.jsp".equals(fullRequestUrl)){
+                                if(willVisitUrls!=null && willVisitUrls.contains(fullRequestUrl)){
                                     subCls = "active";
                                 }
                             }

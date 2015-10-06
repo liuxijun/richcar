@@ -43,6 +43,7 @@ public class Repair extends BaseModel implements java.io.Serializable {
 	private String recepton;
 	private String workers;
 	private String qc;
+	private Integer type;
 	private Integer status;
     private List<Parts> parts;
 
@@ -55,7 +56,8 @@ public class Repair extends BaseModel implements java.io.Serializable {
                   String fault10, String fault11, String item0, String item1, String item2,
                   String item3, String item4, String item5, String item6, String item7,
                   String item8, String item9, String item10, String item11, Date inTime,
-                  Date outTime, String recepton, String workers, String qc, Integer status) {
+                  Date outTime, String recepton, String workers, String qc, Integer type,
+				  Integer status) {
         this.id = id;
         this.fileId = fileId;
         this.createTime = createTime;
@@ -90,6 +92,7 @@ public class Repair extends BaseModel implements java.io.Serializable {
         this.recepton = recepton;
         this.workers = workers;
         this.qc = qc;
+		this.type = type;
         this.status = status;
     }
 
@@ -344,6 +347,14 @@ public class Repair extends BaseModel implements java.io.Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     @SuppressWarnings("JpaAttributeTypeInspection")
     public List<Parts> getParts() {

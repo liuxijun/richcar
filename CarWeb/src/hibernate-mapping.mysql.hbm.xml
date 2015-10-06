@@ -2082,15 +2082,11 @@
         <property name="item10" column="item_10" />
         <property name="item11" column="item_11" />
         <property name="inTime" column="in_time" />
-
         <property name="outTime" column="out_time" />
-
         <property name="recepton" column="recepton" />
-
         <property name="workers" column="workers" />
-
         <property name="qc" column="qc" />
-
+        <property name="type" column="type" />
         <property name="status" column="status" />
 
     </class>

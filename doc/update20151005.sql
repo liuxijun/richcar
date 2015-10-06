@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS repair;
 CREATE TABLE repair(
         id int PRIMARY KEY AUTO_INCREMENT,
-        repair_id int,
         file_id VARCHAR(128),
 
         create_time datetime,
@@ -36,6 +35,7 @@ CREATE TABLE repair(
   recepton VARCHAR(64),
   workers VARCHAR(64),
   qc VARCHAR(64),
+  type int default 1,
   status int
 );
 /**
@@ -44,6 +44,7 @@ CREATE TABLE repair(
 DROP TABLE IF EXISTS parts;
 CREATE TABLE parts(
   id int PRIMARY KEY AUTO_INCREMENT,
+  repair_id int,
   name VARCHAR(64),
   homeland VARCHAR(64),
   level VARCHAR(32),

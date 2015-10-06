@@ -1,11 +1,14 @@
-<%@ page import="com.fortune.util.StringUtils" %><%@ taglib prefix="s" uri="/struts-tags" %><%--
+<%@ page import="com.fortune.util.StringUtils" %>
+<%@ page import="java.util.Date" %>
+<%@ taglib prefix="s" uri="/struts-tags" %><%--
   Created by IntelliJ IDEA.
   User: mlwang
   Date: 2014-10-8
   Time: 16:49:08
   管理员首页
 --%><%@ page contentType="text/html;charset=UTF-8" language="java" %><%
-    int carId = StringUtils.string2int(request.getParameter("carId"),-1);
+    int type = StringUtils.string2int(request.getParameter("type"), 1);
+
 %><!DOCTYPE html>
 <html lang="zh_CN">
 <head>
@@ -35,7 +38,7 @@
 <!-- /section:basics/navbar.layout -->
 <div class="main-container" id="main-container">
 <script type="text/javascript">
-    var carId = <%=carId%>;
+    var type = <%=type%>;
     try {
         ace.settings.check('main-container', 'fixed')
     } catch (e) {
@@ -77,8 +80,8 @@
             <div class="row page-content-main">
 
                 <form role="form" class="form-horizontal">
-                    <div class="input-group pull-right search-group" style="width:640px;height: 30px; margin: 9px;float:left;">
-                        <div style="width:120px;float:left;font-weight: 30px;font-size:22px;">标题：</div>
+                    <div class="input-group pull-right search-group" style="width:316px;height: 30px; margin: 9px;float:left;">
+                        <div style="width:120px;float:left;line-weight:30px;font-size:22px;">车牌号码：</div>
                         <div style="width:150px;height: 30px;float: left;">
                             <input type="text" id="search_no" placeholder="例如：吉A09928" class="form-control" >
                         </div>
@@ -92,13 +95,13 @@
                     <div class="col-xs-12 no-padding movie-info">
 
                         <div class="tabbable">
-                            <div style="width:520px;float:left;font-weight: 30px;font-size:22px;" id="currentParentName"></div><br/>
+                            <div style="width:520px;float:left;line-weight: 30px;font-size:22px;" id="currentParentName"></div><br/>
                             <table class="table table-striped table-bordered table-hover table-30">
                                 <thead>
                                 <tr>
-                                    <th width="50%" align="center"><a href="#" onclick='list.order_by("carNo")'>标题</a></th>
+                                    <th width="50%" align="center"><a href="#" onclick='list.order_by("carNo")'>车牌号码</a></th>
                                     <th width="20%" align="center"><a href="#" onclick='list.order_by("status")'>状态</a></th>
-                                    <th width="20%"  align="center"><a href="#" onclick='list.order_by("createTime")'>检查日期</a></th>
+                                    <th width="20%"  align="center"><a href="#" onclick='list.order_by("createTime")'>日期</a></th>
                                     <th align="center">操作</th>
                                 </tr>
                                 </thead>
@@ -110,7 +113,7 @@
                         </div>
                         <div class="space-6"></div>
                         <div class="row">
-                            <div class="col-md-2"><a class="btn btn-green btn-big" href="repairView.jsp?carId=<%=carId%>">新增检查</a></div>
+                            <div class="col-md-2"><a class="btn btn-green btn-big" href="repairView.jsp?type=<%=type%>&keyId=-1">新增</a></div>
                             <div class="col-md-6 col-md-offset-4">
                                 <ul  id="page-nav" class="pagination pull-right">
                             </ul></div>
@@ -247,10 +250,30 @@ jQuery(function ($) {
     });
     list.goToPage(1);
 });
-var list={
+ var itemName;
+ var displayFault = false;
+ function setByType(type){
+     if(type==null||typeof(type)=='undefined'){
+         type = <%=type%>;
+     }
+     switch(type){
+         case 2:
+             itemName = "维修项目";
+             break;
+         case 3:
+             itemName = "维修项目";
+             break;
+         default:
+             itemName = "养护项目";
+             break;
+     }
+     displayFault = type==2;
+ }
+
+ var list={
     limit:10,
     currentPage:1,
-    status:[{text:'已经完成',value:1},{text:'排队中',value:2},{text:'正在进行中',value:3}],
+    status:[{text:'已经完成',value:3},{text:'排队中',value:1},{text:'正在进行中',value:2}],
     truncateTime:function(val){
         if(val!=null&&val.length>10){
             return val.substring(0,10);
@@ -269,17 +292,17 @@ var list={
             var i= 0,l=objs.length;
             for(;i<l;i++){
                 var obj = objs[i];
-                var eTime = list.truncateTime(obj['motEtime']);
-                var createTime = list.truncateTime(obj['createTime']);
+                //var eTime = list.truncateTime(obj['motEtime']);
+                var createTime = (obj['createTime']);
                 result +=
                         '<tr>' +
-                                '<td><a href="repairView.jsp?keyId=' +obj['id']+'">' + obj['carNo']+'</a></td>' +
+                                '<td><a href="repairView.jsp?keyId=' +obj['id']+'">'/*+obj['fileId']+':'*/+ obj['carNo']+'</a></td>' +
                                 '<td class="center">'+list.getTextOfArray(obj['status'],list.status,'value','text')+'</td>' +
                                 '<td class="center">' + createTime+'</td>' +
-                                '<td class="center"><a class="btn btn-grey btn-xs"  href="repairView.jsp?keyId=' +obj['id']+'">'+
+                                '<td class="center"><a class="btn btn-grey btn-xs"  href="repairView.jsp?type=<%=type%>keyId=' +obj['id']+'">'+
                                 '          <i class="ace-icon fa fa-edit bigger-110 icon-only"></i>'+
-                                '  </a><a class="btn btn-grey btn-xs" onclick="list.delete('+obj['id']+
-                                '\''+obj['carNo']+'\');return false;">'+
+                                '  </a><a class="btn btn-grey btn-xs" onclick="list.deleteItem('+obj['id']+
+                                ',\''+obj['carNo']+'\');return false;">'+
                                 '          <i class="ace-icon fa fa-trash-o bigger-110 icon-only"></i>'+
                                 '  </a></td>'+
                                 '</tr>';
@@ -306,7 +329,8 @@ var list={
         _order = "o1."+_order;
         $.ajax({
             url:'../repair/repair!list.action',//menu!listFunctionMenus.action
-            data:({"obj.carId":carId,
+            data:({"obj.type":type,
+                "obj.carNo":$("#search_no").val(),
                 "pageBean.pageSize":list.limit,
                 "pageBean.pageNo":page_index,
                 "pageBean.orderBy":_order,
@@ -338,6 +362,20 @@ var list={
     getDesp:function(desp){
         return desp;
     },
+    deleteItem:function(id,carNo){
+        if(confirm("您确认要删除这条"+itemName+"记录吗？？\n车牌为："+carNo)){
+            $.ajax({
+                url:'../repair/repair!delete.action',
+                data:{keyId:id},
+                dataType:'json',
+                success:function(jsonData){
+                    alert("删除完毕！");
+                    list.goToPage(1);
+                }
+            });
+        }
+    },
+
     currentParentName:'系统',
     currentParentCode:'systemRoot',
     getFolderName:function(parentCode){
@@ -347,7 +385,7 @@ var list={
         return list.currentParentName;
     }
 };
-
+setByType(type);
 </script>
 
 </body>
