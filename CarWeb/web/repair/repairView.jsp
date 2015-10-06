@@ -12,9 +12,25 @@
     if(carNo==null){
         carNo = "";
     }
+    String itemName = "";
+    switch(type){
+        case 1:
+            itemName = "养护方案";
+            break;
+        case 2:
+            itemName = "维修方案";
+            break;
+        case 3:
+            itemName = "事故维修方案";
+            break;
+        default:
+            itemName = "养护方案";
+            break;
+    }
     Date now = new Date();
     String defaultFileId = StringUtils.date2string(now, "yyyyMMddHHmmss");
     String nowStr = StringUtils.date2string(now);
+    request.setAttribute("itemName",itemName);
 %><!DOCTYPE html>
 <html lang="zh_CN">
 <head>
@@ -100,7 +116,7 @@
           当前位置:
           <a href="../man.jsp"> 网站首页</a>
         </li>
-        <li class="active">${folderName}</li><li class="active">${functionName}</li>
+        <li class="active">${folderName}</li><li class="active">${itemName}</li>
       </ul>
       <!-- /.breadcrumb -->
 
@@ -111,7 +127,7 @@
     <!-- /section:basics/content.breadcrumbs -->
     <div class="page-header">
       <h1>
-        <i class="ace-icon fa fa-car"></i>${functionName}
+        <i class="ace-icon fa fa-car"></i>${itemName}
       </h1>
     </div>
     <!-- /.page-header -->
@@ -220,8 +236,8 @@
                                           <div  style="margin-left:80px;cursor: pointer;color:blue;float:left;" onclick="deleteParts()">删除选中的配件</div>&nbsp;&nbsp;
                                       </td>
                                       <td align="right">总计</td>
-                                      <td align="right" id="totalPrice">￥0.00</td>
-                                      <td align="right" id="totalManHour">￥0.00</td>
+                                      <td align="right" id="priceTotal">￥0.00</td>
+                                      <td align="right" id="manHourTotal">￥0.00</td>
                                   </tr>
                               </table>
                               <br/>
@@ -451,6 +467,15 @@
     dictUtils.init(dictReady);
     function checkForm(){
         var result = "";
+        if($("#obj_fileId").val()==''){
+            result+="\n档案号不能为空！";
+        }
+        if($("#obj_carNo").val()==''){
+            result+="\n车牌号不能为空！";
+        }
+        if($("#obj_workers").val()==''){
+            result+="\n施工班组不能为空！";
+        }
 
         return result;
     }
@@ -467,7 +492,7 @@
                     success:function(data){
                         if(data['success']){
                             alert('保存成功！');
-                            window.location.href="repairList.jsp?type=<%=type%>";
+                            window.location.href="repairList.jsp?type="+$("#obj_type").val();
                         }
                     }
                 });
@@ -551,11 +576,24 @@
               }
           }
     }
+    function calculateField(name){
+        collectParts();
+        var parts = __system_obj_data['obj.parts'];
+        if(parts==null){
+            parts = [];
+        }
+        var result = 0;
+        for(var i= 0,l=parts.length;i<l;i++){
+            var p = parts[i];
+            result += parseFloat(p[name]);
+        }
+        $("#"+name+"Total").html("￥"+result);
+    }
     function calculatePrice(){
-
+        calculateField('price');
     }
     function calculateManHourPrice(){
-
+        calculateField('manHour');
     }
     var partsFields = [
         {name:'name',type:'text',allowBlank:false}
@@ -648,6 +686,10 @@
                 if(fieldType == 'number'){
                     fieldType = 'text';
                 }
+                var onChangeEvent = "";
+                if(fieldName == 'price'||fieldName=='manHour'){
+                    onChangeEvent = ' onchange="calculateField(\''+fieldName+'\')"';
+                }
                 var fieldValue = part[fieldName];
                 if(fieldValue==null||typeof(fieldValue)=='undefined'){
                     fieldValue = '';
@@ -656,7 +698,9 @@
                     htmlResult+="<td>";
                 }
                 htmlResult+='<input id="obj_parts_'+i+'_'+fieldName+'" name="obj.parts['+i+'].'
-                        +fieldName+'" type="' +fieldType+'" value="'+fieldValue+'">';
+                        +fieldName+'" type="' +fieldType+'" value="'+fieldValue+'"' +
+                                onChangeEvent+
+                        '>';
                 if(fieldType!='hidden'){
                     htmlResult+="</td>";
                 }

@@ -95,7 +95,7 @@
                     <div class="col-xs-12 no-padding movie-info">
 
                         <div class="tabbable">
-                            <div style="width:520px;float:left;line-weight: 30px;font-size:22px;" id="currentParentName"></div><br/>
+                            <div style="width:520px;float:left;line-height:30px;font-size:22px;" id="currentParentName"></div><br/>
                             <table class="table table-striped table-bordered table-hover table-30">
                                 <thead>
                                 <tr>
@@ -296,10 +296,10 @@ jQuery(function ($) {
                 var createTime = (obj['createTime']);
                 result +=
                         '<tr>' +
-                                '<td><a href="repairView.jsp?keyId=' +obj['id']+'">'/*+obj['fileId']+':'*/+ obj['carNo']+'</a></td>' +
+                                '<td><a href="repairView.jsp?type=<%=type%>&keyId=' +obj['id']+'">'/*+obj['fileId']+':'*/+ obj['carNo']+'</a></td>' +
                                 '<td class="center">'+list.getTextOfArray(obj['status'],list.status,'value','text')+'</td>' +
                                 '<td class="center">' + createTime+'</td>' +
-                                '<td class="center"><a class="btn btn-grey btn-xs"  href="repairView.jsp?type=<%=type%>keyId=' +obj['id']+'">'+
+                                '<td class="center"><a class="btn btn-grey btn-xs"  href="repairView.jsp?type=<%=type%>&keyId=' +obj['id']+'">'+
                                 '          <i class="ace-icon fa fa-edit bigger-110 icon-only"></i>'+
                                 '  </a><a class="btn btn-grey btn-xs" onclick="list.deleteItem('+obj['id']+
                                 ',\''+obj['carNo']+'\');return false;">'+
