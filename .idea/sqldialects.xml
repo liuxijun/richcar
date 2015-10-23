@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/CarWeb/doc/database/richcar.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/CarWeb/doc/database/update.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/doc/database.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/doc/menu.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/doc/update20151005.sql" dialect="MySQL" />
   </component>
 </project>

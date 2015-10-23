@@ -76,11 +76,11 @@
 
                 <form role="form" class="form-horizontal">
                     <div class="input-group pull-right search-group" style="width:640px;height: 30px; margin: 9px;float:left;">
-                        <div style="width:120px;float:left;font-weight: 30px;font-size:22px;">车牌号码：</div>
+                        <div style="width:120px;float:left;line-height: 30px;font-size:22px;">车牌号码：</div>
                         <div style="width:150px;height: 30px;float: left;">
                             <input type="text" id="search_no" placeholder="例如：吉A09928" class="form-control" >
                         </div>
-                        <div style="width:130px;float:left;font-weight: 30px;font-size:22px;">，联系人：</div>
+                        <div style="width:130px;float:left;line-height: 30px;font-size:22px;">，联系人：</div>
                         <div style="width: 150px;height: 30px;float: left;">
                             <input type="text" id="search_user" placeholder="联系人" class="form-control search-query" >
                         </div>
@@ -94,7 +94,7 @@
                     <div class="col-xs-12 no-padding movie-info">
 
                         <div class="tabbable">
-                            <div style="width:520px;float:left;font-weight: 30px;font-size:22px;" id="currentParentName"></div><br/>
+                            <div style="width:520px;float:left;line-height: 30px;font-size:22px;" id="currentParentName"></div><br/>
                             <table class="table table-striped table-bordered table-hover table-30">
                                 <thead>
                                 <tr>
@@ -283,7 +283,7 @@ var list={
                                 '<td class="center">'+obj['maintainTimes']+'</td>' +
                                 '<td class="center"><a class="btn btn-grey btn-xs"  href="carView.jsp?keyId=' +obj['id']+'">'+
                                 '          <i class="ace-icon fa fa-edit bigger-110 icon-only"></i>'+
-                                '  </a><a class="btn btn-grey btn-xs" onclick="list.delete(\''+obj['id']+
+                                '  </a><a class="btn btn-grey btn-xs" onclick="list.deleteItem(\''+obj['id']+
                                 '\',\''+obj['carNo']+'\');return false;">'+
                                 '          <i class="ace-icon fa fa-trash-o bigger-110 icon-only"></i>'+
                                 '  </a></td>'+
@@ -326,10 +326,10 @@ var list={
         });
     },
     currentDictCode:'',
-    delete:function(id,carNo){
+    deleteItem:function(id,carNo){
         if(confirm("您确认要删除这条车友记录吗？？\n车牌为："+carNo)){
             $.ajax({
-                url:'../cars/cars!delete.action',
+                url:'../cars/car!delete.action',
                 data:{keyId:id},
                 dataType:'json',
                 success:function(jsonData){

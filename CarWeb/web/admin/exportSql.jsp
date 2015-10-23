@@ -75,7 +75,7 @@
                 fw =  new OutputStreamWriter(new FileOutputStream(new File(fileName)),"UTF-8");
                 // = new FileOutputStream()
             }
-            String countSql = "select count(*) cc from ("+sql+")";
+            String countSql = "select count(*) cc from ("+sql+") a";
             List<Object> countResult = executeSql(countSql,null,null,null,null);
             int count = 0;
             if(countResult!=null){
@@ -97,7 +97,8 @@
             while(startRow<count){
                 int endRow = startRow+5000;
                 sqlStrings.clear();
-                String tempSql ="select * from (select tempT.*,rownum pageRN from ("+sql+") tempT where rownum<"+(endRow)+") where pageRN>="+startRow;
+                //String tempSql ="select * from (select tempT.*,rownum pageRN from ("+sql+") tempT where rownum<"+(endRow)+") where pageRN>="+startRow;
+                String tempSql = sql+" limit "+startRow+","+(endRow-startRow);
                 List<Object> executeResult = executeSql(tempSql,null,null,null,null);
                 if(executeResult!=null){
                     int i=0;
