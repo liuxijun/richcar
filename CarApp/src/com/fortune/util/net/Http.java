@@ -388,8 +388,8 @@ public class Http {
 	 * @throws TVException
 	 */
 	public HttpsURLConnection getHttpsURLConnection(String url, List<NameValuePair> list,
-			List<NameValuePair> addHheader, int conTimeOut, int socTimeOut) throws TVException {
-		return getHttpsURLConnection("GET", url, list, addHheader, conTimeOut, socTimeOut);
+			List<NameValuePair> addHeader, int conTimeOut, int socTimeOut) throws TVException {
+		return getHttpsURLConnection("GET", url, list, addHeader, conTimeOut, socTimeOut);
 	}
 
 	/**
@@ -403,9 +403,9 @@ public class Http {
 	 * @return
 	 * @throws TVException
 	 */
-	public HttpsURLConnection getHttpsURLConnection(String url, List<NameValuePair> list, List<NameValuePair> addHheader)
+	public HttpsURLConnection getHttpsURLConnection(String url, List<NameValuePair> list, List<NameValuePair> addHeader)
 			throws TVException {
-		return getHttpsURLConnection(url, list, addHheader, SET_CONNECTION_TIMEOUT, SET_SOCKET_TIMEOUT);
+		return getHttpsURLConnection(url, list, addHeader, SET_CONNECTION_TIMEOUT, SET_SOCKET_TIMEOUT);
 	}
 
 	/**
@@ -423,9 +423,9 @@ public class Http {
 	 * @return
 	 * @throws TVException
 	 */
-	public HttpURLConnection getHttpURLConnection(String url, List<NameValuePair> list, List<NameValuePair> addHheader,
+	public HttpURLConnection getHttpURLConnection(String url, List<NameValuePair> list, List<NameValuePair> addHeader,
 			int conTimeOut, int socTimeOut) throws TVException {
-		return getHttpURLConnection("GET", url, list, addHheader, conTimeOut, socTimeOut);
+		return getHttpURLConnection("GET", url, list, addHeader, conTimeOut, socTimeOut);
 	}
 
 	/**
@@ -439,17 +439,17 @@ public class Http {
 	 * @return
 	 * @throws TVException
 	 */
-	public HttpURLConnection getHttpURLConnection(String url, List<NameValuePair> list, List<NameValuePair> addHheader)
+	public HttpURLConnection getHttpURLConnection(String url, List<NameValuePair> list, List<NameValuePair> addHeader)
 			throws TVException {
-		return getHttpURLConnection(url, list, addHheader, SET_CONNECTION_TIMEOUT, SET_SOCKET_TIMEOUT);
+		return getHttpURLConnection(url, list, addHeader, SET_CONNECTION_TIMEOUT, SET_SOCKET_TIMEOUT);
 	}
 
 	/**
 	 * 根据参数url?param进行HTTP GET 请求，返回String
 	 * 
 	 * @param url
-	 * @param param
-	 * @param timeout
+	 * @param list
+	 * @param conTimeOut
 	 *            为true链接超时时间为5s，否则为2s;可参照get(List<NameValuePair> list)默认链接超时时间为5s
 	 * @return String
 	 * @throws TVException
@@ -464,8 +464,8 @@ public class Http {
 	 * 根据参数url?param进行HTTP GET 请求，返回String
 	 * 
 	 * @param url
-	 * @param param
-	 * @param timeout
+	 * @param addHeaders
+	 * @param conTimeOut
 	 *            为true链接超时时间为5s，否则为2s;可参照get(List<NameValuePair> list)默认链接超时时间为5s
 	 * @return String
 	 * @throws TVException
@@ -523,10 +523,10 @@ public class Http {
 		return read(getHttpURLConnection("POST", url, list, null, conTimeOut, soketTimeout));
 	}
 
-	public String post(String url, List<NameValuePair> list, List<NameValuePair> addHheader) throws TVException {
+	public String post(String url, List<NameValuePair> list, List<NameValuePair> addHeader) throws TVException {
 		if (url.startsWith("https"))
-			return read(getHttpsURLConnection("POST", url, list, addHheader, SET_CONNECTION_TIMEOUT, SET_SOCKET_TIMEOUT));
-		return read(getHttpURLConnection("POST", url, list, addHheader, SET_CONNECTION_TIMEOUT, SET_SOCKET_TIMEOUT));
+			return read(getHttpsURLConnection("POST", url, list, addHeader, SET_CONNECTION_TIMEOUT, SET_SOCKET_TIMEOUT));
+		return read(getHttpURLConnection("POST", url, list, addHeader, SET_CONNECTION_TIMEOUT, SET_SOCKET_TIMEOUT));
 
 	}
 
@@ -638,7 +638,11 @@ public class Http {
 		public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
 
 		@Override
-		public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+		public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+			if(authType==null){
+				throw new CertificateException("authType is null");
+			}
+		}
 
 		@Override
 		public X509Certificate[] getAcceptedIssuers() {

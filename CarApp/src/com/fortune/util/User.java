@@ -3,10 +3,10 @@ package com.fortune.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * Created by xjliu on 2015/8/30.
+ *
  */
 public class User {
     public static final String TAG = "User";
@@ -83,7 +83,7 @@ public class User {
      */
 
     public static boolean savePhone(Context context, String phone) {
-        Log.d(TAG,"savePhone phone = " + phone);
+        //Log.d(TAG,"savePhone phone = " + phone);
         return context.getSharedPreferences(SHAREDPREFERENCES_ACCESS, Context.MODE_PRIVATE).edit()
                 .putString(SHAREDPREFERENCES_ACCESS_PHONE, phone).commit();
 
@@ -109,7 +109,7 @@ public class User {
      * @return 更新是否成功
      */
     public static boolean saveUserId(Context context, String userId, String userBindId) {
-        Log.d(TAG,"saveUserId uid = " + userId + "BindId = " + userBindId);
+        //Log.d(TAG,"saveUserId uid = " + userId + "BindId = " + userBindId);
         return context.getSharedPreferences(SHAREDPREFERENCES_USER_INFO_FILENAME, Context.MODE_PRIVATE).edit()
                 .putString(SHAREDPREFERENCES_USER_INFO_USER_ID, userId)
                 .putString(SHAREDPREFERENCES_USER_INFO_USER_BIND_ID, userBindId).commit();
@@ -123,7 +123,7 @@ public class User {
      * @return 更新是否成功
      */
     public static boolean saveUserId(Context context, String userId) {
-        Log.d(TAG,"saveUserId uid = " + userId);
+        //Log.d(TAG,"saveUserId uid = " + userId);
         return context.getSharedPreferences(SHAREDPREFERENCES_USER_INFO_FILENAME, Context.MODE_PRIVATE).edit()
                 .putString(SHAREDPREFERENCES_USER_INFO_USER_ID, userId).commit();
     }
@@ -152,7 +152,7 @@ public class User {
      * @return 更新是否成功
      */
     public static boolean saveUserNickname(Context context, String nickname) {
-        Log.d(TAG,"saveUserNickname nickname = " + nickname);
+        //Log.d(TAG,"saveUserNickname nickname = " + nickname);
         return context.getSharedPreferences(SHAREDPREFERENCES_USER_INFO_FILENAME, Context.MODE_PRIVATE).edit()
                 .putString(SHAREDPREFERENCES_USER_INFO_NICKNAME, nickname).commit();
     }
@@ -165,7 +165,7 @@ public class User {
      * @return 更新是否成功
      */
     public static boolean saveUserHeadimg(Context context, int imgid) {
-        Log.d(TAG,"saveUserHeadimg imgid = " + imgid);
+        //Log.d(TAG,"saveUserHeadimg imgid = " + imgid);
         return context.getSharedPreferences(SHAREDPREFERENCES_USER_INFO_FILENAME, Context.MODE_PRIVATE).edit()
                 .putInt(SHAREDPREFERENCES_USER_INFO_HEADIMG, imgid).commit();
     }

@@ -59,8 +59,7 @@ public class SimpleSSLSocketFactory extends SSLSocketFactory {
 					throws java.security.cert.CertificateException {}
 		};
 		sslContext.init(null, new TrustManager[] { trustAllCerts }, null);
-
-		this.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		//this.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 	}
 
 	@Override

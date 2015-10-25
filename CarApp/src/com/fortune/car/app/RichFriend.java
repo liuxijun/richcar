@@ -142,14 +142,14 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
     public View.OnClickListener onLeftButtonClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Log.d(TAG, "点了我！");
+            Log.d(TAG, "点了左侧的按钮！");
             onMenuItemClick.onClick(view);
         }
     };
     public View.OnClickListener onRightButtonClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Log.d(TAG, "点了右边的按钮！");
+            Log.d(TAG, "点了右侧的按钮！");
             new AlertDialog.Builder(view.getContext())
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("确认注销")
@@ -371,9 +371,13 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
         if(autoLogin){
             User.saveToken(this,token);
         }else{
-            User.saveToken(this,null);
+            User.saveToken(this, null);
         }
-        startActivity(willStartCls);
+        if(willStartCls==null){
+            Cars.loadCarInfo(RichFriend.this);
+        }else{
+            startActivity(willStartCls);
+        }
     }
     public void loginFailed(String msg){
         Log.d(TAG,"用户登录失败，记录用户登录状态！");
@@ -501,7 +505,11 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
     private View.OnClickListener clickOnCars = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Cars.loadCarInfo(RichFriend.this);
+            if(!User.isLogined(RichFriend.this)){
+                showLogin();
+            }else{
+                Cars.loadCarInfo(RichFriend.this);
+            }
         }
     };
 }

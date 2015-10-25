@@ -32,6 +32,7 @@ import java.security.cert.X509Certificate;
 
 /**
  * Created by wyouflf on 13-8-30.
+ *
  */
 public class OtherUtils {
 	private OtherUtils() {}
@@ -126,6 +127,7 @@ public class OtherUtils {
 
 	private static TrustManager[] trustAllCerts;
 
+/*
 	public static void trustAllSSLForHttpsURLConnection() {
 		// Create a trust manager that does not validate certificate chains
 		if (trustAllCerts == null) {
@@ -136,7 +138,11 @@ public class OtherUtils {
 
 				public void checkClientTrusted(X509Certificate[] certs, String authType) {}
 
-				public void checkServerTrusted(X509Certificate[] certs, String authType) {}
+				public void checkServerTrusted(X509Certificate[] certs, String authType) {
+							if(authType==null){
+								throw new CertificateException("authType is null");
+							}
+				}
 			} };
 		}
 		// Install the all-trusting trust manager
@@ -151,4 +157,5 @@ public class OtherUtils {
 		HttpsURLConnection
 				.setDefaultHostnameVerifier(org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 	}
+*/
 }

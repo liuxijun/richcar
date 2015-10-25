@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.fortune.car.app"
-          android:versionCode="1000929"
-          android:versionName="1.0.0929">
+          android:versionCode="1001025"
+          android:versionName="1.0.1025">
     <uses-sdk android:minSdkVersion="9"/>
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <application android:label="@string/app_name" android:icon="@drawable/icon2">
+    <application android:label="@string/app_name" android:icon="@drawable/icon">
         <activity android:name="RichFriend"
                   android:screenOrientation="portrait"
                   android:launchMode="singleTask"
