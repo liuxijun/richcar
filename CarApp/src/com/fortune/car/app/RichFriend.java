@@ -467,7 +467,7 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
     }
 
     @SuppressWarnings("unchecked")
-    public void onFinished(int resultCode,Object tag){
+    public void onDataLoaded(int resultCode, Object tag){
         switch(resultCode){
             case Cars.RESULT_CODE_SUCCESS:
                 if(tag!=null){

@@ -12,4 +12,6 @@
     <dimen name="car_friend_btn_margin">10dp</dimen>
     <dimen name="car_info_menu_height">100dp</dimen>
     <dimen name="main_menu_icon_padding">18dp</dimen>
+    <dimen name="service_icon_icon_width">80dp</dimen>
+    <dimen name="car_solutions_info_font_size">24dp</dimen>
 </resources>

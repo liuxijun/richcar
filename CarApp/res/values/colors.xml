@@ -13,4 +13,6 @@
     <color name="purple_dark">#ff3c1077</color>
     <color name="red_dark">#92060a</color>
     <color name="red_dark_selected">#ffd5060a</color>
+    <color name="solution_item_label_text_color">#000</color>
+    <color name="solution_item_value_text_color">#FFF</color>
 </resources>

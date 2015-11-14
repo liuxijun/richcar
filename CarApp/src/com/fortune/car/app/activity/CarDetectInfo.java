@@ -12,11 +12,9 @@ import android.widget.TextView;
 import com.fortune.car.app.Caller;
 import com.fortune.car.app.R;
 import com.fortune.car.app.bean.Car;
-import com.fortune.car.app.bean.CarDisplayItem;
 import com.fortune.car.app.bean.Conduct;
 import com.fortune.car.app.bean.ConductItem;
 import com.fortune.mobile.params.ComParams;
-import com.fortune.mobile.view.MyImageView;
 import com.fortune.mobile.view.ProgressDialog;
 import com.fortune.util.ACache;
 import com.fortune.util.HttpException;
@@ -37,8 +35,6 @@ import java.util.Map;
  *
  */
 public class CarDetectInfo extends BaseActivity {
-    public static final int RESULT_CODE_SUCCESS = 3000;
-    public static final int RESULT_CODE_FAIL = 3001;
     private LinearLayout conductsContainer;
     private List<Conduct> conducts;
     private Map<String,Integer> itemIcon = new HashMap<String, Integer>();
@@ -235,7 +231,7 @@ public class CarDetectInfo extends BaseActivity {
     private int currentTabId=R.id.tv_carInfo_baseInfo;
 
 
-    public void onFinished(int resultCode, Object tag) {
+    public void onDataLoaded(int resultCode, Object tag) {
         Log.d(TAG, "数据初始化结束，返回值：" + resultCode);
         switch (resultCode) {
             case RESULT_CODE_SUCCESS:
@@ -288,7 +284,7 @@ public class CarDetectInfo extends BaseActivity {
             List<Conduct> conducts = parseJson(cacheResult);
             if (conducts != null) {
                 Log.d(CarDetectInfo.class.getSimpleName(), "已经从缓存中获取数据，直接返回：" + cacheResult);
-                caller.onFinished(RESULT_CODE_SUCCESS, conducts);
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, conducts);
                 return;
             } else {
                 Log.d(CarDetectInfo.class.getSimpleName(), "虽然缓存中有数据，但没有检查列表，所以还是要再搜索一次：" + cacheResult);
@@ -309,7 +305,7 @@ public class CarDetectInfo extends BaseActivity {
                 Log.d(getClass().getSimpleName(), "服务器返回：" + result);
                 ACache.get(caller.getContext())
                         .put(cacheKey, result, 60 * 5);
-                caller.onFinished(RESULT_CODE_SUCCESS, parseJson(result));
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, parseJson(result));
             }
 
             @Override
@@ -320,7 +316,7 @@ public class CarDetectInfo extends BaseActivity {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                caller.onFinished(RESULT_CODE_SUCCESS, "无法获取车辆信息：" + msg);
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, "无法获取车辆信息：" + msg);
                 progDialog.dismiss();
             }
         });

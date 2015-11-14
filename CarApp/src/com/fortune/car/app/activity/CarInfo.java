@@ -330,7 +330,7 @@ public class CarInfo extends BaseActivity {
         }
     }
 
-    public void onFinished(int resultCode, Object tag) {
+    public void onDataLoaded(int resultCode, Object tag) {
         Log.d(TAG, "数据初始化结束，返回值：" + resultCode);
         switch (resultCode) {
             case RESULT_CODE_SUCCESS:
@@ -383,7 +383,7 @@ public class CarInfo extends BaseActivity {
             List<Conduct> conducts = parseJson(cacheResult);
             if (conducts != null) {
                 Log.d(CarInfo.class.getSimpleName(), "已经从缓存中获取数据，直接返回：" + cacheResult);
-                caller.onFinished(RESULT_CODE_SUCCESS, conducts);
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, conducts);
                 return;
             } else {
                 Log.d(CarInfo.class.getSimpleName(), "虽然缓存中有数据，但没有检查列表，所以还是要再搜索一次：" + cacheResult);
@@ -404,7 +404,7 @@ public class CarInfo extends BaseActivity {
                 Log.d(getClass().getSimpleName(), "服务器返回：" + result);
                 ACache.get(caller.getContext())
                         .put(cacheKey, result, 60 * 5);
-                caller.onFinished(RESULT_CODE_SUCCESS, parseJson(result));
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, parseJson(result));
             }
 
             @Override
@@ -415,7 +415,7 @@ public class CarInfo extends BaseActivity {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                caller.onFinished(RESULT_CODE_SUCCESS, "无法获取车辆信息：" + msg);
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, "无法获取车辆信息：" + msg);
                 progDialog.dismiss();
             }
         });

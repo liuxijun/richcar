@@ -72,6 +72,7 @@ public class ComParams {
 	/** 车辆信息，基本信息 */
 	public static final String HTTP_LIST_CONDUCTS = HTTP_BASE + "/mobile/conducts.jsp?";
 	public static final String HTTP_CHANGE_PWD = HTTP_BASE+"/mobile/users.jsp?command=changePwd&";
+	public static final String HTTP_LIST_CAR_REPAIRS=HTTP_BASE+"/mobile/repair.jsp?type=";
 	/** 列表页， 频道页 */
 	public static final String HTTP_CHANNEL = HTTP_BASE + "/page/js/list.jsp?";
 	/** 搜索 */

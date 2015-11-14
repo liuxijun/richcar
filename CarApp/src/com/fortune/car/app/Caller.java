@@ -9,6 +9,6 @@ import com.fortune.mobile.view.ProgressDialog;
  */
 public interface Caller {
     ProgressDialog getProgDialog();
-    void onFinished(int resultCode,Object tag);
+    void onDataLoaded(int resultCode, Object tag);
     Context getContext();
 }

@@ -21,7 +21,6 @@ import com.fortune.util.net.http.RequestCallBack;
 import com.fortune.util.net.http.ResponseInfo;
 import com.fortune.util.net.http.client.HttpRequest;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +103,7 @@ public class Cars extends BaseActivity {
                 +"&token="+User.getToken(caller.getContext());
         String cacheResult = ACache.get(caller.getContext()).getAsString(ComParams.INTENT_CAR_LIST);
         if(cacheResult!=null){
-            caller.onFinished(RESULT_CODE_SUCCESS,parseCars(cacheResult));
+            caller.onDataLoaded(RESULT_CODE_SUCCESS, parseCars(cacheResult));
             return;
         }
         HttpUtils handler = new HttpUtils();
@@ -119,7 +118,7 @@ public class Cars extends BaseActivity {
                 Log.d(getClass().getSimpleName(), "服务器返回：" + result);
                 ACache.get(caller.getContext())
                         .put(ComParams.INTENT_CAR_BEAN, result, 60 * 5);
-                caller.onFinished(RESULT_CODE_SUCCESS,parseCars(result));
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, parseCars(result));
             }
             @Override
             public void onStart() {
@@ -129,7 +128,7 @@ public class Cars extends BaseActivity {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                caller.onFinished(RESULT_CODE_SUCCESS,"无法获取车辆信息："+msg);
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, "无法获取车辆信息：" + msg);
                 progDialog.dismiss();
             }
         });

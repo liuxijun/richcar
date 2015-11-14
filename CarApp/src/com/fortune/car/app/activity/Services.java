@@ -11,6 +11,12 @@ public class Services extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.building);
+        setContentView(R.layout.activity_service);
+        initViews();
+    }
+
+    public void initViews(){
+        super.initViews();
+        setTextOf(R.id.tv_title, "服务质量");
     }
 }

@@ -16,14 +16,21 @@ import com.fortune.car.app.Caller;
 import com.fortune.car.app.R;
 import com.fortune.mobile.params.ComParams;
 import com.fortune.mobile.view.ProgressDialog;
+import com.fortune.util.ACache;
+import com.fortune.util.HttpException;
 import com.fortune.util.Util;
-import org.w3c.dom.Text;
+import com.fortune.util.net.HttpUtils;
+import com.fortune.util.net.http.RequestCallBack;
+import com.fortune.util.net.http.ResponseInfo;
+import com.fortune.util.net.http.client.HttpRequest;
 
 /**
  * Created by xjliu on 2015/8/30.
  *
  */
 public class BaseActivity extends Activity implements Caller {
+    public static final int RESULT_CODE_SUCCESS = 3000;
+    public static final int RESULT_CODE_FAIL = 3001;
     protected ProgressDialog progDialog;
     protected String TAG = getClass().getSimpleName();
    @Override
@@ -159,7 +166,7 @@ public class BaseActivity extends Activity implements Caller {
         }
         return defaultVal;
     }
-    public void onFinished(int resultCode,Object tag){
+    public void onDataLoaded(int resultCode, Object tag){
         Log.d(TAG,"调用结束，返回码："+resultCode+",tag="+tag);
     }
     public Context getContext(){
@@ -219,5 +226,42 @@ public class BaseActivity extends Activity implements Caller {
 
     public void onBackPressed(){
         finish();
+    }
+
+    public static void executeHttpGet(final Caller caller, String url) {
+        final String cacheKey = url;
+        String cacheResult = ACache.get(caller.getContext()).getAsString(cacheKey);
+        if (cacheResult != null) {
+            Log.d(caller.getClass().getSimpleName(), "已经从缓存中获取数据，直接返回：" + cacheResult);
+            caller.onDataLoaded(RESULT_CODE_SUCCESS, cacheResult);
+            return;
+        }
+        HttpUtils handler = new HttpUtils();
+        handler.configUserAgent(ComParams.userAgent);
+        final ProgressDialog progDialog = caller.getProgDialog();
+        Log.d(caller.getClass().getSimpleName(), "准备发起web请求，获取检查接口数据：" + url);
+        handler.send(HttpRequest.HttpMethod.GET, url, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                progDialog.dismiss();
+                String result = responseInfo.result;
+                Log.d(caller.getClass().getSimpleName(), "服务器返回：" + result);
+                ACache.get(caller.getContext())
+                        .put(cacheKey, result, 60 * 5);
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, result);
+            }
+
+            @Override
+            public void onStart() {
+                Log.d(caller.getClass().getSimpleName(), "启动WEB请求，要求车辆信息");
+                progDialog.show();
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                caller.onDataLoaded(RESULT_CODE_SUCCESS, "无法获取车辆信息：" + msg);
+                progDialog.dismiss();
+            }
+        });
     }
 }
