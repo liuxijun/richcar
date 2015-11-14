@@ -8,6 +8,7 @@ import com.fortune.car.app.bean.Repair;
 import com.fortune.mobile.params.ComParams;
 import com.fortune.util.JsonUtils;
 import com.fortune.util.StringUtils;
+import com.fortune.util.User;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Solutions extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution_detail);
         initViews();
+        initRepairs();
     }
 
     public void initViews(){
@@ -35,7 +37,7 @@ public class Solutions extends BaseActivity {
     }
 
     public void initRepairs(){
-        String url = ComParams.HTTP_LIST_CAR_REPAIRS+type;
+        String url = ComParams.HTTP_LIST_CAR_REPAIRS+type+"&phone="+ User.getPhone(this)+"&token="+User.getToken(this);
         executeHttpGet(this,url);
     }
     public String appendIfNotEmpty(String src,String tail){

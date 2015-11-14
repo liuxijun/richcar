@@ -1,7 +1,13 @@
-<%@ page import="java.util.HashMap" %><%@ page import="java.util.Map" %><%@ page import="com.fortune.cars.business.repair.logic.logicInterface.RepairLogicInterface" %><%@ page import="com.fortune.util.*" %><%@ page import="com.fortune.cars.business.repair.model.Repair" %><%@ page import="java.util.List" %>
-<%@ page import="com.fortune.cars.business.cars.logic.logicInterface.CarLogicInterface" %>
-<%@ page import="com.fortune.cars.business.cars.model.Car" %>
-<%--
+<%@ page import="java.util.HashMap" %><%@ page
+        import="java.util.Map" %><%@ page
+        import="com.fortune.cars.business.repair.logic.logicInterface.RepairLogicInterface" %><%@ page
+        import="com.fortune.util.*" %><%@ page
+        import="com.fortune.cars.business.repair.model.Repair" %><%@ page
+        import="java.util.List" %><%@ page
+        import="com.fortune.cars.business.cars.logic.logicInterface.CarLogicInterface" %><%@ page
+        import="com.fortune.cars.business.cars.model.Car" %><%@ page
+        import="com.fortune.cars.business.repair.logic.logicInterface.PartsLogicInterface" %><%@ page
+        import="com.fortune.cars.business.repair.model.Parts" %><%--
   Created by IntelliJ IDEA.
   User: xjliu
   Date: 2015/11/14
@@ -37,6 +43,7 @@
           if(carNo==null||"".equals(carNo)){
               msg = "参数不对，没有输入carNo参数！";
           }else{
+              logger.debug("准备查找:车牌=" + carNo + ",type=" + type);
               RepairLogicInterface repairLogicInterface =(RepairLogicInterface) SpringUtils.getBean("repairLogicInterface",
                       session.getServletContext());
               Repair searchBean = new Repair();
@@ -47,6 +54,14 @@
               pageBean.setOrderDir("desc");
               pageBean.setPageSize(5);
               List<Repair> repairs = repairLogicInterface.search(searchBean,pageBean);
+              if(repairs!=null&&repairs.size()>0){
+                  PartsLogicInterface partsLogicInterface=(PartsLogicInterface)SpringUtils.getBean("partsLogicInterface",session.getServletContext());
+                  for(Repair repair:repairs){
+                      Parts parts=new Parts();
+                      parts.setRepairId(repair.getId());
+                      repair.setParts(partsLogicInterface.search(parts));
+                  }
+              }
               result.put("repairs",repairs);
               success = true;
           }
