@@ -87,6 +87,7 @@ public class Solutions extends BaseActivity {
         setTextOf(R.id.tv_agent,repair.getRecepton());
     }
     public void onDataLoaded(int resultCode, Object tag){
+        boolean dataFilled=false;
         try {
             RepairSolutionBean result = JsonUtils.fromJsonString(RepairSolutionBean.class, (String)tag);
             if (result != null) {
@@ -94,6 +95,7 @@ public class Solutions extends BaseActivity {
                     List<Repair> repairs = result.getRepairs();
                     if(repairs!=null&&repairs.size()>0){
                         fillData(repairs.get(0));
+                        dataFilled = true;
                     }else{
                         Log.e(TAG,"数据获取结果为0");
                     }
@@ -103,6 +105,9 @@ public class Solutions extends BaseActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if(!dataFilled){
+            alert("没有相应的数据！");
         }
     }
     public class RepairSolutionBean{
