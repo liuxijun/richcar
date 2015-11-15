@@ -103,7 +103,7 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
         int screenWidth = Util.getWindowWidth(this);
         int height=1896,width=1080,centerICONWidth=1080,centerICONHeight=1416;
         int buttonWidth=280,buttonHeight=130;
-        int buttonPosX=100,buttonPosY=1680;
+        int buttonPosX=100,buttonPosY=1580;
         int menuBarWidth=244,menuBarHeight=248;
         int posX = width/2+10,posY = height/2-10,radius = 400;
         int menuCount=7;

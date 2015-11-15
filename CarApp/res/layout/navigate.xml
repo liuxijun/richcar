@@ -5,13 +5,14 @@
               android:layout_height="match_parent"
                 android:background="@color/background"
         >
-
+    <include layout="@layout/activity_header"
+             android:id="@+id/include"/>
     <ImageView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imageView2"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/map"/>
+            android:background="@drawable/map"
+            android:layout_below="@+id/include"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -19,8 +20,9 @@
             android:text="心形图标为全国连锁店分布"
             android:id="@+id/textView2"
             android:drawableStart="@drawable/heart"
+            android:layout_above="@+id/include2"
+            android:layout_alignParentLeft="true"/>
+    <include layout="@layout/activity_bottom"
+             android:id="@+id/include2"/>
 
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="10dp"/>
 </RelativeLayout>

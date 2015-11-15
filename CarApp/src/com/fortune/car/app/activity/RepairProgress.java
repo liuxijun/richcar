@@ -12,5 +12,6 @@ public class RepairProgress extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.building);
+        initViews();
     }
 }

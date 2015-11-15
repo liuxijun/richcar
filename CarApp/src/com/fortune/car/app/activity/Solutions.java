@@ -37,7 +37,11 @@ public class Solutions extends BaseActivity {
     }
 
     public void initRepairs(){
-        String url = ComParams.HTTP_LIST_CAR_REPAIRS+type+"&phone="+ User.getPhone(this)+"&token="+User.getToken(this);
+        String phone = User.getPhone(this);
+        if(phone==null||"".equals(phone)){
+            phone = User.getUserId(this);
+        }
+        String url = ComParams.HTTP_LIST_CAR_REPAIRS+type+"&phone="+ phone+"&token="+User.getToken(this);
         executeHttpGet(this,url);
     }
     public String appendIfNotEmpty(String src,String tail){
