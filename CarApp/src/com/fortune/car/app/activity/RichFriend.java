@@ -22,7 +22,6 @@ import com.fortune.util.net.http.ResponseInfo;
 import com.fortune.util.net.http.client.HttpRequest;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 /**
  * Created by xjliu on 2015/8/30.
@@ -33,11 +32,13 @@ public class RichFriend extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_friend);
-        setViews();
+        initViews();
     }
-    public void setViews(){
+    public void initViews(){
+        super.initViews();
         for(ButtonBean buttonBean:buttonBeans){
             setClickHandler(null,buttonBean.getButtonId(),buttonBean.getOnClickListener());
+            setVisibleOf(null, buttonBean.getButtonId(), buttonBean.getVisible());
         }
     }
     private View.OnClickListener clickOnModifyNickName=new View.OnClickListener(){
@@ -52,13 +53,12 @@ public class RichFriend extends BaseActivity {
             alert("还未完全实现该功能！");
         }
     };
-    private AlertDialog changePwdDialog;
     private View pwdDialogView;
     private void showChangePwdDialog(){
         LayoutInflater inflater = getLayoutInflater();
         pwdDialogView = inflater.inflate(R.layout.dialog_change_pwd,
                 (ViewGroup) findViewById(R.id.dialog_changepwd_main_body));
-        changePwdDialog = new AlertDialog.Builder(this).setTitle("修改口令").setView(pwdDialogView)
+        AlertDialog changePwdDialog = new AlertDialog.Builder(this).setTitle("修改口令").setView(pwdDialogView)
                 .setPositiveButton("确定", null)
                 .setNegativeButton("取消", null).show();
         final Button button = changePwdDialog.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -161,34 +161,41 @@ public class RichFriend extends BaseActivity {
     };
 
     private ButtonBean[] buttonBeans=new ButtonBean[]{
-            new ButtonBean(R.id.btn_car_friend_change_modify_nickname,clickOnModifyNickName),
-            new ButtonBean(R.id.btn_car_friend_change_modify_picture,clickOnModifyPicture),
-            new ButtonBean(R.id.btn_car_friend_change_logout,clickOnLogout),
-            new ButtonBean(R.id.btn_car_friend_change_pwd,clickOnChangePwd)
+            new ButtonBean(R.id.btn_car_friend_change_modify_nickname,View.GONE,clickOnModifyNickName),
+            new ButtonBean(R.id.btn_car_friend_change_modify_picture,View.GONE,clickOnModifyPicture),
+            new ButtonBean(R.id.btn_car_friend_change_logout,View.VISIBLE,clickOnLogout),
+            new ButtonBean(R.id.btn_car_friend_change_pwd,View.VISIBLE,clickOnChangePwd)
     };
     public class ButtonBean{
         private int buttonId;
+        private int visible;
         private View.OnClickListener onClickListener;
 
-        public ButtonBean(int buttonId, View.OnClickListener onClickListener) {
+        public ButtonBean(int buttonId,int visible, View.OnClickListener onClickListener) {
             this.buttonId = buttonId;
             this.onClickListener = onClickListener;
+            this.visible = visible;
         }
 
         public int getButtonId() {
             return buttonId;
         }
 
-        public void setButtonId(int buttonId) {
-            this.buttonId = buttonId;
-        }
 
         public View.OnClickListener getOnClickListener() {
             return onClickListener;
         }
 
+/*
+        public void setButtonId(int buttonId) {
+            this.buttonId = buttonId;
+        }
         public void setOnClickListener(View.OnClickListener onClickListener) {
             this.onClickListener = onClickListener;
+        }
+*/
+        public int getVisible(){
+            return visible;
         }
     }
 }

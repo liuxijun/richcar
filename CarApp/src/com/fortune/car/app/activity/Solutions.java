@@ -23,13 +23,14 @@ public class Solutions extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution_detail);
         initViews();
-        initRepairs();
     }
 
     public void initViews(){
         super.initViews();
         setTextOf(R.id.tv_title, "养护方案");
         setVisibleOf(null, R.id.ll_fail_type, View.GONE);
+        setVisibleOf(null, R.id.tv_fail_type_line, View.GONE);
+        initRepairs();
     }
 
     public void setType(int type){
