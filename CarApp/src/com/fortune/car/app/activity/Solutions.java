@@ -83,7 +83,7 @@ public class Solutions extends BaseActivity {
         items = appendIfNotEmpty(items,repair.getItem9());
         items = appendIfNotEmpty(items,repair.getItem10());
         items = appendIfNotEmpty(items,repair.getItem11());
-        setTextOf(R.id.tv_car_solution_items_label,"养护项目");
+        setTextOf(R.id.tv_car_solution_items_label,"养护项目：");
         setTextOf(R.id.tv_car_solution_items,items);
         setTextOf(R.id.tv_in_time,StringUtils.date2string(repair.getInTime()));
         setTextOf(R.id.tv_out_time,StringUtils.date2string(repair.getOutTime()));

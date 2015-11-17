@@ -19,7 +19,7 @@ public class RepairSolutions extends Solutions {
         setTextOf(R.id.tv_title, "维修方案");
         setVisibleOf(null, R.id.ll_fail_type, View.VISIBLE);
         setVisibleOf(null, R.id.tv_fail_type_line,View.VISIBLE);
-        setTextOf(R.id.tv_car_solution_items_label, "维修项目");
+        setTextOf(R.id.tv_car_solution_items_label, "维修项目：");
     }
     public void initRepairs(){
         setType(1);

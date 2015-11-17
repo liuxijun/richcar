@@ -39,6 +39,7 @@
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/CarDetectInfo.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/CarInfo.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/Cars.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/Login.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/Messages.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/Products.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CarApp/src/com/fortune/car/app/activity/RepairProgress.java" charset="UTF-8" />

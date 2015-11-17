@@ -177,7 +177,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="预计交车时间："
+                            android:text="预计交车："
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_label_text_color"/>
 
@@ -240,7 +240,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="质检员："
+                            android:text="质检专员："
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_label_text_color"/>
 

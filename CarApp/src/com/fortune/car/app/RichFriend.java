@@ -255,6 +255,9 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
             this.needLogin = needLogin;
         }
     }
+    public void showLoginActivity(){
+        
+    }
     private View loginDialog;
     private AlertDialog alertDialog;
     public void showLogin(){
