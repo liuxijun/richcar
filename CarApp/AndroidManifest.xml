@@ -27,6 +27,13 @@
                   android:label="@string/app_name"
                 >
         </activity>
+        <activity android:name=".activity.Login"
+                  android:screenOrientation="portrait"
+                  android:launchMode="singleTask"
+                  android:theme="@style/AppTheme"
+                  android:label="@string/app_name"
+                >
+        </activity>
         <activity android:name=".activity.CarInfo"
                   android:screenOrientation="portrait"
                   android:launchMode="singleTask"

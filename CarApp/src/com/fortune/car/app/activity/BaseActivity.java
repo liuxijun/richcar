@@ -31,6 +31,10 @@ import com.fortune.util.net.http.client.HttpRequest;
 public class BaseActivity extends Activity implements Caller {
     public static final int RESULT_CODE_SUCCESS = 3000;
     public static final int RESULT_CODE_FAIL = 3001;
+    public static final int REQUEST_CODE_MAIN = 6000;
+    public static final int RESULT_LOGIN_SUCCESS=9000;
+    public static final int RESULT_LOGIN_FAILED=RESULT_LOGIN_SUCCESS+1;
+
     protected ProgressDialog progDialog;
     protected String TAG = getClass().getSimpleName();
    @Override
@@ -42,10 +46,10 @@ public class BaseActivity extends Activity implements Caller {
     }
     public void initViews(){
         setClickHandler(null, R.id.iv_left,clickOnBack);
-        setClickHandler(null, R.id.btn_home,clickOnHome);
+        setClickHandler(null, R.id.btn_home, clickOnHome);
         setClickHandler(null,R.id.iv_share,clickOnShare);
         setClickHandler(null,R.id.btn_message,clickOnNotImpl);
-        setClickHandler(null,R.id.btn_personal_center,clickOnNotImpl);
+        setClickHandler(null, R.id.btn_personal_center, clickOnNotImpl);
     }
     public ProgressDialog getProgDialog() {
         return progDialog;
@@ -150,6 +154,7 @@ public class BaseActivity extends Activity implements Caller {
         }
         return defaultVal;
     }
+
     public String getTextOf(View parent,int rId,String defaultVal){
         EditText text=null;
         try {
@@ -166,6 +171,7 @@ public class BaseActivity extends Activity implements Caller {
         }
         return defaultVal;
     }
+
     public void onDataLoaded(int resultCode, Object tag){
         Log.d(TAG,"调用结束，返回码："+resultCode+",tag="+tag);
     }

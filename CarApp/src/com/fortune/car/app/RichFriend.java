@@ -1,8 +1,6 @@
 package com.fortune.car.app;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.widget.*;
 import com.fortune.car.app.activity.*;
 import com.fortune.car.app.bean.Car;
 import com.fortune.mobile.params.ComParams;
-import com.fortune.mobile.view.ProgressDialog;
 import com.fortune.util.*;
 import com.fortune.util.net.HttpUtils;
 import com.fortune.util.net.http.RequestCallBack;
@@ -255,12 +252,14 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
             this.needLogin = needLogin;
         }
     }
-    public void showLoginActivity(){
-        
+    public void showLogin(){
+        Intent bintent = new Intent(this, Login.class);
+//设置 bintent的Bundle的一个值
+        startActivityForResult(bintent,REQUEST_CODE_MAIN);
     }
     private View loginDialog;
     private AlertDialog alertDialog;
-    public void showLogin(){
+    public void showLoginDialog(){
         LayoutInflater inflater = getLayoutInflater();
         loginDialog = inflater.inflate(R.layout.dialog_login,
                     (ViewGroup) findViewById(R.id.login_dialog_main_body));
@@ -293,7 +292,7 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
                 Toast.makeText(RichFriend.this,"不同意许可，将无法使用本系统提供的完整服务！",Toast.LENGTH_LONG).show();
                 return;
             }
-            String userId = getEditText(loginDialog,R.id.login_et_user,null);
+            String userId = getTextOf(loginDialog, R.id.login_et_user, null);
             String errorLog = "";
             if(userId==null||"".equals(userId)){
                 errorLog += "未输入帐号！";
@@ -306,7 +305,7 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
                     User.saveUserId(RichFriend.this,null);
                 }
             }
-            String pwd = getEditText(loginDialog,R.id.login_et_pwd,null);
+            String pwd = getTextOf(loginDialog, R.id.login_et_pwd, null);
             if(pwd==null||"".equals(pwd)){
                 errorLog += "未输入口令！";
                 Log.e(TAG,errorLog);
@@ -388,21 +387,6 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
             msg = "错误的帐号或者口令，或已经超时";
         }
         Toast.makeText(this,"登录失败了："+msg,Toast.LENGTH_LONG).show();
-    }
-    public String getEditText(View view,int id,String defaultVal){
-        try {
-            EditText et = (EditText) view.findViewById(id);
-            if(et!=null){
-                String val = et.getText().toString();
-                if(!"".equals(val)){
-                    return val;
-                }
-            }
-        } catch (Exception e) {
-            Log.e(TAG,"尝试获取数据时发生异常："+e.getLocalizedMessage());
-            e.printStackTrace();
-        }
-        return defaultVal;
     }
 
     private boolean keyBackPressedJustNow=false;
@@ -515,4 +499,26 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
             }
         }
     };
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+/*
+//resultCode为回传的标记，我在B中回传的是RESULT_OK
+        Bundle b=data.getExtras();  //data为B中回传的Intent
+        String str=b.getString("ListenB");//str即为回传的值"Hello, this is B speaking"
+*/
+
+        if(willStartCls!=null){
+            if(User.isLogined(this)){
+                startActivity(willStartCls);
+            }
+        }
+        switch (resultCode) {
+            case RESULT_LOGIN_SUCCESS:
+                break;
+            case RESULT_LOGIN_FAILED:
+                break;
+            default:
+                break;
+        }
+    }
 }

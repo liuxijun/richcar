@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/editText2"
+                android:id="@+id/etUserPwd"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:password="true"
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="注册"
-                    android:id="@+id/button"
+                    android:id="@+id/btn_register"
                     android:layout_weight="5"
                     android:layout_marginRight="10dp"
                     android:background="#66ccff"
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="登录"
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_login"
                     android:layout_weight="5"
                     android:layout_marginLeft="10dp"
                     android:background="#FFCC66"
@@ -90,7 +90,7 @@
                     android:textSize="16dp"
                     android:textColor="#999"
                     android:layout_alignParentTop="true"
-                    android:layout_toLeftOf="@+id/tvLicense"
+                    android:layout_toLeftOf="@+id/checkBoxAgreeLicense"
                     android:clickable="true"/>
 
             <TextView
@@ -103,8 +103,5 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"/>
         </RelativeLayout>
-
     </LinearLayout>
-    <include layout="@layout/activity_bottom"
-             android:id="@+id/include2"/>
 </RelativeLayout>
