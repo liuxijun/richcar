@@ -82,11 +82,13 @@ public class Login extends BaseActivity implements View.OnClickListener{
             errorLog += "未输入帐号！";
             Log.e(TAG, errorLog);
         }else{
-            rememberUserId =checked(null,R.id.checkBoxRememberUserId);
+            rememberUserId =checked(null,R.id.checkBoxRememberUserId,true);
             if(rememberUserId){
                 User.saveUserId(this, userId);
+                User.savePhone(this, userId);
             }else{
                 User.saveUserId(this,null);
+                User.savePhone(this, null);
             }
         }
         String pwd = getTextOf(null, R.id.etUserPwd, null);
@@ -143,6 +145,7 @@ public class Login extends BaseActivity implements View.OnClickListener{
             @Override
             public void onFailure(HttpException error, String msg) {
                 Log.e(TAG, "请求登录失败！");
+                loginFailed("登录请求失败，请检查网络："+msg);
                 progDialog.dismiss();
             }
         });

@@ -6,7 +6,7 @@
             android:layout_gravity="center_horizontal"
             android:background="#92060a"
             android:layout_alignParentBottom="true"
-            android:id="@+id/linearLayout2"
+            android:id="@+id/linearLayoutBottom"
             android:paddingBottom="5dp">
 
         <Button

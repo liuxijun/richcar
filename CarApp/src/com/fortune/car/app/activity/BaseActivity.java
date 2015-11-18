@@ -253,7 +253,7 @@ public class BaseActivity extends Activity implements Caller {
                 String result = responseInfo.result;
                 Log.d(caller.getClass().getSimpleName(), "服务器返回：" + result);
                 ACache.get(caller.getContext())
-                        .put(cacheKey, result, 60 * 5);
+                        .put(cacheKey, result, 60 * 2);
                 caller.onDataLoaded(RESULT_CODE_SUCCESS, result);
             }
 

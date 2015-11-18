@@ -1,6 +1,7 @@
 package com.fortune.car.app.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import com.fortune.car.app.R;
 
@@ -22,7 +23,8 @@ public class RepairSolutions extends Solutions {
         setTextOf(R.id.tv_car_solution_items_label, "维修项目：");
     }
     public void initRepairs(){
-        setType(1);
+        setType(2);
+        Log.d(TAG, "准备初始化维修方案数据");
         super.initRepairs();
     }
 }

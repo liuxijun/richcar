@@ -48,7 +48,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
@@ -70,7 +70,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
@@ -91,7 +91,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp"
+                <View android:layout_height="1px"
                       android:id="@+id/tv_fail_type_line"
                       android:layout_width="fill_parent"
                       android:background="#FFF"/>
@@ -117,7 +117,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
@@ -139,8 +139,101 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_margin="5dp"
+                        android:id="@+id/tv_parts_items_table"
+                        android:layout_height="wrap_content">
+                    <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="配件列表："
+                            android:textSize="@dimen/car_solutions_info_font_size"
+                            android:textColor="@color/solution_item_label_text_color"/>
+
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/partsListTable">
+
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#DEE">
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="配件名"
+                                    android:id="@+id/textView15"
+                                    android:layout_weight="6"
+                                    android:gravity="center"
+                                    android:textColor="#000"/>
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="产地"
+                                    android:id="@+id/textView16"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:textColor="#00F"
+                                    android:background="#FEF"/>
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="价格"
+                                    android:id="@+id/textView17"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:textColor="#0F0"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#DEE">
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="润滑油"
+                                    android:id="@+id/tvName"
+                                    android:layout_weight="6"
+                                    android:gravity="center"
+                                    android:textColor="#000"/>
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="国产"
+                                    android:id="@+id/tvHome"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:textColor="#00F"
+                                    android:background="#FEF"/>
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="￥120"
+                                    android:id="@+id/tvPrice"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:textColor="#0F0"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
             </LinearLayout>
+
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
@@ -167,7 +260,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
@@ -188,7 +281,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
@@ -209,7 +302,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
@@ -230,7 +323,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
@@ -251,7 +344,7 @@
                             android:textSize="@dimen/car_solutions_info_font_size"
                             android:textColor="@color/solution_item_value_text_color"/>
                 </LinearLayout>
-                <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#FFF"/>
+                <View android:layout_height="1px" android:layout_width="fill_parent" android:background="#FFF"/>
             </LinearLayout>
 
         </LinearLayout>
