@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.fortune.car.app.R;
 import com.fortune.car.app.bean.Parts;
 import com.fortune.car.app.bean.Repair;
@@ -105,11 +106,13 @@ public class Solutions extends BaseActivity {
                 LinearLayout partsListTable = (LinearLayout) findViewById(R.id.partsListTable);
                 if(partsListTable!=null){
                     partsListTable.removeAllViews();
-                    float total = 0;
+                    float totalPrice = 0,totalManHour=0;
                     LinearLayout title =(LinearLayout) inflater.inflate(R.layout.item_parts,null);
                     if(title!=null){
                         setTextOf(title,R.id.tvName,"配件名称");
                         setTextOf(title,R.id.tvHome,"产地");
+                        setTextOf(title,R.id.tvLevel,"品质");
+                        setTextOf(title,R.id.tvManHour,"工时费");
                         setTextOf(title, R.id.tvPrice, "价格");
                         title.setAlpha(0.8f);
                         partsListTable.addView(title);
@@ -125,8 +128,11 @@ public class Solutions extends BaseActivity {
                             }
                             setTextOf(partsLayout,R.id.tvName,parts.getName());
                             setTextOf(partsLayout,R.id.tvHome,parts.getHomeland());
+                            setTextOf(partsLayout,R.id.tvLevel,parts.getLevel());
                             setTextOf(partsLayout,R.id.tvPrice,String.format("%1$,.2f", parts.getPrice()));
-                            total += parts.getPrice();
+                            setTextOf(partsLayout,R.id.tvManHour,String.format("%1$,.2f", parts.getManHour()));
+                            totalPrice += parts.getPrice();
+                            totalManHour += parts.getManHour();
                             partsListTable.addView(partsLayout);
                         }else{
                             Log.e(TAG,"未能初始化配件显示组件");
@@ -136,8 +142,15 @@ public class Solutions extends BaseActivity {
                     LinearLayout bottom =(LinearLayout) inflater.inflate(R.layout.item_parts,null);
                     if(bottom!=null){
                         setTextOf(bottom,R.id.tvName,"");
-                        setTextOf(bottom,R.id.tvHome,"总额");
-                        setTextOf(bottom, R.id.tvPrice, String.format("%1$,.2f", total));
+                        setTextOf(bottom,R.id.tvHome,"");
+                        setTextOf(bottom,R.id.tvLevel,"合计");
+                        TextView level =(TextView) bottom.findViewById(R.id.tvLevel);
+                        if(level!=null){
+                            level.setText("合计");
+                            //level.setTextColor(0x181818);
+                        }
+                        setTextOf(bottom, R.id.tvPrice, String.format("%1$,.2f", totalPrice));
+                        setTextOf(bottom, R.id.tvManHour, String.format("%1$,.2f", totalManHour));
                         if(i%2==0){
                             bottom.setAlpha(0.8f);
                         }
