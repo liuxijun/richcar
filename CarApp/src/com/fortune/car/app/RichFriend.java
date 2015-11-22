@@ -104,7 +104,7 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
         int menuBarWidth=244,menuBarHeight=248;
         int posX = width/2+10,posY = height/2-10,radius = 400;
         int menuCount=7;
-
+        ImageView imageViewLogo = (ImageView)findViewById(R.id.imageViewLogo);
         List<ViewBean> views = new ArrayList<ViewBean>();
         views.add(new ViewBean("主体窗口",R.id.tv_home_body_main,
                 width,height,
@@ -114,8 +114,8 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
                 centerICONWidth,centerICONHeight,
                 posX-centerICONWidth/2,posY-centerICONHeight/2,
                 40,0xFFFFFFFF,onMenuItemClick));
-        views.add(new ViewBean("左边按钮",R.id.tvHomeButtonLeft,buttonWidth,buttonHeight,buttonPosX,buttonPosY,18,0xFF928e8f,onLeftButtonClick));
-        views.add(new ViewBean("右边按钮",R.id.tvHomeButtonRight,buttonWidth,buttonHeight,(width-buttonPosX-buttonWidth),buttonPosY,18,0xFF928e8f,onRightButtonClick));
+        views.add(new ViewBean("左边按钮",R.id.tvHomeButtonLeft,buttonWidth,buttonHeight,buttonPosX,buttonPosY,12,0xFF928e8f,onLeftButtonClick));
+        views.add(new ViewBean("右边按钮",R.id.tvHomeButtonRight,buttonWidth,buttonHeight,(width-buttonPosX-buttonWidth),buttonPosY,12,0xFF928e8f,onRightButtonClick));
         int[] menuIds = new int[]{
                 R.id.tv_home_menu_body01,R.id.tv_home_menu_body02,
                 R.id.tv_home_menu_body03,R.id.tv_home_menu_body04,
@@ -132,6 +132,11 @@ public class RichFriend extends BaseActivity implements View.OnTouchListener{
         for(ViewBean viewBean:views){
             setViewInfo(viewBean.getTitle(),viewBean.getrId(),viewBean.getWidth(),viewBean.getHeight(),
                     viewBean.getX(),viewBean.getY(),viewBean.getFontSize(),viewBean.getFontColor(),rate,viewBean.getOnClickListener());
+        }
+        if(imageViewLogo!=null){
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(Math.round(rate*556),Math.round(rate*220));
+            lp.gravity = Gravity.CENTER_HORIZONTAL|Gravity.TOP;
+            imageViewLogo.setLayoutParams(lp);
         }
 
     }

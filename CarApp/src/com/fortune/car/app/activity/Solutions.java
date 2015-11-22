@@ -4,8 +4,10 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.fortune.car.app.R;
@@ -24,6 +26,8 @@ import java.util.List;
  */
 public class Solutions extends BaseActivity {
     private int type = 1;
+    boolean displayDetail = false;
+    List<Repair> allRepairs=null;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -49,7 +53,7 @@ public class Solutions extends BaseActivity {
             phone = User.getUserId(this);
         }
         String url = ComParams.HTTP_LIST_CAR_REPAIRS+type+"&phone="+ phone+"&token="+User.getToken(this);
-        executeHttpGet(this,url);
+        executeHttpGet(this, url);
     }
     public String appendIfNotEmpty(String src,String tail){
         if(tail==null||"".equals(tail.trim())){
@@ -60,9 +64,81 @@ public class Solutions extends BaseActivity {
         }
         return src+"\n"+tail;
     }
+    public String getStatusText(Integer status){
+        if(status==null){
+            return "";
+        }
+        switch(status){
+            case 1:
+                return "排队中";
+            case 2:
+                return "正在进行";
+            case 3:
+                return "已经完成";
+        }
+        return "未知";
+    }
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void renderRepairs(List<Repair> repairs){
+        allRepairs = repairs;
+        displayDetail = false;
+        LinearLayout repairsConatiner = (LinearLayout)findViewById(R.id.ll_solution_list_contain);
+        if(repairsConatiner!=null){
+            repairsConatiner.removeAllViews();
+            if(repairs!=null){
+                int repairCount = repairs.size();
+                if(repairCount<=1){
+                    repairsConatiner.setVisibility(View.GONE);
+                    if(repairCount==1){
+                        fillData(repairs.get(0));
+                    }
+                }else{
+                    setVisibleOf(null,R.id.ll_top_conainer_for_solutions,View.VISIBLE);
+                    setVisibleOf(null,R.id.ll_solution_items_contain,View.GONE);
+                    LayoutInflater inflater = getLayoutInflater();
+                    LinearLayout header =(LinearLayout) inflater.inflate(R.layout.item_solution,null);
+                    setVisibleOf(header,R.id.btnViewDetail,View.INVISIBLE);
+                    repairsConatiner.addView(header);
+                    int i=0;
+                    for(Repair repair:repairs){
+                        LinearLayout repairLine =(LinearLayout) inflater.inflate(R.layout.item_solution,null);
+                        i++;
+                        if(i%2==0){
+                            try {
+                                repairLine.setAlpha(0.6f);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        setTextOf(repairLine,R.id.tvCreateTime,StringUtils.date2string(repair.getInTime()));
+                        setTextOf(repairLine, R.id.tvStatus, getStatusText(repair.getStatus()));
+                        setTextOf(repairLine, R.id.tvReception, repair.getRecepton());
+                        repairLine.setTag(repair);
+                        Button viewButton =(Button) repairLine.findViewById(R.id.btnViewDetail);
+                        if(viewButton!=null){
+                            viewButton.setTag(repair);
+                            viewButton.setOnClickListener(new View.OnClickListener(){
+                                @Override
+                                public void onClick(View view) {
+                                    view.setAlpha(0.5f);
+                                    Repair data =(Repair) view.getTag();
+                                    fillData(data);
+                                }
+                            });
+                        }
+                        repairsConatiner.addView(repairLine);
+                    }
+                }
+            }else{
+                repairsConatiner.setVisibility(View.GONE);
+            }
+        }
+    }
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void fillData(Repair repair){
-
+        displayDetail = true;
+        setVisibleOf(null,R.id.ll_top_conainer_for_solutions,View.GONE);
+        setVisibleOf(null,R.id.ll_solution_items_contain,View.VISIBLE);
         try {
             setTextOf(R.id.tv_file_no,repair.getFileId());
             setTextOf(R.id.tv_car_no,repair.getCarNo());
@@ -173,7 +249,8 @@ public class Solutions extends BaseActivity {
                 if(result.isSuccess()){
                     List<Repair> repairs = result.getRepairs();
                     if(repairs!=null&&repairs.size()>0){
-                        fillData(repairs.get(0));
+                        renderRepairs(repairs);
+                        //fillData(repairs.get(0));
                         dataFilled = true;
                     }else{
                         Log.e(TAG,"数据获取结果为0");
@@ -221,5 +298,14 @@ public class Solutions extends BaseActivity {
             this.repairs = repairs;
         }
     }
-
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if(displayDetail){
+                displayDetail = false;
+                renderRepairs(allRepairs);
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode,event);
+    }
 }
