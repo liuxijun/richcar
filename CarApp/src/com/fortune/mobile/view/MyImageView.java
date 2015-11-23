@@ -148,7 +148,7 @@ public class MyImageView extends RelativeLayout {
 		}
 		else {
 			if (imageViewByTag != null) {
-				imageViewByTag.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.image_bg));
+				imageViewByTag.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.rich_bg));
 			}
 			ULog.d("reuest url :" + imgUrl + " send status :" + mRequest);
 			if (mRequest) {

@@ -160,13 +160,12 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/homeMenuButtonLeft"
                                 android:id="@+id/tvHomeButtonLeft"
                                 android:layout_gravity="left|top"
                                 android:textSize="10dp"
                                 android:layout_marginLeft="110px"
                                 android:layout_marginTop="1550px"
-                                android:background="@drawable/home_button"
+                                android:background="@drawable/left_button_txt"
                                 android:gravity="center"
                                 android:padding="30px"
                                 android:textColor="@color/buttonTextColor"
@@ -174,15 +173,14 @@
                                 android:textIsSelectable="false"/>
 
                         <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="69dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/homeMenuButtonRight"
                                 android:id="@+id/tvHomeButtonRight"
                                 android:layout_gravity="left|top"
                                 android:textSize="10dp"
                                 android:layout_marginLeft="810px"
                                 android:layout_marginTop="1550px"
-                                android:background="@drawable/home_button"
+                                android:background="@drawable/right_button_txt"
                                 android:padding="30px"
                                 android:gravity="center"
                                 android:textColor="@color/buttonTextColor"
